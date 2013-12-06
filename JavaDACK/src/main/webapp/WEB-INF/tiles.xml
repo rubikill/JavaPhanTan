@@ -66,6 +66,7 @@
     <definition name="login" extends="templatenoslider">
         <put-attribute name="content" value="/WEB-INF/page/login.jsp"/>
     </definition>
+    
     <definition name="forgetpass" extends="templatenoslider">
         <put-attribute name="content" value="/WEB-INF/page/forgetpass.jsp"/>
         <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
@@ -75,4 +76,10 @@
     <definition name="contact" extends="templateiustonlynavbar">
         <put-attribute name="content" value="/WEB-INF/page/contact.jsp"/>
     </definition>
+    
+    <!-- Test -->
+    <!--definition name="test" extends="templatenoslider">
+        <put-attribute name="content" value="/WEB-INF/page/test.jsp"/>
+    </definition-->
+    
 </tiles-definitions>
