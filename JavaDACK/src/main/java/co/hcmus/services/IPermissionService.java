@@ -8,9 +8,9 @@ public interface IPermissionService {
 
 	public void updatePermission(Permission permission);
 
-	public Permission getPermission(int id);
+	public Permission getPermission(String id);
 
-	public void deletePermission(int id);
+	public void deletePermission(String id);
 
 	public List<Permission> getPermissions();
 

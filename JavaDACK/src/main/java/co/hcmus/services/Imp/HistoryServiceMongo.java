@@ -15,36 +15,29 @@ import co.hcmus.services.IHistoryService;
 public class HistoryServiceMongo implements IHistoryService {
 
 	@Autowired
-	private IHistoryDAO historyDAO;
+	private IHistoryDAO HistoryDAO;
 
 	@Override
-	public void addHistory(History history) {
-		// TODO Auto-generated method stub
-		
+	public void addHistory(History History) {
+		HistoryDAO.addHistory(History);
 	}
 
-	@Override
-	public void updateHistory(History history) {
-		// TODO Auto-generated method stub
-		
+	public void updateHistory(History History) {
+		HistoryDAO.updateHistory(History);
 	}
 
-	@Override
-	public History getHistory(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteHistory(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<History> getHistorys() {
-		// TODO Auto-generated method stub
-		return null;
+		return HistoryDAO.getHistorys();
+	}
+
+	@Override
+	public History getHistory(String id) {
+		return HistoryDAO.getHistory(id);
+	}
+
+	@Override
+	public void deleteHistory(String email) {
+		HistoryDAO.deleteHistory(email);
 	}
 	
 }

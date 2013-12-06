@@ -13,41 +13,30 @@ import co.hcmus.services.ICommentService;
 @Service("commentService")
 @Transactional
 public class CommentServiceMongo implements ICommentService {
-
 	@Autowired
-	private ICommentDAO commentDAO;
+	private ICommentDAO CommentDAO;
 
 	@Override
 	public void addComment(Comment comment) {
-		// TODO Auto-generated method stub
-		
+		CommentDAO.addComment(comment);
 	}
 
-	@Override
 	public void updateComment(Comment comment) {
-		// TODO Auto-generated method stub
-		
+		CommentDAO.updateComment(comment);
 	}
 
-	@Override
-	public Comment getComment(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteComment(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<Comment> getComments() {
-		// TODO Auto-generated method stub
-		return null;
+		return CommentDAO.getComments();
 	}
-	
 
-	
+	@Override
+	public Comment getComment(String id) {
+		return CommentDAO.getComment(id);
+	}
+
+	@Override
+	public void deleteComment(String email) {
+		CommentDAO.deleteComment(email);
+	}
 	
 }

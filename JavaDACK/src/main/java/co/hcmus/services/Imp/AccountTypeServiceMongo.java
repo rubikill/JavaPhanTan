@@ -18,33 +18,30 @@ public class AccountTypeServiceMongo implements IAccountTypeService {
 	private IAccountTypeDAO accountTypeDAO;
 
 	@Override
-	public void addAccountType(AccountType accounttype) {
-		// TODO Auto-generated method stub
+	public void addAccountType(AccountType accountType) {
+		accountTypeDAO.addAccountType(accountType);
 		
 	}
 
 	@Override
-	public void updateAccountType(AccountType accounttype) {
-		// TODO Auto-generated method stub
+	public void updateAccountType(AccountType accountType) {
+		accountTypeDAO.updateAccountType(accountType);
 		
 	}
 
 	@Override
-	public AccountType getAccountType(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public AccountType getAccountType(String id) {
+		return accountTypeDAO.getAccountType(id);
 	}
 
 	@Override
-	public void deleteAccountType(int id) {
-		// TODO Auto-generated method stub
-		
+	public void deleteAccountType(String id) {
+		accountTypeDAO.deleteAccountType(id);
 	}
 
 	@Override
 	public List<AccountType> getAccountTypes() {
-		// TODO Auto-generated method stub
-		return null;
+		return accountTypeDAO.getAccountTypes();
 	}
 	
 	

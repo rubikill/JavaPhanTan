@@ -15,36 +15,29 @@ import co.hcmus.services.IPermissionDetailService;
 public class PermissionDetailServiceMongo implements IPermissionDetailService {
 
 	@Autowired
-	private IPermissionDetailDAO permissionDetailDAO;
+	private IPermissionDetailDAO PermissionDetailDAO;
 
 	@Override
-	public void addPermissionDetail(PermissionDetail permissiondetail) {
-		// TODO Auto-generated method stub
-		
+	public void addPermissionDetail(PermissionDetail permissionDetail) {
+		PermissionDetailDAO.addPermissionDetail(permissionDetail);
 	}
 
-	@Override
-	public void updatePermissionDetail(PermissionDetail permissiondetail) {
-		// TODO Auto-generated method stub
-		
+	public void updatePermissionDetail(PermissionDetail permissionDetail) {
+		PermissionDetailDAO.updatePermissionDetail(permissionDetail);
 	}
 
-	@Override
-	public PermissionDetail getPermissionDetail(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deletePermissionDetail(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<PermissionDetail> getPermissionDetails() {
-		// TODO Auto-generated method stub
-		return null;
+		return PermissionDetailDAO.getPermissionDetails();
+	}
+
+	@Override
+	public PermissionDetail getPermissionDetail(String id) {
+		return PermissionDetailDAO.getPermissionDetail(id);
+	}
+
+	@Override
+	public void deletePermissionDetail(String email) {
+		PermissionDetailDAO.deletePermissionDetail(email);
 	}
 	
 	

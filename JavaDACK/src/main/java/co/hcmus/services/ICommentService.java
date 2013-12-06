@@ -9,9 +9,9 @@ public interface ICommentService {
 
 	public void updateComment(Comment comment);
 
-	public Comment getComment(int id);
+	public Comment getComment(String id);
 
-	public void deleteComment(int id);
+	public void deleteComment(String id);
 
 	public List<Comment> getComments();
 

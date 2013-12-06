@@ -9,9 +9,9 @@ public interface IPermissionDetailService {
 
 	public void updatePermissionDetail(PermissionDetail permissiondetail);
 
-	public PermissionDetail getPermissionDetail(int id);
+	public PermissionDetail getPermissionDetail(String id);
 
-	public void deletePermissionDetail(int id);
+	public void deletePermissionDetail(String id);
 
 	public List<PermissionDetail> getPermissionDetails();
 

@@ -1,4 +1,5 @@
 package co.hcmus.services.Imp;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,37 +15,28 @@ import co.hcmus.services.IPointLevelService;
 public class PointLevelServiceMongo implements IPointLevelService {
 
 	@Autowired
-	private IPointLevelDAO pointLevelDAO;
+	private IPointLevelDAO PointLevelDAO;
 
 	@Override
-	public void addPointlevel(PointLevel pointlevel) {
-		// TODO Auto-generated method stub
-		
+	public void addPointLevel(PointLevel pointLevel) {
+		PointLevelDAO.addPointLevel(pointLevel);
+	}
+
+	public void updatePointLevel(PointLevel pointLevel) {
+		PointLevelDAO.updatePointLevel(pointLevel);
+	}
+
+	public List<PointLevel> getPointLevels() {
+		return PointLevelDAO.getPointLevels();
 	}
 
 	@Override
-	public void updatePointlevel(PointLevel pointlevel) {
-		// TODO Auto-generated method stub
-		
+	public PointLevel getPointLevel(String id) {
+		return PointLevelDAO.getPointLevel(id);
 	}
 
 	@Override
-	public PointLevel getPointlevel(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deletePointLevel(String email) {
+		PointLevelDAO.deletePointLevel(email);
 	}
-
-	@Override
-	public void deletePointlevel(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<PointLevel> getPointlevels() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 }

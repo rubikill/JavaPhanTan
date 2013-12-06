@@ -32,13 +32,11 @@ public class AccountServiceMongo implements IAccountService {
 
 	@Override
 	public Account getAccount(String email) {
-
 		return accountDAO.getAccount(email);
 	}
 
 	@Override
 	public void deleteAccount(String email) {
 		accountDAO.deleteAccount(email);
-
 	}
 }

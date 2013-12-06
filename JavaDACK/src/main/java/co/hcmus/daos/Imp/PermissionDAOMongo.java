@@ -17,7 +17,7 @@ public class PermissionDAOMongo implements IPermissionDAO {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	public static final String COLLECTION_NAME = "Permission";
+	public static final String COLLECTION_NAME = "permission";
 
 	@Override
 	public void addPermission(Permission Permission) {

@@ -9,9 +9,9 @@ public interface IAccountTypeService {
 
 	public void updateAccountType(AccountType accounttype);
 
-	public AccountType getAccountType(int id);
+	public AccountType getAccountType(String id);
 
-	public void deleteAccountType(int id);
+	public void deleteAccountType(String id);
 
 	public List<AccountType> getAccountTypes();
 

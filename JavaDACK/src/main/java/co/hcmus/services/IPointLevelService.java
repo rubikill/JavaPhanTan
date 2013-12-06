@@ -4,14 +4,14 @@ import java.util.List;
 import co.hcmus.models.PointLevel;
 
 public interface IPointLevelService {
-	public void addPointlevel(PointLevel pointlevel);
+	public void addPointLevel(PointLevel pointLevel);
 
-	public void updatePointlevel(PointLevel pointlevel);
+	public void updatePointLevel(PointLevel pointLevel);
 
-	public PointLevel getPointlevel(int id);
+	public PointLevel getPointLevel(String id);
 
-	public void deletePointlevel(int id);
+	public void deletePointLevel(String id);
 
-	public List<PointLevel> getPointlevels();
+	public List<PointLevel> getPointLevels();
 
 }

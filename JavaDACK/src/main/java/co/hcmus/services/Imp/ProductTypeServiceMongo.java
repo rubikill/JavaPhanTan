@@ -1,4 +1,5 @@
 package co.hcmus.services.Imp;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,37 +15,29 @@ import co.hcmus.services.IProductTypeService;
 public class ProductTypeServiceMongo implements IProductTypeService {
 
 	@Autowired
-	private IProductTypeDAO productTypeDAO;
+	private IProductTypeDAO ProductTypeDAO;
 
 	@Override
-	public void addProductType(ProductType producttype) {
-		// TODO Auto-generated method stub
-		
+	public void addProductType(ProductType productType) {
+		ProductTypeDAO.addProductType(productType);
 	}
 
-	@Override
-	public void updateProductType(ProductType producttype) {
-		// TODO Auto-generated method stub
-		
+	public void updateProductType(ProductType productType) {
+		ProductTypeDAO.updateProductType(productType);
 	}
 
-	@Override
-	public ProductType getProductType(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteProductType(int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<ProductType> getProductTypes() {
-		// TODO Auto-generated method stub
-		return null;
+		return ProductTypeDAO.getProductTypes();
 	}
-	
-	
+
+	@Override
+	public ProductType getProductType(String id) {
+		return ProductTypeDAO.getProductType(id);
+	}
+
+	@Override
+	public void deleteProductType(String email) {
+		ProductTypeDAO.deleteProductType(email);
+	}
+
 }

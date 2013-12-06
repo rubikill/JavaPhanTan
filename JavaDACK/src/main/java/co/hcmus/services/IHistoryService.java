@@ -9,9 +9,9 @@ public interface IHistoryService {
 
 	public void updateHistory(History history);
 
-	public History getHistory(int id);
+	public History getHistory(String id);
 
-	public void deleteHistory(int id);
+	public void deleteHistory(String id);
 
 	public List<History> getHistorys();
 
