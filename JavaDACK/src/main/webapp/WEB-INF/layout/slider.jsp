@@ -7,7 +7,7 @@
 		<div class="carousel-inner">
 			<div class="item active">
 				<div class="container">
-					<a href="register.html"><img style="width: 100%"
+					<a href="register"><img style="width: 100%"
 						src='<c:url value="/resources/themes/images/carousel/1.png"/>'
 						alt="special offers" /></a>
 					<div class="carousel-caption">
@@ -20,7 +20,7 @@
 			</div>
 			<div class="item">
 				<div class="container">
-					<a href="register.html"><img style="width: 100%"
+					<a href="register"><img style="width: 100%"
 						src='<c:url value="/resources/themes/images/carousel/2.png"/>'
 						alt="" /></a>
 					<div class="carousel-caption">

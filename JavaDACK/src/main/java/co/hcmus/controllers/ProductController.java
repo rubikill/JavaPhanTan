@@ -22,8 +22,13 @@ public class ProductController {
 		return "product_summary";
 	}
 
-	@RequestMapping(value = "/products", method = RequestMethod.GET)
+	@RequestMapping(value = "/products", method = RequestMethod.POST)
 	public String products(Locale locale, Model model) {
+		return "products";
+	}
+
+	@RequestMapping(value = "/products", method = RequestMethod.GET)
+	public String getProducts(Locale locale, Model model) {
 		return "products";
 	}
 }
