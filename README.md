@@ -5,4 +5,6 @@ JavaPhanTan
 
 Hướng dẫn chạy project
  - Cách 1: Import vào eclipse
- - Cách 2: cd vào JavaDACK và gõ mvn install tomcat7:run
+ - Cách 2: 
+ 	+ cd vào JavaDACK và gõ mvn install tomcat7:run
+ 	+ truy cập http://localhost:8080/index.html
