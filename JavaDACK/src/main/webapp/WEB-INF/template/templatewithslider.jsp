@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
-<html lang="en" ng-app="shop">
+<html lang="en"  ng-app="shop" >
 <head>
 <meta charset="utf-8">
 <title>Bootshop online Shopping cart</title>
@@ -19,6 +19,7 @@
 		</div>
 	</div>
 	<!-- Header End====================================================================== -->
+	<tiles:insertAttribute name="slider" />
 	<div id="mainBody">
 		<div class="container">
 			<div class="row">

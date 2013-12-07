@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en" ng-app="shop">
 <head>
@@ -11,6 +9,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <tiles:insertAttribute name="style" />
+
+<tiles:insertAttribute name="script" />
 </head>
 <body>
 	<div id="header">
@@ -20,7 +20,6 @@
 		</div>
 	</div>
 	<!-- Header End====================================================================== -->
-
 	<div id="mainBody">
 		<div class="container">
 			<tiles:insertAttribute name="content" />
@@ -28,6 +27,6 @@
 	</div>
 	<tiles:insertAttribute name="footer" />
 	<!-- Placed at the end of the document so the pages load faster ============================================= -->
-	<tiles:insertAttribute name="script" />
+	
 </body>
 </html>

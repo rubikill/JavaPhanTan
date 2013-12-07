@@ -4,7 +4,7 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
     <!-- Template with slider -->
-    <definition name="templatewithslider" template="/WEB-INF/template/template.jsp">
+    <definition name="templatewithslider" template="/WEB-INF/template/templatewithslider.jsp">
         <put-attribute name="style" value="/WEB-INF/layout/style.jsp" />
         <put-attribute name="script" value="/WEB-INF/layout/script.jsp" />        
         <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
@@ -68,7 +68,6 @@
     </definition>
     <definition name="forgetpass" extends="templatenoslider">
         <put-attribute name="content" value="/WEB-INF/page/forgetpass.jsp"/>
-        <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
     </definition>
     
     <!-- Page only nav bar -->

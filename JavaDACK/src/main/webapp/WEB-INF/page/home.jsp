@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<div class="span9">
+<div class="span9" ng-controller="homeCtrl">
+{{hello}}
 	<div class="well well-small">
 		<h4>
 			Featured Products <small class="pull-right">{{numberFea}} featured
