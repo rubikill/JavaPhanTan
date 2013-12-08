@@ -20,16 +20,16 @@
 				<option>CLOTHES</option>
 			</select>
 
-			<button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+			<button type="submit" id="submitButton" class="btn btn-primary" data-i18n="_BTN_GO_"></button>
 		</div>
 		<ul id="topMenu" class="nav pull-right">
-			<li class=""><a href="#/special_offer">Specials Offer</a></li>
-			<li class=""><a href="#/contact">Contact</a></li>
+			<li class=""><a href="#/special_offer" data-i18n="_NAV_SPECIAL_"></a></li>
+			<li class=""><a href="#/contact" data-i18n="_NAV_CONTACT_"></a></li>
 
 			<!-- Hide if user has loged in-->
 			<li class="">
 				<a href="#login" role="button" data-toggle="modal" style="padding-right: 0">
-					<span class="btn btn-large btn-success">Login</span>
+					<span class="btn btn-large btn-success" data-i18n="_BTN_LOGIN_"></span>
 				</a>				
 			</li>
 		</ul>
@@ -40,23 +40,21 @@
 <div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3>Login Block</h3>
+		<h3 data-i18n="_BTN_LOGIN_"></h3>
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal loginFrm">
 			<div class="control-group">
-				<input type="text" id="inputEmail" placeholder="Email">
+				<input type="text" id="inputEmail" placeholder="{{'_PLA_MAIL_' | i18n}}">
 			</div>
 			<div class="control-group">
-				<input type="password" id="inputPassword" placeholder="Password">
+				<input type="password" id="inputPassword" placeholder="{{'_PLA_PASS_' | i18n}}">
 			</div>
 			<div class="control-group">
-				<label class="checkbox"> <input type="checkbox">
-					Remember me
-				</label>
+				<label class="checkbox"> <input type="checkbox">{{'_LAB_REMEMBER_' | i18n}}</label>
 			</div>
 		</form>
-		<button type="submit" class="btn btn-success">Sign in</button>
-		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button type="submit" class="btn btn-success" data-i18n="_BTN_LOGIN_"></button>
+		<button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="_BTN_CLOSE_"></button>
 	</div>
 </div>

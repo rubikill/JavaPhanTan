@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"  ng-app="shop" >
+<html lang="en" ng-app="shop" >
 <head>
 	<meta charset="utf-8">
 	<title>Bootshop online Shopping cart</title>
@@ -18,11 +18,12 @@
 	<link rel="shortcut icon" href="themes/images/ico/favicon.ico">
 
 </head>
-<body ng-app="shop">
+<body>
 	<!-- Header -->
 	<div id="header">
 		<div class="container">
 			<ng-include src="'partials/header.html'" scope="" onload=""></ng-include>
+			<select class="span1" ng-model="currentLanguage" ng-options="lang.name for lang in languages"></select>
 			<ng-include src="'partials/nav.html'" scope="" onload=""></ng-include>
 		</div>
 	</div>
@@ -31,7 +32,7 @@
 	<ng-include src="'partials/footer.html'" scope="" onload=""></ng-include>
 	<!-- <tiles:insertAttribute name="footer" /> -->
 	<!-- Placed at the end of the document so the pages load faster ============================================= -->
-	<script src="themes/js/jquery-1.9.0.min.js"/>' type="text/javascript"></script>
+	<script src="themes/js/jquery-1.9.0.min.js" type="text/javascript"></script>
 	<script src="themes/js/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="themes/js/angular.min.js" type="text/javascript"></script>
 	<script src="themes/js/bootstrap.min.js" type="text/javascript"></script>
@@ -40,6 +41,9 @@
 	<script src="themes/js/jquery.lightbox-0.5.js"></script>
 
 	<!-- Angular JS -->
+	<script src="js/lib/angular-cookies.min.js"></script>
+	<script src="js/lib/angular-resource.min.js"></script>
+	<script src="js/lib/localize.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/controllers/homecontroller.js"></script>
 	<script src="js/controllers/menucontroller.js"></script>

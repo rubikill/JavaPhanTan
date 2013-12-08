@@ -1,19 +1,15 @@
-<div id="welcomeLine" class="row">
+<div id="welcomeLine" class="row" ng-controller="menuCtrl">
 	<div class="span6">
 		<!-- Display User name -->
-		Welcome!<strong> User</strong>
+		{{'_LAB_WELCOME_' | i18n}}<strong> User</strong>
 	</div>
+
 	<div class="span6">
 		<div class="pull-right">
-
-			<!-- Put select mutil language here -->
-
 			<!-- Cart/Product Summary -->
-			<a href="#/product_summary">
-				<span class="btn btn-mini btn-primary">
-					<i class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your
-					cart
-				</span>
+			<a href="#/product_summary" class="btn btn-mini btn-primary">
+				<i class="icon-shopping-cart icon-white"></i>
+				({{items}}) {{'_BTN_CART_' | i18n}}
 			</a>
 		</div>
 	</div>
