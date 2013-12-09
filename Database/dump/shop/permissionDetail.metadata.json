@@ -1,0 +1,1 @@
+{ "options" : { "create" : "permissionDetail" }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "shop.permissionDetail", "name" : "_id_" } ] }

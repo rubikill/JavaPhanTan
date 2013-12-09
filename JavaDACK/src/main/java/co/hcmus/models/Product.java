@@ -6,33 +6,40 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Product {
 	@Id
-	private String id; 				// id of product
-	private String name; 			// name of product
-	private String productTypeId; 	// id of product type
-	private String info; 			// info of product
-	private int quantity; 			// quantity of product
-	private int sellCount; 			// sell count of product
-	private int importCount; 		// import Count of product
-	private String manufacturerId; 	// manufacturer id of product
-	private double price; 			// price of product
+	private String id; // id of product
+	private String name; // name of product
+	private String productTypeId; // id of product type
+	private int quantity; // quantity of product
+	private int sellCount; // sell count of product
+	private int importCount; // import Count of product
+	private String manufacturerId; // manufacturer id of product
+	private double price; // price of product
+	private String status; // status
 
-	public Product(String id, String name, String productTypeId, String info,
-			int quantity, int sellCount, int importCount,
-			String manufacturerId, double price) {
+	public Product(String name, String productTypeId, int quantity,
+			int sellCount, int importCount, String manufacturerId,
+			double price, String status) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.productTypeId = productTypeId;
-		this.info = info;
 		this.quantity = quantity;
 		this.sellCount = sellCount;
 		this.importCount = importCount;
 		this.manufacturerId = manufacturerId;
 		this.price = price;
+		this.status = status;
 	}
 
 	public Product() {
 
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getId() {
@@ -57,14 +64,6 @@ public class Product {
 
 	public void setProductTypeId(String productTypeId) {
 		this.productTypeId = productTypeId;
-	}
-
-	public String getInfo() {
-		return info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
 	}
 
 	public int getQuantity() {

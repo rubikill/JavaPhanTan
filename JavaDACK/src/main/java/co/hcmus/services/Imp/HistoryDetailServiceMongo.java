@@ -2,6 +2,7 @@ package co.hcmus.services.Imp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +13,7 @@ import co.hcmus.services.IHistoryDetailService;
 @Service("historyDetailService")
 @Transactional
 public class HistoryDetailServiceMongo implements IHistoryDetailService {
-
+	@Autowired
 	private IHistoryDetailDAO historyDetailDAO;
 
 	@Override

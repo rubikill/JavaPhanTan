@@ -1,0 +1,1 @@
+{ "options" : { "create" : "paymentType" }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "shop.paymentType", "name" : "_id_" } ] }

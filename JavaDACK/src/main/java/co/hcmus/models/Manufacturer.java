@@ -10,9 +10,8 @@ public class Manufacturer {
 	private String id; // id of manufacturer
 	private String name; // name of manufacturer
 	
-	public Manufacturer(String id, String name) {
+	public Manufacturer(String name) {
 		super();
-		this.id = id;
 		this.name = name;
 	}
 
