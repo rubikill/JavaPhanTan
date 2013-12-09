@@ -53,7 +53,7 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 	}
 
 	@Override
-	public List<PromotionDetail> getPromotions() {
+	public List<PromotionDetail> getPromotionDetails() {
 		// get all promotionsDetail
 		return mongoTemplate.findAll(PromotionDetail.class, COLLECTION_NAME);
 	}
