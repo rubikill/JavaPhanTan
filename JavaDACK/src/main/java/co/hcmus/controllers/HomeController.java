@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import co.hcmus.app.Initialization;
+
 /**
  * Handles requests for the application home page.
  */
@@ -21,6 +23,8 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+//		Initialization init = new Initialization();
+//		init.init();
 		return "home";
 	}
 
