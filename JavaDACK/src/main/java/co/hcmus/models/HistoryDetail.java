@@ -12,14 +12,15 @@ public class HistoryDetail {
 	private String historyId;	// history id 
 	private int amount;			// amount 
 	private String productId;	//id of product
-	
+	private String status;		//status
 	public HistoryDetail(String id, String historyId, int amount,
-			String productId) {
+			String productId, String status) {
 		super();
 		this.id = id;
 		this.historyId = historyId;
 		this.amount = amount;
 		this.productId = productId;
+		this.status = status;
 	}
 
 	public HistoryDetail()
@@ -56,6 +57,14 @@ public class HistoryDetail {
 
 	public void setProductId(String productId) {
 		this.productId = productId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

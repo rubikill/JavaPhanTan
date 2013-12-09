@@ -9,11 +9,13 @@ public class Manufacturer {
 	@Id
 	private String id; // id of manufacturer
 	private String name; // name of manufacturer
-	
-	public Manufacturer(String id, String name) {
+	private String status; // status
+
+	public Manufacturer(String id, String name, String status) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.status = status;
 	}
 
 	public Manufacturer() {
@@ -35,5 +37,14 @@ public class Manufacturer {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 
 }

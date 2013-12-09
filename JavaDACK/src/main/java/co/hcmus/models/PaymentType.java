@@ -9,11 +9,13 @@ public class PaymentType {
 	@Id
 	private String id; // id of payment type
 	private String name; // name of payment type
-	
-	public PaymentType(String id, String name) {
+	private String status; // status
+
+	public PaymentType(String id, String name, String status) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.status = status;
 	}
 
 	public PaymentType() {
@@ -35,5 +37,14 @@ public class PaymentType {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 
 }

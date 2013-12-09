@@ -7,19 +7,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Rating {
 
 	@Id
-	private String id; 				// id of rating
-	private String productId; 		// id of product to rating
-	private String email; 			// email(_id) of account to rating
-	private int star; 				// rate 1 2 3 4 5
+	private String id; // id of rating
+	private String productId; // id of product to rating
+	private String email; // email(_id) of account to rating
+	private int star; // rate 1 2 3 4 5
+	private String status;
 
-	
-	
-	public Rating(String id, String productId, String email, int star) {
+	public Rating(String id, String productId, String email, int star,
+			String status) {
 		super();
 		this.id = id;
 		this.productId = productId;
 		this.email = email;
 		this.star = star;
+		this.status = status;
 	}
 
 	public Rating() {
@@ -56,6 +57,14 @@ public class Rating {
 
 	public void setStar(int star) {
 		this.star = star;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
