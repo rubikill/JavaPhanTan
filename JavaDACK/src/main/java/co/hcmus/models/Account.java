@@ -8,16 +8,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Account {
 	@Id
-	private String email;
-	private String name;
-	private String phone;
-	private String address;
-	private Date birthday;
-	private String accountTypeId;
-	private String password;
-	private String status;
-	private String token;
-	private int point;
+	private String email;			// Email
+	private String name;			// Full name
+	private String phone;			// Phone number
+	private String address;			// Address
+	private Date birthday;			// Birthday
+	private String accountTypeId;	// Id in AccountType collection, define which account's type is
+	private String password;		// Password -- MD5 (incomplete - hash)
+	private String status;			// Status of account (inactive, active, block)	
+	private String token;			// Token key
+	private int point;				// Point - after reach a number of points, account type will 
+									// be changed to VIP. Limit is defined in PointLevel colection
 
 	public Account(){
 		

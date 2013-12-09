@@ -3,17 +3,15 @@ package co.hcmus.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document
 public class PaymentType {
-	
-	@Id
-	private String id;		//id of payment type
-	private String name;	// name of payment type
 
-	public PaymentType()
-	{
-		
+	@Id
+	private String id; // id of payment type
+	private String name; // name of payment type
+
+	public PaymentType() {
+
 	}
 
 	public String getId() {
@@ -31,5 +29,5 @@ public class PaymentType {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

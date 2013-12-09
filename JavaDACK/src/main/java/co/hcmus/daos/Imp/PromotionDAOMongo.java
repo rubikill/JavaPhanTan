@@ -11,6 +11,7 @@ public class PromotionDAOMongo implements IPromotionDAO{
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	// Collection name save in MongoDB
 	public static final String COLLECTION_NAME = "promotion";
 	
 	public PromotionDAOMongo()
@@ -19,6 +20,7 @@ public class PromotionDAOMongo implements IPromotionDAO{
 			mongoTemplate.createCollection(Promotion.class);
 		}
 	}
+	
 	@Override
 	public void addPromotion(Promotion promotion) {
 		// TODO Auto-generated method stub

@@ -17,8 +17,10 @@ public class HistoryDAOMongo implements IHistoryDAO {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	// Collection name save in MongoDB
 	public static final String COLLECTION_NAME = "history";
 
+	// Add new History
 	@Override
 	public void addHistory(History history) {
 		if (!mongoTemplate.collectionExists(Account.class)) {
@@ -28,12 +30,14 @@ public class HistoryDAOMongo implements IHistoryDAO {
 
 	}
 
+	// Update
 	@Override
 	public void updateHistory(History history) {
-		mongoTemplate.insert(history, COLLECTION_NAME);
+		mongoTemplate.save(history, COLLECTION_NAME);
 
 	}
 
+	// Get specific History by id
 	@Override
 	public History getHistory(String id) {
 		Query searchHistoryQuery = new Query(Criteria.where("id").is(id));
@@ -41,6 +45,7 @@ public class HistoryDAOMongo implements IHistoryDAO {
 				COLLECTION_NAME);
 	}
 
+	// Delete a specific History by id
 	@Override
 	public void deleteHistory(String id) {
 		History history = getHistory(id);
@@ -48,9 +53,10 @@ public class HistoryDAOMongo implements IHistoryDAO {
 
 	}
 
+	// Get all Historys
 	@Override
 	public List<History> getHistorys() {
 		return mongoTemplate.findAll(History.class, COLLECTION_NAME);
 	}
-	
+
 }

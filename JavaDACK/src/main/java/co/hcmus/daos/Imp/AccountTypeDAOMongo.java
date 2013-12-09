@@ -16,8 +16,9 @@ import co.hcmus.models.AccountType;
 public class AccountTypeDAOMongo implements IAccountTypeDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	public static final String COLLECTION_NAME = "account_type";
+	public static final String COLLECTION_NAME = "account_type";//Collection name save in MongoDB
 
+	// Add new AccountType
 	@Override
 	public void addAccountType(AccountType accountType) {
 		if (!mongoTemplate.collectionExists(Account.class)) {
@@ -26,13 +27,15 @@ public class AccountTypeDAOMongo implements IAccountTypeDAO {
 		mongoTemplate.insert(accountType, COLLECTION_NAME);
 
 	}
-
+	
+	//Update an AccountType
 	@Override
 	public void updateAccountType(AccountType accountType) {
-		mongoTemplate.insert(accountType, COLLECTION_NAME);
+		mongoTemplate.save(accountType, COLLECTION_NAME);
 
 	}
 
+	// Get a specific AccountType by id 
 	@Override
 	public AccountType getAccountType(String id) {
 		Query searchAccountTypeQuery = new Query(Criteria.where("id").is(id));
@@ -40,6 +43,7 @@ public class AccountTypeDAOMongo implements IAccountTypeDAO {
 				COLLECTION_NAME);
 	}
 
+	//Delete a specific AccountType by id
 	@Override
 	public void deleteAccountType(String id) {
 		AccountType accountType = getAccountType(id);
@@ -47,6 +51,7 @@ public class AccountTypeDAOMongo implements IAccountTypeDAO {
 
 	}
 
+	// Get all AccountTypes
 	@Override
 	public List<AccountType> getAccountTypes() {
 		return mongoTemplate.findAll(AccountType.class, COLLECTION_NAME);

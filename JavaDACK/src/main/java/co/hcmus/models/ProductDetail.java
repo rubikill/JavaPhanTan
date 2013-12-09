@@ -3,19 +3,17 @@ package co.hcmus.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document
 public class ProductDetail {
 	@Id
-	private String id;				//id of product detail
-	private String productId;		//product id of detail
-	private int warranty;			// bao hanh, month ,12 month, 24 month
-	private double height;
+	private String id;			 	// id of product detail
+	private String productId; 		// product id of detail
+	private int warranty; 			// bao hanh, month ,12 month, 24 month
+	private double height;		
 	private double weight;
-	
-	public ProductDetail()
-	{
-		
+
+	public ProductDetail() {
+
 	}
 
 	public String getId() {
@@ -57,5 +55,5 @@ public class ProductDetail {
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
-	
+
 }

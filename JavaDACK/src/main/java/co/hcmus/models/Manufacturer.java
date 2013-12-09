@@ -3,17 +3,15 @@ package co.hcmus.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document
 public class Manufacturer {
 
 	@Id
-	private String id;				// id of manufacturer
-	private String name;			// name of manufacturer
-	
-	public Manufacturer()
-	{
-		
+	private String id; // id of manufacturer
+	private String name; // name of manufacturer
+
+	public Manufacturer() {
+
 	}
 
 	public String getId() {
@@ -31,5 +29,5 @@ public class Manufacturer {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 }

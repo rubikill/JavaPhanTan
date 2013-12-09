@@ -3,23 +3,21 @@ package co.hcmus.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document
 public class Product {
 	@Id
-	private String id;				// id of product
-	private String name;			// name of product
-	private String productTypeId;	// id of product type
-	private String info;			// info of product
-	private int quantity;			// quantity of product
-	private int sellCount;			// sell count of product
-	private int importCount;		// import Count of product
-	private String manufacturerId;	// manufacturer  id of product
-	private double price;			// price of product
-	
-	public Product()
-	{
-		
+	private String id; 				// id of product
+	private String name; 			// name of product
+	private String productTypeId; 	// id of product type
+	private String info; 			// info of product
+	private int quantity; 			// quantity of product
+	private int sellCount; 			// sell count of product
+	private int importCount; 		// import Count of product
+	private String manufacturerId; 	// manufacturer id of product
+	private double price; 			// price of product
+
+	public Product() {
+
 	}
 
 	public String getId() {

@@ -7,17 +7,18 @@ import javax.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class History {
+public class History {					// Also known as billing
 	@Id
-	private String id;
-	private String email;
-	private int quantity;
-	private int status;
-	private Date orderDate;
-	private Date deliveryDate;
-	private Date paymentDate;
-	private String paymentTyeId;
-	private String historyDetailId;
+	private String id;					// Id
+	private String email;				// Account's email - History owner
+	private int quantity;				// Number of products 
+	private int status;					// Status (Paid/Unpaid)
+	private Date orderDate;				// Order date
+	private Date deliveryDate;			// Delivery date
+	private Date paymentDate;			// Payment date
+	private String paymentTyeId;		// Id of PaymentType, which referenced to collection PaymentType
+	private String historyDetailId;		// DetailHistory's Id, referenced to collection HistoryDetail where
+										// listed all products in this bill.
 
 	public String getId() {
 		return id;
