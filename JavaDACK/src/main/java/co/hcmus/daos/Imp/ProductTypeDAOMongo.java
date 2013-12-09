@@ -17,7 +17,7 @@ public class ProductTypeDAOMongo implements IProductTypeDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
-	public static final String COLLECTION_NAME = "product_type";
+	public static final String COLLECTION_NAME = "productType";
 
 	// Add new ProductType
 	@Override

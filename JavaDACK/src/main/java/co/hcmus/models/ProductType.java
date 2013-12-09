@@ -9,6 +9,12 @@ public class ProductType {
 	private String id;			// Id
 	private String name;		// ProductType's name
 	
+	public ProductType(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+	
 	public String getId() {
 		return id;
 	}

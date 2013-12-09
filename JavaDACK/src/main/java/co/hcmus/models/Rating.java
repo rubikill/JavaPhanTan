@@ -12,6 +12,16 @@ public class Rating {
 	private String email; 			// email(_id) of account to rating
 	private int star; 				// rate 1 2 3 4 5
 
+	
+	
+	public Rating(String id, String productId, String email, int star) {
+		super();
+		this.id = id;
+		this.productId = productId;
+		this.email = email;
+		this.star = star;
+	}
+
 	public Rating() {
 
 	}

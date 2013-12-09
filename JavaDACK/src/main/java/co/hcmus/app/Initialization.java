@@ -1,5 +1,7 @@
 package co.hcmus.app;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,7 @@ import co.hcmus.models.Promotion;
 import co.hcmus.models.PromotionDetail;
 import co.hcmus.models.Rating;
 import co.hcmus.models.Tag;
+import co.hcmus.services.Imp.AccountServiceMongo;
 
 public class Initialization implements InitializingBean {
 
@@ -49,6 +52,7 @@ public class Initialization implements InitializingBean {
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
 		}
+	
 		// create collection AccountType if not exits
 		if (!mongoTemplate.collectionExists(AccountType.class)) {
 			mongoTemplate.createCollection(AccountType.class);

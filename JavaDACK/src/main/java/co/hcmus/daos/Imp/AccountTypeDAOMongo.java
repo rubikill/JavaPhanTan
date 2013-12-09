@@ -16,7 +16,7 @@ import co.hcmus.models.AccountType;
 public class AccountTypeDAOMongo implements IAccountTypeDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	public static final String COLLECTION_NAME = "account_type";//Collection name save in MongoDB
+	public static final String COLLECTION_NAME = "accountType";//Collection name save in MongoDB
 
 	// Add new AccountType
 	@Override

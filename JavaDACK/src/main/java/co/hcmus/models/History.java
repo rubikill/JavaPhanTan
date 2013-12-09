@@ -20,6 +20,26 @@ public class History {					// Also known as billing
 	private String historyDetailId;		// DetailHistory's Id, referenced to collection HistoryDetail where
 										// listed all products in this bill.
 
+	public History(String id, String email,
+			int quantity, int status,
+			Date orderDate,
+			Date deliveryDate,
+			Date paymentDate,
+			String paymentTyeId,
+			String historyDetailId) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.quantity = quantity;
+		this.status = status;
+		this.orderDate = orderDate;
+		this.deliveryDate = deliveryDate;
+		this.paymentDate = paymentDate;
+		this.paymentTyeId = paymentTyeId;
+		this.historyDetailId = historyDetailId;
+	}
+	
+	
 	public String getId() {
 		return id;
 	}

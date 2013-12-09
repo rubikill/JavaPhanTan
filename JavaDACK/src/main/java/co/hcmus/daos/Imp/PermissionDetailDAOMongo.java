@@ -18,7 +18,7 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	//Collection name save in MongoDB
-	public static final String COLLECTION_NAME = "permission_detail";
+	public static final String COLLECTION_NAME = "permissionDetail";
 
 	//Add PermissionDetail
 	@Override

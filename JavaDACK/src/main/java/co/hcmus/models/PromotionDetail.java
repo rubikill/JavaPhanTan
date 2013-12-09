@@ -20,6 +20,21 @@ public class PromotionDetail {
 	private String tagId;			// to tag id
 	private int discount;			// discount
 	
+	public PromotionDetail(String id, String promotionId, String name,
+			Date date_start, Date date_end, String content, String note,
+			String tagId, int discount) {
+		super();
+		this.id = id;
+		this.promotionId = promotionId;
+		this.name = name;
+		this.date_start = date_start;
+		this.date_end = date_end;
+		this.content = content;
+		this.note = note;
+		this.tagId = tagId;
+		this.discount = discount;
+	}
+
 	public PromotionDetail()
 	{
 		

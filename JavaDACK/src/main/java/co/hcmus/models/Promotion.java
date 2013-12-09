@@ -10,6 +10,12 @@ public class Promotion {
 	private String id; 				// promotion id
 	private String productId; 		// productid
 
+	public Promotion(String id, String productId) {
+		super();
+		this.id = id;
+		this.productId = productId;
+	}
+
 	public Promotion() {
 
 	}

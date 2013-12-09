@@ -18,7 +18,7 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
-	public static final String COLLECTION_NAME = "point_level";
+	public static final String COLLECTION_NAME = "pointLevel";
 
 	// Add new PointLevel
 	@Override

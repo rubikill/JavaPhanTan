@@ -12,6 +12,16 @@ public class ProductDetail {
 	private double height;		
 	private double weight;
 
+	public ProductDetail(String id, String productId, int warranty,
+			double height, double weight) {
+		super();
+		this.id = id;
+		this.productId = productId;
+		this.warranty = warranty;
+		this.height = height;
+		this.weight = weight;
+	}
+
 	public ProductDetail() {
 
 	}

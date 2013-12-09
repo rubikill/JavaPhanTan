@@ -11,6 +11,16 @@ public class Comment {
 	private String productId;		// Id of product which is commented
 	private String idCommentRoot;	// If of root (parent) comment, if this comment reply a comment 
 	private String content;			// Comment's content
+
+	public Comment(String id, String email, String productId,
+			String idCommentRoot, String content) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.productId = productId;
+		this.idCommentRoot = idCommentRoot;
+		this.content = content;
+	}
 	
 	public String getId() {
 		return id;

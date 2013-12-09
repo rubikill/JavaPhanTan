@@ -10,6 +10,12 @@ public class PermissionDetail {
 	private String id;
 	private String name;
 
+	public PermissionDetail(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 	public String getId() {
 		return id;
 	}

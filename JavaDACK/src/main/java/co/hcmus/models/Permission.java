@@ -10,6 +10,13 @@ public class Permission {
 	private String accountTypeId;
 	private String permissionId;
 
+	public Permission(String id, String accountTypeId, String permissionId) {
+		super();
+		this.id = id;
+		this.accountTypeId = accountTypeId;
+		this.permissionId = permissionId;
+	}
+
 	public String getId() {
 		return id;
 	}

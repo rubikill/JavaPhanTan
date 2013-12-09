@@ -9,6 +9,12 @@ public class Manufacturer {
 	@Id
 	private String id; // id of manufacturer
 	private String name; // name of manufacturer
+	
+	public Manufacturer(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public Manufacturer() {
 

@@ -9,6 +9,12 @@ public class PaymentType {
 	@Id
 	private String id; // id of payment type
 	private String name; // name of payment type
+	
+	public PaymentType(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 
 	public PaymentType() {
 

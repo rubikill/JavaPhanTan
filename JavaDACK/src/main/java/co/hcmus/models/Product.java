@@ -16,6 +16,21 @@ public class Product {
 	private String manufacturerId; 	// manufacturer id of product
 	private double price; 			// price of product
 
+	public Product(String id, String name, String productTypeId, String info,
+			int quantity, int sellCount, int importCount,
+			String manufacturerId, double price) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.productTypeId = productTypeId;
+		this.info = info;
+		this.quantity = quantity;
+		this.sellCount = sellCount;
+		this.importCount = importCount;
+		this.manufacturerId = manufacturerId;
+		this.price = price;
+	}
+
 	public Product() {
 
 	}
