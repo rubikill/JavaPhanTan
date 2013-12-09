@@ -23,7 +23,7 @@ public class HistoryDetailDAOMongo implements IHistoryDetailDAO {
 		if (!mongoTemplate.collectionExists(HistoryDetail.class)) {
 			mongoTemplate.createCollection(HistoryDetail.class);
 		}
-		// insert a document
+		// insert a document	
 		mongoTemplate.insert(historyDetail, COLLECTION_NAME);
 
 	}

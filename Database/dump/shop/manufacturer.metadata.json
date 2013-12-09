@@ -1,0 +1,1 @@
+{ "options" : { "create" : "manufacturer" }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "shop.manufacturer", "name" : "_id_" } ] }

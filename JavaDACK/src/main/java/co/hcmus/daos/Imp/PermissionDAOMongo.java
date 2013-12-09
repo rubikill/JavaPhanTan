@@ -20,25 +20,24 @@ public class PermissionDAOMongo implements IPermissionDAO {
 	// Collection name save in MongoDB
 	public static final String COLLECTION_NAME = "permission";
 
-	//Add new Permission
+	// Add new Permission
 	@Override
-	public void addPermission(Permission Permission) {
+	public void addPermission(Permission permission) {
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
 		}
-		mongoTemplate.insert(Permission, COLLECTION_NAME);
+		mongoTemplate.insert(permission, COLLECTION_NAME);
 
 	}
 
-	
-	//Update Permission
+	// Update Permission
 	@Override
-	public void updatePermission(Permission Permission) {
-		mongoTemplate.save(Permission, COLLECTION_NAME);
+	public void updatePermission(Permission permission) {
+		mongoTemplate.save(permission, COLLECTION_NAME);
 
 	}
 
-	//Get a specific Permission
+	// Get a specific Permission
 	@Override
 	public Permission getPermission(String id) {
 		Query searchPermissionQuery = new Query(Criteria.where("id").is(id));
@@ -46,15 +45,15 @@ public class PermissionDAOMongo implements IPermissionDAO {
 				COLLECTION_NAME);
 	}
 
-	//Delete a Permission
+	// Delete a Permission
 	@Override
 	public void deletePermission(String id) {
-		Permission Permission = getPermission(id);
-		mongoTemplate.remove(Permission, COLLECTION_NAME);
+		Permission permission = getPermission(id);
+		mongoTemplate.remove(permission, COLLECTION_NAME);
 
 	}
 
-	//Get all Permissions
+	// Get all Permissions
 	@Override
 	public List<Permission> getPermissions() {
 		return mongoTemplate.findAll(Permission.class, COLLECTION_NAME);

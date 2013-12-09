@@ -24,7 +24,6 @@ public class ProductDAOMongo implements IProductDAO {
 		if (!mongoTemplate.collectionExists(Product.class)) {
 			mongoTemplate.createCollection(Product.class);
 		}
-		// insert a document
 		mongoTemplate.insert(product, COLLECTION_NAME);
 
 	}

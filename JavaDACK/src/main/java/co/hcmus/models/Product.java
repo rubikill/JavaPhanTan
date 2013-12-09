@@ -17,11 +17,11 @@ public class Product {
 	private double price; // price of product
 	private String status; // status
 
+
 	public Product(String id, String name, String productTypeId, String info,
 			int quantity, int sellCount, int importCount,
 			String manufacturerId, double price, String status) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.productTypeId = productTypeId;
 		this.info = info;
@@ -36,6 +36,7 @@ public class Product {
 	public Product() {
 
 	}
+
 
 	public String getId() {
 		return id;
@@ -59,14 +60,6 @@ public class Product {
 
 	public void setProductTypeId(String productTypeId) {
 		this.productTypeId = productTypeId;
-	}
-
-	public String getInfo() {
-		return info;
-	}
-
-	public void setInfo(String info) {
-		this.info = info;
 	}
 
 	public int getQuantity() {

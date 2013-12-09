@@ -1,0 +1,1 @@
+{ "options" : { "create" : "accountType" }, "indexes" : [ { "v" : 1, "key" : { "_id" : 1 }, "ns" : "shop.accountType", "name" : "_id_" } ] }
