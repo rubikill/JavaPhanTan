@@ -1,7 +1,7 @@
 package co.hcmus.util;
 
 public enum STATUS {
-	DISABLE("Deleted"), ACTIVE("Aactive");
+	DISABLE("Disable"), ACTIVE("Active"), INACTIVE("Inactive"), BLOOK("Blook");
 	 
 	private String statusCode;
  
