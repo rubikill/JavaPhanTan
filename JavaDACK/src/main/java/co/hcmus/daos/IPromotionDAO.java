@@ -7,7 +7,7 @@ import co.hcmus.models.Promotion;
 public interface IPromotionDAO {
 	public void addPromotion(Promotion promotion);
 	public void updatePromotion(Promotion promotion);
-	public void getPromotionById(String id);
+	public Promotion getPromotionById(String id);
 	public void deletePromotion(String id);
 	public List<Promotion> getPromotions();
 
