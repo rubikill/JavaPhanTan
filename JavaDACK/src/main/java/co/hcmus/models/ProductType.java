@@ -6,8 +6,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class ProductType {
 
 	@Id
-	private String id;
-	private String name;
+	private String id;			// Id
+	private String name;		// ProductType's name
+	
+	public ProductType(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 	
 	public String getId() {
 		return id;

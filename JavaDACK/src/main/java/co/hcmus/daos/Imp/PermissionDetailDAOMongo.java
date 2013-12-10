@@ -17,8 +17,10 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	public static final String COLLECTION_NAME = "permission_detail";
+	//Collection name save in MongoDB
+	public static final String COLLECTION_NAME = "permissionDetail";
 
+	//Add PermissionDetail
 	@Override
 	public void addPermissionDetail(PermissionDetail permissionDetail) {
 		if (!mongoTemplate.collectionExists(Account.class)) {
@@ -28,12 +30,15 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 
 	}
 
+	//update PermissionDetail
 	@Override
 	public void updatePermissionDetail(PermissionDetail permissionDetail) {
-		mongoTemplate.insert(permissionDetail, COLLECTION_NAME);
+		mongoTemplate.save(permissionDetail, COLLECTION_NAME);
 
 	}
 
+	
+	//Get PermissionDetail
 	@Override
 	public PermissionDetail getPermissionDetail(String id) {
 		Query searchPermissionDetailQuery = new Query(Criteria.where("id").is(id));
@@ -41,6 +46,8 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 				COLLECTION_NAME);
 	}
 
+	
+	//Delete PermissionDetail
 	@Override
 	public void deletePermissionDetail(String id) {
 		PermissionDetail PermissionDetail = getPermissionDetail(id);
@@ -48,6 +55,8 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 
 	}
 
+	
+	//Get all permissionDetail
 	@Override
 	public List<PermissionDetail> getPermissionDetails() {
 		return mongoTemplate.findAll(PermissionDetail.class, COLLECTION_NAME);

@@ -17,8 +17,10 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
-	public static final String COLLECTION_NAME = "point_level";
+	// Collection name save in MongoDB
+	public static final String COLLECTION_NAME = "pointLevel";
 
+	// Add new PointLevel
 	@Override
 	public void addPointLevel(PointLevel pointLevel) {
 		if (!mongoTemplate.collectionExists(Account.class)) {
@@ -28,12 +30,14 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 
 	}
 
+	// Update PointLevel
 	@Override
 	public void updatePointLevel(PointLevel pointLevel) {
-		mongoTemplate.insert(pointLevel, COLLECTION_NAME);
+		mongoTemplate.save(pointLevel, COLLECTION_NAME);
 
 	}
 
+	// Get a specific PointLevel by id
 	@Override
 	public PointLevel getPointLevel(String id) {
 		Query searchPointLevelQuery = new Query(Criteria.where("id").is(id));
@@ -41,6 +45,7 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 				COLLECTION_NAME);
 	}
 
+	//Delete a PointLevel
 	@Override
 	public void deletePointLevel(String id) {
 		PointLevel PointLevel = getPointLevel(id);
@@ -48,6 +53,7 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 
 	}
 
+	//Get all PointLevels
 	@Override
 	public List<PointLevel> getPointLevels() {
 		return mongoTemplate.findAll(PointLevel.class, COLLECTION_NAME);

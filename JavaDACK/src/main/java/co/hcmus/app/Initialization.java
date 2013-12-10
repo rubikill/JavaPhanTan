@@ -1,8 +1,10 @@
 package co.hcmus.app;
 
-import javax.annotation.PostConstruct;
+import java.util.Date;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import co.hcmus.models.Account;
@@ -22,26 +24,34 @@ import co.hcmus.models.Promotion;
 import co.hcmus.models.PromotionDetail;
 import co.hcmus.models.Rating;
 import co.hcmus.models.Tag;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Bean;
 
-@Configuration
-public class Initialization {
+public class Initialization implements InitializingBean {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	@PostConstruct
-	@Bean
-	public void init() {
+	public MongoTemplate getMongoTemplate() {
+		return mongoTemplate;
+	}
 
-		System.out.println("init data");
+	public void setMongoTemplate(MongoTemplate mongoTemplate) {
+		this.mongoTemplate = mongoTemplate;
+	}
 
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out
+				.println("----------------------------------------------");
+		System.out
+				.println("----------------INITIALIZATION----------------");
+		System.out
+				.println("----------------------------------------------");
 
 		// create collection Account if not exits
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
 		}
+	
 		// create collection AccountType if not exits
 		if (!mongoTemplate.collectionExists(AccountType.class)) {
 			mongoTemplate.createCollection(AccountType.class);

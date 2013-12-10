@@ -10,17 +10,22 @@
 		infrastructure -->
 
 	<context:component-scan base-package="co.hcmus" />
+	<beans:bean
+		class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor" />
 
 	<!-- Factory bean that creates the Mongo instance -->
-	<beans:bean id="mongo" class="org.springframework.data.mongodb.core.MongoFactoryBean">
+	<beans:bean id="mongo"
+		class="org.springframework.data.mongodb.core.MongoFactoryBean">
 		<beans:property name="host" value="localhost" />
-		<beans:property name="port" value="27017" />
 	</beans:bean>
-
+	<beans:bean id="initBean" class="co.hcmus.app.Initialization"/>
+	<context:annotation-config />
 	<!-- MongoTemplate for connecting and quering the documents in the database -->
-	<beans:bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+	<beans:bean id="mongoTemplate"
+		class="org.springframework.data.mongodb.core.MongoTemplate">
 		<beans:constructor-arg name="mongo" ref="mongo" />
-		<beans:constructor-arg name="databaseName" value="shop" />
+		<beans:constructor-arg name="databaseName"
+			value="shop" />
 	</beans:bean>
 
 	<!-- Use this post processor to translate any MongoExceptions thrown in 
@@ -31,7 +36,8 @@
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
@@ -54,5 +60,7 @@
 	</beans:bean>
 
 	<context:component-scan base-package="co.hcmus.controllers" />
+	<!-- Add annotation-config for PostConstruct -->
+
 
 </beans:beans>

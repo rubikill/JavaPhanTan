@@ -11,6 +11,12 @@ public class Tag {
 	private String id;			// id tag
 	private String name;		// name tag
 	
+	public Tag(String id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 	public Tag()
 	{
 		

@@ -3,21 +3,27 @@ package co.hcmus.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
-
-
 @Document
 public class Rating {
 
 	@Id
-	private String id;			//id of rating
-	private String productId;		//id of product to rating
-	private String email;			//email(_id) of account to rating
-	private int star;				// rate  1 2 3 4 5
+	private String id; 				// id of rating
+	private String productId; 		// id of product to rating
+	private String email; 			// email(_id) of account to rating
+	private int star; 				// rate 1 2 3 4 5
+
 	
-	public Rating()
-	{
-		
+	
+	public Rating(String id, String productId, String email, int star) {
+		super();
+		this.id = id;
+		this.productId = productId;
+		this.email = email;
+		this.star = star;
+	}
+
+	public Rating() {
+
 	}
 
 	public String getId() {
@@ -51,6 +57,5 @@ public class Rating {
 	public void setStar(int star) {
 		this.star = star;
 	}
-	
 
 }

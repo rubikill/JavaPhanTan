@@ -1,0 +1,47 @@
+package co.hcmus.services.Imp;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import co.hcmus.daos.IProductDetailDAO;
+import co.hcmus.models.ProductDetail;
+import co.hcmus.services.IProductDetailService;
+
+@Service("productDetailService")
+@Transactional
+public class ProductDetailServiceMongo implements IProductDetailService{
+
+	private IProductDetailDAO productDetailDAO;
+	
+	@Override
+	public void addProductDetail(ProductDetail productDetail) {
+		// TODO Auto-generated method stub
+		productDetailDAO.addProductDetail(productDetail);
+	}
+
+	@Override
+	public void updateProductDetail(ProductDetail productDetail) {
+		// TODO Auto-generated method stub
+		productDetailDAO.updateProductDetail(productDetail);
+	}
+
+	@Override
+	public ProductDetail getProductDetailById(String id) {
+		// TODO Auto-generated method stub
+		return productDetailDAO.getProductDetailById(id);
+	}
+
+	@Override
+	public void deleteProductDetail(String id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<ProductDetail> getProductDetails() {
+		// TODO Auto-generated method stub
+		return productDetailDAO.getProductDetails();
+	}
+
+}

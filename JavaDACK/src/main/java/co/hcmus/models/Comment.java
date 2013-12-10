@@ -6,11 +6,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Comment {
 
 	@Id
-	private String id;
-	private String email;
-	private String productId;
-	private String idCommentRoot;
-	private String content;
+	private String id;				// Id
+	private String email;			// Commenter's email
+	private String productId;		// Id of product which is commented
+	private String idCommentRoot;	// If of root (parent) comment, if this comment reply a comment 
+	private String content;			// Comment's content
+
+	public Comment(String id, String email, String productId,
+			String idCommentRoot, String content) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.productId = productId;
+		this.idCommentRoot = idCommentRoot;
+		this.content = content;
+	}
 	
 	public String getId() {
 		return id;
