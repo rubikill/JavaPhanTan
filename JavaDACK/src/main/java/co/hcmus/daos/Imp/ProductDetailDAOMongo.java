@@ -17,7 +17,7 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
-	public static final String COLLECTION_NAME = "productdetail";
+	public static final String COLLECTION_NAME = "productDetail";
 
 	@Override
 	public void addProductDetail(ProductDetail productDetail) {

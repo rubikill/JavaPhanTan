@@ -12,10 +12,9 @@ public class ProductDetail {
 	private double height;		
 	private double weight;
 	private String status;			//status
-	public ProductDetail(String id, String productId, int warranty,
+	public ProductDetail(String productId, int warranty,
 			double height, double weight, String status) {
 		super();
-		this.id = id;
 		this.productId = productId;
 		this.warranty = warranty;
 		this.height = height;

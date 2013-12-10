@@ -17,7 +17,7 @@ public class PaymentTypeDAOMongo implements IPaymentTypeDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
-	public static final String COLLECTION_NAME = "paymenttype";
+	public static final String COLLECTION_NAME = "paymentType";
 
 	@Override
 	public void addPaymentType(PaymentType paymentType) {

@@ -17,7 +17,7 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
-	public static final String COLLECTION_NAME = "promotiondetail";
+	public static final String COLLECTION_NAME = "promotionDetail";
 
 	@Override
 	public void addPromotionDetail(PromotionDetail promotionDetail) {

@@ -9,49 +9,40 @@ public class Product {
 	private String id; // id of product
 	private String name; // name of product
 	private String productTypeId; // id of product type
-	private String info; // info of product
 	private int quantity; // quantity of product
 	private int sellCount; // sell count of product
 	private int importCount; // import Count of product
 	private String manufacturerId; // manufacturer id of product
 	private double price; // price of product
 	private String status; // status
+	private int point; // Product's point
 
-
-	public Product(String id, String name, String productTypeId, String info,
-			int quantity, int sellCount, int importCount,
-			String manufacturerId, double price, String status) {
+	public Product(String name, String productTypeId, int quantity,
+			int sellCount, int importCount, String manufacturerId,
+			double price, int point, String status) {
 		super();
 		this.name = name;
 		this.productTypeId = productTypeId;
-		this.info = info;
 		this.quantity = quantity;
 		this.sellCount = sellCount;
 		this.importCount = importCount;
 		this.manufacturerId = manufacturerId;
 		this.price = price;
 		this.status = status;
-	}
-
-	public Product(String name, String info,
-			int quantity, int sellCount, int importCount,
-			String manufacturerId, double price, String status) {
-		super();
-		this.name = name;
-		//this.productTypeId = productTypeId;
-		this.info = info;
-		this.quantity = quantity;
-		this.sellCount = sellCount;
-		this.importCount = importCount;
-		this.manufacturerId = manufacturerId;
-		this.price = price;
-		this.status = status;
+		this.point = point;
 	}
 
 	public Product() {
 
 	}
 
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
 
 	public String getId() {
 		return id;

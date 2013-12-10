@@ -1,17 +1,34 @@
-Changelog 9/12/2013
-Sub : Thay đổi 1 số cột trong cơ sở dữ liệu
-Người viết : Nguyễn Đức Toàn
-Nội dung:
-	- Thêm 1 table là Tag (id, name)
-	- Thêm vào mỗi collection 1 column là status (để xem bị xóa hay chưa)
-	- Collection PromotionDetail thêm vào 1 column là id, 1 column PromotionId để khóa ngoại tới Id trong bảng Promotion
+===================================
+==== DATABASE CHANGELOG & GUIDE ===
+===================================
+
+---------------GUIDE---------------
+*** Export database from MongoDB (dump)
+Open cmd:
+C:\>mongodump --db shop
+=> Auto generate new folder 'dump\shop' which contains dump files.
+
+*** Import database from dump file
+Open cmd, cd to C:\ ('dump' in C:\ - C:\dump)
+C:\>mongorestore dump/shop
+=> Auto import into MongoDB
+-----------------------------------
+
+
+[Nguyễn Đức Toàn]
+9/12/2013 
+	- [REQUEST] Thêm 1 table là Tag (id, name)
+	- [REQUEST] Thêm vào mỗi collection 1 column là status (để xem bị xóa hay chưa)
+	- [REQUEST] Collection PromotionDetail thêm vào 1 column là id, 1 column PromotionId để khóa ngoại tới Id trong bảng Promotion
 	
-10:40 PM 9/12/2013
+[PHMTriet]	
+10:40 PM 9/12/2013 
 	- [DONE] Thêm 1 table là Tag (id, name)
 	- [DONE] Thêm vào mỗi collection 1 column là status (để xem bị xóa hay chưa)
 	- [DONE] Collection PromotionDetail thêm vào 1 column là id, 1 column PromotionId để khóa ngoại tới Id trong bảng Promotion
 	- [CHANGE - DONE] remove column info in collection product
 	- [CHANGE - DONE] Change collection name from history_detail to historyDetail, promotion_detail -> promotionDetail (remove underline & capitalize instead)
 
+[PHMTriet]
 9:24 AM 10/12/2013
 	- [CHANGE - DONE] Add new column 'point' to collection 'Product'. It define product's point which customer will get.
