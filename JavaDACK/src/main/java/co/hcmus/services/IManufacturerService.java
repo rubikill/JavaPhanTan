@@ -1,9 +1,10 @@
-package co.hcmus.daos;
+package co.hcmus.services;
 
 import java.util.List;
+
 import co.hcmus.models.Manufacturer;
 
-public interface IManufacturerDAO {
+public interface IManufacturerService {
 	public void addManufacturer(Manufacturer manufacturer);
 
 	public void updateManufacturer(Manufacturer manufacturer);
