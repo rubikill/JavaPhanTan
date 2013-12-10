@@ -54,4 +54,22 @@ public class ProductDAOMongo implements IProductDAO {
 		return mongoTemplate.findAll(Product.class, COLLECTION_NAME);
 	}
 
+	@Override
+	public List<Product> getProductsByTypeId(String id) {
+		// TODO Auto-generated method stub
+		Query searchProductQueryByType = new Query(Criteria.where(
+				"productTypeId").is(id));
+		return mongoTemplate.find(searchProductQueryByType, Product.class,
+				COLLECTION_NAME);
+	}
+
+	@Override
+	public List<Product> getProductsByManufacturerId(String id) {
+		// TODO Auto-generated method stub
+		Query searchProductQueryByManufacturer = new Query(Criteria.where(
+				"manufacturerId").is(id));
+		return mongoTemplate.find(searchProductQueryByManufacturer,
+				Product.class, COLLECTION_NAME);
+	}
+
 }

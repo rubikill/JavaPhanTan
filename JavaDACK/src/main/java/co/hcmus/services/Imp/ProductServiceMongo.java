@@ -46,4 +46,16 @@ public class ProductServiceMongo implements IProductService {
 		return productDAO.getProducts();
 	}
 
+	@Override
+	public List<Product> getProductsByTypeId(String id) {
+		// TODO Auto-generated method stub
+		return productDAO.getProductsByTypeId(id);
+	}
+
+	@Override
+	public List<Product> getProductsByManufacturerId(String id) {
+		// TODO Auto-generated method stub
+		return productDAO.getProductsByManufacturerId(id);
+	}
+
 }

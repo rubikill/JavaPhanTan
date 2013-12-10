@@ -47,35 +47,68 @@ public class ProductController {
 	}
 
 	/**
-	webservice for get all product
+	 * webservice for get all product
 	 */
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> getProducts() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-		//get all product
+		// get all product
 		List<Product> result = productService.getProducts();
+		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
+				HttpStatus.OK);
+	}
+
+	/**
+	 * 
+	 * @param id
+	 *            product id
+	 * @return webservice for get product by id
+	 */
+	@RequestMapping(value = "product/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
+	@ResponseBody
+	public ResponseEntity<String> getProductId(@PathVariable("id") String id) {
+		// get product byID
+		Product product = productService.getProductById(id);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=utf-8");
+		if (product == null) {
+			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<String>(Tools.toJson(product), headers,
+				HttpStatus.OK);
+	}
+
+	/**
+	 * webservice to get products by productTypeId id = id of type of product
+	 * 
+	 */
+
+	@RequestMapping(value = "/product/type/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> getProductByType(@PathVariable("id") String id) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=utf-8");
+		// get all product by type productID
+		List<Product> result = productService.getProductsByTypeId(id);
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
 	
 	/**
+	 * webservice to get products by manufacturer id = id of manufacturer of product
 	 * 
-	 * @param id product id
-	 * @return
-	 * webservice for get product by id
 	 */
-	@RequestMapping(value = "product/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-    @ResponseBody
-    public ResponseEntity<String> getProductId(@PathVariable("id") String id) {
-		//get product byID
-        Product product = productService.getProductById(id);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json; charset=utf-8");
-        if (product == null) {
-            return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<String>(Tools.toJson(product), headers, HttpStatus.OK);
-    }
+
+	@RequestMapping(value = "/product/manufacturer/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> getProductByManufacturer(@PathVariable("id") String id) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=utf-8");
+		// get all product by manufacturer productID
+		List<Product> result = productService.getProductsByManufacturerId(id);
+		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
+				HttpStatus.OK);
+	}
 }
