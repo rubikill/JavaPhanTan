@@ -29,6 +29,12 @@ public class ShopCartController {
 	@Autowired
 	private IProductService productService;
 
+	/**
+	 * webservice to add produtct to shopcart
+	 * @param id id of product add to cart
+	 * @param request	httpservlet request
+	 * @return
+	 */
 	@RequestMapping(value = "/cart/{id}", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> addProductToCart(
 			@PathVariable("id") String id, HttpServletRequest request) {
@@ -39,11 +45,13 @@ public class ShopCartController {
 			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 		} else {
 			List<ShopCartItem> listShopCartItem = new ArrayList<ShopCartItem>();
+			//get shop cart temp
 			List<ShopCartItem> listTemp = (List<ShopCartItem>) request
 					.getSession().getAttribute("ShopCart");
 			if (listTemp == null) {
 				listTemp = new ArrayList<ShopCartItem>();
 			}
+			//add product to shopcart
 			listShopCartItem = shopCartItemService.addItemToCart(listTemp,
 					product);
 			request.getSession().setAttribute("ShopCart", listShopCartItem);
@@ -51,6 +59,14 @@ public class ShopCartController {
 		}
 
 	}
+	
+	/**
+	 * 
+	  * webservice to delete produtct from shopcart
+	 * @param id id of product add to cart
+	 * @param request	httpservlet request
+	 * @return
+	 */
 
 	@RequestMapping(value = "/cart/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
 	public ResponseEntity<String> deleteFromCart(@PathVariable("id") String id,
@@ -74,7 +90,12 @@ public class ShopCartController {
 		}
 
 	}
-
+	/**
+	 * 
+	  * webservice to show all produtct from shopcart
+	 * @param request	httpservlet request
+	 * @return
+	 */
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> getCarts(HttpServletRequest request) {

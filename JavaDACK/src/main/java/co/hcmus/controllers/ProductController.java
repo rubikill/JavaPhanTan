@@ -46,19 +46,30 @@ public class ProductController {
 		return "products";
 	}
 
+	/**
+	webservice for get all product
+	 */
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> listProduct() {
+	public ResponseEntity<String> getProducts() {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
+		//get all product
 		List<Product> result = productService.getProducts();
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
 	
+	/**
+	 * 
+	 * @param id product id
+	 * @return
+	 * webservice for get product by id
+	 */
 	@RequestMapping(value = "product/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity<String> getProductId(@PathVariable("id") String id) {
+		//get product byID
         Product product = productService.getProductById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
