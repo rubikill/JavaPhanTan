@@ -1,18 +1,8 @@
-===================================
-==== DATABASE CHANGELOG & GUIDE ===
-===================================
+===========================
+==== DATABASE CHANGELOG ===
+===========================
 
----------------GUIDE---------------
-*** Export database from MongoDB (dump)
-Open cmd:
-C:\>mongodump --db shop
-=> Auto generate new folder 'dump\shop' which contains dump files.
 
-*** Import database from dump file
-Open cmd, cd to C:\ ('dump' in C:\ - C:\dump)
-C:\>mongorestore dump/shop
-=> Auto import into MongoDB
------------------------------------
 
 
 [Nguyễn Đức Toàn]
