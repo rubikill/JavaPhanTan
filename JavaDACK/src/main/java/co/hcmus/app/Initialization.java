@@ -22,14 +22,22 @@ import co.hcmus.models.Promotion;
 import co.hcmus.models.PromotionDetail;
 import co.hcmus.models.Rating;
 import co.hcmus.models.Tag;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 
+@Configuration
 public class Initialization {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
 	@PostConstruct
+	@Bean
 	public void init() {
+
+		System.out.println("init data");
+
+
 		// create collection Account if not exits
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
