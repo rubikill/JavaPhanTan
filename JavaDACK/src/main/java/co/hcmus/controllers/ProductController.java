@@ -58,7 +58,7 @@ public class ProductController {
 	
 	@RequestMapping(value = "product/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity<String> showJson(@PathVariable("id") String id) {
+    public ResponseEntity<String> getProductId(@PathVariable("id") String id) {
         Product product = productService.getProductById(id);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json; charset=utf-8");
