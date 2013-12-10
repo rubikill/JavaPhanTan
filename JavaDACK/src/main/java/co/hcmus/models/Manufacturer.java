@@ -11,16 +11,10 @@ public class Manufacturer {
 	private String name; // name of manufacturer
 	private String status; // status
 
-	public Manufacturer(String id, String name, String status) {
+	public Manufacturer(String name, String status) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.status = status;
-	}
-
-	public Manufacturer(String name) {
-		super();
-		this.name = name;
 	}
 
 	public Manufacturer() {
