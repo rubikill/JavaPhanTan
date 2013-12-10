@@ -33,6 +33,21 @@ public class Product {
 		this.status = status;
 	}
 
+	public Product(String name, String info,
+			int quantity, int sellCount, int importCount,
+			String manufacturerId, double price, String status) {
+		super();
+		this.name = name;
+		//this.productTypeId = productTypeId;
+		this.info = info;
+		this.quantity = quantity;
+		this.sellCount = sellCount;
+		this.importCount = importCount;
+		this.manufacturerId = manufacturerId;
+		this.price = price;
+		this.status = status;
+	}
+
 	public Product() {
 
 	}

@@ -18,6 +18,11 @@ public class Manufacturer {
 		this.status = status;
 	}
 
+	public Manufacturer(String name) {
+		super();
+		this.name = name;
+	}
+
 	public Manufacturer() {
 
 	}
