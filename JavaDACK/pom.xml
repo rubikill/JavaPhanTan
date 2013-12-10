@@ -176,6 +176,32 @@
 			<artifactId>flexjson</artifactId>
 			<version>2.1</version>
 		</dependency>
+
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.1.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Email -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>activation</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>smtp</artifactId>
+			<version>1.4.4</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -226,7 +252,7 @@
 				<configuration> <artifactItems> <artifactItem> <groupId>org.mortbay.jetty</groupId> 
 				<artifactId>jetty-runner</artifactId> <version>7.4.5.v20110725</version> 
 				<destFileName>jetty-runner.jar</destFileName> </artifactItem> </artifactItems> 
-				</configuration> </execution> </executions> </plugin> -->
+			</configuration> </execution> </executions> </plugin> -->
 		</plugins>
 	</build>
 </project>

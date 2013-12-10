@@ -65,6 +65,6 @@ public class ProductController {
         if (product == null) {
             return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<String>(Tools.toJson(Product.class), headers, HttpStatus.OK);
+        return new ResponseEntity<String>(Tools.toJson(product), headers, HttpStatus.OK);
     }
 }
