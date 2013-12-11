@@ -23,6 +23,7 @@ public class TagDAOMongo implements ITagDAO {
 		if (!mongoTemplate.collectionExists(Tag.class)) {
 			mongoTemplate.createCollection(Tag.class);
 		}
+
 		// insert a document
 		mongoTemplate.insert(tag, COLLECTION_NAME);
 

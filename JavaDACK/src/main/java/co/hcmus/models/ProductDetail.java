@@ -11,15 +11,15 @@ public class ProductDetail {
 	private int warranty; 			// bao hanh, month ,12 month, 24 month
 	private double height;		
 	private double weight;
-
-	public ProductDetail(String id, String productId, int warranty,
-			double height, double weight) {
+	private String status;			//status
+	public ProductDetail(String productId, int warranty,
+			double height, double weight, String status) {
 		super();
-		this.id = id;
 		this.productId = productId;
 		this.warranty = warranty;
 		this.height = height;
 		this.weight = weight;
+		this.status = status;
 	}
 
 	public ProductDetail() {
@@ -65,5 +65,14 @@ public class ProductDetail {
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 
 }

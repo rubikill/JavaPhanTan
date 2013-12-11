@@ -16,14 +16,14 @@ public class HistoryDetailDAOMongo implements IHistoryDetailDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
-	public static final String COLLECTION_NAME = "historydetail";
+	public static final String COLLECTION_NAME = "historyDetail";
 
 	@Override
 	public void addHistoryDetail(HistoryDetail historyDetail) {
 		if (!mongoTemplate.collectionExists(HistoryDetail.class)) {
 			mongoTemplate.createCollection(HistoryDetail.class);
 		}
-		// insert a document
+		// insert a document	
 		mongoTemplate.insert(historyDetail, COLLECTION_NAME);
 
 	}

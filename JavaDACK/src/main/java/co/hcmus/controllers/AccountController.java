@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import co.hcmus.helpers.SendMailHelper;
 import co.hcmus.models.Account;
+import co.hcmus.models.EmailForm;
 import co.hcmus.services.IAccountService;
 import co.hcmus.util.Tools;
 
@@ -94,7 +96,7 @@ public class AccountController {
 		// check account
 		if (accountService.getAccount(account.getEmail()) == null) {
 			try {
-				accountService.addAccount(account);				
+				accountService.addAccount(account);
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println("Problem when create account");
@@ -105,6 +107,40 @@ public class AccountController {
 		}
 		return new ResponseEntity<String>("Create failure", headers,
 				HttpStatus.BAD_REQUEST);
+	}
+
+	// restfull login here
+	@RequestMapping(value = "/forgetpass", method = RequestMethod.POST)
+	public ResponseEntity<String> forgetPassword(@RequestBody String json) {
+		//Recive a email address here
+		String email = json;
+
+		Account account = accountService.getAccount(json);
+
+		//Do reset pass here
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		
+		EmailForm emailForm = new EmailForm();
+		emailForm.reciver = email;
+		emailForm.subject = "Reset password for " + email;
+		emailForm.body = "Your new password is: " + "xxxxxxxxx";
+
+		//Send a email to reset password
+		
+		SendMailHelper sendMailHelper = new SendMailHelper();
+		try {
+			sendMailHelper.sendMail(emailForm);
+			
+			return new ResponseEntity<String>("Send mail succsess", headers,
+					HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<String>("Send mail failure", headers,
+					HttpStatus.BAD_REQUEST);
+		}		
 	}
 
 	// ---------------TEST---------------------

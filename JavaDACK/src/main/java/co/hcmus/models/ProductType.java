@@ -9,9 +9,8 @@ public class ProductType {
 	private String id;			// Id
 	private String name;		// ProductType's name
 	
-	public ProductType(String id, String name) {
+	public ProductType( String name) {
 		super();
-		this.id = id;
 		this.name = name;
 	}
 	

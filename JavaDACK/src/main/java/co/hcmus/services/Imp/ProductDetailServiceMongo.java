@@ -2,6 +2,7 @@ package co.hcmus.services.Imp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import co.hcmus.daos.IProductDetailDAO;
@@ -11,7 +12,7 @@ import co.hcmus.services.IProductDetailService;
 @Service("productDetailService")
 @Transactional
 public class ProductDetailServiceMongo implements IProductDetailService{
-
+	@Autowired
 	private IProductDetailDAO productDetailDAO;
 	
 	@Override

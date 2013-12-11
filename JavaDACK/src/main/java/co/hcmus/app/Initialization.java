@@ -1,10 +1,7 @@
 package co.hcmus.app;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import co.hcmus.models.Account;
@@ -40,18 +37,15 @@ public class Initialization implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		System.out
-				.println("----------------------------------------------");
-		System.out
-				.println("----------------INITIALIZATION----------------");
-		System.out
-				.println("----------------------------------------------");
+		System.out.println("----------------------------------------------");
+		System.out.println("----------------INITIALIZATION----------------");
+		System.out.println("----------------------------------------------");
 
 		// create collection Account if not exits
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
 		}
-	
+
 		// create collection AccountType if not exits
 		if (!mongoTemplate.collectionExists(AccountType.class)) {
 			mongoTemplate.createCollection(AccountType.class);
