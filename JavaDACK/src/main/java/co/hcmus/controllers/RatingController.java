@@ -9,34 +9,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import co.hcmus.models.ProductDetail;
-import co.hcmus.services.IProductDetailService;
-import co.hcmus.util.Tools;
 
+import co.hcmus.models.Rating;
+import co.hcmus.services.IRatingService;
 
 @Controller
-public class ProductDetailController {
+public class RatingController {
 
 	@Autowired
-	private IProductDetailService productDetailSerivce;
-	
-	
+	private IRatingService ratingService;
+
 	/**
-	 * web service to get productDetail by product Id
+	 * web service to check email is rating with productId
+	 * 
 	 * @param productId
+	 * @param email
 	 * @return
 	 */
-	@RequestMapping(value = "productDetail/{productId}", method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = "rating/{productId}/{email}", method = RequestMethod.GET, headers = "Accept=application/json")
 	@ResponseBody
-	public ResponseEntity<String> getProductDetailByProductId(@PathVariable("productId") String productId) {
+	public ResponseEntity<String> checkRatingByProductIdByEmail(
+			@PathVariable("productId") String productId,
+			@PathVariable("email") String email) {
 		// get product byID
-		ProductDetail productDetail = productDetailSerivce.getProductDetailByProductId(productId);
+		Rating result = ratingService.checkRaingByProductIdByEmail(productId,
+				email);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-		if (productDetail == null) {
+		if (result == null) {
 			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<String>(Tools.toJson(productDetail), headers,
-				HttpStatus.OK);
+		String json = "{ sum : " + result.getStar() + "," + "israting : true}";
+		return new ResponseEntity<String>(json, headers, HttpStatus.OK);
 	}
 }

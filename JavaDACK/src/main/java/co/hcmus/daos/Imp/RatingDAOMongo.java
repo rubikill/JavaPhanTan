@@ -55,4 +55,38 @@ public class RatingDAOMongo implements IRatingDAO {
 		return mongoTemplate.findAll(Rating.class, COLLECTION_NAME);
 	}
 
+	@Override
+	public List<Rating> getRatingsByProductId(String productId) {
+		// TODO Auto-generated method stub
+		Query searchRatingByProductIdQuery = new Query(Criteria.where(
+				"productId").is(productId));
+		return mongoTemplate.find(searchRatingByProductIdQuery, Rating.class,
+				COLLECTION_NAME);
+	}
+
+	@Override
+	public Rating checkRaingByProductIdByEmail(String productId, String email) {
+		// TODO Auto-generated method stub
+		List<Rating> listRatingByProductId = getRatingsByProductId(productId);
+		int sumRating = 0;
+		Rating resultRating = null;
+		if (listRatingByProductId.size() == 0) {
+			return resultRating;
+		}
+		for (Rating r : listRatingByProductId) {
+			sumRating = sumRating + r.getStar();
+		}
+		int average = sumRating / listRatingByProductId.size();
+		for (Rating r : listRatingByProductId) {
+			if (r.getEmail().equals(email)) {
+				resultRating = new Rating();
+				resultRating.setEmail(email);
+				resultRating.setProductId(productId);
+				resultRating.setStar(average);
+			}
+		}
+
+		return resultRating;
+	}
+
 }

@@ -14,4 +14,8 @@ public interface IRatingService {
 	public void deleteRating(String id);
 
 	public List<Rating> getRatings();
+
+	public List<Rating> getRatingsByProductId(String productId);
+	
+	public Rating checkRaingByProductIdByEmail(String productId, String email);
 }
