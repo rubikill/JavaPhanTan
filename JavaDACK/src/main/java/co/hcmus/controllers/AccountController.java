@@ -2,6 +2,8 @@ package co.hcmus.controllers;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,9 +46,16 @@ public class AccountController {
 		return "forgetpass";
 	}
 
-	// restfull login here
+	/**
+	 * Login
+	 * 
+	 * @param json
+	 *            contain email and password
+	 * @return Result
+	 */
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<String> createFromJsonArray(@RequestBody String json) {
+	public ResponseEntity<String> login(@RequestBody String json) {
 		Account accountTemp = Tools.fromJsonTo(json, Account.class);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -57,14 +66,45 @@ public class AccountController {
 
 		// check account
 		if (account == null) {
-			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Account does not exsits", headers, HttpStatus.BAD_REQUEST);
 		} else {
-			if (account.getPassword().equals(accountTemp.getPassword()))
+			if (account.getPassword().equals(accountTemp.getPassword())) {
+				System.out.println("Login success");
+				//session.putValue("email", account.getEmail());
 				return new ResponseEntity<String>(headers, HttpStatus.OK);
-			else
-				return new ResponseEntity<String>(headers,
+			} else {
+				return new ResponseEntity<String>("Wrong password", headers,
 						HttpStatus.BAD_REQUEST);
+			}
 		}
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<String> register(@RequestBody String json) {
+		Account account = Tools.fromJsonTo(json, Account.class);
+
+		// verify account infomation here
+		// ...
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "text/html");
+		// Create AccountService
+		// get Account with email
+
+		// check account
+		if (accountService.getAccount(account.getEmail()) == null) {
+			try {
+				accountService.addAccount(account);				
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println("Problem when create account");
+				e.printStackTrace();
+			}
+			return new ResponseEntity<String>("Create success", headers,
+					HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("Create failure", headers,
+				HttpStatus.BAD_REQUEST);
 	}
 
 	// ---------------TEST---------------------

@@ -41,10 +41,9 @@ shop.config(['$routeProvider',
                 // controller : homeCtrl
             })
         .when('/login', {
-            templateUrl: '/partials/pages/login.html'
-                // ,
-                // controller : homeCtrl
-            })
+            templateUrl: '/partials/pages/login.html',
+            controller : accountCtrl
+        })
         .when('/contact', {
             templateUrl: '/partials/pages/contact.html'
                 // ,
@@ -90,4 +89,4 @@ shop.run(function($rootScope, $location, localize, $cookieStore) {
     localize.setLanguage($rootScope.currentLanguage.localize);
 });
 
-var shopsv = angular.module('shopsv.services', []);
+var shopsv = angular.module('shopsv.services', ['ngResource']);

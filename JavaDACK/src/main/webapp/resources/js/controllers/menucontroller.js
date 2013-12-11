@@ -8,22 +8,6 @@ function menuCtrl($location, $scope, localize, $rootScope, $cookieStore) {
 		console.log($scope.path);
 	});
 
-	$scope.count = 1;
-
-	$scope.doSomething = function(){
-		$scope.count++;
-	}
-
-	$scope.$watch('count', function(newValue, oldValue, scope) {
-		console.log($scope.count);		
-	});
-
-
-
-
-
-
-
 	/**
 	 * Change localize when switch language
 	 */
