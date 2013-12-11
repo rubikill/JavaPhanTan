@@ -14,4 +14,6 @@ public interface IProductDetailService {
 	public void deleteProductDetail(String id);
 
 	public List<ProductDetail> getProductDetails();
+	
+	public ProductDetail getProductDetailByProductId(String productId);
 }

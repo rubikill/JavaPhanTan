@@ -45,4 +45,10 @@ public class ProductDetailServiceMongo implements IProductDetailService{
 		return productDetailDAO.getProductDetails();
 	}
 
+	@Override
+	public ProductDetail getProductDetailByProductId(String productId) {
+		// TODO Auto-generated method stub
+		return productDetailDAO.getProductDetailByProductId(productId);
+	}
+
 }
