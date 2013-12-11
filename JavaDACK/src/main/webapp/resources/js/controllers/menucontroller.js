@@ -1,11 +1,11 @@
 'use strict';
 
-function menuCtrl($location, $scope, localize, $rootScope, $cookieStore) {
+function menuCtrl($location, $scope, localize, $rootScope, $cookieStore, Cart) {
 	$scope.path = $location.path();
 
 	$scope.$on('$locationChangeSuccess', function() {
 		$scope.path = $location.path();
-		console.log($scope.path);
+		//console.log($scope.path);
 	});
 
 	/**
@@ -22,5 +22,13 @@ function menuCtrl($location, $scope, localize, $rootScope, $cookieStore) {
 		// the first load localize resource file
 		localize.language = newLang.localize;
 		localize.setLanguage($rootScope.currentLanguage.localize);
+	});
+
+	Cart.getCart({
+
+	}, function (data) {
+		$rootScope.cart = data;
+	}, function (response) {
+		
 	});
 }

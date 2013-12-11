@@ -9,6 +9,7 @@ public class Product {
 	private String id; // id of product
 	private String name; // name of product
 	private String productTypeId; // id of product type
+	private String description; //description
 	private int quantity; // quantity of product
 	private int sellCount; // sell count of product
 	private int importCount; // import Count of product
@@ -17,12 +18,13 @@ public class Product {
 	private String status; // status
 	private int point; // Product's point
 
-	public Product(String name, String productTypeId, int quantity,
+	public Product(String name, String productTypeId, String description, int quantity,
 			int sellCount, int importCount, String manufacturerId,
 			double price, int point, String status) {
 		super();
 		this.name = name;
 		this.productTypeId = productTypeId;
+		this.description = description;
 		this.quantity = quantity;
 		this.sellCount = sellCount;
 		this.importCount = importCount;
@@ -34,6 +36,16 @@ public class Product {
 
 	public Product() {
 
+	}
+
+	
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getPoint() {

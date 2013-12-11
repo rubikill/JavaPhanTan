@@ -1,24 +1,24 @@
 <!-- Sidebar ================================================== -->
-<div id="sidebar" class="span3">
+<div id="sidebar" class="span3" ng-controller="productTypeCtrl">
 	<div class="well well-small">
-		<a id="myCart" href="product_summary">
+		<a id="myCart" href="#/product_summary">
 			<img src="themes/images/ico-cart.png" alt="cart">
-			{{iCount}} {{'_BTN_CART_' | i18n}}
-			<span class="badge badge-warning pull-right">{{total}}</span>
+			{{cart.length}} {{'_BTN_CART_' | i18n}}
+			<span class="badge badge-warning pull-right">{{cart.length}}</span>
 		</a>
 	</div>
 	<ul id="sideManu" class="nav nav-tabs nav-stacked">
-		<li class="subMenu open"><a> {{Category}} {{catNum}}</a>
+		<li class="subMenu open"><a>Camera</a>
 			<ul>
-				<li>
-					<a class="active" href="products">
-						<i class="icon-chevron-right"></i>{{Productname}} ({{amount}}) 
+				<li ng-repeat="item in listProductTypes">
+					<a href="#/products/{{item.id}}">
+						<i class="icon-chevron-right"></i>{{item.name}} (0)
 					</a>
 				</li>
 			</ul>
 		</li>
 	</ul>
-	<br />
+	<!-- <br />
 	<div class="thumbnail">
 		<img src="themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera" />
 		<div class="caption">
@@ -40,6 +40,6 @@
 		<div class="caption">
 			<h5>Payment Methods</h5>
 		</div>
-	</div>
+	</div> -->
 </div>
 <!-- Sidebar end=============================================== -->
