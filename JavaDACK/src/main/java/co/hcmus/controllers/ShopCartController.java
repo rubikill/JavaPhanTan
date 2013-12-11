@@ -1,6 +1,7 @@
 package co.hcmus.controllers;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,7 +36,7 @@ public class ShopCartController {
 	private IProductService productService;
 
 	/**
-	 * webservice to add produtct to shopcart
+	 * web service to add product to shopcart
 	 * 
 	 * @param id
 	 *            id of product add to cart
@@ -71,7 +73,7 @@ public class ShopCartController {
 
 	/**
 	 * 
-	 * webservice to delete produtct from shopcart
+	 * web service to delete product from shop cart
 	 * 
 	 * @param id
 	 *            id of product add to cart
@@ -106,7 +108,7 @@ public class ShopCartController {
 
 	/**
 	 * 
-	 * webservice to show all produtct from shopcart
+	 * web service to show all product from shopcart
 	 * 
 	 * @param request
 	 *            httpservlet request
@@ -128,4 +130,38 @@ public class ShopCartController {
 				HttpStatus.OK);
 	}
 
+	/**
+	 * web service to update cart
+	 * 
+	 * @param json
+	 * @param session
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/cart/updateCart", method = RequestMethod.PUT, headers = "Accept=application/json")
+	public ResponseEntity<String> updateCart(@RequestBody String json,
+			HttpSession session) {
+		// get cart from json
+		Cart cart = (Cart) Tools.fromJsonTo(json, Cart.class);
+		// get list cart item from session
+		List<Cart> listCartItems = (List<Cart>) session
+				.getAttribute("ShopCart");
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=utf-8");
+		// check if list cart item is null
+		if (listCartItems == null) {
+			listCartItems = new ArrayList<Cart>();
+			return new ResponseEntity<String>(Tools.toJsonArray(listCartItems),
+					headers, HttpStatus.BAD_REQUEST);
+		} else {
+			for (Cart c : listCartItems) {
+				if (c.getId().equals(cart.getId())) {
+					c.setCount(cart.getCount());
+				}
+			}
+			session.setAttribute("ShopCart", listCartItems);
+			return new ResponseEntity<String>(Tools.toJsonArray(listCartItems),
+					headers, HttpStatus.OK);
+		}
+	}
 }
