@@ -35,3 +35,7 @@
 1:46 AM 12/12/2013
 	- [DONE] Add new column 'productId' to collection 'ProductDetail'
 	
+[PHMTriet]
+9:50 PM 12/12/2013
+	- [CHANGE - DONE] Fix duplicate column 'status' in collection 'History'. Change it to 'payment_status' - Paid/Unpaid, 'status' - Active/Inactive
+	

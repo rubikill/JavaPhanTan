@@ -13,10 +13,9 @@ public class HistoryDetail {
 	private int amount;			// amount 
 	private String productId;	//id of product
 	private String status;		//status
-	public HistoryDetail(String id, String historyId, int amount,
+	public HistoryDetail(String historyId, int amount,
 			String productId, String status) {
 		super();
-		this.id = id;
 		this.historyId = historyId;
 		this.amount = amount;
 		this.productId = productId;
