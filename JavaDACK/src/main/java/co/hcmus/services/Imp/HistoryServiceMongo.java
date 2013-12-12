@@ -39,5 +39,10 @@ public class HistoryServiceMongo implements IHistoryService {
 	public void deleteHistory(String email) {
 		HistoryDAO.deleteHistory(email);
 	}
+
+	@Override
+	public List<History> getHistorysByEmail(String email) {
+		return HistoryDAO.getHistorysByEmail(email);
+	}
 	
 }

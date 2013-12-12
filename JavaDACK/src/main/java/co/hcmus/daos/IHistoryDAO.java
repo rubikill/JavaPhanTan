@@ -10,5 +10,5 @@ public interface IHistoryDAO {
 	public History getHistory(String id);
 	public void deleteHistory(String id);
 	public List<History> getHistorys();
-	
+	public List<History> getHistorysByEmail(String email);
 }
