@@ -46,4 +46,16 @@ public class RatingServiceMongo implements IRatingService {
 		return ratingDAO.getRatings();
 	}
 
+	@Override
+	public List<Rating> getRatingsByProductId(String productId) {
+		// TODO Auto-generated method stub
+		return ratingDAO.getRatingsByProductId(productId);
+	}
+
+	@Override
+	public Rating checkRaingByProductIdByEmail(String productId, String email) {
+		// TODO Auto-generated method stub
+		return ratingDAO.checkRaingByProductIdByEmail(productId, email);
+	}
+
 }
