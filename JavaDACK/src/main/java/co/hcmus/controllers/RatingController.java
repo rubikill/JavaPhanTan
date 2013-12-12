@@ -109,7 +109,7 @@ public class RatingController {
 				ratingInsert.setProductId(productId);
 				ratingInsert.setEmail(email);
 				ratingInsert.setStar(rate);
-				ratingInsert.setStatus(STATUS.ACTIVE.toString());
+				ratingInsert.setStatus(STATUS.ACTIVE.getStatusCode());
 				ratingService.addRating(ratingInsert);
 			} catch (Exception e) {
 				return new ResponseEntity<String>(headers,
