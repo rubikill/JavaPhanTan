@@ -20,9 +20,8 @@ shop.config(['$routeProvider',
                 controller : productDetailsCtrl
             })
             .when('/product_summary', {
-                templateUrl: '/partials/pages/product_summary.html'
-                // ,
-                // controller : homeCtrl
+                templateUrl: '/partials/pages/product_summary.html',
+                controller : cartCtrl
             })
             .when('/register', {
                 templateUrl: '/partials/pages/register.html'
@@ -34,7 +33,7 @@ shop.config(['$routeProvider',
                 // ,
                 // controller : homeCtrl
             })
-            .when('/products', {
+            .when('/products/:typeId', {
                 templateUrl: '/partials/pages/products.html',
                 controller: productCtrl
             })

@@ -65,7 +65,7 @@ public class ShopCartController {
 
 			System.out.println("after add: " + cartItems.size());
 			session.setAttribute("ShopCart", cartItems);
-			return new ResponseEntity<String>(headers, HttpStatus.OK);
+			return new ResponseEntity<String>(Tools.toJsonArray(cartItems), headers, HttpStatus.OK);
 		}
 	}
 
@@ -100,7 +100,7 @@ public class ShopCartController {
 			}
 			cartItems = shopCartItemService.deleteItem(cartItems, product);
 			session.setAttribute("ShopCart", cartItems);
-			return new ResponseEntity<String>(headers, HttpStatus.OK);
+			return new ResponseEntity<String>(Tools.toJsonArray(cartItems), headers, HttpStatus.OK);
 		}
 	}
 

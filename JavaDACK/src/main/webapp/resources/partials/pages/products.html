@@ -1,4 +1,4 @@
-<ng-include src="'partials/slider.html'" scope="" onload=""></ng-include>
+<!-- <ng-include src="'partials/slider.html'" scope="" onload=""></ng-include> -->
 <div id="mainBody">
     <div class="container">
         <div class="row">
@@ -21,31 +21,33 @@
                     <div class="control-group">
                         <!-- Sort tren day luon -->
                         <label class="control-label alignL">Sort By</label>
-                        <select>
-                            <option>Priduct name A - Z</option>
-                            <option>Priduct name Z - A</option>
-                            <option>Priduct Stoke</option>
-                            <option>Price Lowest first</option>
+                        <select ng-model="predicate">
+                            <option value="+price">Increment Price</option>
+                            <option value="-price">Decrement Price</option>
+                            <option value="+name">Increment Name</option>
+                            <option value="-name">Decrement Name</option>
+                            <option value="+quantity">Increment Quantity</option>
+                            <option value="-quantity">Decrement Quantity</option>
                         </select>
                     </div>
                 </form>
 
                 <div id="myTab" class="pull-right">
                     <a href="#listView" data-toggle="tab">
-                        <span class="btn btn-large"><i class="icon-list"></i>
+                        <span class="btn btn-large">
+                            <i class="icon-list"></i>
                         </span>
                     </a>
                     <a href="#blockView" data-toggle="tab">
-                        <span class="btn btn-large btn-primary"><i class="icon-th-large"></i>
+                        <span class="btn btn-large">
+                            <i class="icon-th-large"></i>
                         </span>
                     </a>
                 </div>
                 <br class="clr" />
                 <div class="tab-content">
-                    <div class="tab-pane" id="listView">
-
-
-                        <div class="row" ng-repeat="item in listProducts | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                    <div class="tab-pane active" id="listView">
+                        <div class="row" ng-repeat="item in listProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize ">
                             <div class="span2">
                                 <img src="themes/images/products/3.jpg" alt="" />
                             </div>
@@ -55,7 +57,7 @@
                                 <h5>{{item.name}}</h5>
                                 <p>desciption</p>
                                 <a class="btn btn-small pull-right" href="#/product_details/{{item.id}}">
-                                	View Details</a> 
+                                    View Details</a> 
                                 <br class="clr" />
                             </div>
                             <div class="span3 alignR">
@@ -65,23 +67,21 @@
                                         <input type="checkbox">Adds product to compair
                                     </label>
                                     <br />
-                                    <a href="#/product_details/{{item.id}}" class="btn btn-large btn-primary"> 
-											Add to <i class=" icon-shopping-cart"></i>
-										</a> 
+                                    <button class="btn btn-large btn-primary" ng-click="addToCart(item.id)">
+                                        Add to <i class=" icon-shopping-cart"></i>
+                                    </button>
                                     <a href="#/product_details/{{item.id}}" class="btn btn-large">
                                         <i class="icon-zoom-in"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
 
-                    <div class="tab-pane  active" id="blockView">
+                    <div class="tab-pane" id="blockView">
                         <ul class="thumbnails">
-                            <li class="span3" ng-repeat="item in listProducts | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
-                                <div class="thumbnail">
+                            <li class="span3" ng-repeat="item in listProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                                <div class="thumbnail" style="height: 400px;">
                                     <a href="#/product_details/{{item.id}}">
                                         <img src="themes/images/products/3.jpg" alt="" />
                                     </a>
@@ -93,7 +93,7 @@
                                                 <i class="icon-zoom-in"></i>
                                             </a>
                                             <a class="btn" href="#">
-                                            	Add to <i class="icon-shopping-cart"></i>
+                                                Add to <i class="icon-shopping-cart"></i>
                                             </a>
                                             <a class="btn btn-primary" href="#">${{item.price}}</a>
                                         </h4>
@@ -105,17 +105,19 @@
                     </div>
                 </div>
 
-                <a href="compair.html" class="btn btn-large pull-right">Compair
-						Product</a>
+                <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
                 <div class="pagination">
                     <ul>
-                        <li><a href="#">&lsaquo;</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">&rsaquo;</a></li>
+                        <li><a ng-click="prev()">&lsaquo;</a>
+                        </li>
+                        <li><a>{{currentPage}}</a>
+                        </li>
+                        <li><a ng-click="next()">&rsaquo;</a>
+                        </li>
                     </ul>
 
-                    <pagination total-items="numberOfPages" page="currentPage"></pagination>
                 </div>
+                Total: {{numberOfPages}} pages
                 <br class="clr" />
             </div>
         </div>

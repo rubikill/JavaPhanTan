@@ -81,6 +81,13 @@ public class AccountController {
 		}
 	}
 
+	/**
+	 * Register
+	 * 
+	 * @param json
+	 *            Account information
+	 * @return Result
+	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody String json) {
 		Account account = Tools.fromJsonTo(json, Account.class);
@@ -109,7 +116,13 @@ public class AccountController {
 				HttpStatus.BAD_REQUEST);
 	}
 
-	// restfull login here
+	/**
+	 * Register
+	 * 
+	 * @param json
+	 *            Account information
+	 * @return Result
+	 */
 	@RequestMapping(value = "/forgetpass", method = RequestMethod.POST)
 	public ResponseEntity<String> forgetPassword(@RequestBody String json) {
 		//Recive a email address here
