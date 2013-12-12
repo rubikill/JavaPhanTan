@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import co.hcmus.models.ProductDetail;
 import co.hcmus.services.Imp.AccountServiceMongo;
 import co.hcmus.services.Imp.AccountTypeServiceMongo;
 import co.hcmus.services.Imp.CommentServiceMongo;
@@ -18,7 +17,6 @@ import co.hcmus.services.Imp.PermissionServiceMongo;
 import co.hcmus.services.Imp.ProductDetailServiceMongo;
 import co.hcmus.services.Imp.ProductServiceMongo;
 import co.hcmus.services.Imp.ProductTypeServiceMongo;
-import co.hcmus.util.STATUS;
 
 /**
  * Handles requests for the application home page.
@@ -43,6 +41,8 @@ public class HomeController {
 	private ManufacturerServiceMongo manufacturerService;
 	@Autowired
 	private ProductDetailServiceMongo productDetailService;
+//	@Autowired
+//	private ImageServiceMongo imageService;
 
 	// private Manufacturer
 	/**
@@ -360,7 +360,9 @@ public class HomeController {
 		// pd = new ProductDetail("52a60af5dcac3f217a062faa", 1, 3, 15,
 		// STATUS.ACTIVE.getStatusCode());
 		// productDetailService.addProductDetail(pd);
-
+		
+		productService.saveImage("52a60af5dcac3f217a062f8d", "E:\\DropBox\\Java + LTHD\\DACK\\RESOURCE\\Resource\\1_detail.jpg");
+		productService.writeImage("52a60af5dcac3f217a062f8d", "abcdbab.jpg");
 		return "home";
 	}
 

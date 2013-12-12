@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mongodb.gridfs.GridFSDBFile;
+
 import co.hcmus.daos.IProductDAO;
 import co.hcmus.models.Product;
 import co.hcmus.services.IProductService;
@@ -56,6 +58,29 @@ public class ProductServiceMongo implements IProductService {
 	public List<Product> getProductsByManufacturerId(String id) {
 		// TODO Auto-generated method stub
 		return productDAO.getProductsByManufacturerId(id);
+	}
+
+	@Override
+	public void saveImage(String name, String path) {
+		productDAO.saveImage(name, path);
+		
+	}
+
+	@Override
+	public GridFSDBFile getImageByName(String name) {
+		return productDAO.getImageByName(name);
+	}
+
+	@Override
+	public void writeImage(String name, String path) {
+		productDAO.writeImage(name, path);
+		
+	}
+
+	@Override
+	public void deleteImageByName(String name) {
+		productDAO.deleteImageByName(name);
+		
 	}
 
 }

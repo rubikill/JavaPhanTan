@@ -12,7 +12,7 @@ import co.hcmus.daos.IAccountDAO;
 import co.hcmus.models.Account;
 
 @Repository("accountDAO")
-public class AccountDAOMongo implements IAccountDAO {
+public class AccountDAOMongo implements IAccountDAO{//, UserDetailsService {
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	public static final String COLLECTION_NAME = "account"; //Collection name save in MongoDB
@@ -52,4 +52,37 @@ public class AccountDAOMongo implements IAccountDAO {
 		return mongoTemplate.findOne(searchAccountQuery, Account.class,
 				COLLECTION_NAME);
 	}
+	
+//	@Override
+//	public UserDetails loadUserByUsername(String email)
+//			throws UsernameNotFoundException {
+//		Account account = getAccount(email);
+//		System.out.println(email);
+//		User userDetail = new User(account.getEmail(), account.getPassword(),
+//				true, true, true, true,
+//				getAuthorities(account.getAccountTypeId()));
+//		return userDetail;
+//	}
+//
+//	public List<GrantedAuthority> getAuthorities(String accountTypeId) {
+//		List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
+//		
+//		if (role.intValue() == 1) {
+//			authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+//			authList.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//		} else if (role.intValue() == 2) {
+//			authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+//		}
+//		
+//		return authList;
+//	}
+//
+//	public User getUserDetail(String username) {
+//		MongoOperations mongoOperation = (MongoOperations) mongoTemplate;
+//		User user = mongoOperation.findOne(new Query(Criteria.where("username")
+//				.is(username)), User.class);
+//		System.out.println(user.toString());
+//		return user;
+//	}
+	
 }

@@ -39,4 +39,6 @@ public class AccountServiceMongo implements IAccountService {
 	public void deleteAccount(String email) {
 		accountDAO.deleteAccount(email);
 	}
+
+	
 }
