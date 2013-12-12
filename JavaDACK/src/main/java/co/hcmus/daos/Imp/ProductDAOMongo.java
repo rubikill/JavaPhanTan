@@ -72,4 +72,5 @@ public class ProductDAOMongo implements IProductDAO {
 				Product.class, COLLECTION_NAME);
 	}
 
+
 }

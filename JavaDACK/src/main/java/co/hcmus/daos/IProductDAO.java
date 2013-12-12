@@ -18,4 +18,6 @@ public interface IProductDAO {
 	public List<Product> getProductsByTypeId(String id);
 
 	public List<Product> getProductsByManufacturerId(String id);
+	
+	
 }

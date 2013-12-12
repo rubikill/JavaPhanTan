@@ -55,4 +55,12 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 		return mongoTemplate.findAll(ProductDetail.class, COLLECTION_NAME);
 	}
 
+	@Override
+	public ProductDetail getProductDetailByProductId(String productId) {
+		// TODO Auto-generated method stub
+		Query searchProductDetailByProductIdQuery = new Query(Criteria.where("productId").is(productId));
+		return mongoTemplate.findOne(searchProductDetailByProductIdQuery,
+				ProductDetail.class, COLLECTION_NAME);
+	}
+
 }
