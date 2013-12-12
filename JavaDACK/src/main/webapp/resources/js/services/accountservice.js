@@ -1,23 +1,23 @@
 'use strict';
 
-shopsv.factory('Account', function($resource) {
-	return $resource('/:action', {
-		action: "@action"
-	}, {
-		login : {
-			method : 'POST',
-			params : {
-				action : "login"
-			}
-		},
-		register : {
-			method : 'POST',
-			params : {
-				action : "register"
-			}
-		}
-	});
-});
+// shopsv.factory('Account', function($resource) {
+// 	return $resource('/:action', {
+// 		action: "@action"
+// 	}, {
+// 		login : {
+// 			method : 'POST',
+// 			params : {
+// 				action : "login"
+// 			}
+// 		},
+// 		register : {
+// 			method : 'POST',
+// 			params : {
+// 				action : "register"
+// 			}
+// 		}
+// 	});
+// });
 
 
 

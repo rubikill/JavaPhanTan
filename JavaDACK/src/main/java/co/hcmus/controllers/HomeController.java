@@ -361,8 +361,8 @@ public class HomeController {
 		// STATUS.ACTIVE.getStatusCode());
 		// productDetailService.addProductDetail(pd);
 		
-		productService.saveImage("52a60af5dcac3f217a062f8d", "E:\\DropBox\\Java + LTHD\\DACK\\RESOURCE\\Resource\\1_detail.jpg");
-		productService.writeImage("52a60af5dcac3f217a062f8d", "abcdbab.jpg");
+		//productService.saveImage("52a60af5dcac3f217a062f8d", "E:\\DropBox\\Java + LTHD\\DACK\\RESOURCE\\Resource\\1_detail.jpg");
+		//productService.writeImage("52a60af5dcac3f217a062f8d", "abcdbab.jpg");
 		return "home";
 	}
 

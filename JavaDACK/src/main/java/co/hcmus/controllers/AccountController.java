@@ -2,6 +2,8 @@ package co.hcmus.controllers;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -55,7 +57,7 @@ public class AccountController {
 	 */
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<String> login(@RequestBody String json) {
+	public ResponseEntity<String> login(@RequestBody String json, HttpSession session) {
 		Account accountTemp = Tools.fromJsonTo(json, Account.class);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -70,13 +72,35 @@ public class AccountController {
 		} else {
 			if (account.getPassword().equals(accountTemp.getPassword())) {
 				System.out.println("Login success");
-				//session.putValue("email", account.getEmail());
-				return new ResponseEntity<String>(headers, HttpStatus.OK);
+				session.setAttribute("email", account.getEmail());
+				return new ResponseEntity<String>(Tools.toJson(account), headers, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<String>("Wrong password", headers,
-						HttpStatus.BAD_REQUEST);
+					HttpStatus.BAD_REQUEST);
 			}
 		}
+	}
+
+	@RequestMapping(value = "/ping", method = RequestMethod.GET)
+	public ResponseEntity<String> ping(HttpSession session) {
+		if(session.getAttribute("email") == null){
+			System.out.println("ping failure...");
+			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
+		}else{
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", "application/json");
+			Account account = accountService.getAccount(session.getAttribute("email").toString());
+			System.out.println("ping success...");
+			return new ResponseEntity<String>(Tools.toJson(account), headers, HttpStatus.OK);
+		}
+		
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public ResponseEntity<String> logout(HttpSession session) {
+		session.removeAttribute("email");
+		System.out.println("logout...");
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 	/**
@@ -108,10 +132,10 @@ public class AccountController {
 				e.printStackTrace();
 			}
 			return new ResponseEntity<String>("Create success", headers,
-					HttpStatus.OK);
+				HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Create failure", headers,
-				HttpStatus.BAD_REQUEST);
+			HttpStatus.BAD_REQUEST);
 	}
 
 	/**
@@ -145,12 +169,12 @@ public class AccountController {
 			sendMailHelper.sendMail(emailForm);
 			
 			return new ResponseEntity<String>("Send mail succsess", headers,
-					HttpStatus.OK);
+				HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ResponseEntity<String>("Send mail failure", headers,
-					HttpStatus.BAD_REQUEST);
+				HttpStatus.BAD_REQUEST);
 		}		
 	}
 

@@ -15,6 +15,10 @@
 	"value": "Khuyến mãi"
 },
 {
+	"key":"_NAV_CART_",
+	"value": "Giỏ hàng"
+},
+{
 	"key":"_NAV_CONTACT_",
 	"value": "Liên hệ"
 },

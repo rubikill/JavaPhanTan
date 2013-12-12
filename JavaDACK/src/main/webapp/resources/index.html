@@ -15,6 +15,9 @@
 	<link href="themes/css/jquery-ui.css" rel="stylesheet" type="text/css">
 	<!-- Google-code-prettify -->
 	<link href="themes/js/google-code-prettify/prettify.css" rel="stylesheet" />
+	<link href="themes/css/alertify.default.css" rel="stylesheet" />
+	<link href="themes/css/alertify.core.css" rel="stylesheet" />
+	<link href="themes/css/bootstrap-datepicker.css" rel="stylesheet" />
 	<!-- fav and touch icons -->
 	<link rel="shortcut icon" href="themes/images/ico/favicon.ico">
 
@@ -23,8 +26,12 @@
 	<!-- Header -->
 	<div id="header">
 		<div class="container">
-			<ng-include src="'partials/header.html'" scope="" onload=""></ng-include>
-			<select class="span1" ng-model="currentLanguage" ng-options="lang.name for lang in languages"></select>
+			<div class="row">
+				<div class="span4">
+					<select class="span1" ng-model="currentLanguage" ng-options="lang.name for lang in languages"></select>
+				</div>
+				<ng-include src="'partials/header.html'" scope="" onload=""></ng-include>			
+			</div>			
 			<ng-include src="'partials/nav.html'" scope="" onload=""></ng-include>
 		</div>
 	</div>
@@ -46,6 +53,9 @@
 	<script src="js/lib/angular-resource.min.js"></script>
 	<script src="js/lib/angular-strap.min.js"></script>
 	<script src="js/lib/localize.js"></script>
+	<script src="js/lib/alertify.min.js"></script>
+	<script src="js/lib/bootstrap-datepicker.js"></script>
+	<script src="js/lib/bootstrap-rating-input.min.js"></script>
 
 	<!-- App -->
 	<script src="js/app.js"></script>

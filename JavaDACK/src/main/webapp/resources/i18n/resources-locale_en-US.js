@@ -13,6 +13,10 @@
 	"value": "Specials Offer"
 },
 {
+	"key":"_NAV_CART_",
+	"value": "Cart"
+},
+{
 	"key":"_NAV_CONTACT_",
 	"value": "Contact"
 },
