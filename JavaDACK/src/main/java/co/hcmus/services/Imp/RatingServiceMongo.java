@@ -47,15 +47,21 @@ public class RatingServiceMongo implements IRatingService {
 	}
 
 	@Override
-	public List<Rating> getRatingsByProductId(String productId) {
+	public List<Rating> getRatingsByProductId(String productId, String status) {
 		// TODO Auto-generated method stub
-		return ratingDAO.getRatingsByProductId(productId);
+		return ratingDAO.getRatingsByProductId(productId,status);
 	}
 
 	@Override
-	public Rating checkRaingByProductIdByEmail(String productId, String email) {
+	public Rating checkRaingByProductIdByEmail(String productId, String email , String status) {
 		// TODO Auto-generated method stub
-		return ratingDAO.checkRaingByProductIdByEmail(productId, email);
+		return ratingDAO.checkRaingByProductIdByEmail(productId, email, status);
+	}
+
+	@Override
+	public Rating getRatingByEmail(String email, String status) {
+		// TODO Auto-generated method stub
+		return ratingDAO.getRatingByEmail(email, status);
 	}
 
 }

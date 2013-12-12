@@ -15,7 +15,9 @@ public interface IRatingService {
 
 	public List<Rating> getRatings();
 
-	public List<Rating> getRatingsByProductId(String productId);
+	public List<Rating> getRatingsByProductId(String productId, String status);
 	
-	public Rating checkRaingByProductIdByEmail(String productId, String email);
+	public Rating checkRaingByProductIdByEmail(String productId, String email, String status);
+	
+	public Rating getRatingByEmail(String email,String status);
 }
