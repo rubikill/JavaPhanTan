@@ -1,6 +1,6 @@
 'use strict';
 
-function menuCtrl($location, $scope, localize, $rootScope, $cookieStore, Cart) {
+function menuCtrl($location, $scope, localize, $rootScope, $cookieStore, Cart, LoginService) {
 	$scope.path = $location.path();
 
 	$scope.$on('$locationChangeSuccess', function() {
