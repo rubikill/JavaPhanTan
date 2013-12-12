@@ -24,12 +24,21 @@ shopsv.factory('Product', function($resource) {
 
 shopsv.factory('ProductType', function($resource) {
     return $resource('/type', {
-        //trong truong hop lay 1 san pham thi type la id cua san pham
         type: "@type"
     }, {
         getProductTypes: {
             method: 'GET',
             isArray: true
+        }
+    });
+});
+
+shopsv.factory('ProductDetails', function($resource) {
+    return $resource('/productDetail/:id', {
+        id: "@id"
+    }, {
+        getProductDetails: {
+            method: 'GET'
         }
     });
 });

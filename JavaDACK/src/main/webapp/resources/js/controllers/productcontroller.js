@@ -68,7 +68,33 @@ function productTypeCtrl($scope, $rootScope, ProductType, $routeParams) {
 }
 
 
-function productDetailsCtrl($scope, $rootScope, $location, $routeParams){
+function productDetailsCtrl($scope, $rootScope, $location, $routeParams, ProductDetails, Product, Cart){
 
-	console.log($routeParams.id);
+	Product.getProductById({
+		id: $routeParams.id
+	}, function (data) {
+		$scope.product = data;
+		//console.log(data);
+		ProductDetails.getProductDetails({
+			id: $routeParams.id
+		}, function (data) {
+			$scope.product.details = data;
+			//console.log(data);
+		}, function (response) {
+			console.log(response);
+		});
+	}, function (response) {
+		
+	});
+
+	$scope.addToCart = function (productId) {
+		Cart.addProductToCart({
+			id: productId
+		}, function (data) {
+			$rootScope.cart = data;
+			//console.log(data);
+		}, function (response) {
+			//console.log(response);
+		});
+	}
 }
