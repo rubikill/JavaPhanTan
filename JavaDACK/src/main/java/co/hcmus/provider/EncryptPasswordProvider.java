@@ -3,19 +3,15 @@ package co.hcmus.provider;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.stereotype.Service;
+
+@Service("encryptPasswordProvider")
 public class EncryptPasswordProvider implements EncryptProvider {
-	private String plainPassword;
-	private String algorithm;
-	
-	
+
 	public EncryptPasswordProvider(){
 		
 	}
-	
-	public EncryptPasswordProvider(String plainPassword){
-		this.plainPassword = plainPassword;
-		this.algorithm = "MD5";
-	}
+
 	/**
 	 * Do Hash
 	 * 
@@ -44,9 +40,19 @@ public class EncryptPasswordProvider implements EncryptProvider {
 		return null;
 	}
 
-	@Override
-	public StringBuffer hash() {
-		return doHash(plainPassword, algorithm);
+	private Boolean isMatch(String plainPassword, String checkSum, String algorithm){
+		String hashedPassword = doHash(plainPassword, algorithm).toString();
+
+		return hashedPassword.equals(checkSum);
 	}
 
+	@Override
+	public StringBuffer hash(String path, String algorithm) {
+		return doHash(path, algorithm);
+	}
+
+	@Override
+	public Boolean checkSum(String srcPath, String desPath, String algorithm){
+		return isMatch(srcPath, desPath, algorithm);
+	}
 }

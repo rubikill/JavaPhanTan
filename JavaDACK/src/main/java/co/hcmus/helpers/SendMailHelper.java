@@ -13,10 +13,14 @@ import javax.mail.internet.MimeMessage;
 import co.hcmus.models.EmailForm;
 import co.hcmus.util.Constant;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author Thanh Toan
  * 
  */
+
+@Service("sendMailHelper")
 public class SendMailHelper {
 
 	public SendMailHelper(){
@@ -67,82 +71,6 @@ public class SendMailHelper {
 	}
 
 	/**
-	 * Send mail from "username" to "recipient" with "subject", "message" and
-	 * acttach "file"
-	 * 
-	 * @param host
-	 * @param port
-	 * @param userName
-	 * @param password
-	 * @param recipient
-	 * @param subject
-	 * @param message
-	 * @param attachFile
-	 * @throws Exception
-	 */
-
-// 	public void sendWithFile(String host, String port, final String userName,
-// 			final String password, String recipient, String subject,
-// 			String message, File attachFile) throws AddressException,
-// 			MessagingException {
-// 		// sets SMTP server properties
-// 		Properties properties = new Properties();
-// 		properties.put("mail.smtp.host", host);
-// 		properties.put("mail.smtp.port", port);
-// 		properties.put("mail.smtp.auth", "true");
-// 		properties.put("mail.smtp.starttls.enable", "true");
-// 		properties.put("mail.user", userName);
-// 		properties.put("mail.password", password);
-
-// 		// creates a new session with an authenticator
-// //		Authenticator auth = new Authenticator() {
-// //			public PasswordAuthentication getPasswordAuthentication() {
-// //				return new PasswordAuthentication(userName, password);
-// //			}
-// //		};
-// 		Session session = Session.getInstance(properties, null);
-
-// 		// creates a new e-mail message
-// 		Message msg = new MimeMessage(session);
-
-// 		msg.setFrom(new InternetAddress(userName));
-// 		InternetAddress[] toAddresses = { new InternetAddress(recipient) };
-// 		msg.setRecipients(Message.RecipientType.TO, toAddresses);
-// 		msg.setSubject(subject);
-// 		msg.setSentDate(new Date());
-
-// 		// creates message part
-// 		MimeBodyPart messageBodyPart = new MimeBodyPart();
-// 		messageBodyPart.setContent(message, "text/html; charset=\"UTF-8\"");
-// 		messageBodyPart.setHeader("Content-Type",
-// 				"text/html; charset=\"utf-8\"");
-// 		messageBodyPart.setHeader("Content-Tranfer-Encoding",
-// 				"quoted-printable");
-
-// 		// creates multi-part
-// 		Multipart multipart = new MimeMultipart();
-// 		multipart.addBodyPart(messageBodyPart);
-
-// 		// adds attachments
-// 		if (attachFile != null) {
-// 			MimeBodyPart attachPart = new MimeBodyPart();
-
-// 			try {
-// 				attachPart.attachFile(attachFile);
-// 			} catch (IOException ex) {
-// 				ex.printStackTrace();
-// 			}
-
-// 			multipart.addBodyPart(attachPart);
-// 		}
-// 		// sets the multi-part as e-mail's content
-// 		msg.setContent(multipart);
-
-// 		// sends the e-mail
-// 		Transport.send(msg);
-// 	}
-
-	/**
 	 * function send email, not include file Ginji
 	 */
 	public void sendMail(EmailForm email) throws Exception {
@@ -152,17 +80,4 @@ public class SendMailHelper {
 
 		this.send(smtpServer, email.reciver, from, password, email.subject, email.body);
 	}
-
-	/**
-	 * function send email, include attached file Ginji
-	 */
-	// public void sendMailWithAttachedFile(String to, String subject,
-	// 		String message, File attachedFile) throws Exception {
-	// 	String smtpServer = "smtp.gmail.com";
-	// 	String from = "nvquy082013@gmail.com";
-	// 	String port = "465";
-	// 	String password = "nv123456789";
-	// 	this.sendWithFile(smtpServer, port, from, password, to, subject,
-	// 			message, attachedFile);
-	// }
 }

@@ -19,7 +19,12 @@ import co.hcmus.models.Account;
 import co.hcmus.models.EmailForm;
 import co.hcmus.services.IAccountService;
 import co.hcmus.util.Tools;
+import co.hcmus.util.Constant;
+import co.hcmus.util.STATUS;
 
+import co.hcmus.provider.EncryptProvider;
+
+import java.util.UUID;
 /**
  * Handles requests for the application home page.
  */
@@ -48,6 +53,11 @@ public class AccountController {
 		return "forgetpass";
 	}
 
+	@Autowired
+	EncryptProvider encryptPasswordProvider;
+
+	@Autowired
+	SendMailHelper sendMailHelper;
 	/**
 	 * Login
 	 * 
@@ -64,13 +74,14 @@ public class AccountController {
 		headers.add("Content-Type", "application/json");
 		// Create AccountService
 		// get Account with email
+		
 		Account account = accountService.getAccount(accountTemp.getEmail());
 
 		// check account
 		if (account == null) {
 			return new ResponseEntity<String>("Account does not exsits", headers, HttpStatus.BAD_REQUEST);
 		} else {
-			if (account.getPassword().equals(accountTemp.getPassword())) {
+			if (encryptPasswordProvider.checkSum(accountTemp.getPassword(), account.getPassword(), Constant.MD5)) {
 				System.out.println("Login success");
 				session.setAttribute("email", account.getEmail());
 				return new ResponseEntity<String>(Tools.toJson(account), headers, HttpStatus.OK);
@@ -121,11 +132,24 @@ public class AccountController {
 		headers.add("Content-Type", "text/html");
 		// Create AccountService
 		// get Account with email
+		account.setPassword(encryptPasswordProvider.hash(account.getPassword(), Constant.MD5).toString());
 
+		//Gen Token here
+		account.setToken(UUID.randomUUID().toString());
+		//Set accout type here
+
+		//Set status
+		account.setStatus(STATUS.INACTIVE.getStatusCode());
 		// check account
 		if (accountService.getAccount(account.getEmail()) == null) {
 			try {
 				accountService.addAccount(account);
+
+				EmailForm emailForm = new EmailForm();
+				emailForm.reciver = email;
+				emailForm.subject = "Welcome to Camera Shop";
+				emailForm.body = "Your new password is: " + "xxxxxxxxx";
+
 			} catch (Exception e) {
 				// TODO: handle exception
 				System.out.println("Problem when create account");
@@ -163,8 +187,6 @@ public class AccountController {
 		emailForm.body = "Your new password is: " + "xxxxxxxxx";
 
 		//Send a email to reset password
-		
-		SendMailHelper sendMailHelper = new SendMailHelper();
 		try {
 			sendMailHelper.sendMail(emailForm);
 			
