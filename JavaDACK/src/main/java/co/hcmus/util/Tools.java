@@ -11,7 +11,7 @@ public class Tools {
 
     }
 	public static <T> Collection<T> fromJsonToArray(String json, Class<T> valueType) {
-        return new JSONDeserializer<Collection<T>>().use(null, valueType).deserialize(json);
+        return new JSONDeserializer<Collection<T>>().deserialize(json);
        
 
     }
