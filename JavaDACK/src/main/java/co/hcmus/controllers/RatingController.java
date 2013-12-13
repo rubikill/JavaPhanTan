@@ -28,7 +28,7 @@ public class RatingController {
 	 * @param productId
 	 * @return
 	 */
-	@RequestMapping(value = "rating/{productId}", method = RequestMethod.GET, headers = "Accept=application/json")
+	@RequestMapping(value = "rating/{productId}", method = RequestMethod.POST, headers = "Accept=application/json")
 	@ResponseBody
 	public ResponseEntity<String> checkRatingByProductIdByEmail(
 			@PathVariable("productId") String productId,
@@ -42,17 +42,17 @@ public class RatingController {
 		String email = ratingTempFromJson.getEmail();
 
 		// get product byID
-		Rating result = ratingService.checkRaingByProductIdByEmail(productId,
+		double  resultAverage = ratingService.checkRaingByProductIdByEmail(productId,
 				email, STATUS.ACTIVE.getStatusCode());
 		// create header
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 
 		boolean flagIsRated;
-		int sumAverage;
+		double sumAverage;
 		int rateOfEmail;
 		String jsonResult;
-		if (result == null) {
+		if (resultAverage ==  -1) {
 			flagIsRated = false;
 			sumAverage = 0;
 			rateOfEmail = 0;
@@ -63,7 +63,7 @@ public class RatingController {
 					HttpStatus.BAD_REQUEST);
 		} else {
 			flagIsRated = true;
-			sumAverage = result.getStar();
+			sumAverage = resultAverage;
 			// get rating by email
 			Rating ratingByEmail = ratingService.getRatingByEmail(email,
 					STATUS.ACTIVE.getStatusCode());
@@ -82,7 +82,7 @@ public class RatingController {
 	 * @param json
 	 * @return
 	 */
-	@RequestMapping(value = "rating/{productId}", method = RequestMethod.POST, headers = "Accept=application/json")
+	@RequestMapping(value = "rating/{productId}", method = RequestMethod.PUT, headers = "Accept=application/json")
 	@ResponseBody
 	public ResponseEntity<String> ratingSaveOrUpdate(
 			@PathVariable("productId") String productId,
@@ -96,13 +96,13 @@ public class RatingController {
 		String email = ratingTempFromJson.getEmail();
 		// get rate
 		int rate = ratingTempFromJson.getStar();
-		// get product byID and email
-		Rating result = ratingService.checkRaingByProductIdByEmail(productId,
+		// get rating byID and email
+		Double result = ratingService.checkRaingByProductIdByEmail(productId,
 				email, STATUS.ACTIVE.getStatusCode());
 		// create header
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-		if (result == null) // add rate
+		if (result == -1) // add rate
 		{
 			try {
 				Rating ratingInsert = new Rating();
@@ -118,8 +118,13 @@ public class RatingController {
 		} else // update
 		{
 			try {
+				
+				//get rating with email
+				Rating ratingByEmail = ratingService.getRatingByEmail(email,
+						STATUS.ACTIVE.getStatusCode());
+				
 				Rating ratingUpdate = new Rating();
-				ratingUpdate.setId(result.getId());
+				ratingUpdate.setId(ratingByEmail.getId());
 				ratingUpdate.setProductId(productId);
 				ratingUpdate.setEmail(email);
 				ratingUpdate.setStar(rate);

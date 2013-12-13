@@ -17,7 +17,7 @@ public interface IRatingDAO {
 	
 	public List<Rating> getRatingsByProductId(String productId, String status);
 	
-	public Rating checkRaingByProductIdByEmail(String productId, String email ,String status);
+	public double checkRaingByProductIdByEmail(String productId, String email ,String status);
 	
 	public Rating getRatingByEmail(String email, String status);
 }
