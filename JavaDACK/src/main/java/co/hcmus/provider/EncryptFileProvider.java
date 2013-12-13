@@ -44,7 +44,7 @@ public class EncryptFileProvider implements EncryptProvider {
 			StringBuffer sb = new StringBuffer("");
 			for (int i = 0; i < mdbytes.length; i++) {
 				sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16)
-						.substring(1));
+					.substring(1));
 			}
 			fis.close();
 			return sb;
@@ -77,9 +77,20 @@ public class EncryptFileProvider implements EncryptProvider {
 	// return trueData.equals(checkData);
 	// }
 
+	private Boolean isMatch(String plainPassword, String checkSum, String algorithm){
+		//String hashedPassword = doHash(plainPassword, algorithm);
+
+		//return hashedPassword.equals(checkSum);
+
+		return true;
+	}
 	@Override
-	public StringBuffer hash() {
-		return doHash(filePath, algorithm);
+	public StringBuffer hash(String path, String algorithm) {
+		return doHash(path, algorithm);
 	}
 
+	@Override
+	public Boolean checkSum(String srcPath, String desPath, String algorithm){
+		return isMatch(srcPath, desPath, algorithm);
+	}
 }

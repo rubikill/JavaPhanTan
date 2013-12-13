@@ -24,9 +24,8 @@ shop.config(['$routeProvider',
                 controller : cartCtrl
             })
             .when('/register', {
-                templateUrl: '/partials/pages/register.html'
-                // ,
-                // controller : homeCtrl
+                templateUrl: '/partials/pages/register.html',
+                controller : accountCtrl
             })
             .when('/special_offer', {
                 templateUrl: '/partials/pages/special_offer.html'

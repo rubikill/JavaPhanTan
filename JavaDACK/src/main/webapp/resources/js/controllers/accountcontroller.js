@@ -1,6 +1,6 @@
 'use strict';
 
-function accountCtrl($scope, $rootScope, $location, LoginService, localize){
+function accountCtrl($scope, $rootScope, $location, LoginService, localize, Account){
 	$scope.account = {};
 
 	$scope.login = function () {
@@ -14,15 +14,16 @@ function accountCtrl($scope, $rootScope, $location, LoginService, localize){
 			$scope.errMessage = localize.getLocalizedString(msg);
 		});
 	};
-	// 	Account.login({
 
-	// 	}, $scope.account, function (data) {
-	// 		console.log(data);
-	// 		$rootScope.currentAccount = $scope.account;
-	// 		$location.path("/");
-	// 	}, function (response) {
-	// 		console.log(response);
-	// 	});
+	$scope.regUser = {};
 
+	$scope.register = function () {
+		Account.register({
 
+		}, $scope.regUser, function (data) {
+			
+		}, function (response) {
+			
+		});
+	}
 }

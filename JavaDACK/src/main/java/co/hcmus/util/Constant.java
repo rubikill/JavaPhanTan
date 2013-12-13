@@ -5,4 +5,6 @@ public class Constant {
 	public static final String SMTP_GMAIL_PORT = "465";
 	public static final String SHOP_EMAIL = "httoan001@gmail.com";
 	public static final String SHOP_EMAIL_PASSWORD = "16071992";
+
+	public static final String MD5 = "MD5";
 }
