@@ -67,7 +67,8 @@ public class ShopCartController {
 
 			System.out.println("after add: " + cartItems.size());
 			session.setAttribute("ShopCart", cartItems);
-			return new ResponseEntity<String>(Tools.toJsonArray(cartItems), headers, HttpStatus.OK);
+			return new ResponseEntity<String>(Tools.toJsonArray(cartItems),
+					headers, HttpStatus.OK);
 		}
 	}
 
@@ -102,7 +103,8 @@ public class ShopCartController {
 			}
 			cartItems = shopCartItemService.deleteItem(cartItems, product);
 			session.setAttribute("ShopCart", cartItems);
-			return new ResponseEntity<String>(Tools.toJsonArray(cartItems), headers, HttpStatus.OK);
+			return new ResponseEntity<String>(Tools.toJsonArray(cartItems),
+					headers, HttpStatus.OK);
 		}
 	}
 
@@ -142,26 +144,13 @@ public class ShopCartController {
 	public ResponseEntity<String> updateCart(@RequestBody String json,
 			HttpSession session) {
 		// get cart from json
-		Cart cart = (Cart) Tools.fromJsonTo(json, Cart.class);
-		// get list cart item from session
-		List<Cart> listCartItems = (List<Cart>) session
-				.getAttribute("ShopCart");
+		List<Cart> listCartToUpdate = (List<Cart>) Tools.fromJsonToArray(json,
+				Cart.class);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-		// check if list cart item is null
-		if (listCartItems == null) {
-			listCartItems = new ArrayList<Cart>();
-			return new ResponseEntity<String>(Tools.toJsonArray(listCartItems),
-					headers, HttpStatus.BAD_REQUEST);
-		} else {
-			for (Cart c : listCartItems) {
-				if (c.getId().equals(cart.getId())) {
-					c.setCount(cart.getCount());
-				}
-			}
-			session.setAttribute("ShopCart", listCartItems);
-			return new ResponseEntity<String>(Tools.toJsonArray(listCartItems),
-					headers, HttpStatus.OK);
-		}
+		session.setAttribute("ShopCart", listCartToUpdate);
+		return new ResponseEntity<String>(Tools.toJsonArray(listCartToUpdate),
+				headers, HttpStatus.OK);
 	}
+
 }
