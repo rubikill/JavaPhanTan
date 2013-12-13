@@ -2,6 +2,8 @@ package co.hcmus.daos;
 
 import java.util.List;
 
+import com.mongodb.gridfs.GridFSDBFile;
+
 import co.hcmus.models.Product;
 
 public interface IProductDAO {
@@ -18,6 +20,13 @@ public interface IProductDAO {
 	public List<Product> getProductsByTypeId(String id);
 
 	public List<Product> getProductsByManufacturerId(String id);
-	
-	
+
+	public void saveImage(String name, String path);
+
+	public GridFSDBFile getImageByName(String name);
+
+	public void writeImage(String name, String path);
+
+	public void deleteImageByName(String name);
+
 }

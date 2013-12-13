@@ -59,4 +59,9 @@ public class HistoryDAOMongo implements IHistoryDAO {
 		return mongoTemplate.findAll(History.class, COLLECTION_NAME);
 	}
 
+	@Override
+	public List<History> getHistorysByEmail(String email) {
+		return mongoTemplate.find(new Query(Criteria.where("email").is(email)), History.class);
+	}
+
 }
