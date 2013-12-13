@@ -1,34 +1,44 @@
 'use strict';
 
 function menuCtrl($location, $scope, localize, $rootScope, $cookieStore, Cart, LoginService) {
-	$scope.path = $location.path();
+    $scope.path = $location.path();
 
-	$scope.$on('$locationChangeSuccess', function() {
-		$scope.path = $location.path();
-		//console.log($scope.path);
-	});
+    $scope.$on('$locationChangeSuccess', function() {
+        $scope.path = $location.path();
+        //console.log($scope.path);
+    });
 
-	/**
-	 * Change localize when switch language
-	 */
-	 $rootScope.$watch('currentLanguage', function(newLang, oldLang) {
-	 	if (!newLang) {
-	 		return;
-	 	}
+    /**
+     * Change localize when switch language
+     */
+    $rootScope.$watch('currentLanguage', function(newLang, oldLang) {
+        if (!newLang) {
+            return;
+        }
 
-	 	$rootScope.currentLanguage = newLang;
-		// store at cookie
-		$cookieStore.put("language", newLang);
-		// the first load localize resource file
-		localize.language = newLang.localize;
-		localize.setLanguage($rootScope.currentLanguage.localize);
-	});
+        $rootScope.currentLanguage = newLang;
+        // store at cookie
+        $cookieStore.put("language", newLang);
+        // the first load localize resource file
+        localize.language = newLang.localize;
+        localize.setLanguage($rootScope.currentLanguage.localize);
+    });
 
-	Cart.getCart({
+    Cart.getCart({
 
-	}, function (data) {
-		$rootScope.cart = data;
-	}, function (response) {
-		
-	});
+    }, function(data) {
+        $rootScope.cart = data;
+    }, function(response) {
+
+    });
+
+    $scope.logout = function() {
+        LoginService.logout().success(function() {
+            $rootScope.user = null;
+            $rootScope.logged = false;
+            alertify.success("Logout successful");
+        }).error(function(msg) {
+            //$scope.errMessage = localize.getLocalizedString(msg);
+        });
+    }
 }

@@ -3,6 +3,11 @@ JavaPhanTan
 
 Đồ án cuối kì môn Lập trình java phân tán
 
+##Yêu cầu hệ thống
+ - Maven
+ - Java jdk 7
+ - Mongodb
+
 ##Hướng dẫn chạy project
  - Cách 1: Import vào eclipse
  - Cách 2: 
