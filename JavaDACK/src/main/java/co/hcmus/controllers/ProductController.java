@@ -130,8 +130,9 @@ public class ProductController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		try {
-			List<Product> result = productService.getProductByProductStateId(
+			List<Product> temp = productService.getProductByProductStateId(
 					id, STATUS.ACTIVE.getStatusCode());
+			List<Product> result = temp.subList(0, 9);
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
