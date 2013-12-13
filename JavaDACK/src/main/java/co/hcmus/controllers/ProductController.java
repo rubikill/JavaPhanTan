@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.hcmus.models.Product;
 import co.hcmus.services.IProductService;
+import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
 
 /**
@@ -91,24 +92,50 @@ public class ProductController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		// get all product by type productID
-		List<Product> result = productService.getProductsByTypeId(id);
+		List<Product> result = productService.getProductsByTypeId(id,
+				STATUS.ACTIVE.getStatusCode());
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
-	
+
 	/**
-	 * webservice to get products by manufacturer id = id of manufacturer of product
+	 * webservice to get products by manufacturer id = id of manufacturer of
+	 * product
 	 * 
 	 */
 
 	@RequestMapping(value = "/product/manufacturer/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> getProductByManufacturer(@PathVariable("id") String id) {
+	public ResponseEntity<String> getProductByManufacturer(
+			@PathVariable("id") String id) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		// get all product by manufacturer productID
-		List<Product> result = productService.getProductsByManufacturerId(id);
+		List<Product> result = productService.getProductsByManufacturerId(id,
+				STATUS.ACTIVE.getStatusCode());
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
+	}
+
+	/**
+	 * webservice to get products by productState id = id of productstate of
+	 * product
+	 * 
+	 */
+
+	@RequestMapping(value = "/product/productstate/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> getProductByProductStateId(
+			@PathVariable("id") String id) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=utf-8");
+		try {
+			List<Product> result = productService.getProductByProductStateId(
+					id, STATUS.ACTIVE.getStatusCode());
+			return new ResponseEntity<String>(Tools.toJsonArray(result),
+					headers, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+		}
 	}
 }

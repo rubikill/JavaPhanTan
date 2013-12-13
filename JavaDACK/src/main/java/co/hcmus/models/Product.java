@@ -14,12 +14,13 @@ public class Product {
 	private int sellCount; // sell count of product
 	private int importCount; // import Count of product
 	private String manufacturerId; // manufacturer id of product
+	private String productStateId;	// product state id of product
 	private double price; // price of product
 	private String status; // status
 	private int point; // Product's point
 
 	public Product(String name, String productTypeId, String description, int quantity,
-			int sellCount, int importCount, String manufacturerId,
+			int sellCount, int importCount, String manufacturerId, String productStateId,
 			double price, int point, String status) {
 		super();
 		this.name = name;
@@ -29,6 +30,7 @@ public class Product {
 		this.sellCount = sellCount;
 		this.importCount = importCount;
 		this.manufacturerId = manufacturerId;
+		this.productStateId = productStateId;
 		this.price = price;
 		this.status = status;
 		this.point = point;
@@ -126,6 +128,14 @@ public class Product {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getProductStateId() {
+		return productStateId;
+	}
+
+	public void setProductStateId(String productStateId) {
+		this.productStateId = productStateId;
 	}
 
 }

@@ -69,7 +69,7 @@ public class HistoryController {
 				Cart cart = cartItems.get(i);
 				quantity += cart.getCount();
 				HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
-						cart.getId(), STATUS.ACTIVE.toString());
+						cart.getId(), STATUS.ACTIVE.getStatusCode());
 				historyDetailSevice.addHistoryDetail(hd);
 			}
 			// parse json String to jsonNode
@@ -91,7 +91,7 @@ public class HistoryController {
 			// Get email from session
 			String email = (String) session.getAttribute("email");
 
-			history = new History(email, quantity, STATUS.ACTIVE.toString(),
+			history = new History(email, quantity, STATUS.ACTIVE.getStatusCode(),
 					paymentStatus, new Date(), deliveryDate, paymentDate,
 					paymentTypeID);
 
@@ -175,7 +175,7 @@ public class HistoryController {
 				Cart cart = listCartToUpdate.get(i);
 				quantity += cart.getCount();
 				HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
-						cart.getId(), STATUS.ACTIVE.toString());
+						cart.getId(), STATUS.ACTIVE.getStatusCode());
 				historyDetailSevice.updateHistoryDetail(hd);
 			}
 
@@ -195,7 +195,7 @@ public class HistoryController {
 			// Get email from session
 			String email = (String) session.getAttribute("email");
 
-			history = new History(email, quantity, STATUS.ACTIVE.toString(),
+			history = new History(email, quantity, STATUS.ACTIVE.getStatusCode(),
 					paymentStatus, new Date(), deliveryDate, paymentDate,
 					paymentTypeID);
 

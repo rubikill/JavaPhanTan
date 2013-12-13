@@ -49,15 +49,15 @@ public class ProductServiceMongo implements IProductService {
 	}
 
 	@Override
-	public List<Product> getProductsByTypeId(String id) {
+	public List<Product> getProductsByTypeId(String id, String status) {
 		// TODO Auto-generated method stub
-		return productDAO.getProductsByTypeId(id);
+		return productDAO.getProductsByTypeId(id,status);
 	}
 
 	@Override
-	public List<Product> getProductsByManufacturerId(String id) {
+	public List<Product> getProductsByManufacturerId(String id, String status) {
 		// TODO Auto-generated method stub
-		return productDAO.getProductsByManufacturerId(id);
+		return productDAO.getProductsByManufacturerId(id, status);
 	}
 
 	@Override
@@ -81,6 +81,12 @@ public class ProductServiceMongo implements IProductService {
 	public void deleteImageByName(String name) {
 		productDAO.deleteImageByName(name);
 		
+	}
+
+	@Override
+	public List<Product> getProductByProductStateId(String id, String status) {
+		// TODO Auto-generated method stub
+		return productDAO.getProductByProductStateId(id, status);
 	}
 
 }

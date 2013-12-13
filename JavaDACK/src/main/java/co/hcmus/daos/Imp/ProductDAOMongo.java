@@ -61,19 +61,19 @@ public class ProductDAOMongo implements IProductDAO {
 	}
 
 	@Override
-	public List<Product> getProductsByTypeId(String id) {
+	public List<Product> getProductsByTypeId(String id, String status) {
 		// TODO Auto-generated method stub
 		Query searchProductQueryByType = new Query(Criteria.where(
-				"productTypeId").is(id));
+				"productTypeId").is(id).and("status").is(status));
 		return mongoTemplate.find(searchProductQueryByType, Product.class,
 				COLLECTION_NAME);
 	}
 
 	@Override
-	public List<Product> getProductsByManufacturerId(String id) {
+	public List<Product> getProductsByManufacturerId(String id,String status) {
 		// TODO Auto-generated method stub
 		Query searchProductQueryByManufacturer = new Query(Criteria.where(
-				"manufacturerId").is(id));
+				"manufacturerId").is(id).and("status").is(status));
 		return mongoTemplate.find(searchProductQueryByManufacturer,
 				Product.class, COLLECTION_NAME);
 	}
@@ -157,6 +157,15 @@ public class ProductDAOMongo implements IProductDAO {
 		GridFS gfsPhoto = new GridFS(mongoTemplate.getDb(), "image");
 		gfsPhoto.remove(gfsPhoto.findOne(fileName));
 
+	}
+
+	@Override
+	public List<Product> getProductByProductStateId(String id, String status) {
+		// TODO Auto-generated method stub
+		 Query searchProductQueryByProductState = new Query(Criteria.where(
+				"productStateId").is(id).and("status").is(status));
+		return mongoTemplate.find(searchProductQueryByProductState,
+				Product.class, COLLECTION_NAME);
 	}
 
 }
