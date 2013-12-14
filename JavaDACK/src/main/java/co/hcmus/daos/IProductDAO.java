@@ -20,7 +20,7 @@ public interface IProductDAO {
 	public List<Product> getProductsByTypeId(String id, String status);
 
 	public List<Product> getProductsByManufacturerId(String id, String status);
-	
+
 	public List<Product> getProductByProductStateId(String id, String status);
 
 	public void saveImage(String name, String path);

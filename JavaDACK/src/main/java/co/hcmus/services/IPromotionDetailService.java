@@ -13,5 +13,7 @@ public interface IPromotionDetailService {
 
 	public void deletePromotionDetail(String id);
 
-	public List<PromotionDetail> getPromotions();
+	public List<PromotionDetail> getPromotionDetails();
+	
+	public List<PromotionDetail> getPromotionDetailsByPromotionId(String promotionId, String status);
 }
