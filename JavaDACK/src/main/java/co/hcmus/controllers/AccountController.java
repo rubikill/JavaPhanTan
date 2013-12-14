@@ -146,7 +146,7 @@ public class AccountController {
 				accountService.addAccount(account);
 
 				EmailForm emailForm = new EmailForm();
-				emailForm.reciver = email;
+				emailForm.reciver = account.getEmail();
 				emailForm.subject = "Welcome to Camera Shop";
 				emailForm.body = "Your new password is: " + "xxxxxxxxx";
 
