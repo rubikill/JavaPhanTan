@@ -121,6 +121,8 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody String json) {
+
+		System.out.println(json);
 		Account account = Tools.fromJsonTo(json, Account.class);
 
 		// verify account infomation here

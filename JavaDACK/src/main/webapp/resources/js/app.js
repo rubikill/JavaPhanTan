@@ -17,15 +17,15 @@ shop.config(['$routeProvider',
             })
             .when('/product_details/:id', {
                 templateUrl: '/partials/pages/product_details.html',
-                controller : productDetailsCtrl
+                controller: productDetailsCtrl
             })
             .when('/product_summary', {
                 templateUrl: '/partials/pages/product_summary.html',
-                controller : cartCtrl
+                controller: cartCtrl
             })
             .when('/register', {
                 templateUrl: '/partials/pages/register.html',
-                controller : accountCtrl
+                controller: accountCtrl
             })
             .when('/special_offer', {
                 templateUrl: '/partials/pages/special_offer.html'
@@ -101,10 +101,10 @@ shopsv.filter('startFrom', function() {
 // date picker
 shopsv.directive('bsDatepicker', function() {
     return {
-        require : 'ngModel',
-        scope : true,
-        restrict : 'A',
-        link : function($scope, element, attrs, controller) {
+        require: 'ngModel',
+        scope: true,
+        restrict: 'A',
+        link: function($scope, element, attrs, controller) {
             var options = {};
             var updateModel = function(ev) {
                 element.datepicker('hide');
@@ -133,17 +133,13 @@ shopsv.directive('bsDatepicker', function() {
                     options = value;
                 }
 
-                if (typeof (value) === "string" && value.length > 0) {
+                if (typeof(value) === "string" && value.length > 0) {
                     options = angular.fromJson(value);
                 }
 
                 if (angular.equals(attrs.name, "startDate")) {
                     var current = new Date();
-                    var startStr = current.getFullYear() + "-"
-                            + (current.getMonth() <= 8 ? "0" : "")
-                            + (current.getMonth() + 1) + "-"
-                            + (current.getDate() <= 9 ? "0" : "")
-                            + current.getDate();
+                    var startStr = current.getFullYear() + "-" + (current.getMonth() <= 8 ? "0" : "") + (current.getMonth() + 1) + "-" + (current.getDate() <= 9 ? "0" : "") + current.getDate();
 
                     $('#startDate').datepicker('setStartDate', startStr);
                     $('#endDate').datepicker('setStartDate', startStr);
@@ -160,8 +156,8 @@ shopsv.directive('bsDatepicker', function() {
 
                         var offset = element.offset();
                         picker.css({
-                            top : offset.top - picker.outerHeight(true) - 3,
-                            left : offset.left
+                            top: offset.top - picker.outerHeight(true) - 3,
+                            left: offset.left
 
                         });
                     });
@@ -169,8 +165,52 @@ shopsv.directive('bsDatepicker', function() {
                 }
 
                 return element.datepicker(options)
-                        .on('changeDate', updateModel);
+                    .on('changeDate', updateModel);
             });
         }
     };
+});
+
+shopsv.directive('fundooRating', function() {
+    return {
+        restrict: 'A',
+        template: '<ul class="rating">' 
+            + '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' 
+            + '\u2605' 
+            + '</li>' 
+            + '</ul>',
+        scope: {
+            ratingValue: '=',
+            max: '=',
+            readonly: '@',
+            onRatingSelected: '&'
+        },
+        link: function(scope, elem, attrs) {
+
+            var updateStars = function() {
+                scope.stars = [];
+                for (var i = 0; i < scope.max; i++) {
+                    scope.stars.push({
+                        filled: i < scope.ratingValue
+                    });
+                }
+            };
+
+            scope.toggle = function(index) {
+                if (scope.readonly && scope.readonly === 'true') {
+                    return;
+                }
+                scope.ratingValue = index + 1;
+                scope.onRatingSelected({
+                    rating: index + 1
+                });
+            };
+
+            scope.$watch('ratingValue', function(oldVal, newVal) {                
+                if (newVal) {
+                    updateStars();
+                }
+            });
+        }
+    }
 });
