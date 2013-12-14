@@ -1,6 +1,7 @@
 package co.hcmus.daos.Imp;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -57,42 +58,41 @@ public class RatingDAOMongo implements IRatingDAO {
 	@Override
 	public List<Rating> getRatingsByProductId(String productId, String status) {
 		// TODO Auto-generated method stub
-		Query searchRatingByProductIdQuery = new Query(Criteria.where(
-				"productId").is(productId).and("status").is(status));
+		Query searchRatingByProductIdQuery = new Query(Criteria
+				.where("productId").is(productId).and("status").is(status));
 		return mongoTemplate.find(searchRatingByProductIdQuery, Rating.class,
 				COLLECTION_NAME);
 	}
 
 	@Override
-	public Rating checkRaingByProductIdByEmail(String productId, String email , String status) {
+	public double checkRaingByProductIdByEmail(String productId, String email,
+			String status) {
 		// TODO Auto-generated method stub
-		List<Rating> listRatingByProductId = getRatingsByProductId(productId,status);
+		List<Rating> listRatingByProductId = getRatingsByProductId(productId,
+				status);
 		int sumRating = 0;
-		Rating resultRating = null;
+		double average = -1;
 		if (listRatingByProductId.size() == 0) {
-			return resultRating;
+			return average;
 		}
 		for (Rating r : listRatingByProductId) {
 			sumRating = sumRating + r.getStar();
 		}
-		int average = sumRating / listRatingByProductId.size();
+		double tempAverage = (double) sumRating / (double) listRatingByProductId.size();
 		for (Rating r : listRatingByProductId) {
 			if (r.getEmail().equals(email)) {
-				resultRating = new Rating();
-				resultRating.setId(r.getId());
-				resultRating.setEmail(email);
-				resultRating.setProductId(productId);
-				resultRating.setStar(average);
+				average = tempAverage;
 			}
 		}
 
-		return resultRating;
+		return average;
 	}
 
 	@Override
 	public Rating getRatingByEmail(String email, String status) {
 		// TODO Auto-generated method stub
-		Query searchRatingQueryByEmail = new Query(Criteria.where("email").is(email).and("status").is(status));
+		Query searchRatingQueryByEmail = new Query(Criteria.where("email")
+				.is(email).and("status").is(status));
 		return mongoTemplate.findOne(searchRatingQueryByEmail, Rating.class,
 				COLLECTION_NAME);
 	}

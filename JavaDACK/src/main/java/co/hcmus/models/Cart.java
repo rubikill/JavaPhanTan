@@ -21,7 +21,7 @@ public class Cart {
 		this.name = product.getName();
 		this.manufacturerId = product.getManufacturerId();
 		this.price = product.getPrice();
-		this.count = 0;
+		this.count = 1;
 	}
 
 	public String getId() {

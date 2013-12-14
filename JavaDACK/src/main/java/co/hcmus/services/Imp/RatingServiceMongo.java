@@ -53,7 +53,7 @@ public class RatingServiceMongo implements IRatingService {
 	}
 
 	@Override
-	public Rating checkRaingByProductIdByEmail(String productId, String email , String status) {
+	public double checkRaingByProductIdByEmail(String productId, String email , String status) {
 		// TODO Auto-generated method stub
 		return ratingDAO.checkRaingByProductIdByEmail(productId, email, status);
 	}

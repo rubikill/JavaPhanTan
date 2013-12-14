@@ -1,6 +1,7 @@
 package co.hcmus.controllers;
 
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -17,14 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import co.hcmus.helpers.SendMailHelper;
 import co.hcmus.models.Account;
 import co.hcmus.models.EmailForm;
+import co.hcmus.provider.EncryptProvider;
 import co.hcmus.services.IAccountService;
-import co.hcmus.util.Tools;
 import co.hcmus.util.Constant;
 import co.hcmus.util.STATUS;
-
-import co.hcmus.provider.EncryptProvider;
-
-import java.util.UUID;
+import co.hcmus.util.Tools;
 /**
  * Handles requests for the application home page.
  */
