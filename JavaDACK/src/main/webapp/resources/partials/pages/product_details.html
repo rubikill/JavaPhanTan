@@ -45,21 +45,10 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="btn-toolbar">
-                            <div class="btn-group">
-                                <span class="btn"><i class="icon-envelope"></i>
-                                </span>
-                                <span class="btn"><i class="icon-print"></i>
-                                </span>
-                                <span class="btn"><i class="icon-zoom-in"></i>
-                                </span>
-                                <span class="btn"><i class="icon-star"></i>
-                                </span>
-                                <span class="btn"><i class=" icon-thumbs-up"></i>
-                                </span>
-                                <span class="btn"><i class="icon-thumbs-down"></i>
-                                </span>
+                        <div>
+                            <h4>Rate average: {{rateAverage}}</h4>
+                            <h4>Your rate</h4>
+                            <div fundoo-rating rating-value="rating" max="5" style="font-size: 30px;">
                             </div>
                         </div>
                     </div>
@@ -80,95 +69,94 @@
                                 </div>
                             </div>
                         </div>
-
-                        <hr class="soft" />
-                        <h4>100 items in stock</h4>
-                        <form class="form-horizontal qtyFrm pull-right">
-                            <div class="control-group">
-                                <label class="control-label">
-                                    <span>Color</span>
-                                </label>
-                                <div class="controls">
-                                    <select class="span2">
-                                        <option>Black</option>
-                                        <option>Red</option>
-                                        <option>Blue</option>
-                                        <option>Brown</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
                         <hr class="soft clr" />
-                        <p>Description</p>
+                        <p ng-show="product.description">{{product.description}}</p>
+                        <p ng-hide="product.description">This product have no description</p>
                         <hr class="soft" />
                     </div>
 
                     <div class="span9">
                         <ul id="productDetail" class="nav nav-tabs">
                             <li class="active"><a href="#home" data-toggle="tab">Product
-										Details</a>
-                            </li>
-                            <li><a href="#profile" data-toggle="tab">Related Products</a>
-                            </li>
-                        </ul>
-                        <div id="myTabContent" class="tab-content">
-                            <div class="tab-pane fade active in" id="home">
-                                <h4>Product Information</h4>
-                                <table class="table table-bordered">
-                                    <tbody>
-                                        <tr class="techSpecRow">
-                                            <th colspan="2">Product Details</th>
-                                        </tr>
-                                        <tr class="techSpecRow">
-                                            <td class="techSpecTD1">Brand:</td>
-                                            <td class="techSpecTD2">Fujifilm</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                              Details</a>
+                          </li>
+                          <li><a href="#profile" data-toggle="tab">Related Products</a>
+                          </li>
+                      </ul>
+                      <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="home">
+                            <h4>Product Information</h4>
+                            <table class="table table-bordered">
+                                <tbody>
+                                    <tr class="techSpecRow">
+                                        <th colspan="2">Product Details</th>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Height</td>
+                                        <td class="techSpecTD2">{{product.details.height * 100}} mm</td>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Price</td>
+                                        <td class="techSpecTD2">{{product.price}} $</td>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Quantity</td>
+                                        <td class="techSpecTD2">{{product.quantity}}</td>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Warranty</td>
+                                        <td class="techSpecTD2">{{product.details.warranty}}</td>
+                                    </tr>
+                                    <tr class="techSpecRow">
+                                        <td class="techSpecTD1">Status</td>
+                                        <td class="techSpecTD2">{{product.details.status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                                <h5>Features</h5>
-                                <p>{{Description}}</p>
+                            <h5>Features</h5>
+                            <p>{{Description}}</p>
+                        </div>
+                        <div class="tab-pane fade" id="profile">
+                            <div id="myTab" class="pull-right">
+                                <a href="#listView" data-toggle="tab">
+                                    <span class="btn btn-large"><i class="icon-list"></i>
+                                    </span>
+                                </a>
+                                <a href="#blockView" data-toggle="tab">
+                                    <span class="btn btn-large btn-primary"><i class="icon-th-large"></i>
+                                    </span>
+                                </a>
                             </div>
-                            <div class="tab-pane fade" id="profile">
-                                <div id="myTab" class="pull-right">
-                                    <a href="#listView" data-toggle="tab">
-                                        <span class="btn btn-large"><i class="icon-list"></i>
-                                        </span>
-                                    </a>
-                                    <a href="#blockView" data-toggle="tab">
-                                        <span class="btn btn-large btn-primary"><i class="icon-th-large"></i>
-                                        </span>
-                                    </a>
-                                </div>
-                                <br class="clr" />
-                                <hr class="soft" />
-                                <div class="tab-content">
-                                    <div class="tab-pane" id="listView">
-                                        <div class="row">
-                                            <div class="span2">
-                                                <img src="themes/images/products/4.jpg" alt="" />
-                                            </div>
-                                            <div class="span4">
-                                                <h3>New | Available</h3>
-                                                <hr class="soft" />
-                                                <h5>Product Name</h5>
-                                                <p>Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular..
-                                                </p>
-                                                <a class="btn btn-small pull-right" href="product_details.html">View
-																		Details</a> 
-                                                <br class="clr" />
-                                            </div>
-                                            <div class="span3 alignR">
-                                                <form class="form-horizontal qtyFrm">
-                                                    <h3>$222.00</h3>
-                                                    <label class="checkbox">
-                                                        <input type="checkbox">Adds product to compair
-                                                    </label>
-                                                    <br />
-                                                    <div class="btn-group">
-                                                        <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i
-																				class=" icon-shopping-cart"></i></a>  <a href="product_details.html" class="btn btn-large"><i
-																				class="icon-zoom-in"></i></a>
+                            <br class="clr" />
+                            <hr class="soft" />
+                            <div class="tab-content">
+                                <div class="tab-pane" id="listView">
+                                    <div class="row">
+                                        <div class="span2">
+                                            <img src="themes/images/products/4.jpg" alt="" />
+                                        </div>
+                                        <div class="span4">
+                                            <h3>New | Available</h3>
+                                            <hr class="soft" />
+                                            <h5>Product Name</h5>
+                                            <p>Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular..
+                                            </p>
+                                            <a class="btn btn-small pull-right" href="product_details.html">View
+                                              Details</a> 
+                                              <br class="clr" />
+                                          </div>
+                                          <div class="span3 alignR">
+                                            <form class="form-horizontal qtyFrm">
+                                                <h3>$222.00</h3>
+                                                <label class="checkbox">
+                                                    <input type="checkbox">Adds product to compair
+                                                </label>
+                                                <br />
+                                                <div class="btn-group">
+                                                    <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i
+                                                        class=" icon-shopping-cart"></i></a>  <a href="product_details.html" class="btn btn-large"><i
+                                                        class="icon-zoom-in"></i></a>
                                                     </div>
                                                 </form>
                                             </div>
@@ -187,22 +175,22 @@
                                                         <h4 style="text-align: center">
                                                             <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i>
                                                             </a> <a class="btn" href="#">Add
-																							to <i class="icon-shopping-cart"></i>
-																						</a>  <a class="btn btn-primary" href="#">&euro;222.00</a>
-                                                        </h4>
-                                                    </div>
+                                                            to <i class="icon-shopping-cart"></i>
+                                                        </a>  <a class="btn btn-primary" href="#">&euro;222.00</a>
+                                                    </h4>
                                                 </div>
-                                            </li>
-                                        </ul>
-                                        <hr class="soft" />
-                                    </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <hr class="soft" />
                                 </div>
-                                <br class="clr">
                             </div>
+                            <br class="clr">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

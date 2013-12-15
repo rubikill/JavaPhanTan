@@ -18,12 +18,13 @@ function accountCtrl($scope, $rootScope, $location, LoginService, localize, Acco
 	$scope.regUser = {};
 
 	$scope.register = function () {
+		console.log($scope.regUser);
 		Account.register({
 
 		}, $scope.regUser, function (data) {
-			
+			console.log(data);
 		}, function (response) {
-			
+			console.log(response);
 		});
 	}
 }

@@ -42,3 +42,16 @@ shopsv.factory('ProductDetails', function($resource) {
         }
     });
 });
+
+shopsv.factory('Rating', function ($resource) {
+    return $resource('/rating/:productId', {
+        productId: "@productId"
+    }, {
+        getRate: {
+            method: 'POST'
+        },
+        doRate: {
+            method: 'PUT'
+        }
+    });
+});

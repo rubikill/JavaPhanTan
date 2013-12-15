@@ -1,7 +1,7 @@
 <div id="welcomeLine" class="span8" ng-controller="menuCtrl">
 	<div ng-show="user" class="pull-right">
 		<!-- Display User name -->
-		{{'_LAB_WELCOME_' | i18n}}<strong>{{user.email}}</strong>
+		{{'_LAB_WELCOME_' | i18n}}<strong> {{user.email}}</strong>
 	</div>
 	<div ng-hide="user">
 		<a href="#/register" data-i18n="_BTN_REG_" class="pull-right btn btn-success"></a>
