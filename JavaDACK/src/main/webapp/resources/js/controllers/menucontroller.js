@@ -1,5 +1,6 @@
 'use strict';
 
+//Menu controller
 function menuCtrl($location, $scope, localize, $rootScope, $cookieStore, Cart, LoginService) {
     $scope.path = $location.path();
 
@@ -24,12 +25,9 @@ function menuCtrl($location, $scope, localize, $rootScope, $cookieStore, Cart, L
         localize.setLanguage($rootScope.currentLanguage.localize);
     });
 
-    Cart.getCart({
 
-    }, function(data) {
+    Cart.getCart({}, function(data) {
         $rootScope.cart = data;
-    }, function(response) {
-
     });
 
     $scope.logout = function() {

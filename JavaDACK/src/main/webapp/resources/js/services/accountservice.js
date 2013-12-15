@@ -1,5 +1,6 @@
 'use strict';
 
+//Account Service
 shopsv.factory('Account', function($resource) {
 	return $resource('/:action', {
 		action: "@action"
@@ -13,8 +14,7 @@ shopsv.factory('Account', function($resource) {
 	});
 });
 
-
-
+//Login service
 shopsv.service('LoginService', function($http, $rootScope, localize) {
 	var self = this;	
 	var user = {};

@@ -47,7 +47,7 @@ public class ShopCartController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/cart/{id}", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> addProductToCart(
-			@PathVariable("id") String id, HttpSession session) {
+		@PathVariable("id") String id, HttpSession session) {
 		Product product = productService.getProductById(id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
@@ -56,7 +56,7 @@ public class ShopCartController {
 		} else {
 			// get shop cart temp
 			List<Cart> cartItems = (List<Cart>) session
-					.getAttribute("ShopCart");
+			.getAttribute("ShopCart");
 
 			if (cartItems == null) {
 				cartItems = new ArrayList<Cart>();
@@ -68,7 +68,7 @@ public class ShopCartController {
 			System.out.println("after add: " + cartItems.size());
 			session.setAttribute("ShopCart", cartItems);
 			return new ResponseEntity<String>(Tools.toJsonArray(cartItems),
-					headers, HttpStatus.OK);
+				headers, HttpStatus.OK);
 		}
 	}
 
@@ -86,7 +86,7 @@ public class ShopCartController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/cart/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
 	public ResponseEntity<String> deleteFromCart(@PathVariable("id") String id,
-			HttpSession session) {
+		HttpSession session) {
 		Product product = productService.getProductById(id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
@@ -94,17 +94,14 @@ public class ShopCartController {
 			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 		} else {
 			// List<Cart> listShopCartItem = new ArrayList<Cart>();
-			List<Cart> cartItems = (List<Cart>) session
-					.getAttribute("ShopCart");
+			List<Cart> cartItems = (List<Cart>) session.getAttribute("ShopCart");
 			if (cartItems == null) {
 				cartItems = new ArrayList<Cart>();
-				return new ResponseEntity<String>("Cart is emty", headers,
-						HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 			}
 			cartItems = shopCartItemService.deleteItem(cartItems, product);
 			session.setAttribute("ShopCart", cartItems);
-			return new ResponseEntity<String>(Tools.toJsonArray(cartItems),
-					headers, HttpStatus.OK);
+			return new ResponseEntity<String>(headers, HttpStatus.OK);
 		}
 	}
 
@@ -123,13 +120,13 @@ public class ShopCartController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		List<Cart> listTemp = (List<Cart>) request.getSession().getAttribute(
-				"ShopCart");
+			"ShopCart");
 		if (listTemp == null) {
 			listTemp = new ArrayList<Cart>();
 		}
 
 		return new ResponseEntity<String>(Tools.toJsonArray(listTemp), headers,
-				HttpStatus.OK);
+			HttpStatus.OK);
 	}
 
 	/**
@@ -142,15 +139,15 @@ public class ShopCartController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/cart/updateCart", method = RequestMethod.PUT, headers = "Accept=application/json")
 	public ResponseEntity<String> updateCart(@RequestBody String json,
-			HttpSession session) {
+		HttpSession session) {
 		// get cart from json
 		List<Cart> listCartToUpdate = (List<Cart>) Tools.fromJsonToArray(json,
-				Cart.class);
+			Cart.class);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		session.setAttribute("ShopCart", listCartToUpdate);
 		return new ResponseEntity<String>(Tools.toJsonArray(listCartToUpdate),
-				headers, HttpStatus.OK);
+			headers, HttpStatus.OK);
 	}
 
 }

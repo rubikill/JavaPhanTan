@@ -1,5 +1,6 @@
 'use strict';
 
+//Cart service
 shopsv.factory('Cart', function($resource) {
     return $resource('/cart/:id', {
         id: "@id"
@@ -13,8 +14,7 @@ shopsv.factory('Cart', function($resource) {
             isArray: true
         },
         removeProductFromCart: {
-            method: 'DELETE',
-            isArray: true
+            method: 'DELETE'
         }
     });
 });

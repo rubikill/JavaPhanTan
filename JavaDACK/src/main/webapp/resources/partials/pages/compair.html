@@ -1,4 +1,4 @@
-<ng-include src="'partials/slider.html'" scope="" onload=""></ng-include>
+<!-- <ng-include src="'partials/slider.html'" scope="" onload=""></ng-include> -->
 <div id="mainBody">
 	<div class="container">
 		<div class="row">
@@ -6,75 +6,61 @@
 
 			<div class="span9">
 				<ul class="breadcrumb">
-					<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+					<li><a href="#/">Home</a> <span class="divider">/</span></li>
 					<li class="active">Products Compairsition</li>
 				</ul>
 				<h3>
 					Products Compairsition <small class="pull-right"> 2 products are compaired </small>
 				</h3>
 				<hr class="soft" />
-
-				<table id="compairTbl" class="table table-bordered">
+				<div class="alert alert-error" ng-hide="compairItems">There is no product to compair</div>
+				<table id="compairTbl" class="table table-bordered" ng-show="compairItems">
 					<thead>
 						<tr>
 							<th>Features</th>
-							<th>Product1 name here</th>
-							<th>Product2 name here</th>
+							<th ng-repeat="item in compairItems">{{item.name}}</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td>&nbsp;</td>
-							<td style="text-align: center">
-								<p class="justify">Nowadays the lingerie industry is one of the most successful business spheres. We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.</p> <img src="themes/images/products/1.jpg" alt="" />
-								<form class="form-horizontal qtyFrm">
-									<h3>$222.00</h3>
-									<br /> <a href="product_details.html"
-									class="btn btn-large btn-primary"> Add to <i
-									class=" icon-shopping-cart"></i></a> <a href="product_details.html"
-									class="btn btn-large"><i class="icon-zoom-in"></i></a>
-								</form>
-							</td>
-							<td>
-								<p class="justify">Nowadays the lingerie industry is one of the most successful business spheres. We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.</p> <img src="themes/images/products/3.jpg" alt="" />
-
-								<form class="form-horizontal qtyFrm">
-									<h3>$190.00</h3>
-									<br /> <a href="product_details.html"
-									class="btn btn-large btn-primary"> Add to <i
-									class=" icon-shopping-cart"></i></a> <a href="product_details.html"
-									class="btn btn-large"><i class="icon-zoom-in"></i></a>
-								</form>
+							<td style="text-align: center" ng-repeat="item in compairItems">
+								<p class="justify">{{item.description}}</p> <img src="themes/images/products/1.jpg" alt="" />
+								<div class="form-horizontal qtyFrm">
+									<h3>${{item.price}}</h3>
+									<br /> 
+									<button ng-click="addToCart(item.id)" class="btn btn-large btn-primary"> 
+										Add to <i class=" icon-shopping-cart"></i>
+									</button>
+									<a href="#/product_details/{{item.id}}" class="btn btn-large">
+										<i class="icon-zoom-in"></i>
+									</a>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<td>Height</td>
-							<td>2"</td>
-							<td>2"</td>
+							<td ng-repeat="item in compairItems">{{item.details.height * 100}} mm</td>
 						</tr>
 						<tr>
-							<td>Deepth</td>
-							<td>5"</td>
-							<td>5"</td>
+							<td>Price</td>
+							<td ng-repeat="item in compairItems">$ {{item.price}}</td>
 						</tr>
 						<tr>
-							<td>Dimension</td>
-							<td>--</td>
-							<td>--</td>
+							<td>Quantity</td>
+							<td ng-repeat="item in compairItems">{{item.quantity}}</td>
 						</tr>
 						<tr>
-							<td>Width</td>
-							<td>6.5"</td>
-							<td>6.5"</td>
+							<td>Warranty</td>
+							<td ng-repeat="item in compairItems">{{item.details.warranty}}</td>
 						</tr>
 						<tr>
-							<td>Weight</td>
-							<td>0.5kg</td>
-							<td>0.5kg</td>
+							<td>Status</td>
+							<td ng-repeat="item in compairItems">{{item.status}}</td>
 						</tr>
 					</tbody>
 				</table>
-				<a href="products.html" class="btn btn-large pull-right">Back Products Page</a>
+				<a href="#/" class="btn btn-large pull-right">Back Products Page</a>
 			</div>
 		</div>
 	</div>

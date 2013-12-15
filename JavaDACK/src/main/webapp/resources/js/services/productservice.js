@@ -1,5 +1,6 @@
 'use strict';
 
+//Product service
 shopsv.factory('Product', function($resource) {
     return $resource('/product/:type/:id', {
         type: "@type",
@@ -22,6 +23,7 @@ shopsv.factory('Product', function($resource) {
     });
 });
 
+//Product type service
 shopsv.factory('ProductType', function($resource) {
     return $resource('/type', {
         type: "@type"
@@ -33,6 +35,7 @@ shopsv.factory('ProductType', function($resource) {
     });
 });
 
+//Product details service
 shopsv.factory('ProductDetails', function($resource) {
     return $resource('/productDetail/:id', {
         id: "@id"
@@ -43,6 +46,7 @@ shopsv.factory('ProductDetails', function($resource) {
     });
 });
 
+//Rating servece
 shopsv.factory('Rating', function ($resource) {
     return $resource('/rating/:productId', {
         productId: "@productId"

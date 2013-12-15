@@ -15,12 +15,12 @@
                     SHOPPING CART [
                     <small>{{cart.length}} Item(s)</small>]
                     <a href="#/" class="btn btn-large pull-right"><i class="icon-arrow-left"></i>
-					Continue Shopping </a>
-                </h3>
-                <hr class="soft" />
+                     Continue Shopping </a>
+                 </h3>
+                 <hr class="soft" />
 
-                <!-- If you not login -->
-                <table class="table table-bordered" ng-show="false">
+                 <!-- If you not login -->
+                 <table class="table table-bordered" ng-show="false">
                     <tr>
                         <th>I AM ALREADY REGISTERED</th>
                     </tr>
@@ -48,16 +48,16 @@
                                 <div class="control-group">
                                     <div class="controls">
                                         <a href="forgetpass.html" style="text-decoration: underline">Forgot
-											password ?</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-				<!-- If you not login -->
+                                           password ?</a>
+                                       </div>
+                                   </div>
+                               </form>
+                           </td>
+                       </tr>
+                   </table>
+                   <!-- If you not login -->
 
-                <table class="table table-bordered">
+                   <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Product</th>
@@ -78,15 +78,15 @@
                             <td>
                                 <div class="input-append">
                                     <input class="span1" style="max-width: 34px" placeholder="1" id="appendedInputButtons" size="16" type="text" ng-model="item.count">
-                                    <button class="btn" type="button" ng-click="sub(item.count)">
+                                    <button class="btn" type="button" ng-click="sub(item)">
                                         <i class="icon-minus"></i>
                                     </button>
-                                    <button class="btn" type="button" ng-click="plus(item.count)">
+                                    <button class="btn" type="button" ng-click="plus(item)">
                                         <i class="icon-plus"></i>
                                     </button>
-                                    <button class="btn btn-danger" type="button" ng-click="removeFromCart()">
+                                    <a href="#removeProduct" class="btn btn-danger" role="button" data-toggle="modal" ng-click="confirmRemove(item.id, $index)">
                                         <i class="icon-remove icon-white"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </td>
                             <td>{{item.price | currency}}</td>
@@ -97,27 +97,6 @@
                     </tbody>
                 </table>
 
-
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <td>
-                                <form class="form-horizontal">
-                                    <div class="control-group">
-                                        <label class="control-label">
-                                            <strong>VOUCHERS CODE:</strong>
-                                        </label>
-                                        <div class="controls">
-                                            <input type="text" class="input-medium" placeholder="CODE">
-                                            <button type="submit" class="btn">ADD</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
 
                 <table class="table table-bordered">
                     <tr>
@@ -147,10 +126,26 @@
                         </td>
                     </tr>
                 </table>
-                <a href="products.html" class="btn btn-large"><i
-										class="icon-arrow-left"></i> Continue Shopping </a>  <a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
-
+                <div class="alert alert-error" ng-hide="user">You must login first</div>
+                <button class="btn btn-large btn-success pull-right" ng-click="checkOut()" ng-disabled="!user">
+                <i class="icon-gift"></i>  Check out
+                </button>
             </div>
         </div>
+    </div>
+</div>
+
+
+<div id="removeProduct" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Confirm delete</h3>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure to remove this product?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-click="removeFromCart(selectedItem.id, selectedItem.index)" data-i18n="_BTN_OK_"></button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="_BTN_CANCEL_"></button>
     </div>
 </div>

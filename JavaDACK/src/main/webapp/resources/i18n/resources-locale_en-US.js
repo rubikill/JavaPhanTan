@@ -57,7 +57,14 @@
 	"key":"_BTN_ADD_",
 	"value": "Add to"
 },
-
+{
+	"key":"_BTN_OK_",
+	"value": "Ok"
+},
+{
+	"key":"_BTN_CANCEL_",
+	"value": "Cancel"
+},
 
 
 

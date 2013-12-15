@@ -1,33 +1,62 @@
 'use strict';
 
+//Cart controller
 function cartCtrl($scope, $rootScope, $location, $routeParams, Cart) {
+
+    //Add Product to cart
     $scope.addToCart = function(productId) {
         Cart.addProductToCart({
-            id: productId
+            id: productId //Product id
         }, function(data) {
             $rootScope.cart = data;
-            //console.log(data);
-        }, function(response) {
-            //console.log(response);
+            alertify.success("You have added a product to Cart");
         });
     }
 
-    $scope.removeFromCart = function(productId) {
+    //Remove a product from cart
+    $scope.removeFromCart = function(productId, index) {
+        //Close modal confirm remove
+        $('#removeProduct').modal('hide');
+
         Cart.removeProductFromCart({
             id: productId
         }, function(data) {
-            $rootScope.cart = data;
-            //console.log(data);
-        }, function(response) {
-            //console.log(response);
+            alertify.error("You have removed a product to Cart");
+            //Remove on UI
+            $rootScope.cart.splice(index, 1);
         });
     }
 
-    $scope.plus = function(amount) {
-    	console.log(amount++);
+    //Chang amount
+    $scope.plus = function(item) {
+        item.count++;
+
+        //update cart here
     }
 
-    $scope.sub = function(amount) {
-    	console.log(amount--);
+    //Chang amount
+    $scope.sub = function(item) {
+        if(item.count > 1){
+            item.count--;
+
+            //update cart here
+        }
+    }
+
+    //deleted item
+    $scope.selectedItem = {};
+
+    //Confirm remove product
+    //Just only set selected product
+    $scope.confirmRemove = function (id, index) {
+        $scope.selectedItem.id = id;
+        $scope.selectedItem.index = index;
+    }
+
+    //Check out
+    $scope.checkOut = function () {
+        if($rootScope.user == null || $rootScope.user == undefined){
+            alertify.error("You have to login first");
+        }
     }
 }

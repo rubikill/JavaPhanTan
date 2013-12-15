@@ -57,7 +57,14 @@
 	"key":"_BTN_ADD_",
 	"value": "Thêm vào"
 },
-
+{
+	"key":"_BTN_OK_",
+	"value": "Đồng ý"
+},
+{
+	"key":"_BTN_CANCEL_",
+	"value": "Hủy"
+},
 
 
 

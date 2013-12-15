@@ -59,10 +59,10 @@
                         <div class="form-horizontal qtyFrm">
                             <div class="control-group">
                                 <label class="control-label">
-                                    <span>{{product.price | currency}}</span>
+                                    <span><strong>{{product.price | currency}}</strong></span>
                                 </label>
                                 <div class="controls">
-                                    <input type="number" class="span1" placeholder="Qty." />
+                                    <!-- <input type="number" class="span1" placeholder="Qty." /> -->
                                     <button type="submit" class="btn btn-large btn-primary pull-right" ng-click="addToCart(product.id)">
                                         Add to cart <i class=" icon-shopping-cart"></i>
                                     </button>

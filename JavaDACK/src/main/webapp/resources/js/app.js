@@ -1,9 +1,13 @@
 'use strict';
 
-/* App Module */
+/* Shop Module */
 
 var shop = angular.module('shop', ['shopsv.services', 'localization', 'ngCookies', 'ngResource']);
 
+/*
+*   Config route
+*   Navigate when you click on show link
+*/
 shop.config(['$routeProvider',
     function($routeProvider, $rootScope) {
         $routeProvider.when('/', {
@@ -11,9 +15,8 @@ shop.config(['$routeProvider',
             controller: homeCtrl
         })
             .when('/compair', {
-                templateUrl: '/partials/pages/compair.html'
-                // ,
-                // controller : homeCtrl
+                templateUrl: '/partials/pages/compair.html',
+                controller : compairCtrl
             })
             .when('/product_details/:id', {
                 templateUrl: '/partials/pages/product_details.html',
@@ -56,6 +59,11 @@ shop.config(['$routeProvider',
     }
 ]);
 
+/**
+*   This function run on app start
+*   Config multi language
+*
+*/
 shop.run(function($rootScope, $location, localize, $cookieStore) {
     $rootScope.requests401 = []; // global init, todo replace by module
 
@@ -85,9 +93,15 @@ shop.run(function($rootScope, $location, localize, $cookieStore) {
     localize.setLanguage($rootScope.currentLanguage.localize);
 });
 
+/**
+*   Shop sevice
+*   Every service goes here
+*/
 var shopsv = angular.module('shopsv.services', ['ngResource']);
 
-
+/**
+*   this function for paging
+*/
 shopsv.filter('startFrom', function() {
     return function(input, start) {
         if (input) {
@@ -171,6 +185,7 @@ shopsv.directive('bsDatepicker', function() {
     };
 });
 
+//Rating
 shopsv.directive('fundooRating', function() {
     return {
         restrict: 'A',

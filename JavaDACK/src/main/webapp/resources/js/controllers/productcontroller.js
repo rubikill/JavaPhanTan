@@ -1,5 +1,6 @@
 'use strict';
 
+//Product controller
 function productCtrl($scope, $rootScope, $location, Product, $routeParams, Cart) {
 
     //List product
@@ -12,14 +13,10 @@ function productCtrl($scope, $rootScope, $location, Product, $routeParams, Cart)
     $scope.numberOfPages = 0;
 
     Product.getProductsByType({
-        //type id
-        id: $routeParams.typeId
+        id: $routeParams.typeId //type id
     }, function(data) {
-        //console.log(data);
         $scope.listProducts = data;
         $scope.numberOfPages = Math.ceil($scope.listProducts.length / $scope.pageSize);
-
-        //console.log($scope.numberOfPages);
     }, function(response) {
         console.log(response);
     });
@@ -41,14 +38,38 @@ function productCtrl($scope, $rootScope, $location, Product, $routeParams, Cart)
             id: productId
         }, function(data) {
             $rootScope.cart = data;
-            //console.log(data);
-        }, function(response) {
-            //console.log(response);
+            alertify.success("You have added a product to Cart");
         });
     }
 
     //SORT Don't touch
+    //Default sort by name
     $scope.predicate = '+name';
+
+    $scope.check = [];
+    
+    $rootScope.compairItems = [];
+
+    $scope.compair = function (item, isCheck) {
+        if (isCheck){
+            if ($rootScope.compairItems !== undefined || $rootScope.compairItems !==  null){
+                if($rootScope.compairItems.length == 4){
+                    alertify.error("Only compair 4 product");
+                } else {
+                    $rootScope.compairItems.push(item);
+                    alertify.success("You have added a product to compair list");
+                }
+            }
+
+        } else {
+            for (var i = 0; i < $rootScope.compairItems.length; i++) {
+                if ($rootScope.compairItems[i].id == item.id){
+                    $rootScope.compairItems.splice(i, 1);
+                    alertify.error("You have removed a product from compair list");
+                }
+            }
+        }
+    }
 }
 
 function productTypeCtrl($scope, $rootScope, ProductType, $routeParams) {
@@ -111,12 +132,11 @@ function productDetailsCtrl($scope, $rootScope, $location, $routeParams, Product
             id: productId
         }, function(data) {
             $rootScope.cart = data;
-            //console.log(data);
-        }, function(response) {
-            //console.log(response);
+            alertify.success("You have added a product to Cart");
         });
     }
 
+    //Watching rating
     $scope.$watch('rating', function(newValue, oldValue, scope) {
         if ($rootScope.user != null && $rootScope.user != undefined) {
             Rating.doRate({
@@ -127,4 +147,9 @@ function productDetailsCtrl($scope, $rootScope, $location, $routeParams, Product
             });
         }
     });
+}
+
+
+function compairCtrl ($scope, $rootScope) {
+    
 }
