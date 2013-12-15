@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.hcmus.models.Product;
+import co.hcmus.models.ProductDetail;
 import co.hcmus.models.PromotionDetail;
+import co.hcmus.services.IProductDetailService;
 import co.hcmus.services.IProductService;
 import co.hcmus.services.IPromotionDetailService;
 import co.hcmus.util.STATUS;
@@ -32,6 +34,9 @@ public class ProductController {
 
 	@Autowired
 	private IPromotionDetailService promotionDetailService;
+	
+	@Autowired
+	private IProductDetailService productDetailService;
 
 	@RequestMapping(value = "/product_details", method = RequestMethod.GET)
 	public String product_details(Locale locale, Model model) {
@@ -78,11 +83,13 @@ public class ProductController {
 	public ResponseEntity<String> getProductId(@PathVariable("id") String id) {
 		// get product byID
 		Product product = productService.getProductById(id);
+		ProductDetail productDetail = productDetailService.getProductDetailByProductId(id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		if (product == null) {
 			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 		}
+		product.setProductDetail(productDetail);
 		return new ResponseEntity<String>(Tools.toJson(product), headers,
 				HttpStatus.OK);
 	}
