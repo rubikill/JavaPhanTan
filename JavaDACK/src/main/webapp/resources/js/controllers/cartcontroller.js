@@ -27,14 +27,14 @@ function cartCtrl($scope, $rootScope, $location, $routeParams, Cart) {
         });
     }
 
-    //Chang amount
+    //Change amount
     $scope.plus = function(item) {
         item.count++;
 
         //update cart here
     }
 
-    //Chang amount
+    //Change amount
     $scope.sub = function(item) {
         if(item.count > 1){
             item.count--;
