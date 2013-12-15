@@ -41,9 +41,17 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 	}
 
 	@Override
-	public List<PromotionDetail> getPromotions() {
+	public List<PromotionDetail> getPromotionDetails() {
 		// TODO Auto-generated method stub
 		return promotionDetailDAO.getPromotionDetails();
+	}
+
+	@Override
+	public List<PromotionDetail> getPromotionDetailsByPromotionId(
+			String promotionId, String status) {
+		// TODO Auto-generated method stub
+		return promotionDetailDAO.getPromotionDetailsByPromotionId(promotionId,
+				status);
 	}
 
 }

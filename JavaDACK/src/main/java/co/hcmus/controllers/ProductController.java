@@ -1,5 +1,6 @@
 package co.hcmus.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.hcmus.models.Product;
+import co.hcmus.models.ProductDetail;
+import co.hcmus.models.PromotionDetail;
+import co.hcmus.services.IProductDetailService;
 import co.hcmus.services.IProductService;
+import co.hcmus.services.IPromotionDetailService;
 import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
 
@@ -26,6 +31,12 @@ import co.hcmus.util.Tools;
 public class ProductController {
 	@Autowired
 	private IProductService productService;
+
+	@Autowired
+	private IPromotionDetailService promotionDetailService;
+	
+	@Autowired
+	private IProductDetailService productDetailService;
 
 	@RequestMapping(value = "/product_details", method = RequestMethod.GET)
 	public String product_details(Locale locale, Model model) {
@@ -72,11 +83,13 @@ public class ProductController {
 	public ResponseEntity<String> getProductId(@PathVariable("id") String id) {
 		// get product byID
 		Product product = productService.getProductById(id);
+		ProductDetail productDetail = productDetailService.getProductDetailByProductId(id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		if (product == null) {
 			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 		}
+		product.setProductDetail(productDetail);
 		return new ResponseEntity<String>(Tools.toJson(product), headers,
 				HttpStatus.OK);
 	}
@@ -130,9 +143,38 @@ public class ProductController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		try {
-			List<Product> temp = productService.getProductByProductStateId(
-					id, STATUS.ACTIVE.getStatusCode());
+			List<Product> temp = productService.getProductByProductStateId(id,
+					STATUS.ACTIVE.getStatusCode());
 			List<Product> result = temp.subList(0, 9);
+			return new ResponseEntity<String>(Tools.toJsonArray(result),
+					headers, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	/**
+	 * rest to get product with promotion id
+	 * 
+	 * @param promotionid
+	 * @return
+	 */
+	@RequestMapping(value = "/product/promotion/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> getProductByPromotionId(
+			@PathVariable("id") String promotionid) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=utf-8");
+		try {
+			List<PromotionDetail> listPromotionDetail = promotionDetailService
+					.getPromotionDetailsByPromotionId(promotionid,
+							STATUS.ACTIVE.getStatusCode());
+			List<Product> result = new ArrayList<Product>();
+			for (PromotionDetail promotionDetail : listPromotionDetail) {
+				String productId = promotionDetail.getProductId();
+				Product product = productService.getProductById(productId);
+				result.add(product);
+			}
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
