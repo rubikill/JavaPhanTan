@@ -56,6 +56,8 @@ public class AccountDAOMongo implements IAccountDAO {
 		System.out.println("email in DAO:'" + email + "'");
 		Query searchAccountQuery = new Query(Criteria.where("email").is(email));
 		
+		System.out.println("query:" + searchAccountQuery.toString());
+//		searchAccountQuery.
 		return mongoTemplate.findOne(searchAccountQuery, Account.class,
 				COLLECTION_NAME);
 	}
