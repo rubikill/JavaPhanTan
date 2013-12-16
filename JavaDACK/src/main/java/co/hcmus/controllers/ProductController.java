@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -38,25 +40,22 @@ public class ProductController {
 	@Autowired
 	private IProductDetailService productDetailService;
 
-	@RequestMapping(value = "/product_details", method = RequestMethod.GET)
-	public String product_details(Locale locale, Model model) {
-		return "product_details";
-	}
 
-	@RequestMapping(value = "/product_summary", method = RequestMethod.GET)
-	public String product_summary(Locale locale, Model model) {
-		return "product_summary";
-	}
-
-	@RequestMapping(value = "/products", method = RequestMethod.POST)
-	public String products(Locale locale, Model model) {
-		return "products";
+	@RequestMapping(value = "/producttype", method = RequestMethod.GET)
+	public String products(Locale locale, Model model, HttpServletRequest request) {
+		request.setAttribute("nav", "producttype");
+		return "type";
 	}
 
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
-	public String getProducts(Locale locale, Model model) {
+	public String getProducts(Locale locale, Model model, HttpServletRequest request) {
+		request.setAttribute("nav", "products");
 		return "products";
 	}
+
+
+
+
 
 	/**
 	 * webservice for get all product

@@ -3,82 +3,36 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-    <!-- Template with slider -->
-    <definition name="templatewithslider" template="/WEB-INF/template/templatewithslider.jsp">
+    <!-- Template main -->
+    <definition name="templateMain" template="/WEB-INF/template/templateMain.jsp">
         <put-attribute name="style" value="/WEB-INF/layout/style.jsp" />
-        <put-attribute name="script" value="/WEB-INF/layout/script.jsp" />        
-        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+        <put-attribute name="script" value="/WEB-INF/layout/script.jsp" /> 
         <put-attribute name="menu_bar" value="/WEB-INF/layout/nav.jsp" />
-        <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" />        
-        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
-    </definition>
-    
-    <!-- Template no slider -->
-    <definition name="templatenoslider" template="/WEB-INF/template/templatewithnoslider.jsp">
-        <put-attribute name="style" value="/WEB-INF/layout/style.jsp" />
-        <put-attribute name="script" value="/WEB-INF/layout/script.jsp" />        
         <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
-        <put-attribute name="menu_bar" value="/WEB-INF/layout/nav.jsp" />
-        <put-attribute name="sidebar" value="/WEB-INF/layout/sidebar.jsp" />        
-        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
     </definition>
     
-    <!-- Template only nav bar -->
-    <definition name="templateiustonlynavbar" template="/WEB-INF/template/templateiustonlynavbar.jsp">
-        <put-attribute name="style" value="/WEB-INF/layout/style.jsp" />
-        <put-attribute name="script" value="/WEB-INF/layout/script.jsp" />        
-        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
-        <put-attribute name="menu_bar" value="/WEB-INF/layout/nav.jsp" />        
-        <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
-    </definition>
-    
-    <!-- Page with slider -->
-    <definition name="home" extends="templatewithslider">
+    <!-- Page with main -->
+    <definition name="home" extends="templateMain">
         <put-attribute name="content" value="/WEB-INF/page/home.jsp"/>
-        <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
     </definition>
-    <definition name="compair" extends="templatewithslider">
-        <put-attribute name="content" value="/WEB-INF/page/compair.jsp"/>
-        <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
-    </definition>    
-    <definition name="product_details" extends="templatewithslider">
-        <put-attribute name="content" value="/WEB-INF/page/product_details.jsp"/>
-        <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
+
+    <definition name="accounts" extends="templateMain">
+        <put-attribute name="content" value="/WEB-INF/page/account/all.jsp"/>
     </definition>
-    <definition name="product_summary" extends="templatewithslider">
-        <put-attribute name="content" value="/WEB-INF/page/product_summary.jsp"/>
-        <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
+
+    <definition name="products" extends="templateMain">
+        <put-attribute name="content" value="/WEB-INF/page/product/all.jsp"/>
     </definition>
-    <definition name="products" extends="templatewithslider">
-        <put-attribute name="content" value="/WEB-INF/page/products.jsp"/>
-        <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
-    </definition>    
-    <definition name="register" extends="templatewithslider">
-        <put-attribute name="content" value="/WEB-INF/page/register.jsp"/>
-        <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
-    </definition>
-    <definition name="special_offer" extends="templatewithslider">
-        <put-attribute name="content" value="/WEB-INF/page/special_offer.jsp"/>
-        <put-attribute name="slider" value="/WEB-INF/layout/slider.jsp" />
-    </definition>
-        
-    <!-- Page no slider -->
-    <definition name="login" extends="templatenoslider">
-        <put-attribute name="content" value="/WEB-INF/page/login.jsp"/>
+
+    <definition name="order" extends="templateMain">
+        <put-attribute name="content" value="/WEB-INF/page/order/all.jsp"/>
     </definition>
     
-    <definition name="forgetpass" extends="templatenoslider">
-        <put-attribute name="content" value="/WEB-INF/page/forgetpass.jsp"/>
+    <definition name="type" extends="templateMain">
+        <put-attribute name="content" value="/WEB-INF/page/product/type.jsp"/>
     </definition>
-    
-    <!-- Page only nav bar -->
-    <definition name="contact" extends="templateiustonlynavbar">
-        <put-attribute name="content" value="/WEB-INF/page/contact.jsp"/>
+
+    <definition name="promotion" extends="templateMain">
+        <put-attribute name="content" value="/WEB-INF/page/promotion/all.jsp"/>
     </definition>
-    
-    <!-- Test -->
-    <!--definition name="test" extends="templatenoslider">
-        <put-attribute name="content" value="/WEB-INF/page/test.jsp"/>
-    </definition-->
-    
 </tiles-definitions>

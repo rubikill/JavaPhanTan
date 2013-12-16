@@ -1,10 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<script src="${pageContext.request.contextPath}/resources/themes/js/jquery-1.9.0.min.js"/>' type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resources/themes/js/jquery-ui.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resources/themes/js/angular.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resources/themes/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/resources/themes/js/google-code-prettify/prettify.js"></script>
-<script src="${pageContext.request.contextPath}/resources/themes/js/bootshop.js"></script>
-<script src="${pageContext.request.contextPath}/resources/themes/js/jquery.lightbox-0.5.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/controller.js"></script>
+<!-- JavaScript -->
+<script src="${pageContext.request.contextPath}/admin/js/jquery-1.10.2.js"></script>
+<script src="${pageContext.request.contextPath}/admin/js/bootstrap.js"></script>
+
+<!-- Page Specific Plugins -->
+<script src="${pageContext.request.contextPath}/admin/js/raphael-min.js"></script>
+<script src="${pageContext.request.contextPath}/admin/js/morris/morris-0.4.3.min.js"></script>
+<script src="${pageContext.request.contextPath}/admin/js/morris/chart-data-morris.js"></script>
+<script src="${pageContext.request.contextPath}/admin/js/tablesorter/jquery.tablesorter.js"></script>
+<script src="${pageContext.request.contextPath}/admin/js/tablesorter/tables.js"></script>

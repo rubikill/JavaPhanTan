@@ -31,25 +31,25 @@ public class AccountController {
 	@Autowired
 	private IAccountService accountService;
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register(Locale locale, Model model) {
-		return "register";
-	}
+	// @RequestMapping(value = "/register", method = RequestMethod.GET)
+	// public String register(Locale locale, Model model) {
+	// 	return "register";
+	// }
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model) {
-		return "login";
-	}
+	// @RequestMapping(value = "/login", method = RequestMethod.GET)
+	// public String login(Locale locale, Model model) {
+	// 	return "login";
+	// }
 
-	@RequestMapping(value = "/contact", method = RequestMethod.GET)
-	public String contact(Locale locale, Model model) {
-		return "contact";
-	}
+	// @RequestMapping(value = "/contact", method = RequestMethod.GET)
+	// public String contact(Locale locale, Model model) {
+	// 	return "contact";
+	// }
 
-	@RequestMapping(value = "/forgetpass", method = RequestMethod.GET)
-	public String forgetpass(Locale locale, Model model) {
-		return "forgetpass";
-	}
+	// @RequestMapping(value = "/forgetpass", method = RequestMethod.GET)
+	// public String forgetpass(Locale locale, Model model) {
+	// 	return "forgetpass";
+	// }
 
 	@Autowired
 	EncryptProvider encryptPasswordProvider;
@@ -199,16 +199,4 @@ public class AccountController {
 				HttpStatus.BAD_REQUEST);
 		}		
 	}
-
-	// ---------------TEST---------------------
-	// ----------Uncomment in file tile.xml to run this one------------
-	// @RequestMapping(value = "/test", method = RequestMethod.GET)
-	// public String test(Locale locale, Model model) {
-	// Account account = new Account("qbcd@asd.com", "abcdw", "099900",
-	// "address", new Date(), "0", "password", "status", "token", 0);
-	// accountService.addAccount(account);
-	// String email = accountService.getAccount("qbcd@asd.com").getEmail();
-	// model.addAttribute("email", email);
-	// return "test";
-	// }
 }
