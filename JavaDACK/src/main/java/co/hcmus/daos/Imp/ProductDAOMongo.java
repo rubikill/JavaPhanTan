@@ -68,17 +68,17 @@ public class ProductDAOMongo implements IProductDAO {
 	@Override
 	public List<Product> getProductsByTypeId(String id, String status) {
 		// TODO Auto-generated method stub
-		Query searchProductQueryByType = new Query(Criteria.where(
-				"productTypeId").is(id).and("status").is(status));
+		Query searchProductQueryByType = new Query(Criteria
+				.where("productTypeId").is(id).and("status").is(status));
 		return mongoTemplate.find(searchProductQueryByType, Product.class,
 				COLLECTION_NAME);
 	}
 
 	@Override
-	public List<Product> getProductsByManufacturerId(String id,String status) {
+	public List<Product> getProductsByManufacturerId(String id, String status) {
 		// TODO Auto-generated method stub
-		Query searchProductQueryByManufacturer = new Query(Criteria.where(
-				"manufacturerId").is(id).and("status").is(status));
+		Query searchProductQueryByManufacturer = new Query(Criteria
+				.where("manufacturerId").is(id).and("status").is(status));
 		return mongoTemplate.find(searchProductQueryByManufacturer,
 				Product.class, COLLECTION_NAME);
 	}
@@ -106,8 +106,7 @@ public class ProductDAOMongo implements IProductDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	/**
 	 * Get an image by its id
 	 * 
@@ -128,6 +127,7 @@ public class ProductDAOMongo implements IProductDAO {
 		GridFSDBFile imageForOutput = gfsPhoto.findOne(newFileName);
 		return imageForOutput;
 	}
+
 	/**
 	 * Get an image by its name and write to a new file
 	 * 
@@ -167,10 +167,18 @@ public class ProductDAOMongo implements IProductDAO {
 	@Override
 	public List<Product> getProductByProductStateId(String id, String status) {
 		// TODO Auto-generated method stub
-		 Query searchProductQueryByProductState = new Query(Criteria.where(
-				"productStateId").is(id).and("status").is(status));
+		Query searchProductQueryByProductState = new Query(Criteria
+				.where("productStateId").is(id).and("status").is(status));
 		return mongoTemplate.find(searchProductQueryByProductState,
 				Product.class, COLLECTION_NAME);
 	}
 
+	@Override
+	public List<Product> searchProductByName(String name, String status) {
+		// TODO Auto-generated method stub
+		 Query searchProductQueryByProductState = new Query(Criteria.where(
+					"name").regex(".*" + name + "*.","i").and("status").is(status));
+			return mongoTemplate.find(searchProductQueryByProductState,
+					Product.class, COLLECTION_NAME);
+	}
 }

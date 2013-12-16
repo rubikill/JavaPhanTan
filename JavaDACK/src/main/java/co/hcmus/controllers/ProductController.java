@@ -1,6 +1,7 @@
 package co.hcmus.controllers;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -16,9 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import co.hcmus.models.Product;
-import co.hcmus.models.ProductDetail;
 import co.hcmus.models.PromotionDetail;
 import co.hcmus.services.IProductDetailService;
 import co.hcmus.services.IProductService;
@@ -173,6 +172,27 @@ public class ProductController {
 				result.add(product);
 			}
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
+					headers, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	/**
+	 * rest to search product by name
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value = "/product/search/{name}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<String> searchProductByName(
+			@PathVariable("name") String name) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=utf-8");
+		try {
+			List<Product> listProduct = productService.searchProductByName(name, STATUS.ACTIVE.getStatusCode());
+			return new ResponseEntity<String>(Tools.toJsonArray(listProduct),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
