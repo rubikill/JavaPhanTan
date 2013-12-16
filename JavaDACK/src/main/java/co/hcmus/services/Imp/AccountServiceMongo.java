@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IAccountDAO;
+import co.hcmus.daos.IAccountTypeDAO;
 import co.hcmus.models.Account;
 import co.hcmus.models.Comment;
 import co.hcmus.services.IAccountService;
@@ -23,6 +24,9 @@ public class AccountServiceMongo implements IAccountService {
 	@Autowired
 	private ICommentService commentService;
 
+	@Autowired
+	private IAccountTypeDAO accountTypeDAO;
+
 	@Override
 	public void addAccount(Account account) {
 		accountDAO.addAccount(account);
@@ -33,7 +37,14 @@ public class AccountServiceMongo implements IAccountService {
 	}
 
 	public List<Account> getAccounts() {
-		return accountDAO.getAccounts();
+		List<Account> accounts = accountDAO.getAccounts();
+		for (int i=0; i<accounts.size(); i++) {
+			String id = accounts.get(i).getAccountTypeId();
+
+			accounts.get(i).setAccountType(accountTypeDAO.getAccountType(id));
+		}
+		
+		return accounts;
 	}
 
 	@Override

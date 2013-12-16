@@ -42,3 +42,7 @@
 8:45 PM 13/12/2013
 	- [REQUEST] Add new Collect ProductState. Product State { _id: "", name :"", status :""}
 	- [CHANGE] Add column productStateId to collection Product
+	
+[PHMTriet]
+	- [DONE] Add new Collection ProductState.
+	- [DONE] Add new column productStateId to collection Product.

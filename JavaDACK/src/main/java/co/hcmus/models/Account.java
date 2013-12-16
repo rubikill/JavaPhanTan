@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Document
 public class Account {
@@ -19,6 +20,8 @@ public class Account {
 	private String token;			// Token key
 	private int point;				// Point - after reach a number of points, account type will 
 									// be changed to VIP. Limit is defined in PointLevel colection
+
+	private AccountType accountType;
 
 	public Account(){
 		
@@ -120,4 +123,11 @@ public class Account {
 		this.point = point;
 	}
 
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
+	}
 }

@@ -20,6 +20,7 @@ function accountCtrl($scope, $rootScope, $location, LoginService, localize, Acco
 	$scope.regUser = {};
 
 	$scope.register = function () {
+		console.log("REGISTER");
 		console.log($scope.regUser);
 		Account.register({
 

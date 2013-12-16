@@ -53,6 +53,11 @@ shop.config(['$routeProvider',
                 // ,
                 // controller : homeCtrl
             })
+            .when('/orders', {
+                templateUrl: '/partials/pages/orders.html'
+                // ,
+                // controller : homeCtrl
+            })
             .otherwise({
                 redirectTo: ('/')
             });

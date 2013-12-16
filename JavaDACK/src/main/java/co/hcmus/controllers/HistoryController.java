@@ -129,13 +129,13 @@ public class HistoryController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/history", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> getHistorys(HttpServletRequest request) {
+	public ResponseEntity<String> getHistorys(HttpSession session) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 
 		// TODO NEED TO CONFIRM THAT CUSTOMER HAS LOGON
 
-		String email = (String) request.getSession().getAttribute("email");
+		String email = (String) session.getAttribute("email");
 		List<History> listTemp = historyService.getHistorysByEmail(email);
 
 		if (listTemp == null) {
