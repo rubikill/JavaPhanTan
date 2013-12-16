@@ -27,38 +27,39 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th style="width: 20%">Name <i class="fa fa-sort"></i></th>
+						<th style="width: 5%">Id <i class="fa fa-sort"></i></th>
+						<th style="width: 15%">Name <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Start <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">End <i class="fa fa-sort"></i></th>
 						<th style="width: 15%">Content <i class="fa fa-sort"></i></th>
 						<th style="width: 15%">Note <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Tag id <i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Discount <i class="fa fa-sort"></i></th>
-						<th style="width: 14%">Action</th>
+						<th style="width: 7%">Status <i class="fa fa-sort"></i></th>
+						<th style="width: 17%">Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="promotion" items="${listPromotions }"
 						varStatus="status">
-						<tr class="rowAccount${status.index} ">
+						<tr class="rowPromotion" id="rowPromotion${status.index}">
+							<td id="0">${promotion.id }</td>
+							<td id="1">${promotion.name }</td>
+							<fmt:formatDate value="${promotion.date_start}"
+								pattern="dd/MM/yyyy" var="date_start" />
+							<td id="2">${date_start}</td>
+							<fmt:formatDate value="${promotion.date_end}"
+								pattern="dd/MM/yyyy" var="date_end" />
+							<td id="3">${date_end}</td>
+							<td id="4">${promotion.content}</td>
+							<td id="5">${promotion.note}</td>
+							<td id="6">${promotion.tagId}</td>
+							<td id="7">${promotion.status}</td>
 
-							<td id="0">${promotion.name }</td>
-							<fmt:formatDate value="${promotion.date_start}" pattern="dd/MM/yyyy"
-								var="date_start" />
-							<td id="1">${date_start}</td>
-							<fmt:formatDate value="${promotion.date_end}" pattern="dd/MM/yyyy"
-								var="date_end" />
-							<td id="2">${date_end}</td>
-							<td id="3">${promotion.content}</td>
-							
-							<td id="4">${promotion.note}</td>
-							<td id="5">${promotion.tagId}</td>
-							<td id="6">${promotion.discount}</td>
 							<td>
-								<button class="open-AccountEditDialog btn btn-warning"
+								<button class="open-PromotionEditDialog btn btn-warning"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
-								<button class="open-AccountDeleteDialog  btn btn-danger"
+								<button class="open-PromotionDeleteDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#deleteModal">Block</button>
 							</td>
@@ -83,89 +84,88 @@
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog editModal">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
 				<h4 class="modal-title" id="myModalLabel">Edit product</h4>
 			</div>
-			<div class="modal-body">
-				<form class="form-horizontal" role="form">
+			<form:form class="form-horizontal" role="form"
+				action="/admin/promotions/edit" commandName="promotion"
+				method="POST">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-4 control-label">Id</label>
+						<div class="col-sm-8">
+							<form:input path="id" type="text" class="form-control"
+								id="id" placeholder="Empty" readonly="readonly"/>
+						</div>
+					</div>
+
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Name</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputPassword3"
-								placeholder="Empty">
+							<form:input path="name" type="text" class="form-control"
+								id="name" placeholder="Empty" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							start</label>
 						<div class="col-sm-8">
-							<input type="number" class="form-control" id="inputPassword3"
-								placeholder="Empty">
+							<form:input path="date_start" type="number" class="form-control"
+								id="dateStart" placeholder="Empty" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							end</label>
 						<div class="col-sm-8">
-							<input type="number" class="form-control" id="inputPassword3"
-								placeholder="Empty">
+							<form:input path="date_end" type="number" class="form-control"
+								id="dateEnd" placeholder="Empty" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Content</label>
 						<div class="col-sm-8">
-							<input type="number" class="form-control" id="inputPassword3"
-								placeholder="Description">
+							<form:input path="content" type="number" class="form-control"
+								id="content" placeholder="Description" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Note</label>
 						<div class="col-sm-8">
 							<!-- <span class="input-group-addon">$</span> -->
-							<input type="text" class="form-control" id="inputPassword3"
-								placeholder="Empty">
+							<form:input path="note" type="text" class="form-control"
+								id="note" placeholder="Empty" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Tag
 							ID</label>
 						<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputPassword3"
-								placeholder="Empty">
+							<form:input path="tagId" type="text" class="form-control"
+								id="tagId" placeholder="Empty" />
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Discount</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputPassword3"
-								placeholder="Empty">
-						</div>
-					</div>
-
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Status</label>
 						<div class="col-sm-8">
-							<select class="form-control">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-							</select>
+							<form:select path="status" class="form-control" id="status">
+								<form:option value="Disable" label="Disable" />
+								<form:option value="Active" label="Active" />
+								<form:option value="Inactive" label="Inactive" />
+								<form:option value="Block" label="Block" />
+							</form:select>
 						</div>
 					</div>
-
-
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">Save changes</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Add</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</form:form>
 		</div>
 		<!-- /.modal-content -->
 	</div>
@@ -255,13 +255,6 @@
 						<div class="col-sm-8">
 							<form:input path="tagId" type="text" class="form-control"
 								id="tagId" placeholder="Empty" />
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Discount</label>
-						<div class="col-sm-8">
-							<form:input path="discount" type="text" class="form-control"
-								id="discount" placeholder="Empty" />
 						</div>
 					</div>
 					<div class="form-group">

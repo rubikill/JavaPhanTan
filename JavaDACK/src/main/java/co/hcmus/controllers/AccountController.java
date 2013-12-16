@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +24,7 @@ import co.hcmus.helpers.SendMailHelper;
 import co.hcmus.models.Account;
 import co.hcmus.models.AccountType;
 import co.hcmus.models.EmailForm;
+import co.hcmus.models.Promotion;
 import co.hcmus.provider.EncryptProvider;
 import co.hcmus.services.IAccountService;
 import co.hcmus.services.IAccountTypeService;
@@ -43,6 +45,7 @@ public class AccountController {
 
 	/**
 	 * Controller to mapping admin page - MANAGE ACCOUNT
+	 * 
 	 * @param locale
 	 * @param model
 	 * @param request
@@ -52,14 +55,33 @@ public class AccountController {
 	public String accounts(Locale locale, Model model,
 			HttpServletRequest request) {
 		prepairData(request);
-		Account account = new Account();
-		// account.setBirthday(new Date());
-		model.addAttribute("account", account);
+//		Account account = new Account();
+//		// account.setBirthday(new Date());
+//		model.addAttribute("account", account);
+		return "accounts";
+	}
+
+	@RequestMapping(value = "/admin/account/block/{email}", method = RequestMethod.GET)
+	public String blockPromotion(Locale locale, Model model,
+			HttpServletRequest request, @PathVariable String email) {
+		System.out.println("\n email:" + email);
+		Account account = accountService.getAccount(email);
+		if (account!= null)
+		{
+			System.out.println("\n email:" + account.getEmail());
+			System.out.println("\n address:" + account.getAddress());
+			System.out.println("\n name:" + account.getName());
+		}
+		else
+			System.out.println("\n NULL");
+//		account.setStatus(STATUS.BLOCK.getStatusCode());
+		prepairData(request);
 		return "accounts";
 	}
 
 	/**
 	 * Controller to edit an account passing from MANAGE ACCOUNT - Admin page
+	 * 
 	 * @param locale
 	 * @param model
 	 * @param request
@@ -69,34 +91,35 @@ public class AccountController {
 	@RequestMapping(value = "/admin/account/edit", method = RequestMethod.POST)
 	public String editAccount(Locale locale, Model model,
 			HttpServletRequest request, Account account) {
-		
-//		System.out.println("email:" + account.getEmail());
-//		System.out.println("account:" + account.getName());
 
-		//TODO add MD5 hash password
-		
+		// System.out.println("email:" + account.getEmail());
+		// System.out.println("account:" + account.getName());
+
+		// TODO add MD5 hash password
+
 		accountService.updateAccount(account);
 		prepairData(request);
-
-		Account account1 = new Account();
-		model.addAttribute("account", account1);
-		return "accounts";
-	}
-	
-//	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
-//	public String blockAccount(Locale locale, Model model,
-//			HttpServletRequest request, Account account) {
-//		
-//		System.out.println("email:" + account.getEmail());
-//		System.out.println("account:" + account.getName());
-//		
-//		accountService.updateAccount(account);
-//		prepairData(request);
 //
 //		Account account1 = new Account();
 //		model.addAttribute("account", account1);
-//		return "accounts";
-//	}
+		return "accounts";
+	}
+
+	// @RequestMapping(value = "/admin/account/block", method =
+	// RequestMethod.POST)
+	// public String blockAccount(Locale locale, Model model,
+	// HttpServletRequest request, Account account) {
+	//
+	// System.out.println("email:" + account.getEmail());
+	// System.out.println("account:" + account.getName());
+	//
+	// accountService.updateAccount(account);
+	// prepairData(request);
+	//
+	// Account account1 = new Account();
+	// model.addAttribute("account", account1);
+	// return "accounts";
+	// }
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpServletRequest request) {
@@ -111,19 +134,20 @@ public class AccountController {
 
 	private void prepairData(HttpServletRequest request) {
 		List<Account> listAccount = accountService.getAccounts();
-		
-		AccountType act  = listAccount.get(0).getAccountType();
-		if (act!=null){
+
+		AccountType act = listAccount.get(0).getAccountType();
+		if (act != null) {
 			System.out.println(act.getName());
-		}
-		else
+		} else
 			System.out.println("ACT NULL");
-		
+
 		List<AccountType> listAccountType = accountTypeService
 				.getAccountTypes();
 		for (int i = 0; i < listAccountType.size(); i++) {
-//			System.out.println(listAccountType.get(i).getName());
+			// System.out.println(listAccountType.get(i).getName());
 		}
+		Account account = new Account();
+		request.setAttribute("account", account);
 		request.setAttribute("listAccountType", listAccountType);
 		request.setAttribute("listAccount", listAccount);
 		request.setAttribute("nav", "account");
