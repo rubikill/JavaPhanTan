@@ -36,7 +36,7 @@ public class PointLevelServiceMongo implements IPointLevelService {
 	}
 
 	@Override
-	public void deletePointLevel(String email) {
-		PointLevelDAO.deletePointLevel(email);
+	public void deletePointLevel(String id) {
+		PointLevelDAO.deletePointLevel(id);
 	}
 }

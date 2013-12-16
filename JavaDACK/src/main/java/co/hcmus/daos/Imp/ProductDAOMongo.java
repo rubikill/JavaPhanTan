@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
@@ -16,8 +17,10 @@ import com.mongodb.gridfs.GridFSInputFile;
 
 import co.hcmus.daos.IProductDAO;
 import co.hcmus.models.Product;
+import co.hcmus.util.STATUS;
 
 @Repository("productDAO")
+@Transactional
 public class ProductDAOMongo implements IProductDAO {
 
 	@Autowired
@@ -51,7 +54,9 @@ public class ProductDAOMongo implements IProductDAO {
 	@Override
 	public void deleteProduct(String id) {
 		// TODO Auto-generated method stub
-
+		Product product = getProductById(id);
+		product.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(product, COLLECTION_NAME);
 	}
 
 	@Override

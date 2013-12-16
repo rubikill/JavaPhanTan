@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IHistoryDetailDAO;
 import co.hcmus.models.HistoryDetail;
+import co.hcmus.util.STATUS;
 
 @Repository("historyDetailDAO")
+@Transactional
 public class HistoryDetailDAOMongo implements IHistoryDetailDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
@@ -23,7 +26,7 @@ public class HistoryDetailDAOMongo implements IHistoryDetailDAO {
 		if (!mongoTemplate.collectionExists(HistoryDetail.class)) {
 			mongoTemplate.createCollection(HistoryDetail.class);
 		}
-		// insert a document	
+		// insert a document
 		mongoTemplate.insert(historyDetail, COLLECTION_NAME);
 
 	}
@@ -45,13 +48,35 @@ public class HistoryDetailDAOMongo implements IHistoryDetailDAO {
 	@Override
 	public void deleteHistoryDetail(String id) {
 		// TODO Auto-generated method stub
-
+		HistoryDetail historyDetail = getHistoryDetailById(id);
+		historyDetail.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(historyDetail, COLLECTION_NAME);
 	}
 
 	@Override
 	public List<HistoryDetail> getHistoryDetails() {
 		// get all docuemnt
 		return mongoTemplate.findAll(HistoryDetail.class, COLLECTION_NAME);
+	}
+
+	@Override
+	public List<HistoryDetail> getHistoryDetailByHistoryId(String historyId,
+			String status) {
+		// TODO Auto-generated method stub
+		Query searchHistoryDetailByHistoryIdQuery = new Query(Criteria
+				.where("historyId").is(historyId).and("status").is(status));
+		return mongoTemplate.find(searchHistoryDetailByHistoryIdQuery,
+				HistoryDetail.class, COLLECTION_NAME);
+	}
+
+	@Override
+	public List<HistoryDetail> getHistoryDetailByProductId(String productId,
+			String status) {
+		// TODO Auto-generated method stub
+		Query searchHistoryDetailByHistoryIdQuery = new Query(Criteria
+				.where("productId").is(productId).and("status").is(status));
+		return mongoTemplate.find(searchHistoryDetailByHistoryIdQuery,
+				HistoryDetail.class, COLLECTION_NAME);
 	}
 
 }

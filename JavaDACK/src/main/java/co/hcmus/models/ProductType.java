@@ -8,10 +8,12 @@ public class ProductType {
 	@Id
 	private String id;			// Id
 	private String name;		// ProductType's name
+	private String status;
 	
-	public ProductType( String name) {
+	public ProductType( String name, String status) {
 		super();
 		this.name = name;
+		this.status = status;
 	}
 	
 	public String getId() {
@@ -26,4 +28,13 @@ public class ProductType {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 }

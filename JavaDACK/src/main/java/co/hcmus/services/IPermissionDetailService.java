@@ -15,4 +15,10 @@ public interface IPermissionDetailService {
 
 	public List<PermissionDetail> getPermissionDetails();
 
+	public List<PermissionDetail> getPermissionDetailByPermissionId(String id,
+			String status);
+
+	public List<PermissionDetail> getPermissionDetailByAccountTypeId(String id,
+			String status);
+
 }

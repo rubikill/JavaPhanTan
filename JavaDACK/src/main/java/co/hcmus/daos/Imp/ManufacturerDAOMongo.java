@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IManufacturerDAO;
 import co.hcmus.models.Manufacturer;
+import co.hcmus.util.STATUS;
 
 @Repository("manufacturerDAO")
+@Transactional
 public class ManufacturerDAOMongo implements IManufacturerDAO {
 
 	@Autowired
@@ -46,7 +49,9 @@ public class ManufacturerDAOMongo implements IManufacturerDAO {
 	@Override
 	public void deleteManufacturer(String id) {
 		// TODO Auto-generated method stub
-
+		Manufacturer manufacturer = getManufacturerById(id);
+		manufacturer.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(manufacturer, COLLECTION_NAME);
 	}
 
 	@Override

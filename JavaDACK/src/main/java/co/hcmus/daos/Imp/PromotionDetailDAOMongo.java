@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IPromotionDetailDAO;
 import co.hcmus.models.PromotionDetail;
+import co.hcmus.util.STATUS;
 
 @Repository("promotionDetailDAO")
+@Transactional
 public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 
 	@Autowired
@@ -48,7 +51,8 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 	public void deletePromotionDetail(String id) {
 		// delete propmotionDetail by id
 		PromotionDetail promotionDetail = getPromotionDetailByPromotionId(id);
-		mongoTemplate.remove(promotionDetail, COLLECTION_NAME);
+		promotionDetail.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(promotionDetail, COLLECTION_NAME);
 
 	}
 
@@ -65,6 +69,16 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 		Query searchPromotionDetailByPromotionId = new Query(Criteria
 				.where("promotionId").is(promotionId).and("status").is(status));
 		return mongoTemplate.find(searchPromotionDetailByPromotionId,
+				PromotionDetail.class, COLLECTION_NAME);
+	}
+
+	@Override
+	public List<PromotionDetail> getPromotionDetailsByProductId(
+			String productId, String status) {
+		// TODO Auto-generated method stub
+		Query searchPromotionDetailByProductId = new Query(Criteria
+				.where("productId").is(productId).and("status").is(status));
+		return mongoTemplate.find(searchPromotionDetailByProductId,
 				PromotionDetail.class, COLLECTION_NAME);
 	}
 

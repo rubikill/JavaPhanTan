@@ -7,12 +7,15 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IHistoryDAO;
 import co.hcmus.models.Account;
 import co.hcmus.models.History;
+import co.hcmus.util.STATUS;
 
 @Repository("historyDAO")
+@Transactional
 public class HistoryDAOMongo implements IHistoryDAO {
 
 	@Autowired
@@ -40,7 +43,7 @@ public class HistoryDAOMongo implements IHistoryDAO {
 	// Get specific History by id
 	@Override
 	public History getHistory(String id) {
-		Query searchHistoryQuery = new Query(Criteria.where("id").is(id));
+		Query searchHistoryQuery = new Query(Criteria.where("_id").is(id));
 		return mongoTemplate.findOne(searchHistoryQuery, History.class,
 				COLLECTION_NAME);
 	}
@@ -49,7 +52,8 @@ public class HistoryDAOMongo implements IHistoryDAO {
 	@Override
 	public void deleteHistory(String id) {
 		History history = getHistory(id);
-		mongoTemplate.remove(history, COLLECTION_NAME);
+		history.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(history, COLLECTION_NAME);
 
 	}
 

@@ -8,7 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IHistoryDAO;
 import co.hcmus.models.History;
+import co.hcmus.models.HistoryDetail;
+import co.hcmus.services.IHistoryDetailService;
 import co.hcmus.services.IHistoryService;
+import co.hcmus.util.STATUS;
 
 @Service("historyService")
 @Transactional
@@ -16,6 +19,9 @@ public class HistoryServiceMongo implements IHistoryService {
 
 	@Autowired
 	private IHistoryDAO HistoryDAO;
+
+	@Autowired
+	private IHistoryDetailService historyDetailService;
 
 	@Override
 	public void addHistory(History History) {
@@ -36,13 +42,18 @@ public class HistoryServiceMongo implements IHistoryService {
 	}
 
 	@Override
-	public void deleteHistory(String email) {
-		HistoryDAO.deleteHistory(email);
+	public void deleteHistory(String id) {
+		List<HistoryDetail> listHistoryDetail = historyDetailService
+				.getHistoryDetailByHistoryId(id,
+						STATUS.ACTIVE.getStatusCode());
+		for(HistoryDetail historyDetail : listHistoryDetail)
+			historyDetailService.deleteHistoryDetail(historyDetail.getId());
+		HistoryDAO.deleteHistory(id);
 	}
 
 	@Override
 	public List<History> getHistorysByEmail(String email) {
 		return HistoryDAO.getHistorysByEmail(email);
 	}
-	
+
 }

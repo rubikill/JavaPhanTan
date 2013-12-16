@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IRatingDAO;
 import co.hcmus.models.Rating;
+import co.hcmus.util.STATUS;
 
 @Repository("ratingDAO")
+@Transactional
 public class RatingDAOMongo implements IRatingDAO {
 
 	@Autowired
@@ -46,7 +49,8 @@ public class RatingDAOMongo implements IRatingDAO {
 	public void deleteRating(String id) {
 		// delete document by id
 		Rating rating = getRatingById(id);
-		mongoTemplate.remove(rating, COLLECTION_NAME);
+		rating.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(rating, COLLECTION_NAME);
 	}
 
 	@Override

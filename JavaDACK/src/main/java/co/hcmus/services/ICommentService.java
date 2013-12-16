@@ -15,4 +15,11 @@ public interface ICommentService {
 
 	public List<Comment> getComments();
 
+	public List<Comment> getCommentByEmail(String email, String status);
+
+	public List<Comment> getCommentByProductId(String productId, String status);
+
+	public List<Comment> getCommentOfCommentRoot(String idCommentRoot,
+			String status);
+
 }

@@ -7,12 +7,15 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.ICommentDAO;
 import co.hcmus.models.Account;
 import co.hcmus.models.Comment;
+import co.hcmus.util.STATUS;
 
 @Repository("commentDAO")
+@Transactional
 public class CommentDAOMongo implements ICommentDAO {
 	@Autowired
 	private MongoTemplate mongoTemplate;
@@ -39,7 +42,7 @@ public class CommentDAOMongo implements ICommentDAO {
 	// Get a specific Comment by id
 	@Override
 	public Comment getComment(String id) {
-		Query searchCommentQuery = new Query(Criteria.where("id").is(id));
+		Query searchCommentQuery = new Query(Criteria.where("_id").is(id));
 		return mongoTemplate.findOne(searchCommentQuery, Comment.class,
 				COLLECTION_NAME);
 	}
@@ -48,7 +51,13 @@ public class CommentDAOMongo implements ICommentDAO {
 	@Override
 	public void deleteComment(String id) {
 		Comment comment = getComment(id);
-		mongoTemplate.remove(comment, COLLECTION_NAME);
+		comment.setStatus(STATUS.INACTIVE.getStatusCode());
+
+		List<Comment> listComment = getCommentOfCommentRoot(comment.getId(),
+				STATUS.ACTIVE.getStatusCode());
+		for (Comment commentTemp : listComment)
+			deleteComment(commentTemp.getId());
+		mongoTemplate.save(comment, COLLECTION_NAME);
 
 	}
 
@@ -56,6 +65,32 @@ public class CommentDAOMongo implements ICommentDAO {
 	@Override
 	public List<Comment> getComments() {
 		return mongoTemplate.findAll(Comment.class, COLLECTION_NAME);
+	}
+
+	@Override
+	public List<Comment> getCommentByEmail(String email, String status) {
+		Query searchCommentByEmailQuery = new Query(Criteria.where("email")
+				.is(email).and("status").is(status));
+		return mongoTemplate.find(searchCommentByEmailQuery, Comment.class,
+				COLLECTION_NAME);
+	}
+
+	@Override
+	public List<Comment> getCommentByProductId(String productId, String status) {
+		Query searchCommentByEmailQuery = new Query(Criteria.where("productId")
+				.is(productId).and("status").is(status));
+		return mongoTemplate.find(searchCommentByEmailQuery, Comment.class,
+				COLLECTION_NAME);
+	}
+
+	@Override
+	public List<Comment> getCommentOfCommentRoot(String idCommentRoot,
+			String status) {
+		Query searchCommentByEmailQuery = new Query(Criteria
+				.where("idCommentRoot").is(idCommentRoot).and("status")
+				.is(status));
+		return mongoTemplate.find(searchCommentByEmailQuery, Comment.class,
+				COLLECTION_NAME);
 	}
 
 }

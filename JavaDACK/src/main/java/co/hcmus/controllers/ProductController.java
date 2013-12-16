@@ -83,13 +83,11 @@ public class ProductController {
 	public ResponseEntity<String> getProductId(@PathVariable("id") String id) {
 		// get product byID
 		Product product = productService.getProductById(id);
-		ProductDetail productDetail = productDetailService.getProductDetailByProductId(id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		if (product == null) {
 			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 		}
-		product.setProductDetail(productDetail);
 		return new ResponseEntity<String>(Tools.toJson(product), headers,
 				HttpStatus.OK);
 	}

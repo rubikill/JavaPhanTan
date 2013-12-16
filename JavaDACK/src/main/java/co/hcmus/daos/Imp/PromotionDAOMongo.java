@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IPromotionDAO;
 import co.hcmus.models.Promotion;
+import co.hcmus.util.STATUS;
 
 @Repository("promotionDAO")
+@Transactional
 public class PromotionDAOMongo implements IPromotionDAO {
 
 	@Autowired
@@ -47,7 +50,8 @@ public class PromotionDAOMongo implements IPromotionDAO {
 	public void deletePromotion(String id) {
 		// delete propmotion by id
 		Promotion promotion = getPromotionById(id);
-		mongoTemplate.remove(promotion, COLLECTION_NAME);
+		promotion.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(promotion, COLLECTION_NAME);
 	}
 
 	@Override

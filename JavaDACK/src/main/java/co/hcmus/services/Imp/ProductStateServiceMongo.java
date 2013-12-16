@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IProductStateDAO;
+import co.hcmus.models.Product;
 import co.hcmus.models.ProductState;
+import co.hcmus.services.IProductService;
 import co.hcmus.services.IProductStateService;
+import co.hcmus.util.STATUS;
 
 @Service("productStateService")
 @Transactional
@@ -16,6 +19,8 @@ public class ProductStateServiceMongo implements IProductStateService {
 
 	@Autowired
 	private IProductStateDAO productStateDAO;
+	@Autowired
+	private IProductService productService;
 
 	@Override
 	public void addProductState(ProductState productState) {
@@ -38,8 +43,11 @@ public class ProductStateServiceMongo implements IProductStateService {
 
 	@Override
 	public void deleteProductState(String id) {
-		// TODO Auto-generated method stub
-
+		List<Product> listProduct = productService.getProductByProductStateId(
+				id, STATUS.ACTIVE.getStatusCode());
+		for (Product product : listProduct)
+			productService.deleteProduct(product.getId());
+		productStateDAO.deleteProductState(id);
 	}
 
 	@Override

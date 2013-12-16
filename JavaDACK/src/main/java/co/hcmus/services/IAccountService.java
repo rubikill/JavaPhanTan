@@ -15,4 +15,5 @@ public interface IAccountService {
 
 	public List<Account> getAccounts();
 
+	public List<Account> getAccountByAccountType(String accountTypeId, String status);
 }

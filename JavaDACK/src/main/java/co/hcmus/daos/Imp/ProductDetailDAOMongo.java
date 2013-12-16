@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IProductDetailDAO;
 import co.hcmus.models.ProductDetail;
+import co.hcmus.util.STATUS;
 
 @Repository("productDetailDAO")
+@Transactional
 public class ProductDetailDAOMongo implements IProductDetailDAO {
 
 	@Autowired
@@ -46,7 +49,9 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 	@Override
 	public void deleteProductDetail(String id) {
 		// TODO Auto-generated method stub
-
+		ProductDetail productDetail = getProductDetailById(id);
+		productDetail.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(productDetail, COLLECTION_NAME);
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class HistoryDetailServiceMongo implements IHistoryDetailService {
 
 	@Override
 	public void deleteHistoryDetail(String id) {
-		// TODO Auto-generated method stub
+		historyDetailDAO.deleteHistoryDetail(id);
 
 	}
 
@@ -44,6 +44,20 @@ public class HistoryDetailServiceMongo implements IHistoryDetailService {
 	public List<HistoryDetail> getHistoryDetails() {
 		// TODO Auto-generated method stub
 		return historyDetailDAO.getHistoryDetails();
+	}
+
+	@Override
+	public List<HistoryDetail> getHistoryDetailByHistoryId(String historyId,
+			String status) {
+		// TODO Auto-generated method stub
+		return historyDetailDAO.getHistoryDetailByHistoryId(historyId, status);
+	}
+
+	@Override
+	public List<HistoryDetail> getHistoryDetailByProductId(String productId,
+			String status) {
+		// TODO Auto-generated method stub
+		return historyDetailDAO.getHistoryDetailByProductId(productId, status);
 	}
 
 }

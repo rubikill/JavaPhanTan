@@ -8,7 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IPromotionDAO;
 import co.hcmus.models.Promotion;
+import co.hcmus.models.PromotionDetail;
+import co.hcmus.services.IPromotionDetailService;
 import co.hcmus.services.IPromotionService;
+import co.hcmus.util.STATUS;
 
 @Service("promotionService")
 @Transactional
@@ -16,6 +19,8 @@ public class PromotionServiceMongo implements IPromotionService {
 
 	@Autowired
 	private IPromotionDAO promotionDAO;
+	@Autowired
+	private IPromotionDetailService promotionDetailService;
 
 	@Override
 	public void addPromotion(Promotion promotion) {
@@ -37,7 +42,14 @@ public class PromotionServiceMongo implements IPromotionService {
 
 	@Override
 	public void deletePromotion(String id) {
-		// TODO Auto-generated method stub
+
+		List<PromotionDetail> listPromotionDetail = promotionDetailService
+				.getPromotionDetailsByPromotionId(id,
+						STATUS.ACTIVE.getStatusCode());
+		for (PromotionDetail promotionDetail : listPromotionDetail)
+			promotionDetailService.deletePromotionDetail(promotionDetail
+					.getId());
+		promotionDAO.deletePromotion(id);
 
 	}
 

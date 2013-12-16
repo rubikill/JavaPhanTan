@@ -6,6 +6,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class PointLevel {
 
 	private String VIP;
+	private String status;
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getVIP() {
+		return VIP;
+	}
 
 	public String VIP() {
 		return VIP;

@@ -35,8 +35,27 @@ public class CommentServiceMongo implements ICommentService {
 	}
 
 	@Override
-	public void deleteComment(String email) {
-		CommentDAO.deleteComment(email);
+	public void deleteComment(String id) {
+		CommentDAO.deleteComment(id);
+	}
+
+	@Override
+	public List<Comment> getCommentByEmail(String email, String status) {
+		// TODO Auto-generated method stub
+		return CommentDAO.getCommentByEmail(email, status);
+	}
+
+	@Override
+	public List<Comment> getCommentByProductId(String productId, String status) {
+		// TODO Auto-generated method stub
+		return CommentDAO.getCommentByProductId(productId, status);
+	}
+
+	@Override
+	public List<Comment> getCommentOfCommentRoot(String idCommentRoot,
+			String status) {
+		// TODO Auto-generated method stub
+		return CommentDAO.getCommentOfCommentRoot(idCommentRoot, status);
 	}
 	
 }

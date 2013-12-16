@@ -14,4 +14,10 @@ public interface IHistoryDetailService {
 	public void deleteHistoryDetail(String id);
 
 	public List<HistoryDetail> getHistoryDetails();
+
+	public List<HistoryDetail> getHistoryDetailByHistoryId(String historyId,
+			String status);
+
+	public List<HistoryDetail> getHistoryDetailByProductId(String productId,
+			String status);
 }

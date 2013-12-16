@@ -36,7 +36,7 @@ public class RatingServiceMongo implements IRatingService {
 
 	@Override
 	public void deleteRating(String id) {
-		// TODO Auto-generated method stub
+		ratingDAO.deleteRating(id);
 
 	}
 

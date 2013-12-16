@@ -5,16 +5,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Permission {
+
 	@Id
 	private String id;
-	private String accountTypeId;
-	private String permissionId;
+	private String name;
+	private String status;
 
-	public Permission(String id, String accountTypeId, String permissionId) {
+	public Permission(String id, String name, String status) {
 		super();
 		this.id = id;
-		this.accountTypeId = accountTypeId;
-		this.permissionId = permissionId;
+		this.name = name;
+		this.status = status;
 	}
 
 	public String getId() {
@@ -25,19 +26,20 @@ public class Permission {
 		this.id = id;
 	}
 
-	public String getAccountTypeId() {
-		return accountTypeId;
+	public String getName() {
+		return name;
 	}
 
-	public void setAccountTypeId(String accounttypeid) {
-		this.accountTypeId = accounttypeid;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getPermissionId() {
-		return permissionId;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setPermissionId(String permissionId) {
-		this.permissionId = permissionId;
+	public void setStatus(String status) {
+		this.status = status;
 	}
+	
 }

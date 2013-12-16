@@ -7,12 +7,15 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IPointLevelDAO;
 import co.hcmus.models.Account;
 import co.hcmus.models.PointLevel;
+import co.hcmus.util.STATUS;
 
 @Repository("PointLevelDAO")
+@Transactional
 public class PointLevelDAOMongo implements IPointLevelDAO {
 
 	@Autowired
@@ -40,20 +43,21 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 	// Get a specific PointLevel by id
 	@Override
 	public PointLevel getPointLevel(String id) {
-		Query searchPointLevelQuery = new Query(Criteria.where("id").is(id));
+		Query searchPointLevelQuery = new Query(Criteria.where("_id").is(id));
 		return mongoTemplate.findOne(searchPointLevelQuery, PointLevel.class,
 				COLLECTION_NAME);
 	}
 
-	//Delete a PointLevel
+	// Delete a PointLevel
 	@Override
 	public void deletePointLevel(String id) {
-		PointLevel PointLevel = getPointLevel(id);
-		mongoTemplate.remove(PointLevel, COLLECTION_NAME);
+		PointLevel pointLevel = getPointLevel(id);
+		pointLevel.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(pointLevel, COLLECTION_NAME);
 
 	}
 
-	//Get all PointLevels
+	// Get all PointLevels
 	@Override
 	public List<PointLevel> getPointLevels() {
 		return mongoTemplate.findAll(PointLevel.class, COLLECTION_NAME);

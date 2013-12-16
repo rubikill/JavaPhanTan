@@ -14,5 +14,7 @@ public interface IAccountDAO {
 	public void deleteAccount(String email);
 
 	public List<Account> getAccounts();
+	
+	public List<Account> getAccountByAccountType(String accountTypeId, String status);
 
 }

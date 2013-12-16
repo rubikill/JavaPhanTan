@@ -9,17 +9,19 @@ public class Comment {
 	private String id;				// Id
 	private String email;			// Commenter's email
 	private String productId;		// Id of product which is commented
-	private String idCommentRoot;	// If of root (parent) comment, if this comment reply a comment 
+	private String idCommentRoot;	// If of root (parent) comment, if this comment reply a comment , if it = -1 , it root comment 
 	private String content;			// Comment's content
+	private String status;
 
 	public Comment(String id, String email, String productId,
-			String idCommentRoot, String content) {
+			String idCommentRoot, String content, String status) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.productId = productId;
 		this.idCommentRoot = idCommentRoot;
 		this.content = content;
+		this.status = status;
 	}
 	
 	public String getId() {
@@ -55,4 +57,17 @@ public class Comment {
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+	
 }

@@ -7,10 +7,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import co.hcmus.daos.IProductStateDAO;
 import co.hcmus.models.ProductState;
+import co.hcmus.util.STATUS;
 
 @Repository("productStateDAO")
+@Transactional
 public class ProductStateDAOMongo implements IProductStateDAO {
 
 	@Autowired
@@ -41,7 +45,9 @@ public class ProductStateDAOMongo implements IProductStateDAO {
 	@Override
 	public void deleteProductState(String id) {
 		// TODO Auto-generated method stub
-
+		ProductState productState = getProductStateById(id, STATUS.ACTIVE.getStatusCode());
+		productState.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(productState, COLLECTION_NAME);
 	}
 
 	@Override

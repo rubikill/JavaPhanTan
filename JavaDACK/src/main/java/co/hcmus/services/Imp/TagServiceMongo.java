@@ -36,7 +36,7 @@ public class TagServiceMongo implements ITagService {
 
 	@Override
 	public void deleteTag(String id) {
-		// TODO Auto-generated method stub
+		tagDAO.deleteTag(id);
 
 	}
 

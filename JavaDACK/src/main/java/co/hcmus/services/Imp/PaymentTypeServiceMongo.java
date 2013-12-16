@@ -36,7 +36,7 @@ public class PaymentTypeServiceMongo implements IPaymentTypeService {
 
 	@Override
 	public void deletePaymentType(String id) {
-		// TODO Auto-generated method stub
+		paymentTypeDAO.deletePaymentType(id);
 		
 	}
 

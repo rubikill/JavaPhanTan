@@ -36,7 +36,7 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 
 	@Override
 	public void deletePromotionDetail(String id) {
-		// TODO Auto-generated method stub
+		promotionDetailDAO.deletePromotionDetail(id);
 
 	}
 
@@ -52,6 +52,13 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 		// TODO Auto-generated method stub
 		return promotionDetailDAO.getPromotionDetailsByPromotionId(promotionId,
 				status);
+	}
+
+	@Override
+	public List<PromotionDetail> getPromotionDetailsByProductId(
+			String productId, String status) {
+		// TODO Auto-generated method stub
+		return promotionDetailDAO.getPromotionDetailsByProductId(productId, status);
 	}
 
 }

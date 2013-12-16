@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import co.hcmus.daos.ITagDAO;
 import co.hcmus.models.Tag;
+import co.hcmus.util.STATUS;
 
 @Repository("tagDAO")
 public class TagDAOMongo implements ITagDAO {
@@ -47,7 +48,8 @@ public class TagDAOMongo implements ITagDAO {
 	public void deleteTag(String id) {
 		// delete tag by id
 		Tag tag = getTagById(id);
-		mongoTemplate.remove(tag, COLLECTION_NAME);
+		tag.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(tag, COLLECTION_NAME);
 
 	}
 

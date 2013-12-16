@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IPaymentTypeDAO;
 import co.hcmus.models.PaymentType;
+import co.hcmus.util.STATUS;
 
 @Repository("paymentTypeDAO")
+@Transactional
 public class PaymentTypeDAOMongo implements IPaymentTypeDAO {
 
 	@Autowired
@@ -45,7 +48,9 @@ public class PaymentTypeDAOMongo implements IPaymentTypeDAO {
 
 	@Override
 	public void deletePaymentType(String id) {
-
+		PaymentType paymentType = getPaymentTypeById(id);
+		paymentType.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(paymentType, COLLECTION_NAME);
 	}
 
 	@Override

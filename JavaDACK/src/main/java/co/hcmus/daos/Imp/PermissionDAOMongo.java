@@ -7,12 +7,15 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IPermissionDAO;
 import co.hcmus.models.Account;
 import co.hcmus.models.Permission;
+import co.hcmus.util.STATUS;
 
 @Repository("PermissionDAO")
+@Transactional
 public class PermissionDAOMongo implements IPermissionDAO {
 
 	@Autowired
@@ -40,7 +43,7 @@ public class PermissionDAOMongo implements IPermissionDAO {
 	// Get a specific Permission
 	@Override
 	public Permission getPermission(String id) {
-		Query searchPermissionQuery = new Query(Criteria.where("id").is(id));
+		Query searchPermissionQuery = new Query(Criteria.where("_id").is(id));
 		return mongoTemplate.findOne(searchPermissionQuery, Permission.class,
 				COLLECTION_NAME);
 	}
@@ -49,7 +52,8 @@ public class PermissionDAOMongo implements IPermissionDAO {
 	@Override
 	public void deletePermission(String id) {
 		Permission permission = getPermission(id);
-		mongoTemplate.remove(permission, COLLECTION_NAME);
+		permission.setStatus(STATUS.INACTIVE.getStatusCode());
+		mongoTemplate.save(permission, COLLECTION_NAME);
 
 	}
 

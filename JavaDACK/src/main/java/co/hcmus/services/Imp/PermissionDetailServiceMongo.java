@@ -36,8 +36,22 @@ public class PermissionDetailServiceMongo implements IPermissionDetailService {
 	}
 
 	@Override
-	public void deletePermissionDetail(String email) {
-		PermissionDetailDAO.deletePermissionDetail(email);
+	public void deletePermissionDetail(String id) {
+		PermissionDetailDAO.deletePermissionDetail(id);
+	}
+
+	@Override
+	public List<PermissionDetail> getPermissionDetailByPermissionId(String id,
+			String status) {
+		// TODO Auto-generated method stub
+		return PermissionDetailDAO.getPermissionDetailByPermissionId(id, status);
+	}
+
+	@Override
+	public List<PermissionDetail> getPermissionDetailByAccountTypeId(String id,
+			String status) {
+		// TODO Auto-generated method stub
+		return PermissionDetailDAO.getPermissionDetailByAccountTypeId(id, status);
 	}
 	
 	
