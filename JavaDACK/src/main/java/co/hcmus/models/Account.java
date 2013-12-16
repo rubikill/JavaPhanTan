@@ -20,6 +20,8 @@ public class Account {
 	private int point;				// Point - after reach a number of points, account type will 
 									// be changed to VIP. Limit is defined in PointLevel colection
 
+	private AccountType accountType;
+
 	public Account(){
 		
 	}
@@ -120,4 +122,11 @@ public class Account {
 		this.point = point;
 	}
 
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
+	}
 }

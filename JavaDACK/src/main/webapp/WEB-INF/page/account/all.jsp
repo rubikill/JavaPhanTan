@@ -9,7 +9,7 @@
 		</ol> -->
 	</div>
 </div><!-- /.row -->
-
+${listAccount[0].getEmail()}
 <div class="row">
 	<div class="col-lg-12">
 		<h2>List account</h2>

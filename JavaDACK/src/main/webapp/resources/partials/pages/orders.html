@@ -1,0 +1,81 @@
+<div id="mainBody">
+    <div class="container">
+        <div class="row">
+            <ng-include src="'partials/sidebar.html'" scope="" onload=""></ng-include>
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a> 
+                        <span class="divider">/</span>
+                    </li>
+                    <li class="active">Orders</li>
+                </ul>
+                <h3>
+                    List orders
+                </h3>
+                <hr class="soft" />
+                <div class="alert alert-error" ng-hide="user">You must login first</div>
+                <br class="clr" />
+                <div class="tab-content">
+                    <div class="tab-pane active" id="listView">
+                        <div class="row">
+                            <div class="span5">
+                                Details goes here, date create... <br>
+                                Quantity: <br>
+                                PaymentStatus: <br>
+                                OrderDate: <br>
+                                DeliveryDate: <br>
+                                PaymentDate: <br>
+                                STATUS
+                            </div>
+                            <div class="span4 alignR">
+                                <div class="form-horizontal qtyFrm">
+                                    <h3>Total of order: </h3>
+                                    <br />
+                                    <!-- Click to show product of this order-->
+                                    <a href="#viewOrderDetail" class="btn btn-primary" data-toggle="modal">
+                                        View details <i class=" icon-search"></i>
+                                    </a>
+                                    <a href="#cancelOrder" class="btn btn-danger" data-toggle="modal">
+                                        Cancel this order
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br class="clr" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="viewOrderDetail" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Details</h3>
+    </div>
+    <div class="modal-body">
+        <p>Details goes here</p>
+        <!-- repeat here -- >
+        productId: amount
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-click="removeFromCart(selectedItem.id, selectedItem.index)" data-i18n="_BTN_OK_"></button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="_BTN_CANCEL_"></button>
+    </div>
+</div>
+
+<div id="cancelOrder" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Confirm</h3>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure to cancel order?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success" ng-click="removeFromCart(selectedItem.id, selectedItem.index)" data-i18n="_BTN_OK_"></button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="_BTN_CANCEL_"></button>
+    </div>
+</div>

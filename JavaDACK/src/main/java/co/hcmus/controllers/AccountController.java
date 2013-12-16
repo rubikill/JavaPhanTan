@@ -1,9 +1,11 @@
 package co.hcmus.controllers;
 
 import java.util.Locale;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,12 +19,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import co.hcmus.helpers.SendMailHelper;
 import co.hcmus.models.Account;
+import co.hcmus.models.AccountType;
 import co.hcmus.models.EmailForm;
 import co.hcmus.provider.EncryptProvider;
 import co.hcmus.services.IAccountService;
+import co.hcmus.services.IAccountTypeService;
 import co.hcmus.util.Constant;
 import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
+
 /**
  * Handles requests for the application home page.
  */
@@ -30,6 +35,23 @@ import co.hcmus.util.Tools;
 public class AccountController {
 	@Autowired
 	private IAccountService accountService;
+
+	@Autowired
+	private IAccountTypeService accountTypeService;
+
+	@RequestMapping(value = "/account", method = RequestMethod.GET)
+	public String accounts(Locale locale, Model model, HttpServletRequest request) {
+		
+		List<Account> listAccount = accountService.getAccounts();
+		request.setAttribute("listAccount", listAccount);
+
+		//System.out.println(listAccount.get(0).getAccoutType().getName().toString());
+
+
+
+		request.setAttribute("nav", "account");
+		return "accounts";
+	}
 
 	// @RequestMapping(value = "/register", method = RequestMethod.GET)
 	// public String register(Locale locale, Model model) {

@@ -31,12 +31,6 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/account", method = RequestMethod.GET)
-	public String accounts(Locale locale, Model model, HttpServletRequest request) {
-		request.setAttribute("nav", "account");
-		return "accounts";
-	}
-
 	@RequestMapping(value = "/orders", method = RequestMethod.GET)
 	public String order(Locale locale, Model model, HttpServletRequest request) {
 		request.setAttribute("nav", "orders");
