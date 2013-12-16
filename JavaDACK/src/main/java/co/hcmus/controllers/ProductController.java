@@ -41,13 +41,13 @@ public class ProductController {
 	private IProductDetailService productDetailService;
 
 
-	@RequestMapping(value = "/producttype", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/producttype", method = RequestMethod.GET)
 	public String products(Locale locale, Model model, HttpServletRequest request) {
 		request.setAttribute("nav", "producttype");
 		return "type";
 	}
 
-	@RequestMapping(value = "/products", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
 	public String getProducts(Locale locale, Model model, HttpServletRequest request) {
 		request.setAttribute("nav", "products");
 		return "products";

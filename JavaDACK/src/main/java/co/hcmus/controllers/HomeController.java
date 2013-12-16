@@ -22,7 +22,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request) {		
 		//productService.saveImage("52a60af5dcac3f217a062f8d", "E:\\DropBox\\Java + LTHD\\DACK\\RESOURCE\\Resource\\1_detail.jpg");
 		//productService.writeImage("52a60af5dcac3f217a062f8d", "abcdbab.jpg");
@@ -31,13 +31,13 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value = "/orders", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/orders", method = RequestMethod.GET)
 	public String order(Locale locale, Model model, HttpServletRequest request) {
 		request.setAttribute("nav", "orders");
 		return "order";
 	}
 
-	@RequestMapping(value = "/promotions", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/promotions", method = RequestMethod.GET)
 	public String promotion(Locale locale, Model model, HttpServletRequest request) {
 		request.setAttribute("nav", "promotions");
 		return "promotion";

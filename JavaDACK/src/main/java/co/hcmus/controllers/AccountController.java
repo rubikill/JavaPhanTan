@@ -1,11 +1,11 @@
 package co.hcmus.controllers;
 
-import java.util.Locale;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -39,19 +39,62 @@ public class AccountController {
 	@Autowired
 	private IAccountTypeService accountTypeService;
 
-	@RequestMapping(value = "/account", method = RequestMethod.GET)
-	public String accounts(Locale locale, Model model, HttpServletRequest request) {		
+	/**
+	 * Controller to mapping admin page - MANAGE ACCOUNT
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/account", method = RequestMethod.GET)
+	public String accounts(Locale locale, Model model,
+			HttpServletRequest request) {
 		prepairData(request);
-
+//		Account account = new Account();
+//		// account.setBirthday(new Date());
+//		model.addAttribute("account", account);
 		return "accounts";
 	}
 
-	@RequestMapping(value = "/account", method = RequestMethod.POST)
-	public String doAccounts(Locale locale, Model model, HttpServletRequest request) {
+	/**
+	 * Controller to edit an account passing from MANAGE ACCOUNT - Admin page
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/account/edit", method = RequestMethod.POST)
+	public String editAccount(Locale locale, Model model,
+			HttpServletRequest request, Account account) {
+		
+//		System.out.println("email:" + account.getEmail());
+//		System.out.println("account:" + account.getName());
+
+		//TODO add MD5 hash password
+		
+		accountService.updateAccount(account);
 		prepairData(request);
 
+		Account account1 = new Account();
+		model.addAttribute("account", account1);
 		return "accounts";
 	}
+	
+//	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
+//	public String blockAccount(Locale locale, Model model,
+//			HttpServletRequest request, Account account) {
+//		
+//		System.out.println("email:" + account.getEmail());
+//		System.out.println("account:" + account.getName());
+//		
+//		accountService.updateAccount(account);
+//		prepairData(request);
+//
+//		Account account1 = new Account();
+//		model.addAttribute("account", account1);
+//		return "accounts";
+//	}
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpServletRequest request) {
@@ -59,35 +102,49 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/admin/forgotpass", method = RequestMethod.GET)
-	public String forgotpass(Locale locale, Model model, HttpServletRequest request) {
+	public String forgotpass(Locale locale, Model model,
+			HttpServletRequest request) {
 		return "forgotpass";
 	}
 
 	private void prepairData(HttpServletRequest request) {
 		List<Account> listAccount = accountService.getAccounts();
+		
+		AccountType act  = listAccount.get(2).getAccountType();
+		if (act!=null){
+			System.out.println(act.getName());
+		}
+		else
+			System.out.println("ACT NULL");
+		
+		List<AccountType> listAccountType = accountTypeService
+				.getAccountTypes();
+		for (int i = 0; i < listAccountType.size(); i++) {
+//			System.out.println(listAccountType.get(i).getName());
+		}
+		request.setAttribute("listAccountType", listAccountType);
 		request.setAttribute("listAccount", listAccount);
-
 		request.setAttribute("nav", "account");
 	}
 
 	// @RequestMapping(value = "/register", method = RequestMethod.GET)
 	// public String register(Locale locale, Model model) {
-	// 	return "register";
+	// return "register";
 	// }
 
 	// @RequestMapping(value = "/login", method = RequestMethod.GET)
 	// public String login(Locale locale, Model model) {
-	// 	return "login";
+	// return "login";
 	// }
 
 	// @RequestMapping(value = "/contact", method = RequestMethod.GET)
 	// public String contact(Locale locale, Model model) {
-	// 	return "contact";
+	// return "contact";
 	// }
 
 	// @RequestMapping(value = "/forgetpass", method = RequestMethod.GET)
 	// public String forgetpass(Locale locale, Model model) {
-	// 	return "forgetpass";
+	// return "forgetpass";
 	// }
 
 	@Autowired
@@ -95,6 +152,7 @@ public class AccountController {
 
 	@Autowired
 	SendMailHelper sendMailHelper;
+
 	/**
 	 * Login
 	 * 
@@ -104,44 +162,50 @@ public class AccountController {
 	 */
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<String> login(@RequestBody String json, HttpSession session) {
+	public ResponseEntity<String> login(@RequestBody String json,
+			HttpSession session) {
 		Account accountTemp = Tools.fromJsonTo(json, Account.class);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
 		// Create AccountService
 		// get Account with email
-		
+
 		Account account = accountService.getAccount(accountTemp.getEmail());
 
 		// check account
 		if (account == null) {
-			return new ResponseEntity<String>("Account does not exsits", headers, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("Account does not exsits",
+					headers, HttpStatus.BAD_REQUEST);
 		} else {
-			if (encryptPasswordProvider.checkSum(accountTemp.getPassword(), account.getPassword(), Constant.MD5)) {
+			if (encryptPasswordProvider.checkSum(accountTemp.getPassword(),
+					account.getPassword(), Constant.MD5)) {
 				System.out.println("Login success");
 				session.setAttribute("email", account.getEmail());
-				return new ResponseEntity<String>(Tools.toJson(account), headers, HttpStatus.OK);
+				return new ResponseEntity<String>(Tools.toJson(account),
+						headers, HttpStatus.OK);
 			} else {
 				return new ResponseEntity<String>("Wrong password", headers,
-					HttpStatus.BAD_REQUEST);
+						HttpStatus.BAD_REQUEST);
 			}
 		}
 	}
 
 	@RequestMapping(value = "/ping", method = RequestMethod.GET)
 	public ResponseEntity<String> ping(HttpSession session) {
-		if(session.getAttribute("email") == null){
+		if (session.getAttribute("email") == null) {
 			System.out.println("ping failure...");
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
-		}else{
+		} else {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", "application/json");
-			Account account = accountService.getAccount(session.getAttribute("email").toString());
+			Account account = accountService.getAccount(session.getAttribute(
+					"email").toString());
 			System.out.println("ping success...");
-			return new ResponseEntity<String>(Tools.toJson(account), headers, HttpStatus.OK);
+			return new ResponseEntity<String>(Tools.toJson(account), headers,
+					HttpStatus.OK);
 		}
-		
+
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -171,13 +235,14 @@ public class AccountController {
 		headers.add("Content-Type", "text/html");
 		// Create AccountService
 		// get Account with email
-		account.setPassword(encryptPasswordProvider.hash(account.getPassword(), Constant.MD5).toString());
+		account.setPassword(encryptPasswordProvider.hash(account.getPassword(),
+				Constant.MD5).toString());
 
-		//Gen Token here
+		// Gen Token here
 		account.setToken(UUID.randomUUID().toString());
-		//Set accout type here
+		// Set accout type here
 
-		//Set status
+		// Set status
 		account.setStatus(STATUS.INACTIVE.getStatusCode());
 		// check account
 		if (accountService.getAccount(account.getEmail()) == null) {
@@ -195,10 +260,10 @@ public class AccountController {
 				e.printStackTrace();
 			}
 			return new ResponseEntity<String>("Create success", headers,
-				HttpStatus.OK);
+					HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Create failure", headers,
-			HttpStatus.BAD_REQUEST);
+				HttpStatus.BAD_REQUEST);
 	}
 
 	/**
@@ -210,32 +275,32 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/forgetpass", method = RequestMethod.POST)
 	public ResponseEntity<String> forgetPassword(@RequestBody String json) {
-		//Recive a email address here
+		// Recive a email address here
 		String email = json;
 
 		Account account = accountService.getAccount(json);
 
-		//Do reset pass here
+		// Do reset pass here
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
-		
+
 		EmailForm emailForm = new EmailForm();
 		emailForm.reciver = email;
 		emailForm.subject = "Reset password for " + email;
 		emailForm.body = "Your new password is: " + "xxxxxxxxx";
 
-		//Send a email to reset password
+		// Send a email to reset password
 		try {
 			sendMailHelper.sendMail(emailForm);
-			
+
 			return new ResponseEntity<String>("Send mail succsess", headers,
-				HttpStatus.OK);
+					HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return new ResponseEntity<String>("Send mail failure", headers,
-				HttpStatus.BAD_REQUEST);
-		}		
+					HttpStatus.BAD_REQUEST);
+		}
 	}
 }
