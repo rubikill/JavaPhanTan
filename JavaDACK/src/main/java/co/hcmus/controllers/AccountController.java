@@ -47,10 +47,20 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/account", method = RequestMethod.POST)
-	public String accounts(Locale locale, Model model, HttpServletRequest request) {
+	public String doAccounts(Locale locale, Model model, HttpServletRequest request) {
 		prepairData(request);
 
 		return "accounts";
+	}
+
+	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+	public String login(Locale locale, Model model, HttpServletRequest request) {
+		return "login";
+	}
+
+	@RequestMapping(value = "/admin/forgotpass", method = RequestMethod.GET)
+	public String forgotpass(Locale locale, Model model, HttpServletRequest request) {
+		return "forgotpass";
 	}
 
 	private void prepairData(HttpServletRequest request) {

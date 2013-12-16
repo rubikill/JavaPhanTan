@@ -35,4 +35,14 @@
     <definition name="promotion" extends="templateMain">
         <put-attribute name="content" value="/WEB-INF/page/promotion/all.jsp"/>
     </definition>
+
+    <definition name="login" template="/WEB-INF/template/templateForm.jsp">
+        <put-attribute name="content" value="/WEB-INF/page/login.jsp"/>
+    </definition>
+
+    <definition name="forgotpass" template="/WEB-INF/template/templateForm.jsp">
+        <put-attribute name="content" value="/WEB-INF/page/forgotpass.jsp"/>
+    </definition>
+    
+
 </tiles-definitions>
