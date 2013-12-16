@@ -9,3 +9,6 @@
 <script src="${pageContext.request.contextPath}/admin/js/morris/chart-data-morris.js"></script>
 <script src="${pageContext.request.contextPath}/admin/js/tablesorter/jquery.tablesorter.js"></script>
 <script src="${pageContext.request.contextPath}/admin/js/tablesorter/tables.js"></script>
+
+
+<!-- <script src="${pageContext.request.contextPath}/themes/js/angular.min.js"></script> -->

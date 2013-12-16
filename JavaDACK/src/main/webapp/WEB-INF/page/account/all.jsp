@@ -24,29 +24,32 @@ ${listAccount[0].getEmail()}
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach var='accIdx' begin='0' end='${listAccount.size() - 1}' step='1'>
 					<tr>
-						<td>/index.html</td>
-						<td>1265</td>
-						<td>32.3%</td>
+						<c:set var='acc' value='${listAccount.get(accIdx)}' />
+						<td>${acc.getEmail()}</td>
+						<td>${acc.getAccountTypeId()}</td>
+						<td>${acc.getStatus()}</td>
 						<td>
 							<button class="btn btn-warning" data-toggle="modal" data-target="#editModal">Edit</button>
 							<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Block</button>
 						</td>
 					</tr>
-				</tbody>
-			</table>
-		</div>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
-	<div class="col-lg-12">
-		<ul class="pagination">
-			<li class="disabled"><span>&laquo;</span></li>
-			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-			<li ><span>2 <span class="sr-only">(current)</span></span></li>
-			<li ><span>3 <span class="sr-only">(current)</span></span></li>
-			<li ><span>4 <span class="sr-only">(current)</span></span></li>
-			<li ><span>&raquo;</span></li>
-		</ul>
-	</div>
+</div>
+<div class="col-lg-12">
+	<ul class="pagination">
+		<li class="disabled"><span>&laquo;</span></li>
+		<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
+		<li ><span>2 <span class="sr-only">(current)</span></span></li>
+		<li ><span>3 <span class="sr-only">(current)</span></span></li>
+		<li ><span>4 <span class="sr-only">(current)</span></span></li>
+		<li ><span>&raquo;</span></li>
+	</ul>
+</div>
 </div>
 
 <!-- Modal -->

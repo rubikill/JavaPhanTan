@@ -40,17 +40,24 @@ public class AccountController {
 	private IAccountTypeService accountTypeService;
 
 	@RequestMapping(value = "/account", method = RequestMethod.GET)
+	public String accounts(Locale locale, Model model, HttpServletRequest request) {		
+		prepairData(request);
+
+		return "accounts";
+	}
+
+	@RequestMapping(value = "/account", method = RequestMethod.POST)
 	public String accounts(Locale locale, Model model, HttpServletRequest request) {
-		
+		prepairData(request);
+
+		return "accounts";
+	}
+
+	private void prepairData(HttpServletRequest request) {
 		List<Account> listAccount = accountService.getAccounts();
 		request.setAttribute("listAccount", listAccount);
 
-		//System.out.println(listAccount.get(0).getAccoutType().getName().toString());
-
-
-
 		request.setAttribute("nav", "account");
-		return "accounts";
 	}
 
 	// @RequestMapping(value = "/register", method = RequestMethod.GET)
