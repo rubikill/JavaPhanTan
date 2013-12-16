@@ -32,12 +32,20 @@ $(document).on("click", ".open-AccountEditDialog", function ()
 	
 });
 
-<!-- Fill text field in Modal fade ACCOUNT EDIT dialog-->
+<!-- Fill text field in Modal fade ACCOUNT BLOCK dialog-->
 $(document).on("click", ".open-AccountBlockDialog", function () 
 {  
 	var index = $(this).data('id'); 
 	$(".modal-footer #BlockButton").attr("onClick","location.href='/admin/account/block/" + $("#rowAccount" + index + " #0").text()+ "';"); 
 });
+
+<!-- Fill text field in Modal fade PROMOTION BLOCK dialog-->
+$(document).on("click", ".open-PromotionBlockDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-footer #BlockButton").attr("onClick","location.href='/admin/promotions/block/" + $("#rowPromotion" + index + " #0").text()+ "';"); 
+});
+
 
 
 <!-- Fill text field in Modal fade PROMOTION edit dialog-->

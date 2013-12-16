@@ -51,11 +51,12 @@ public class PromotionController {
 		return "promotion";
 	}
 
-	@RequestMapping(value = "/admin/promotions/block/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/promotions/block/{id}", method = RequestMethod.GET)
 	public String blockPromotion(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
 		Promotion promotion = promotionService.getPromotionById(id);
 		promotion.setStatus(STATUS.BLOCK.getStatusCode());
+		promotionService.updatePromotion(promotion);
 		prepairData(request);
 		return "promotion";
 	}

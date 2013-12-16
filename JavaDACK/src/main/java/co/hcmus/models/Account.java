@@ -13,8 +13,6 @@ public class Account {
 	private String name;			// Full name
 	private String phone;			// Phone number
 	private String address;			// Address
-
-	@DateTimeFormat(pattern="yyyy-MM-ddThh:mm:ss.SSSZ")
 	private Date birthday;			// Birthday
 	private String accountTypeId;	// Id in AccountType collection, define which account's type is
 	private String password;		// Password -- MD5 (incomplete - hash)

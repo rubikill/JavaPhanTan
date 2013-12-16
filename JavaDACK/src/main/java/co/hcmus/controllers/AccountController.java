@@ -64,7 +64,7 @@ public class AccountController {
 	@RequestMapping(value = "/admin/account/block/{email}", method = RequestMethod.GET)
 	public String blockPromotion(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String email) {
-		System.out.println("\n email:" + email);
+		System.out.println("\n email:'" + email  +"'");
 		Account account = accountService.getAccount(email);
 		if (account!= null)
 		{
@@ -74,7 +74,8 @@ public class AccountController {
 		}
 		else
 			System.out.println("\n NULL");
-//		account.setStatus(STATUS.BLOCK.getStatusCode());
+		account.setStatus(STATUS.BLOCK.getStatusCode());
+		accountService.updateAccount(account);
 		prepairData(request);
 		return "accounts";
 	}
@@ -289,9 +290,10 @@ public class AccountController {
 			} catch (Exception e) {
 				// TODO: handle exception
 				//System.out.println("Problem when create account");
+				e.printStackTrace();
 				return new ResponseEntity<String>("{\"message\" : \"Problem when create account\"}", headers,
 					HttpStatus.BAD_REQUEST);
-				e.printStackTrace();
+			
 			}
 			return new ResponseEntity<String>("{\"message\" : \"Create success\"}", headers,
 					HttpStatus.OK);

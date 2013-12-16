@@ -59,7 +59,7 @@
 								<button class="open-PromotionEditDialog btn btn-warning"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
-								<button class="open-PromotionDeleteDialog  btn btn-danger"
+								<button class="open-PromotionBlockDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#deleteModal">Block</button>
 							</td>
@@ -187,7 +187,7 @@
 				<p>Are you sure to block this account?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-primary" id="BlockButton" onClick="">Save changes</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>

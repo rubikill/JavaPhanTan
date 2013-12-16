@@ -53,7 +53,9 @@ public class AccountDAOMongo implements IAccountDAO {
 	// Get a specific account by email
 	@Override
 	public Account getAccount(String email) {
+		System.out.println("email in DAO:'" + email + "'");
 		Query searchAccountQuery = new Query(Criteria.where("email").is(email));
+		
 		return mongoTemplate.findOne(searchAccountQuery, Account.class,
 				COLLECTION_NAME);
 	}
