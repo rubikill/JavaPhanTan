@@ -34,17 +34,25 @@ public class PromotionController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions", method = RequestMethod.GET)
-	public String promotion(Locale locale, Model model,
+	public String getPromotions(Locale locale, Model model,
 			HttpServletRequest request) {
-		
 		prepairData(request);
-		
+		return "promotion";
+	}
+
+	@RequestMapping(value = "/admin/promotions/add", method = RequestMethod.POST)
+	public String addPromotion(Locale locale, Model model,
+			HttpServletRequest request, Promotion promotion) {
+		prepairData(request);
+		promotionService.addPromotion(promotion);
 		return "promotion";
 	}
 
 	private void prepairData(HttpServletRequest request) {
+		Promotion promotion = new Promotion();
 		List<Promotion> listPromotions = promotionService.getPromotions();
 		request.setAttribute("listPromotions", listPromotions);
+		request.setAttribute("promotion", promotion);
 		request.setAttribute("nav", "promotions");
 	}
 
