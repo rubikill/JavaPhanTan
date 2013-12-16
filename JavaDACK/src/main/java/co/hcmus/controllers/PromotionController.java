@@ -1,12 +1,16 @@
 package co.hcmus.controllers;
 
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +24,29 @@ public class PromotionController {
 
 	@Autowired
 	private IPromotionService promotionService;
+
+	/**
+	 * Controller for Admin page - MANAGE PROMOTION
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/promotions", method = RequestMethod.GET)
+	public String promotion(Locale locale, Model model,
+			HttpServletRequest request) {
+		
+		prepairData(request);
+		
+		return "promotion";
+	}
+
+	private void prepairData(HttpServletRequest request) {
+		List<Promotion> listPromotions = promotionService.getPromotions();
+		request.setAttribute("listPromotions", listPromotions);
+		request.setAttribute("nav", "promotions");
+	}
 
 	/**
 	 * webservice to get Promotions

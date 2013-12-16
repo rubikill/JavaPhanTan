@@ -37,10 +37,6 @@ public class HomeController {
 		return "order";
 	}
 
-	@RequestMapping(value = "/admin/promotions", method = RequestMethod.GET)
-	public String promotion(Locale locale, Model model, HttpServletRequest request) {
-		request.setAttribute("nav", "promotions");
-		return "promotion";
-	}
+	
 
 }

@@ -50,9 +50,9 @@ public class AccountController {
 	public String accounts(Locale locale, Model model,
 			HttpServletRequest request) {
 		prepairData(request);
-//		Account account = new Account();
-//		// account.setBirthday(new Date());
-//		model.addAttribute("account", account);
+		Account account = new Account();
+		// account.setBirthday(new Date());
+		model.addAttribute("account", account);
 		return "accounts";
 	}
 
