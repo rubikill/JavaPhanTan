@@ -36,7 +36,7 @@ $(document).on("click", ".open-AccountEditDialog", function ()
 $(document).on("click", ".open-AccountBlockDialog", function () 
 {  
 	var index = $(this).data('id'); 
-	$(".modal-footer #BlockButton").attr("onClick","location.href='/admin/account/block/" + $("#rowAccount" + index + " #0").text()+ "';"); 
+	$(".modal-dialog #inputEmail").val($("#rowAccount" + index + " #0").text()); 
 });
 
 <!-- Fill text field in Modal fade PROMOTION BLOCK dialog-->

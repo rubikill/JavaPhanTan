@@ -61,11 +61,11 @@ public class AccountController {
 		return "accounts";
 	}
 
-	@RequestMapping(value = "/admin/account/block/{email}", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
 	public String blockPromotion(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String email) {
-		System.out.println("\n email:'" + email  +"'");
-		Account account = accountService.getAccount(email);
+			HttpServletRequest request, Account account) {
+//		System.out.println("\n email:'" + email  +"'");
+//		Account account = accountService.getAccount(email);
 		if (account!= null)
 		{
 			System.out.println("\n email:" + account.getEmail());
@@ -74,6 +74,7 @@ public class AccountController {
 		}
 		else
 			System.out.println("\n NULL");
+		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.BLOCK.getStatusCode());
 		accountService.updateAccount(account);
 		prepairData(request);
