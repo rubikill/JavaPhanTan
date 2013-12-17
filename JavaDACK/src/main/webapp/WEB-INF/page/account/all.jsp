@@ -34,8 +34,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="account" items="${listAccount }" varStatus="status">
-						<tr class="rowAccount${status.index} ">
+					<c:forEach var="account" items="${listAccount}" varStatus="status">
+						<tr class="rowAccount" id="rowAccount${status.index}">
 
 							<td id="0">${account.email }</td>
 							<td id="1">${account.name }</td>
@@ -95,30 +95,26 @@
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
-								<form:input path="name" type="text" class="form-control" id="inputName"
-									placeholder="Empty" />
+								<form:input path="name" type="text" class="form-control" id="inputName"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Phone</label>
 							<div class="col-sm-10">
-								<form:input path="phone" type="text" class="form-control" id="inputPhone"
-									placeholder="Empty" />
+								<form:input path="phone" type="text" class="form-control" id="inputPhone"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Address</label>
 							<div class="col-sm-10">
-								<form:input path="address" type="text" class="form-control" id="inputAddress"
-									placeholder="Empty" />
+								<form:input path="address" type="text" class="form-control" id="inputAddress"/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Birthday</label>
 							<div class="col-sm-10">
 								<fmt:formatDate value="${Account.birthday}" pattern="dd.MM.yyyy" var="birthday" />
-								<form:input path="birthday" type="text" class="form-control" id="inputBirthday"
-									placeholder="Empty" />
+								<form:input path="birthday" type="text" class="form-control" id="inputBirthday"/>
 							</div>
 						</div>
 						<div class="form-group">

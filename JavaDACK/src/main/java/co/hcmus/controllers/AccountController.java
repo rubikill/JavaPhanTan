@@ -110,7 +110,7 @@ public class AccountController {
 	private void prepairData(HttpServletRequest request) {
 		List<Account> listAccount = accountService.getAccounts();
 		
-		AccountType act  = listAccount.get(2).getAccountType();
+		AccountType act  = listAccount.get(0).getAccountType();
 		if (act!=null){
 			System.out.println(act.getName());
 		}
