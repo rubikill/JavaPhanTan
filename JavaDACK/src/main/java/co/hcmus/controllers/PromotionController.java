@@ -11,12 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import co.hcmus.models.Promotion;
 import co.hcmus.services.IPromotionService;
+import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
 
 @Controller
@@ -43,8 +45,35 @@ public class PromotionController {
 	@RequestMapping(value = "/admin/promotions/add", method = RequestMethod.POST)
 	public String addPromotion(Locale locale, Model model,
 			HttpServletRequest request, Promotion promotion) {
-		prepairData(request);
+
 		promotionService.addPromotion(promotion);
+		prepairData(request);
+		return "promotion";
+	}
+
+	@RequestMapping(value = "/admin/promotions/block/{id}", method = RequestMethod.GET)
+	public String blockPromotion(Locale locale, Model model,
+			HttpServletRequest request, @PathVariable String id) {
+		Promotion promotion = promotionService.getPromotionById(id);
+		promotion.setStatus(STATUS.BLOCK.getStatusCode());
+		promotionService.updatePromotion(promotion);
+		prepairData(request);
+		return "promotion";
+	}
+
+	@RequestMapping(value = "/admin/promotions/edit", method = RequestMethod.POST)
+	public String editPromotion(Locale locale, Model model,
+			HttpServletRequest request, Promotion promotion) {
+		System.out.println("ID:" + promotion.getId());
+		System.out.println("Name:" + promotion.getName());
+		System.out.println("Note:" + promotion.getNote());
+		System.out.println("Status:" + promotion.getStatus());
+		System.out.println("TagID:" + promotion.getTagId());
+		System.out.println("Date start:" + promotion.getDate_end().toString());
+		System.out.println("Date end:" + promotion.getDate_start().toString());
+
+		promotionService.updatePromotion(promotion);
+		prepairData(request);
 		return "promotion";
 	}
 

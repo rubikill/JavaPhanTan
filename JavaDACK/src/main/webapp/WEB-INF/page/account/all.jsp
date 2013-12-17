@@ -50,7 +50,7 @@
 								<button class="open-AccountEditDialog btn btn-warning"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
-								<button class="open-AccountDeleteDialog  btn btn-danger"
+								<button class="open-AccountBlockDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#deleteModal">Block</button>
 							</td>
@@ -76,7 +76,7 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form:form class="form-group" action="/admin/account" commandName="account" method="POST">
+		<form:form class="form-group" action="/admin/account/edit" commandName="account" method="POST">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -89,7 +89,7 @@
 							<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 							<div class="col-sm-10">
 								<form:input path="email" type="email" class="form-control" id="inputEmail"
-									placeholder="Empty"/>
+									placeholder="Empty" readonly="readonly"/>
 							</div>
 						</div>
 						<div class="form-group">
@@ -174,13 +174,13 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Confirm delete</h4>
+				<h4 class="modal-title" id="myModalLabel">Confirm block</h4>
 			</div>
 			<div class="modal-body">
 				<p>Are you sure to block this account?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-primary" id="BlockButton" onclick="">Block</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>

@@ -11,15 +11,16 @@ public class PromotionDetail {
 	private String promotionId; // promotion id
 	private String productId; // product ID
 	private String status; // status
+	private int discount; // discount
 
 	public PromotionDetail(String id, String promotionId, String productId,
-			String status) {
+			String status, int discount) {
 		super();
 		this.id = id;
 		this.promotionId = promotionId;
 		this.productId = productId;
 		this.status = status;
-
+		this.discount = discount;
 	}
 
 	public PromotionDetail() {
@@ -56,6 +57,14 @@ public class PromotionDetail {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
 	}
 
 }
