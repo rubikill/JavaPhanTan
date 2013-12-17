@@ -32,6 +32,7 @@ function cartCtrl($scope, $rootScope, $location, $routeParams, Cart) {
         item.count++;
 
         //update cart here
+        $scope.updateCart();
     }
 
     //Change amount
@@ -40,6 +41,7 @@ function cartCtrl($scope, $rootScope, $location, $routeParams, Cart) {
             item.count--;
 
             //update cart here
+            $scope.updateCart();
         }
     }
 
@@ -58,5 +60,15 @@ function cartCtrl($scope, $rootScope, $location, $routeParams, Cart) {
         if($rootScope.user == null || $rootScope.user == undefined){
             alertify.error("You have to login first");
         }
+    }
+
+    $scope.updateCart = function () {
+        Cart.updateCart({
+
+        }, JSON.stringify($rootScope.cart), function (data) {
+
+        }, function (respone) {
+            // body...
+        });
     }
 }

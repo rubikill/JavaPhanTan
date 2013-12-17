@@ -41,6 +41,8 @@ public class HistoryController {
 	@Autowired
 	private IHistoryDetailService historyDetailSevice;
 
+	ObjectMapper mapper = new ObjectMapper();
+	
 	/**
 	 * Web service to create new history from cart
 	 * 
@@ -54,16 +56,17 @@ public class HistoryController {
 			@RequestBody String json) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
+		
 		// TODO CHECK IF CUSTOMER IS LOGON
 		List<Cart> cartItems = (List<Cart>) session.getAttribute("ShopCart");
-		ObjectMapper mapper = new ObjectMapper();
+		if (cartItems == null) {
+			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
+		}
+		
 		History history = null;
 		try {
 			String id = UUID.randomUUID().toString();
-			if (cartItems == null) {
-				return new ResponseEntity<String>(Tools.toJsonArray(cartItems),
-						headers, HttpStatus.BAD_REQUEST);
-			}
+			
 			int quantity = 0;
 			for (int i = 0; i < cartItems.size(); i++) {
 				Cart cart = cartItems.get(i);
@@ -79,21 +82,25 @@ public class HistoryController {
 			// parse payment date
 			Date paymentDate = formatter.parse(jsonNode.path("paymentDate")
 					.getTextValue());
+			
+			System.out.println(paymentDate);
 			// parse deliver date
 			Date deliveryDate = formatter.parse(jsonNode
 					.path("paymentDelivery").getTextValue());
 			// parse paymentTypeId
-			String paymentTypeID = jsonNode.path("paymentTypeId")
-					.getTextValue();
+			//String paymentTypeID = jsonNode.path("paymentTypeId")
+			//		.getTextValue();
 			// parse paymentStatus
 			String paymentStatus = jsonNode.path("paymentStatus")
 					.getTextValue();
 			// Get email from session
 			String email = (String) session.getAttribute("email");
 
+			
+			System.out.println(jsonNode);
 			history = new History(email, quantity, STATUS.ACTIVE.getStatusCode(),
 					paymentStatus, new Date(), deliveryDate, paymentDate,
-					paymentTypeID);
+					null);
 
 			history.setId(id);
 

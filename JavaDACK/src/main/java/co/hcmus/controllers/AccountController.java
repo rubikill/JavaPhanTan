@@ -265,9 +265,10 @@ public class AccountController {
 			} catch (Exception e) {
 				// TODO: handle exception
 				//System.out.println("Problem when create account");
+				e.printStackTrace();
 				return new ResponseEntity<String>("{\"message\" : \"Problem when create account\"}", headers,
 					HttpStatus.BAD_REQUEST);
-				e.printStackTrace();
+				
 			}
 			return new ResponseEntity<String>("{\"message\" : \"Create success\"}", headers,
 					HttpStatus.OK);
