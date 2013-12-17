@@ -148,4 +148,17 @@ public class ProductServiceMongo implements IProductService {
 		return listProduct;
 	}
 
+	@Override
+	public List<Product> searchProductByName(String name, String status) {
+		// TODO Auto-generated method stub
+		List<Product> listProduct = productDAO.searchProductByName(name, status);
+		for (int i = 0; i < listProduct.size(); i++) {
+			listProduct.get(i).setProductDetail(
+					productDetailService
+							.getProductDetailByProductId(listProduct.get(i)
+									.getId()));
+		}
+		return listProduct;
+	}
+
 }

@@ -30,4 +30,8 @@ public interface IProductService {
 	public void writeImage(String name, String path);
 
 	public void deleteImageByName(String name);
+	
+	public List<Product> searchProductByName(String name, String status);
+	
+	
 }

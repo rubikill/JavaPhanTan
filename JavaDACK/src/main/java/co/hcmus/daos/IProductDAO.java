@@ -31,4 +31,6 @@ public interface IProductDAO {
 
 	public void deleteImageByName(String name);
 
+	public List<Product> searchProductByName(String name, String status);
+
 }
