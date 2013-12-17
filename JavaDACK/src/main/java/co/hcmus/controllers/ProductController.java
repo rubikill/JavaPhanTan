@@ -2,6 +2,7 @@ package co.hcmus.controllers;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 import java.util.Locale;
 
@@ -17,10 +18,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import co.hcmus.models.Manufacturer;
 import co.hcmus.models.Product;
+import co.hcmus.models.ProductState;
+import co.hcmus.models.ProductType;
 import co.hcmus.models.PromotionDetail;
+import co.hcmus.services.IManufacturerService;
 import co.hcmus.services.IProductDetailService;
 import co.hcmus.services.IProductService;
+import co.hcmus.services.IProductStateService;
+import co.hcmus.services.IProductTypeService;
 import co.hcmus.services.IPromotionDetailService;
 import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
@@ -38,22 +45,12 @@ public class ProductController {
 	
 	@Autowired
 	private IProductDetailService productDetailService;
-
-
-	@RequestMapping(value = "/admin/producttype", method = RequestMethod.GET)
-	public String products(Locale locale, Model model, HttpServletRequest request) {
-		request.setAttribute("nav", "producttype");
-		return "type";
-	}
-
-	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
-	public String getProducts(Locale locale, Model model, HttpServletRequest request) {
-		request.setAttribute("nav", "products");
-		return "products";
-	}
-
-
-
+	@Autowired
+	private IProductTypeService productTypeService;
+	@Autowired
+	private IProductStateService productStateService;
+	@Autowired
+	private IManufacturerService manufacturerService;
 
 
 	/**
@@ -197,5 +194,41 @@ public class ProductController {
 		} catch (Exception e) {
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	/**
+	 * Controller for admin
+	 */
+	
+	
+/*	@RequestMapping(value = "/admin/producttype", method = RequestMethod.GET)
+	public String products(Locale locale, Model model, HttpServletRequest request) {
+		request.setAttribute("nav", "producttype");
+		return "type";
+	}
+
+	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
+	public String getProducts(Locale locale, Model model, HttpServletRequest request) {
+		request.setAttribute("nav", "products");
+		return "products";
+	}
+	*/
+	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
+	public String productsAdmin(Locale locale, Model model,HttpServletRequest request) {
+		prepairData(request);
+		return "products";
+	}
+	
+	private void prepairData(HttpServletRequest request) {
+		List<Product> listProduct = productService.getProducts();
+		List<ProductType> listProductType = productTypeService.getProductTypes();
+		List<ProductState> listProductState = productStateService.getProductStates();
+		List<Manufacturer> listManufacturer = manufacturerService.getManufacturers();
+		
+		request.setAttribute("listProduct", listProduct);
+		request.setAttribute("listProductType", listProductType);
+		request.setAttribute("listProductState", listProductState);
+		request.setAttribute("listManufacturer", listManufacturer);		
+		request.setAttribute("nav", "products");
 	}
 }

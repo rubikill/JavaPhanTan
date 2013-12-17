@@ -21,6 +21,9 @@ public class Product {
 	private String status; 			// status
 	private int point; 				// Product's point
 	private ProductDetail productDetail;
+	private ProductType productType;
+	private ProductState productState;
+	private Manufacturer manufacturer;
 
 	public Product(String name, String productTypeId, String description, int quantity,
 			int sellCount, int importCount, String manufacturerId, String productStateId,
@@ -148,5 +151,30 @@ public class Product {
 	public void setProductDetail(ProductDetail productDetail) {
 		this.productDetail = productDetail;
 	}
+
+	public ProductType getProductType() {
+		return productType;
+	}
+
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
+	}
+
+	public ProductState getProductState() {
+		return productState;
+	}
+
+	public void setProductState(ProductState productState) {
+		this.productState = productState;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+	
 
 }

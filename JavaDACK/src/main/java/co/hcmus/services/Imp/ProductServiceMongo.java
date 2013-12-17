@@ -14,8 +14,11 @@ import co.hcmus.models.Product;
 import co.hcmus.models.ProductDetail;
 import co.hcmus.models.PromotionDetail;
 import co.hcmus.services.ICommentService;
+import co.hcmus.services.IManufacturerService;
 import co.hcmus.services.IProductDetailService;
 import co.hcmus.services.IProductService;
+import co.hcmus.services.IProductStateService;
+import co.hcmus.services.IProductTypeService;
 import co.hcmus.services.IPromotionDetailService;
 import co.hcmus.util.STATUS;
 
@@ -30,6 +33,12 @@ public class ProductServiceMongo implements IProductService {
 	private IPromotionDetailService promotionDetailService;
 	@Autowired
 	private ICommentService commentService;
+	@Autowired
+	private IProductStateService productStateService;
+	@Autowired
+	private IProductTypeService productTypeSerivce;
+	@Autowired
+	private IManufacturerService manufacturerService;
 
 	@Override
 	public void addProduct(Product product) {
@@ -49,6 +58,12 @@ public class ProductServiceMongo implements IProductService {
 		Product product = productDAO.getProductById(id);
 		product.setProductDetail(productDetailService
 				.getProductDetailByProductId(id));
+		product.setProductState(productStateService.getProductStateById(
+				product.getProductStateId(), STATUS.ACTIVE.getStatusCode()));
+		product.setProductType(productTypeSerivce.getProductType(product
+				.getProductTypeId()));
+		product.setManufacturer(manufacturerService.getManufacturerById(product
+				.getManufacturerId()));
 		return product;
 	}
 
@@ -80,6 +95,17 @@ public class ProductServiceMongo implements IProductService {
 					productDetailService
 							.getProductDetailByProductId(listProduct.get(i)
 									.getId()));
+			listProduct.get(i)
+					.setProductState(
+							productStateService.getProductStateById(listProduct
+									.get(i).getProductStateId(), STATUS.ACTIVE
+									.getStatusCode()));
+			listProduct.get(i).setProductType(
+					productTypeSerivce.getProductType(listProduct.get(i)
+							.getProductTypeId()));
+			listProduct.get(i).setManufacturer(
+					manufacturerService.getManufacturerById(listProduct.get(i)
+							.getManufacturerId()));
 		}
 		return listProduct;
 	}
@@ -93,6 +119,17 @@ public class ProductServiceMongo implements IProductService {
 					productDetailService
 							.getProductDetailByProductId(listProduct.get(i)
 									.getId()));
+			listProduct.get(i)
+					.setProductState(
+							productStateService.getProductStateById(listProduct
+									.get(i).getProductStateId(), STATUS.ACTIVE
+									.getStatusCode()));
+			listProduct.get(i).setProductType(
+					productTypeSerivce.getProductType(listProduct.get(i)
+							.getProductTypeId()));
+			listProduct.get(i).setManufacturer(
+					manufacturerService.getManufacturerById(listProduct.get(i)
+							.getManufacturerId()));
 		}
 		return listProduct;
 	}
@@ -107,6 +144,17 @@ public class ProductServiceMongo implements IProductService {
 					productDetailService
 							.getProductDetailByProductId(listProduct.get(i)
 									.getId()));
+			listProduct.get(i)
+					.setProductState(
+							productStateService.getProductStateById(listProduct
+									.get(i).getProductStateId(), STATUS.ACTIVE
+									.getStatusCode()));
+			listProduct.get(i).setProductType(
+					productTypeSerivce.getProductType(listProduct.get(i)
+							.getProductTypeId()));
+			listProduct.get(i).setManufacturer(
+					manufacturerService.getManufacturerById(listProduct.get(i)
+							.getManufacturerId()));
 		}
 		return listProduct;
 	}
@@ -144,6 +192,17 @@ public class ProductServiceMongo implements IProductService {
 					productDetailService
 							.getProductDetailByProductId(listProduct.get(i)
 									.getId()));
+			listProduct.get(i)
+					.setProductState(
+							productStateService.getProductStateById(listProduct
+									.get(i).getProductStateId(), STATUS.ACTIVE
+									.getStatusCode()));
+			listProduct.get(i).setProductType(
+					productTypeSerivce.getProductType(listProduct.get(i)
+							.getProductTypeId()));
+			listProduct.get(i).setManufacturer(
+					manufacturerService.getManufacturerById(listProduct.get(i)
+							.getManufacturerId()));
 		}
 		return listProduct;
 	}
@@ -151,12 +210,24 @@ public class ProductServiceMongo implements IProductService {
 	@Override
 	public List<Product> searchProductByName(String name, String status) {
 		// TODO Auto-generated method stub
-		List<Product> listProduct = productDAO.searchProductByName(name, status);
+		List<Product> listProduct = productDAO
+				.searchProductByName(name, status);
 		for (int i = 0; i < listProduct.size(); i++) {
 			listProduct.get(i).setProductDetail(
 					productDetailService
 							.getProductDetailByProductId(listProduct.get(i)
 									.getId()));
+			listProduct.get(i)
+					.setProductState(
+							productStateService.getProductStateById(listProduct
+									.get(i).getProductStateId(), STATUS.ACTIVE
+									.getStatusCode()));
+			listProduct.get(i).setProductType(
+					productTypeSerivce.getProductType(listProduct.get(i)
+							.getProductTypeId()));
+			listProduct.get(i).setManufacturer(
+					manufacturerService.getManufacturerById(listProduct.get(i)
+							.getManufacturerId()));
 		}
 		return listProduct;
 	}
