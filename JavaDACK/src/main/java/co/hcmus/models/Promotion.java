@@ -15,12 +15,10 @@ public class Promotion {
 	private String content; // content
 	private String note; // note
 	private String tagId; // to tag id
-	private int discount; // discount
 	private String status; // status
 
 	public Promotion(String id, String name, Date date_start, Date date_end,
-			String content, String note, String tagId, int discount,
-			String status) {
+			String content, String note, String tagId, String status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -29,7 +27,6 @@ public class Promotion {
 		this.content = content;
 		this.note = note;
 		this.tagId = tagId;
-		this.discount = discount;
 		this.status = status;
 	}
 
@@ -91,14 +88,6 @@ public class Promotion {
 
 	public void setTagId(String tagId) {
 		this.tagId = tagId;
-	}
-
-	public int getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
 	}
 
 	public String getStatus() {

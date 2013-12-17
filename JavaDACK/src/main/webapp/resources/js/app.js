@@ -54,9 +54,12 @@ shop.config(['$routeProvider',
                 // controller : homeCtrl
             })
             .when('/orders', {
-                templateUrl: '/partials/pages/orders.html'
-                // ,
-                // controller : homeCtrl
+                templateUrl: '/partials/pages/orders.html',
+                controller : orderCtrl
+            })
+            .when('/filter', {
+                templateUrl: '/partials/pages/filter.html',
+                controller: filterCtrl
             })
             .otherwise({
                 redirectTo: ('/')

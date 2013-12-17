@@ -15,6 +15,12 @@ shopsv.factory('Cart', function($resource) {
         },
         removeProductFromCart: {
             method: 'DELETE'
+        },
+        updateCart: {
+            method: 'PUT',
+            params: {
+                id: 'updateCart'
+            }
         }
     });
 });

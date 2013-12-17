@@ -59,3 +59,22 @@ shopsv.factory('Rating', function ($resource) {
         }
     });
 });
+
+
+//Order servece
+shopsv.factory('Order', function ($resource) {
+    return $resource('/history/:action', {
+        action: "@action"
+    }, {
+        getOrders: {
+            method: 'GET',
+            isArray: true
+        },
+        updateOrder: {
+            method: 'PUT',
+            params: {
+                action: 'update'
+            }
+        }
+    });
+});

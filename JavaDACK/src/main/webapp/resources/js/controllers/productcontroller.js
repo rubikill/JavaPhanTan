@@ -153,3 +153,47 @@ function productDetailsCtrl($scope, $rootScope, $location, $routeParams, Product
 function compairCtrl ($scope, $rootScope) {
     
 }
+
+function orderCtrl ($scope, $rootScope, Order) {
+    Order.getOrders({
+
+    }, function (data) {
+        // body...
+    });
+}
+
+function filterCtrl ($scope, $rootScope, Product) {
+    //List product
+    $scope.listProducts = [];
+
+    Product.getProducts({
+
+    }, function (data) {
+        $scope.listProducts = data;
+        $scope.numberOfPages = Math.ceil($scope.listProducts.length / $scope.pageSize);
+    }, function (response) {
+        // body...
+    });
+
+    // current page
+    $scope.currentPage = 1;
+    // number of items per page
+    $scope.pageSize = 6;
+    $scope.numberOfPages = 0;
+
+    $scope.next = function(argument) {
+        if ($scope.currentPage < $scope.numberOfPages) {
+            $scope.currentPage++;
+        }
+    }
+
+    $scope.prev = function(argument) {
+        if ($scope.currentPage > 1) {
+            $scope.currentPage--;
+        }
+    }
+
+    //SORT Don't touch
+    //Default sort by name
+    $scope.predicate = '+name';
+}

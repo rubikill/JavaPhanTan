@@ -1,77 +1,87 @@
 <!-- <ng-include src="'partials/slider.html'" scope="" onload=""></ng-include> -->
 <div id="mainBody">
-	<div class="container">
-		<div class="row">
-			<ng-include src="'partials/sidebar.html'" scope="" onload=""></ng-include>
-			<div class="span9">
-				<ul class="breadcrumb">
-					<li><a href="index.html">Home</a> 
-						<span class="divider">/</span>
-					</li>
-					<li class="active">Registration</li>
-				</ul>
-				<h3>Registration</h3>
-				<div class="well">
-					<form class="form-horizontal">
-						<h4>Your personal information</h4>
-						<div class="control-group">
-							<label class="control-label" for="inputFname1">Full name <sup>*</sup>
-							</label>
-							<div class="controls">
-								<input type="text" id="inputFname1" placeholder="Full Name" required ng-model="regUser.name">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="input_email">Email <sup>*</sup>
-							</label>
-							<div class="controls">
-								<input type="email" id="input_email" placeholder="Email" required ng-model="regUser.email">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="inputPassword1">Password <sup>*</sup>
-							</label>
-							<div class="controls">
-								<input type="password" id="inputPassword1" placeholder="Password" required ng-model="regUser.password">
-							</div>
-						</div>
-						<div class="control-group">
+    <div class="container">
+        <div class="row">
+            <ng-include src="'partials/sidebar.html'" scope="" onload=""></ng-include>
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a> 
+                        <span class="divider">/</span>
+                    </li>
+                    <li class="active">Registration</li>
+                </ul>
+                <h3>Registration</h3>
+                <div class="well">
+                    <form class="form-horizontal">
+                        <h4>Your personal information</h4>
+                        <div class="control-group">
+                            <label class="control-label" for="inputFname1">Full name <sup>*</sup>
+                            </label>
+                            <div class="controls">
+                                <input type="text" id="inputFname1" placeholder="Full Name" required ng-model="regUser.name">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="input_email">Email <sup>*</sup>
+                            </label>
+                            <div class="controls">
+                                <input type="email" id="input_email" placeholder="Email" required ng-model="regUser.email">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPassword1">Password <sup>*</sup>
+                            </label>
+                            <div class="controls">
+                                <input type="password" id="inputPassword1" placeholder="Password" required ng-model="regUser.password">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="inputPassword2">Repeat Password <sup>*</sup>
+                            </label>
+                            <div class="controls">
+                                <input type="password" id="inputPassword2" placeholder="Password" required ng-model="repassword">
+                            </div>
+                        </div>
+
+                        <!-- <div class="control-group">
 							<label class="control-label">Date of Birth <sup>*</sup>
 							</label>
 							<div class="controls">
-								<input type="text" class="input-small" ng-model="regUser.birthday" bs-datepicker date-format="yyyy-mm-dd" value="{{ regUser.birthday | date:'dd-MM-yyyy' }}">
+								<input type="text" class="input-small" ng-model="regUser.birthday" bs-datepicker date-format="dd/MM/yyyy" value="{{ regUser.birthday | date:'dd/MM/yyyy' }}">
 							</div>
-						</div>
+						</div> -->
 
 
-						<h4>Your address</h4>
+                        <h4>Your address</h4>
 
-						<div class="control-group">
-							<label class="control-label" for="address">Address<sup>*</sup>
-							</label>
-							<div class="controls">
-								<input type="text" id="address" placeholder="Adress" ng-model="regUser.address"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="mobile">Mobile Phone</label>
-							<div class="controls">
-								<input type="text" name="mobile" id="mobile" placeholder="Mobile Phone" ng-model="resUser.phone"/>
-							</div>
-						</div>
-						<div class="control-group">
-							<p>
-								<sup>*</sup>Required field
-							</p>
-						</div>
-						<div class="control-group">
-							<div class="controls">
-								<button class="btn btn-large btn-success" ng-click="register()" data-i18n="_BTN_REG_"></button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <div class="control-group">
+                            <label class="control-label" for="address">Address</label>
+                            <div class="controls">
+                                <input type="text" id="address" placeholder="Adress" ng-model="regUser.address" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="mobile">Mobile Phone</label>
+                            <div class="controls">
+                                <input type="text" name="mobile" id="mobile" placeholder="Mobile Phone" ng-model="resUser.phone" />
+                            </div>
+                        </div>
+                        <div class="control-group">
+
+                            <div class="controls">
+                                <p>
+                                    <sup>*</sup>Required field
+                                </p>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <button class="btn btn-large btn-success" ng-click="register()" data-i18n="_BTN_REG_"></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
