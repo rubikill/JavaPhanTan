@@ -7,6 +7,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -214,6 +216,8 @@ public class AccountController {
 		System.out.println("logout...");
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+	
+	ObjectMapper mapper = new ObjectMapper();
 
 	/**
 	 * Register
@@ -224,22 +228,24 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody String json) {
-
-		System.out.println(json);
+		JsonNode j = mapper.convertValue(json, JsonNode.class);
+		
+		System.out.println(j.findValue("birthday"));
 		Account account = Tools.fromJsonTo(json, Account.class);
 
 		// verify account infomation here
 		// ...
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Type", "text/html");
+		headers.add("Content-Type", "text/plain");
 		// Create AccountService
 		// get Account with email
 		account.setPassword(encryptPasswordProvider.hash(account.getPassword(),
 				Constant.MD5).toString());
 
 		// Gen Token here
-		account.setToken(UUID.randomUUID().toString());
+		String token = UUID.randomUUID().toString();
+		account.setToken(token);
 		// Set accout type here
 
 		// Set status
@@ -252,17 +258,21 @@ public class AccountController {
 				EmailForm emailForm = new EmailForm();
 				emailForm.reciver = account.getEmail();
 				emailForm.subject = "Welcome to Camera Shop";
-				emailForm.body = "Your new password is: " + "xxxxxxxxx";
+				emailForm.body = "Your new password is: " + token;
+				
+				sendMailHelper.sendMail(emailForm);
 
 			} catch (Exception e) {
 				// TODO: handle exception
-				System.out.println("Problem when create account");
+				//System.out.println("Problem when create account");
+				return new ResponseEntity<String>("{\"message\" : \"Problem when create account\"}", headers,
+					HttpStatus.BAD_REQUEST);
 				e.printStackTrace();
 			}
-			return new ResponseEntity<String>("Create success", headers,
+			return new ResponseEntity<String>("{\"message\" : \"Create success\"}", headers,
 					HttpStatus.OK);
 		}
-		return new ResponseEntity<String>("Create failure", headers,
+		return new ResponseEntity<String>("{\"message\" : \"Create failure\"}", headers,
 				HttpStatus.BAD_REQUEST);
 	}
 
