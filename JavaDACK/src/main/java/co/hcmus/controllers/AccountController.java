@@ -140,6 +140,10 @@ public class AccountController {
 		return "forgotpass";
 	}
 
+	/**
+	 * ADMIN PAGE - Prepair data for loading
+	 * @param request
+	 */
 	private void prepairData(HttpServletRequest request) {
 		List<Account> listAccount = accountService.getAccounts();
 
