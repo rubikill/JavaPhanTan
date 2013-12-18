@@ -56,7 +56,15 @@ public class PaymentTypeDAOMongo implements IPaymentTypeDAO {
 	@Override
 	public List<PaymentType> getPaymentTypes() {
 		// get all docuemnt
-		return mongoTemplate.findAll(PaymentType.class, COLLECTION_NAME);
+		
+			System.out.println("\n GET PAYMENT \n");
+		
+		List<PaymentType> getPaymentTypes =		mongoTemplate.findAll(PaymentType.class, COLLECTION_NAME);
+		if (getPaymentTypes == null)
+		{
+			System.out.println("Payment null");
+		}
+		return getPaymentTypes;
 	}
 
 }

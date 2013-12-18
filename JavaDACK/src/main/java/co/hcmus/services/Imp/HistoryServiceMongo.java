@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.hcmus.daos.IHistoryDAO;
+import co.hcmus.daos.IPaymentTypeDAO;
 import co.hcmus.models.History;
 import co.hcmus.models.HistoryDetail;
 import co.hcmus.services.IHistoryDetailService;
@@ -19,7 +20,8 @@ public class HistoryServiceMongo implements IHistoryService {
 
 	@Autowired
 	private IHistoryDAO HistoryDAO;
-
+	@Autowired
+	private IPaymentTypeDAO paymentTypeDAO;
 	@Autowired
 	private IHistoryDetailService historyDetailService;
 
@@ -33,6 +35,12 @@ public class HistoryServiceMongo implements IHistoryService {
 	}
 
 	public List<History> getHistorys() {
+		List<History> listHistory = HistoryDAO.getHistorys();
+		for (int i = 0; i < listHistory.size(); i++) {
+			listHistory.get(i).setPaymentType(
+					paymentTypeDAO.getPaymentTypeById(listHistory.get(i)
+							.getPaymentTypeId()));
+		}
 		return HistoryDAO.getHistorys();
 	}
 
@@ -44,9 +52,8 @@ public class HistoryServiceMongo implements IHistoryService {
 	@Override
 	public void deleteHistory(String id) {
 		List<HistoryDetail> listHistoryDetail = historyDetailService
-				.getHistoryDetailByHistoryId(id,
-						STATUS.ACTIVE.getStatusCode());
-		for(HistoryDetail historyDetail : listHistoryDetail)
+				.getHistoryDetailByHistoryId(id, STATUS.ACTIVE.getStatusCode());
+		for (HistoryDetail historyDetail : listHistoryDetail)
 			historyDetailService.deleteHistoryDetail(historyDetail.getId());
 		HistoryDAO.deleteHistory(id);
 	}

@@ -16,6 +16,9 @@
 	<li class=${nav == "promotions"? 'active' : ''}>
 		<a href="/admin/promotions"><i class="fa fa-bullhorn"></i> Promotion Manage</a>
 	</li>
+	<li class=${nav == "paymenttype"? 'active' : ''}>
+		<a href="/admin/paymenttype"><i class="fa fa-file-text-o"></i> Payment type</a>
+	</li>
 	<li class=${nav == "orders"? 'active' : ''}>
 		<a href="/admin/orders"><i class="fa fa-file-text-o"></i> Orders Manage</a>
 	</li>
