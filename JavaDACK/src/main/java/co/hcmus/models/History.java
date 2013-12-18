@@ -45,7 +45,7 @@ public class History {
 	 * @param orderDate
 	 * @param deliveryDate
 	 * @param paymentDate
-	 * @param paymentTyeId
+	 * @param PaymentTypeId
 	 */
 	public History(String email, int quantity, String status,
 			String paymentStatus, Date orderDate, Date deliveryDate,
@@ -182,18 +182,18 @@ public class History {
 	}
 
 	/**
-	 * @return the paymentTyeId
+	 * @return the PaymentTypeId
 	 */
-	public String getPaymentTyeId() {
-		return paymentTyeId;
+	public String getPaymentTypeId() {
+		return paymentTypeId;
 	}
 
 	/**
-	 * @param paymentTyeId
-	 *            the paymentTyeId to set
+	 * @param paymentTypeId
+	 *            the PaymentTypeId to set
 	 */
-	public void setPaymentTyeId(String paymentTyeId) {
-		this.paymentTyeId = paymentTyeId;
+	public void setPaymentTypeId(String paymentTypeId) {
+		this.paymentTypeId = paymentTypeId;
 	}
 
 	public PaymentType getPaymentType() {
