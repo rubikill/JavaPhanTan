@@ -22,7 +22,7 @@
 </div>
 <div class="row">
 	<div class="col-lg-12">
-		<h2>List product</h2>
+		<h2>List promotions</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
@@ -43,7 +43,8 @@
 						varStatus="status">
 						<tr class="rowPromotion" id="rowPromotion${status.index}">
 							<td id="0">${promotion.id }</td>
-							<td id="1">${promotion.name }</td>
+							<td id="1" > <a href="/admin/promotions/${promotion.id }">${promotion.name }</a></td>
+							
 							<fmt:formatDate value="${promotion.date_start}"
 								pattern="dd/MM/yyyy" var="date_start" />
 							<td id="2">${date_start}</td>

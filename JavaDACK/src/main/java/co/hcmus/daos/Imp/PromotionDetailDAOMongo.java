@@ -63,9 +63,17 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 	}
 
 	@Override
+	public List<PromotionDetail> getPromotionDetailsByPromotionIdWithoutStatus(
+			String promotionId) {
+		Query searchPromotionDetailByPromotionId = new Query(Criteria.where(
+				"promotionId").is(promotionId));
+		return mongoTemplate.find(searchPromotionDetailByPromotionId,
+				PromotionDetail.class, COLLECTION_NAME);
+	}
+
+	@Override
 	public List<PromotionDetail> getPromotionDetailsByPromotionId(
 			String promotionId, String status) {
-		// TODO Auto-generated method stub
 		Query searchPromotionDetailByPromotionId = new Query(Criteria
 				.where("promotionId").is(promotionId).and("status").is(status));
 		return mongoTemplate.find(searchPromotionDetailByPromotionId,

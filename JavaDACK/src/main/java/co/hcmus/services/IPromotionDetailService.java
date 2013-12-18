@@ -20,4 +20,8 @@ public interface IPromotionDetailService {
 	public List<PromotionDetail> getPromotionDetailsByProductId(String productId, String status);
 	
 	public void activePromotionDetail(String id);
+
+	public List<PromotionDetail> getPromotionDetailsByPromotionIdWithoutStatus(
+			String promotionId);
+
 }

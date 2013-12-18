@@ -28,7 +28,7 @@ public class PromotionController {
 	private IPromotionService promotionService;
 
 	/**
-	 * Controller for Admin page - MANAGE PROMOTION
+	 * ADMIN PAGE - Manage promotion (load)
 	 * 
 	 * @param locale
 	 * @param model
@@ -42,6 +42,15 @@ public class PromotionController {
 		return "promotion";
 	}
 
+	/**
+	 * ADMIN PAGE - ADD new Promotion
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param promotion
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/promotions/add", method = RequestMethod.POST)
 	public String addPromotion(Locale locale, Model model,
 			HttpServletRequest request, Promotion promotion) {
@@ -51,6 +60,15 @@ public class PromotionController {
 		return "promotion";
 	}
 
+	/**
+	 * ADMIN PAGE - Block a promotion
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/promotions/block/{id}", method = RequestMethod.GET)
 	public String blockPromotion(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
@@ -61,24 +79,31 @@ public class PromotionController {
 		return "promotion";
 	}
 
+	/**
+	 * ADMIN PAGE - Edit a promotion
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param promotion
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/promotions/edit", method = RequestMethod.POST)
 	public String editPromotion(Locale locale, Model model,
 			HttpServletRequest request, Promotion promotion) {
-		System.out.println("ID:" + promotion.getId());
-		System.out.println("Name:" + promotion.getName());
-		System.out.println("Note:" + promotion.getNote());
-		System.out.println("Status:" + promotion.getStatus());
-		System.out.println("TagID:" + promotion.getTagId());
-		System.out.println("Date start:" + promotion.getDate_end().toString());
-		System.out.println("Date end:" + promotion.getDate_start().toString());
-
 		promotionService.updatePromotion(promotion);
 		prepairData(request);
 		return "promotion";
 	}
 
+	/**
+	 * ADMIN PAGE - Prepair data for loading UI
+	 * 
+	 * @param request
+	 */
 	private void prepairData(HttpServletRequest request) {
 		Promotion promotion = new Promotion();
+		System.out.println("id: " + promotion.getId());
 		List<Promotion> listPromotions = promotionService.getPromotions();
 		request.setAttribute("listPromotions", listPromotions);
 		request.setAttribute("promotion", promotion);

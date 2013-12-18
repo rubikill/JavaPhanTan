@@ -52,9 +52,6 @@ $(document).on("click", ".open-PromotionBlockDialog", function ()
 $(document).on("click", ".open-PromotionEditDialog", function () 
 { 
 	var index = $(this).data('id'); 
-	console.log("id:",$("#rowPromotion" + index + " #0").text());
-	console.log("name:",$("#rowPromotion" + index + " #1").text());
-	
 	$(".editModal #id").val($("#rowPromotion" + index + " #0").text());
 	$(".editModal #name").val($("#rowPromotion" + index + " #1").text()); 
 	$(".editModal #dateStart").val($("#rowPromotion" + index + " #2").text()); 
@@ -99,5 +96,23 @@ $(document).on("click", ".open-ProductDetailDialog", function ()
 			$(".modal-body #inputHeight").val($("#rowProduct" + index + " #13").text());
 			$(".modal-body #inputStatus").val($("#rowProduct" + index + " #14").text());
 		});
+		
+<!-- Fill text field in Modal fade PROMOTION DETAIL EDIT dialog-->
+$(document).on("click", ".open-PromotionDetailEditDialog", function () 
+{ 
+	var index = $(this).data('id'); 	
+	$(".editModal #id").val($("#rowPromotionDetail" + index + " #0").text());
+	$(".editModal #productId").val($("#rowPromotionDetail" + index + " #1").text()); 
+	$(".editModal #discount").val($("#rowPromotionDetail" + index + " #2").text()); 
+	$(".editModal #status").val($("#rowPromotionDetail" + index + " #3").text());
+	
+});
+
+<!-- Fill text field in Modal fade PROMOTION DETAIL BLOCK dialog-->
+$(document).on("click", ".open-PromotionDetailBlockDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputId").val($("#rowAccount" + index + " #0").text()); 
+});
 </script>
 <!-- <script src="${pageContext.request.contextPath}/themes/js/angular.min.js"></script> -->
