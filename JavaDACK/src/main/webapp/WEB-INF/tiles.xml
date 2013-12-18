@@ -45,7 +45,7 @@
 			value="/WEB-INF/page/promotion/promotiondetail.jsp" />
 	</definition>
 	
-	<definition name="paymenttype" template="templateMain">
+	<definition name="paymenttype" extends="templateMain">
 		<put-attribute name="content" value="/WEB-INF/page/order/paymenttype.jsp" />
 	</definition>
 

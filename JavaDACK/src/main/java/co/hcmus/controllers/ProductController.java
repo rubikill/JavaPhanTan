@@ -222,6 +222,58 @@ public class ProductController {
 	 admin crate product
 	 */
 
+	@RequestMapping(value = "/admin/product/edit", method = RequestMethod.POST)
+	public String adminEditProduct(
+
+			Locale locale,
+			HttpServletRequest request,
+			@RequestParam(value = "inputProductId", required = true) String id,
+			@RequestParam(value = "inputName", required = false) String name,
+			@RequestParam(value = "inputProductType", required = false) String productTypeId,
+			@RequestParam(value = "inputQuantity", required = false) int quantity,
+			@RequestParam(value = "inputSellCount", required = false) int sellCount,
+			@RequestParam(value = "inputImportCount", required = false) int importCount,
+			@RequestParam(value = "inputManufacturer", required = false) String manufacturerId,
+			@RequestParam(value = "inputPrice", required = false) double price,
+			@RequestParam(value = "inputDescription", required = false) String description,
+			@RequestParam(value = "inputProductState", required = false) String productStateId,
+			@RequestParam(value = "inputPoint", required = false) int point,
+			@RequestParam(value = "inputWarranty", required = false) int warranty,
+			@RequestParam(value = "inputWeight", required = false) Double weight,
+			@RequestParam(value = "inputHeight", required = false) Double height) {
+
+		try {
+			// update product
+			System.out.println("UPDATE");
+			Product product = productService.getProductById(id);
+			product.setName(name);
+			product.setName(name);
+			product.setProductTypeId(productTypeId);
+			product.setQuantity(quantity);
+			product.setSellCount(sellCount);
+			product.setImportCount(importCount);
+			product.setManufacturerId(manufacturerId);
+			product.setPrice(price);
+			product.setDescription(description);
+			product.setProductStateId(productStateId);
+			product.setPoint(point);
+			productService.updateProduct(product);
+
+			// update productDetail
+
+			ProductDetail productDetail = productDetailService
+					.getProductDetailByProductId(id);
+			productDetail.setWarranty(warranty);
+
+			productDetail.setWeight(weight);
+			productDetail.setHeight(height);
+			productDetailService.updateProductDetail(productDetail);
+		} catch (Exception e) {
+		}
+		prepairData(request);
+		return "redirect:/admin/products";
+	}
+
 	@RequestMapping(value = "/admin/product/create", method = RequestMethod.POST)
 	public String adminCreateProduct(
 
@@ -238,71 +290,92 @@ public class ProductController {
 			@RequestParam(value = "inputProductState", required = false) String productStateId,
 			@RequestParam(value = "inputPoint", required = false) int point,
 			@RequestParam(value = "inputWarranty", required = false) int warranty,
-			@RequestParam(value = "inputWeight", required = false) double weight,
-			@RequestParam(value = "inputHeight", required = false) double height,
+			@RequestParam(value = "inputWeight", required = false) Double weight,
+			@RequestParam(value = "inputHeight", required = false) Double height,
 			@RequestParam(value = "inputStatus", required = false) String status) {
 
-		// Create product
-		Product product = new Product();
-		product.setName(name);
-		product.setProductTypeId(productTypeId);
-		product.setQuantity(quantity);
-		product.setSellCount(sellCount);
-		product.setImportCount(importCount);
-		product.setManufacturerId(manufacturerId);
-		product.setPrice(price);
-		product.setDescription(description);
-		product.setProductStateId(productStateId);
-		product.setPoint(point);
-		product.setStatus(status);
-		productService.addProduct(product);
-		// get productid of product have created
-		Product productTemp = productService.getProductByName(name);
-		String productId = productTemp.getId();
+		try {
+			// Create product
+			Product product = new Product();
+			product.setName(name);
+			product.setProductTypeId(productTypeId);
+			product.setQuantity(quantity);
+			product.setSellCount(sellCount);
+			product.setImportCount(importCount);
+			product.setManufacturerId(manufacturerId);
+			product.setPrice(price);
+			product.setDescription(description);
+			product.setProductStateId(productStateId);
+			product.setPoint(point);
+			product.setStatus(status);
+			productService.addProduct(product);
+			// get productid of product have created
+			Product productTemp = productService.getProductByName(name);
+			String productId = productTemp.getId();
 
-		// create product detail
-		ProductDetail productDetail = new ProductDetail();
-		productDetail.setProductId(productId);
-		productDetail.setWarranty(warranty);
-		productDetail.setWeight(weight);
-		productDetail.setHeight(height);
-		productDetail.setStatus(status);
-		productDetailService.addProductDetail(productDetail);
+			// create product detail
+			ProductDetail productDetail = new ProductDetail();
+			productDetail.setProductId(productId);
+			productDetail.setWarranty(warranty);
+			productDetail.setWeight(weight);
+			productDetail.setHeight(height);
+			productDetail.setStatus(status);
+			productDetailService.addProductDetail(productDetail);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		prepairData(request);
-		return "products";
+		return "redirect:/admin/products";
 	}
 
 	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.POST)
 	public String adminDeleteProduct(Locale locale, HttpServletRequest request,
 			@RequestParam(value = "inputProductId", required = true) String id) {
-		productService.deleteProduct(id);
+		try {
+			productService.deleteProduct(id);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		prepairData(request);
-		return "products";
+		return "redirect:/admin/products";
 
 	}
-	
+
 	@RequestMapping(value = "/admin/product/active", method = RequestMethod.POST)
 	public String adminActiveProduct(Locale locale, HttpServletRequest request,
 			@RequestParam(value = "inputProductId", required = true) String id) {
-		productService.activeProduct(id);
+		try {
+			productService.activeProduct(id);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		prepairData(request);
-		return "products";
+		return "redirect:/admin/products";
 
 	}
-
 
 	private void prepairData(HttpServletRequest request) {
-		List<Product> listProduct = productService.getProducts();
-		List<ProductType> listProductType = productTypeService
-				.getProductTypes();
-		List<ProductState> listProductState = productStateService
-				.getProductStates();
-		List<Manufacturer> listManufacturer = manufacturerService
-				.getManufacturers();
-		request.setAttribute("listProduct", listProduct);
-		request.setAttribute("listProductType", listProductType);
-		request.setAttribute("listProductState", listProductState);
-		request.setAttribute("listManufacturer", listManufacturer);
-		request.setAttribute("nav", "products");
+
+		try {
+			List<Product> listProduct = productService.getProducts();
+			List<ProductType> listProductType = productTypeService
+					.getProductTypes();
+			List<ProductState> listProductState = productStateService
+					.getProductStates();
+			List<Manufacturer> listManufacturer = manufacturerService
+					.getManufacturers();
+			request.setAttribute("listProduct", listProduct);
+			request.setAttribute("listProductType", listProductType);
+			request.setAttribute("listProductState", listProductState);
+			request.setAttribute("listManufacturer", listManufacturer);
+			request.setAttribute("nav", "products");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
+
 }
