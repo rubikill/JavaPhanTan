@@ -20,6 +20,10 @@
 		<put-attribute name="content" value="/WEB-INF/page/account/all.jsp" />
 	</definition>
 
+	<definition name="producttype" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/product/producttype.jsp" />
+	</definition>
+
 	<definition name="products" extends="templateMain">
 		<put-attribute name="content" value="/WEB-INF/page/product/all.jsp" />
 	</definition>
@@ -35,9 +39,10 @@
 	<definition name="promotion" extends="templateMain">
 		<put-attribute name="content" value="/WEB-INF/page/promotion/all.jsp" />
 	</definition>
-	
+
 	<definition name="promotiondetail" extends="templateMain">
-		<put-attribute name="content" value="/WEB-INF/page/promotion/promotiondetail.jsp" />
+		<put-attribute name="content"
+			value="/WEB-INF/page/promotion/promotiondetail.jsp" />
 	</definition>
 
 	<definition name="login" template="/WEB-INF/template/templateForm.jsp">
