@@ -32,5 +32,9 @@ public interface IProductDAO {
 	public void deleteImageByName(String name);
 
 	public List<Product> searchProductByName(String name, String status);
+	
+	public Product getProductByName(String name);
+	
+	public void activeProduct(String id);
 
 }

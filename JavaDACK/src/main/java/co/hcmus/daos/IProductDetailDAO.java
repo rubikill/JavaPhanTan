@@ -15,4 +15,6 @@ public interface IProductDetailDAO {
 	public List<ProductDetail> getProductDetails();
 
 	public ProductDetail getProductDetailByProductId(String productId);
+	
+	public void activeProductDetail(String id);
 }

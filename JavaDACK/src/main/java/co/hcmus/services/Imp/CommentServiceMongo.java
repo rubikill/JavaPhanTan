@@ -57,5 +57,11 @@ public class CommentServiceMongo implements ICommentService {
 		// TODO Auto-generated method stub
 		return CommentDAO.getCommentOfCommentRoot(idCommentRoot, status);
 	}
+
+	@Override
+	public void activeComment(String id) {
+		CommentDAO.activeComment(id);
+		
+	}
 	
 }

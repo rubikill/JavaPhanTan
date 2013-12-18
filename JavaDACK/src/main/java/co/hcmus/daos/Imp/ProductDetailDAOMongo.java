@@ -68,4 +68,12 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 				ProductDetail.class, COLLECTION_NAME);
 	}
 
+	@Override
+	public void activeProductDetail(String id) {
+		ProductDetail productDetail = getProductDetailById(id);
+		productDetail.setStatus(STATUS.ACTIVE.getStatusCode());
+		mongoTemplate.save(productDetail, COLLECTION_NAME);
+		
+	}
+
 }

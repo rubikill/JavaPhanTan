@@ -82,4 +82,12 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 				PromotionDetail.class, COLLECTION_NAME);
 	}
 
+	@Override
+	public void activePromotionDetail(String id) {
+		PromotionDetail promotionDetail = getPromotionDetailByPromotionId(id);
+		promotionDetail.setStatus(STATUS.ACTIVE.getStatusCode());
+		mongoTemplate.save(promotionDetail, COLLECTION_NAME);
+		
+	}
+
 }

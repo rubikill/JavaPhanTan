@@ -22,4 +22,5 @@ public interface ICommentService {
 	public List<Comment> getCommentOfCommentRoot(String idCommentRoot,
 			String status);
 
+	public void activeComment(String id);
 }

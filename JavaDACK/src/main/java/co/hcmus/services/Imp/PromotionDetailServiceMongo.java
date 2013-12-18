@@ -61,4 +61,10 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 		return promotionDetailDAO.getPromotionDetailsByProductId(productId, status);
 	}
 
+	@Override
+	public void activePromotionDetail(String id) {
+		promotionDetailDAO.activePromotionDetail(id);
+		
+	}
+
 }

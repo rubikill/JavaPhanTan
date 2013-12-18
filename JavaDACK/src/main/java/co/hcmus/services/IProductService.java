@@ -33,5 +33,8 @@ public interface IProductService {
 	
 	public List<Product> searchProductByName(String name, String status);
 	
+	public Product getProductByName(String name);
+	
+	public void activeProduct(String id);
 	
 }

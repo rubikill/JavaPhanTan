@@ -17,4 +17,6 @@ public interface IPromotionDetailDAO {
 	public List<PromotionDetail> getPromotionDetailsByPromotionId(String promotionId, String status);
 	
 	public List<PromotionDetail> getPromotionDetailsByProductId(String productId, String status);
+	
+	public void activePromotionDetail(String id);
 }

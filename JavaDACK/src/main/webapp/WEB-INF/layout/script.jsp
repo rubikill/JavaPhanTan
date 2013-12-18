@@ -66,6 +66,38 @@ $(document).on("click", ".open-PromotionEditDialog", function ()
 	
 });
 
+<!-- Fill text field in Modal fade Product BLOCK dialog-->
+$(document).on("click", ".open-ProductBlockDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputProductId").val($("#rowProduct" + index + " #0").text()); 
+});
 
+<!-- Fill text field in Modal fade Product Active dialog-->
+$(document).on("click", ".open-ProductActiveDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputProductId").val($("#rowProduct" + index + " #0").text()); 
+});
+
+<!-- Fill text field in Modal fade Product Detail dialog-->
+$(document).on("click", ".open-ProductDetailDialog", function () 
+		{  
+			var index = $(this).data('id');  
+			$(".modal-body #inputName").val($("#rowProduct" + index + " #1").text()); 
+			$(".modal-body #inputProductType").val($("#rowProduct" + index + " #2").text());
+			$(".modal-body #inputQuantity").val($("#rowProduct" + index + " #3").text());
+			$(".modal-body #inputSellCount").val($("#rowProduct" + index + " #4").text());
+			$(".modal-body #inputImportCount").val($("#rowProduct" + index + " #5").text());
+			$(".modal-body #inputManufacturer").val($("#rowProduct" + index + " #6").text());
+			$(".modal-body #inputPrice").val($("#rowProduct" + index + " #7").text());
+			$(".modal-body #inputDescription").val($("#rowProduct" + index + " #8").text());
+			$(".modal-body #inputProductState").val($("#rowProduct" + index + " #9").text());
+			$(".modal-body #inputPoint").val($("#rowProduct" + index + " #10").text());
+			$(".modal-body #inputWarranty").val($("#rowProduct" + index + " #11").text());
+			$(".modal-body #inputWeight").val($("#rowProduct" + index + " #12").text());
+			$(".modal-body #inputHeight").val($("#rowProduct" + index + " #13").text());
+			$(".modal-body #inputStatus").val($("#rowProduct" + index + " #14").text());
+		});
 </script>
 <!-- <script src="${pageContext.request.contextPath}/themes/js/angular.min.js"></script> -->
