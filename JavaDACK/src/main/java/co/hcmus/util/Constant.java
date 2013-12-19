@@ -17,4 +17,6 @@ public class Constant {
 	
 	//
 	public static final String MD5 = "MD5";
+	
+	public static final String ISO_FORMAT_DATETME = "yyyy-MM-dd'T'hh:mm:ss.SSS'Z'";
 }

@@ -1,9 +1,6 @@
 package co.hcmus.controllers;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -58,14 +55,12 @@ public class AccountController {
 	public String accounts(Locale locale, Model model,
 			HttpServletRequest request) {
 		prepairData(request);
-		// Account account = new Account();
-		// // account.setBirthday(new Date());
-		// model.addAttribute("account", account);
 		return "accounts";
 	}
 
 	/**
-	 * ADMIN PAGE - Block an account 
+	 * ADMIN PAGE - Block an account
+	 * 
 	 * @param locale
 	 * @param model
 	 * @param request
@@ -75,23 +70,30 @@ public class AccountController {
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
 	public String blockPromotion(Locale locale, Model model,
 			HttpServletRequest request, Account account) {
-		// System.out.println("\n email:'" + email +"'");
-		// Account account = accountService.getAccount(email);
-		if (account != null) {
-			System.out.println("\n email:" + account.getEmail());
-			System.out.println("\n address:" + account.getAddress());
-			System.out.println("\n name:" + account.getName());
-		} else
-			System.out.println("\n NULL");
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.BLOCK.getStatusCode());
 		accountService.updateAccount(account);
-		prepairData(request);
-		return "accounts";
+		return "redirect:/admin/accounts";
 	}
 
 	/**
-	 * ADMIN PAGE - Edit an account passing from MANAGE ACCOUNT 
+	 * ADMIN PAGE - Active an account
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/account/active", method = RequestMethod.POST)
+	public String activePromotion(Locale locale, Model model,
+			HttpServletRequest request, Account account) {
+		account = accountService.getAccount(account.getEmail());
+		account.setStatus(STATUS.ACTIVE.getStatusCode());
+		accountService.updateAccount(account);
+		return "redirect:/admin/accounts";
+	}
+	/**
+	 * ADMIN PAGE - Edit an account passing from MANAGE ACCOUNT
 	 * 
 	 * @param locale
 	 * @param model
@@ -109,13 +111,30 @@ public class AccountController {
 		// TODO add MD5 hash password
 
 		accountService.updateAccount(account);
-		prepairData(request);
+		
 		//
 		// Account account1 = new Account();
 		// model.addAttribute("account", account1);
-		return "accounts";
+		return "redirect:/admin/accounts";
 	}
 
+	@RequestMapping(value = "/admin/account/create", method = RequestMethod.POST)
+	public String createAccount(Locale locale, Model model,
+			HttpServletRequest request, Account account) {
+
+		// System.out.println("email:" + account.getEmail());
+		// System.out.println("account:" + account.getName());
+
+		// TODO add MD5 hash password
+
+		accountService.addAccount(account);
+		//
+		// Account account1 = new Account();
+		// model.addAttribute("account", account1);
+		return "redirect:/admin/accounts";
+	}
+	
+	
 	// @RequestMapping(value = "/admin/account/block", method =
 	// RequestMethod.POST)
 	// public String blockAccount(Locale locale, Model model,
@@ -145,6 +164,7 @@ public class AccountController {
 
 	/**
 	 * ADMIN PAGE - Prepair data for loading
+	 * 
 	 * @param request
 	 */
 	private void prepairData(HttpServletRequest request) {
@@ -201,7 +221,6 @@ public class AccountController {
 	 *            contain email and password
 	 * @return Result
 	 */
-
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody String json,
 			HttpSession session) {
@@ -274,11 +293,8 @@ public class AccountController {
 		Account account = new Account();
 		try {
 			JsonNode jsonNode = mapper.readTree(json);
-			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
-			// parse payment date
-
 			account.setEmail(jsonNode.path("email").getTextValue());
+			
 			if (accountService.getAccount(account.getEmail()) != null) {
 				return new ResponseEntity<String>(
 						"{\"message\" : \"This email has been used\"}",
@@ -286,8 +302,8 @@ public class AccountController {
 			}
 
 			account.setName(jsonNode.path("name").getTextValue());
-			account.setBirthday(formatter.parse(jsonNode.path("birthday")
-					.getTextValue()));
+			account.setBirthday(Tools.formatDate(jsonNode.path("birthday")
+					.getTextValue(), Constant.ISO_FORMAT_DATETME));
 			account.setPassword(encryptPasswordProvider.hash(
 					jsonNode.path("password").getTextValue(), Constant.MD5)
 					.toString());
@@ -300,9 +316,6 @@ public class AccountController {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 		// Gen Token here
@@ -312,17 +325,17 @@ public class AccountController {
 
 		// Set status
 		account.setStatus(STATUS.INACTIVE.getStatusCode());
-		
+
 		try {
 			accountService.addAccount(account);
-			
+
 			EmailForm emailForm = new EmailForm();
 			emailForm.reciver = account.getEmail();
 			emailForm.subject = "Welcome to Camera Shop";
 			emailForm.body = "Your new password is: " + token;
-			
+
 			sendMailHelper.sendMail(emailForm);
-			
+
 			return new ResponseEntity<String>(
 					"{\"message\" : \"Create success\"}", headers,
 					HttpStatus.OK);
@@ -348,7 +361,7 @@ public class AccountController {
 		// Recive a email address here
 		String email = json;
 
-//		Account account = accountService.getAccount(json);
+		// Account account = accountService.getAccount(json);
 
 		// Do reset pass here
 

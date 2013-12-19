@@ -192,8 +192,8 @@ public class History {
 	 * @param paymentTypeId
 	 *            the PaymentTypeId to set
 	 */
-	public void setPaymentTypeId(String paymentTypeId) {
-		this.paymentTypeId = paymentTypeId;
+	public void setPaymentTypeId(String paymentTyeId) {
+		this.paymentTypeId = paymentTyeId;
 	}
 
 	public PaymentType getPaymentType() {

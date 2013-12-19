@@ -17,12 +17,17 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h2>Promotion</h2>
+		<h2>History</h2>
 		<h4>
-			<b>ID:</b> ${promotion.id }
+			<b>ID:</b> ${history.id }
 		</h4>
 		<h4>
-			<b>Name:</b> ${promotion.name }
+			<b>Email:</b> ${history.email }
+		</h4>
+		<fmt:formatDate value="${history.orderDate}" pattern="dd/MM/yyyy"
+			var="orderDate" />
+		<h4>
+			<b>Order date:</b> ${orderDate}
 		</h4>
 		<br>
 		<div class="row">
@@ -31,39 +36,37 @@
 					data-target="#createModal">Add product</button>
 			</div>
 		</div>
-		<h3>List product in promotions</h3>
+		<h3>List products in order</h3>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
 						<th style="width: 5%">Id <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Product Id <i class="fa fa-sort"></i></th>
-						<th style="width: 8%">Discount <i class="fa fa-sort"></i></th>
+						<th style="width: 8%">Quantity <i class="fa fa-sort"></i></th>
 						<th style="width: 15%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 17%">Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="promotiondetail" items="${listPromotionDetails }"
+					<c:forEach var="historyDetail" items="${listHistoryDetails }"
 						varStatus="status">
-						<tr class="rowPromotionDetail"
-							id="rowPromotionDetail${status.index}">
-							<td id="0">${promotiondetail.id }</td>
-							<td id="1">${promotiondetail.productId}</td>
-							<td id="2">${promotiondetail.discount}</td>
-							<td id="3">${promotiondetail.status}</td>
+						<tr class="rowHistoryDetail" id="rowHistoryDetail${status.index}">
+							<td id="0">${historyDetail.id }</td>
+							<td id="1">${historyDetail.productId}</td>
+							<td id="2">${historyDetail.amount}</td>
+							<td id="3">${historyDetail.status}</td>
 
 							<td>
-								<button class="open-PromotionDetailEditDialog btn btn-warning"
+								<button class="open-HistoryDetailEditDialog btn btn-warning"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
-								<button
-									class="open-PromotionDetailActiveDialog  btn btn-success"
+								<button class="open-HistoryDetailActiveDialog  btn btn-success"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#activeModal">Active</button>
-								<button class="open-PromotionDetailBlockDialog  btn btn-danger"
+								<button class="open-HistoryDetailBlockDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
-									data-target="#deleteModal">Block</button>
+									data-target="#deleteModal">Deactive</button>
 
 							</td>
 						</tr>
@@ -95,16 +98,11 @@
 				<h4 class="modal-title" id="myModalLabel">Edit product</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
-				action="/admin/promotions/${promotion.id }/edit"
-				commandName="promotionDetail" method="POST">
+				action="/admin/orders/${history.id }/edit"
+				commandName="historyDetail" method="POST">
 				<div class="modal-body">
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Id</label>
-						<div class="col-sm-8">
-							<form:input path="id" type="text" class="form-control" id="id"
-								placeholder="Empty" readonly="readonly" />
-						</div>
-					</div>
+					<form:input path="id" type="hidden" class="form-control" id="id"
+						placeholder="Empty" />
 
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Product
@@ -115,10 +113,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Discount</label>
+						<label for="inputPassword3" class="col-sm-4 control-label">Quantity</label>
 						<div class="col-sm-8">
-							<form:input path="discount" type="number" class="form-control"
-								id="discount" placeholder="Empty" />
+							<form:input path="amount" type="number" class="form-control"
+								id="quantity" placeholder="Empty" />
 						</div>
 					</div>
 
@@ -126,16 +124,14 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Status</label>
 						<div class="col-sm-8">
 							<form:select path="status" class="form-control" id="status">
-								<form:option value="Disable" label="Disable" />
 								<form:option value="Active" label="Active" />
 								<form:option value="Inactive" label="Inactive" />
-								<form:option value="Block" label="Block" />
 							</form:select>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Add</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</form:form>
@@ -151,21 +147,21 @@
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<form:form class="form-group"
-			action="/admin/promotions/${promotion.id }/block"
-			commandName="promotionDetail" method="POST">
+			action="/admin/orders/${history.id }/deactive"
+			commandName="historyDetail" method="POST">
 			<form:input path="id" type="hidden" id="inputId" />
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Confirm delete</h4>
+					<h4 class="modal-title" id="myModalLabel">Confirm deactive</h4>
 				</div>
 				<div class="modal-body">
-					<p>Are you sure to block this product?</p>
+					<p>Are you sure to deactive this product?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" id="BlockButton"
-						onClick="">Save changes</button>
+						onClick="">Deacttive</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -181,8 +177,8 @@
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<form:form class="form-group"
-			action="/admin/promotions/${promotion.id }/active"
-			commandName="promotionDetail" method="POST">
+			action="/admin/orders/${history.id }/active"
+			commandName="historyDetail" method="POST">
 			<form:input path="id" type="hidden" id="inputId" />
 			<div class="modal-content">
 				<div class="modal-header">
@@ -215,11 +211,11 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Create product</h4>
+				<h4 class="modal-title" id="myModalLabel">Add product</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
-				action="/admin/promotions/${promotion.id }/add"
-				commandName="promotionDetail" method="POST">
+				action="/admin/orders/${history.id }/add"
+				commandName="historyDetail" method="POST">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Product
@@ -230,10 +226,10 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Discount</label>
+						<label for="inputPassword3" class="col-sm-4 control-label">Quantity</label>
 						<div class="col-sm-8">
-							<form:input path="discount" type="number" class="form-control"
-								id="discount" placeholder="Empty" />
+							<form:input path="amount" type="number" class="form-control"
+								id="quantity" placeholder="Empty" />
 						</div>
 					</div>
 
@@ -241,10 +237,8 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Status</label>
 						<div class="col-sm-8">
 							<form:select path="status" class="form-control" id="status">
-								<form:option value="Disable" label="Disable" />
 								<form:option value="Active" label="Active" />
 								<form:option value="Inactive" label="Inactive" />
-								<form:option value="Block" label="Block" />
 							</form:select>
 						</div>
 					</div>

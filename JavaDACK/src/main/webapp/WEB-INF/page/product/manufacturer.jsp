@@ -17,38 +17,38 @@
 <div class="row">
 	<div class="col-lg-12">
 		<button class="btn btn-primary pull-right" data-toggle="modal"
-			data-target="#createModal">New product type</button>
+			data-target="#createModal">New manufacturer</button>
 	</div>
 </div>
 <div class="row">
 	<div class="col-lg-12">
-		<h2>List product type</h2>
+		<h2>List manufacturer</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
 						<th hidden="true" style="width: 1%">ID <i class="fa fa-sort"></i></th>
-						<th style="width: 49%">Product type name <i
+						<th style="width: 49%">Name <i
 							class="fa fa-sort"></i></th>
 						<th style="width: 20%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 30%">Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="productType" items="${listProductType}"
+					<c:forEach var="manufacturer" items="${listManufacturer}"
 						varStatus="status">
-						<tr class="rowProductType" id="rowProductType${status.index}">
-							<td hidden="true" id="0" value="${productType.id }">${productType.id }</td>
-							<td id="1">${productType.name }</td>
-							<td id="2">${productType.status }</td>
+						<tr class="rowManufacturer" id="rowManufacturer${status.index}">
+							<td hidden="true" id="0" value="${manufacturer.id }">${manufacturer.id }</td>
+							<td id="1">${manufacturer.name }</td>
+							<td id="2">${manufacturer.status }</td>
 							<td>
-								<button class="open-ProductTypeEditDialog btn btn-warning"
+								<button class="open-ManufacturerEditDialog btn btn-info"
 									data-toggle="modal" data-target="#editModal"
 									data-id="${status.index}">Edit</button>
-								<button class="open-ProductTypeActiveDialog btn btn-success"
+								<button class="open-ManufacturerActiveDialog btn btn-success"
 									data-toggle="modal" data-target="#activeModal"
 									data-id="${status.index}">Active</button>
-								<button class="open-ProductTypeDeactiveDialog btn btn-danger"
+								<button class="open-ManufacturerDeactiveDialog btn btn-danger"
 									data-toggle="modal" data-target="#deactiveModal"
 									data-id="${status.index}">Deactive</button>
 							</td>
@@ -81,7 +81,7 @@
 				<h4 class="modal-title" id="myModalLabel">Edit product</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
-				action="/admin/producttype/edit" commandName="productType"
+				action="/admin/manufacturer/edit" commandName="manufacturer"
 				method="POST">
 
 				<div class="modal-body">
@@ -177,7 +177,7 @@
 				<h4 class="modal-title" id="myModalLabel">Add new</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
-				action="/admin/producttype/add" commandName="productType"
+				action="/admin/manufacturer/add" commandName="manufacturer"
 				method="POST">
 				<div class="modal-body">
 

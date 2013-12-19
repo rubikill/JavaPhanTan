@@ -9,7 +9,14 @@
 
 
 
-
+{
+	"key":"_NAV_FILTER_",
+	"value": "Filter"
+},
+{
+	"key":"_NAV_ORDERS_",
+	"value": "Orders"
+},
 {
 	"key":"_NAV_SPECIAL_",
 	"value": "Specials Offer"
@@ -26,6 +33,10 @@
 
 
 
+{
+	"key":"_BTN_HOME_",
+	"value": "Home"
+},
 {
 	"key":"_BTN_CART_",
 	"value": "Itemes in your cart"
@@ -77,4 +88,16 @@
 {
 	"key":"_PLA_PASS_",
 	"value": "Enter your password"
-}]
+}
+
+
+
+
+,
+{
+	"key":"_TEXT_COMPAIR_",
+	"value": "Products Compairsition"
+}
+
+
+]

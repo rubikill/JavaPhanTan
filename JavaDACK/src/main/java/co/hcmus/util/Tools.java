@@ -1,6 +1,9 @@
 package co.hcmus.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+
 import flexjson.JSONDeserializer;
 import flexjson.JSONSerializer;
 
@@ -47,5 +50,14 @@ public class Tools {
 	 */
 	public static <T> String toJson(Object value) {
 		return new JSONSerializer().serialize(value);
+	}
+	
+	public static Date formatDate(String date, String format){
+		try {
+			return new SimpleDateFormat(format).parse(date);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}		
+		return null;
 	}
 }

@@ -126,6 +126,8 @@
                         </td>
                     </tr>
                 </table> -->
+                <input type="text" class="input-small" ng-model="bill.paymentDate" bs-datepicker>
+                <input type="text" class="input-small" ng-model="bill.paymentDelivery" bs-datepicker>
                 <div class="alert alert-error" ng-hide="user">You must login first</div>
                 <button class="btn btn-large btn-success pull-right" ng-click="checkOut()" ng-disabled="!user">
                 <i class="icon-gift"></i>  Check out

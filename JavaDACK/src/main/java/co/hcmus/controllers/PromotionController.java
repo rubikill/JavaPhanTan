@@ -54,10 +54,8 @@ public class PromotionController {
 	@RequestMapping(value = "/admin/promotions/add", method = RequestMethod.POST)
 	public String addPromotion(Locale locale, Model model,
 			HttpServletRequest request, Promotion promotion) {
-
 		promotionService.addPromotion(promotion);
-		prepairData(request);
-		return "promotion";
+		return "redirect:/admin/promotions";
 	}
 
 	/**
@@ -73,12 +71,29 @@ public class PromotionController {
 	public String blockPromotion(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
 		Promotion promotion = promotionService.getPromotionById(id);
-		promotion.setStatus(STATUS.BLOCK.getStatusCode());
+		promotion.setStatus(STATUS.INACTIVE.getStatusCode());
 		promotionService.updatePromotion(promotion);
-		prepairData(request);
-		return "promotion";
+		return "redirect:/admin/promotions";
 	}
 
+	/**
+	 * ADMIN PAGE - Active a promotion
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/promotions/active/{id}", method = RequestMethod.GET)
+	public String activePromotion(Locale locale, Model model,
+			HttpServletRequest request, @PathVariable String id) {
+		Promotion promotion = promotionService.getPromotionById(id);
+		promotion.setStatus(STATUS.ACTIVE.getStatusCode());
+		promotionService.updatePromotion(promotion);
+		return "redirect:/admin/promotions";
+	}
+
+	
 	/**
 	 * ADMIN PAGE - Edit a promotion
 	 * 
@@ -92,8 +107,7 @@ public class PromotionController {
 	public String editPromotion(Locale locale, Model model,
 			HttpServletRequest request, Promotion promotion) {
 		promotionService.updatePromotion(promotion);
-		prepairData(request);
-		return "promotion";
+		return "redirect:/admin/promotions";
 	}
 
 	/**

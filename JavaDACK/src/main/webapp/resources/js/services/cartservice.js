@@ -1,7 +1,7 @@
 'use strict';
 
 //Cart service
-shopsv.factory('Cart', function($resource) {
+shopsv.factory('Cart', function ($resource) {
     return $resource('/cart/:id', {
         id: "@id"
     }, {
@@ -21,6 +21,23 @@ shopsv.factory('Cart', function($resource) {
             params: {
                 id: 'updateCart'
             }
+        }
+    });
+});
+
+shopsv.factory('History', function ($resource) {
+    return $resource('history/:action', {
+        action: '@action'
+    }, {
+        checkout: {
+            method: 'POST',
+            params: {
+                action: 'create'
+            }
+        },
+        getHistory: {
+            method: 'GET',
+            isArray: true
         }
     });
 });

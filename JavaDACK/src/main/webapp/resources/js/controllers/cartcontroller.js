@@ -1,7 +1,7 @@
 'use strict';
 
 //Cart controller
-function cartCtrl($scope, $rootScope, $location, $routeParams, Cart) {
+function cartCtrl($scope, $rootScope, $location, $routeParams, Cart, History) {
 
     //Add Product to cart
     $scope.addToCart = function(productId) {
@@ -55,11 +55,18 @@ function cartCtrl($scope, $rootScope, $location, $routeParams, Cart) {
         $scope.selectedItem.index = index;
     }
 
+    $scope.bill = {};
+
     //Check out
     $scope.checkOut = function () {
-        if($rootScope.user == null || $rootScope.user == undefined){
-            alertify.error("You have to login first");
-        }
+        History.checkout({
+
+        }, JSON.stringify($scope.bill), function (data) {
+            $rootScope.cart = [];
+            alertify.error("Check out success");
+        }, function (respone) {
+            
+        });
     }
 
     $scope.updateCart = function () {

@@ -46,11 +46,9 @@ public class PromotionDetailController {
 	public String showPromotionDetail(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
 		PromotionDetail promotionDetail = new PromotionDetail();
-		System.out.println("id detail: " + promotionDetail.getId());
 		Promotion promotion = promotionService.getPromotionById(id);
 		List<PromotionDetail> listPromotionDetail = promotionDetailService
 				.getPromotionDetailsByPromotionIdWithoutStatus(id);
-		System.out.println("Size:"  + listPromotionDetail.size());
 		request.setAttribute("promotion", promotion);
 		request.setAttribute("promotionDetail", promotionDetail);
 		request.setAttribute("listPromotionDetails", listPromotionDetail);
@@ -59,42 +57,29 @@ public class PromotionDetailController {
 
 	/**
 	 * ADMIN PAGE - Add new Promotion detail
+	 * 
 	 * @param locale
 	 * @param model
 	 * @param request
-	 * @param promotionDetail	
-	 * @param id	//Promotion's id
+	 * @param promotionDetail
+	 * @param id
+	 *            //Promotion's id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/{id}/add", method = RequestMethod.POST)
 	public String addPromotionDetail(Locale locale, Model model,
 			HttpServletRequest request, PromotionDetail promotionDetail,
 			@PathVariable String id) {
-		
+
 		promotionDetail.setPromotionId(id);
 		promotionDetail.setId(null);
-		
-		System.out.println("promotion id:"  +promotionDetail.getId());
-		System.out.println("promotion Product id:"  +promotionDetail.getProductId());
-		System.out.println("promotion Promotion id:"  +promotionDetail.getPromotionId());
-		System.out.println("promotion Status:"  +promotionDetail.getStatus());
-		System.out.println("promotion discount:"  +promotionDetail.getDiscount());
-
-		
 		promotionDetailService.addPromotionDetail(promotionDetail);
-		
-		Promotion promotion = promotionService.getPromotionById(id);
-		List<PromotionDetail> listPromotionDetail = promotionDetailService
-				.getPromotionDetailsByPromotionIdWithoutStatus(id);
-
-		request.setAttribute("promotionDetail", promotionDetail);
-		request.setAttribute("promotion", promotion);
-		request.setAttribute("listPromotionDetails", listPromotionDetail);
-		return "redirect:/admin/promotions/" +id;
+		return "redirect:/admin/promotions/" + id;
 	}
 
 	/**
 	 * ADMIN PAGE - Block a product from promotion
+	 * 
 	 * @param locale
 	 * @param model
 	 * @param request
@@ -107,21 +92,34 @@ public class PromotionDetailController {
 			HttpServletRequest request, PromotionDetail promotionDetail,
 			@PathVariable String id) {
 		promotionDetail.setPromotionId(id);
-		promotionDetail.setStatus(STATUS.BLOCK.getStatusCode());
+		promotionDetail.setStatus(STATUS.INACTIVE.getStatusCode());
 		promotionDetailService.updatePromotionDetail(promotionDetail);
-		
-		Promotion promotion = promotionService.getPromotionById(id);
-		List<PromotionDetail> listPromotionDetail = promotionDetailService
-				.getPromotionDetailsByPromotionIdWithoutStatus(id);
+		return "redirect:/admin/promotions/" + id;
+	}
 
-		request.setAttribute("promotionDetail", promotionDetail);
-		request.setAttribute("promotion", promotion);
-		request.setAttribute("listPromotionDetails", listPromotionDetail);
-		return "promotiondetail";
+	/**
+	 * ADMIN PAGE - Active a product from promotion
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param promotionDetail
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/promotions/{id}/active", method = RequestMethod.POST)
+	public String activePromotionDetail(Locale locale, Model model,
+			HttpServletRequest request, PromotionDetail promotionDetail,
+			@PathVariable String id) {
+		promotionDetail.setPromotionId(id);
+		promotionDetail.setStatus(STATUS.ACTIVE.getStatusCode());
+		promotionDetailService.updatePromotionDetail(promotionDetail);
+		return "redirect:/admin/promotions/" + id;
 	}
 
 	/**
 	 * ADMIN PAGE - Edit a promotion detail
+	 * 
 	 * @param locale
 	 * @param model
 	 * @param request
@@ -135,19 +133,9 @@ public class PromotionDetailController {
 			@PathVariable String id) {
 		promotionDetail.setPromotionId(id);
 		promotionDetailService.updatePromotionDetail(promotionDetail);
-		
-		Promotion promotion = promotionService.getPromotionById(id);
-		List<PromotionDetail> listPromotionDetail = promotionDetailService
-				.getPromotionDetailsByPromotionIdWithoutStatus(id);
-		System.out.println("Size:"  + listPromotionDetail.size());
-
-		request.setAttribute("promotionDetail", promotionDetail);
-		request.setAttribute("promotion", promotion);
-		request.setAttribute("listPromotionDetails", listPromotionDetail);
-		request.setAttribute("nav", "promotions");
-		return "promotiondetail";
+		return "redirect:/admin/promotions/" + id;
 	}
-	
+
 	/**
 	 * rest to get all PromotionDetails
 	 * 

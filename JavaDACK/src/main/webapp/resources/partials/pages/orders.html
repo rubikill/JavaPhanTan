@@ -14,33 +14,67 @@
                 </h3>
                 <hr class="soft" />
                 <div class="alert alert-error" ng-hide="user">You must login first</div>
-                <br class="clr" />
+
                 <div class="tab-content">
                     <div class="tab-pane active" id="listView">
-                        <div class="row">
-                            <div class="span5">
-                                Details goes here, date create... <br>
-                                Quantity: <br>
-                                PaymentStatus: <br>
-                                OrderDate: <br>
-                                DeliveryDate: <br>
-                                PaymentDate: <br>
-                                STATUS
-                            </div>
-                            <div class="span4 alignR">
-                                <div class="form-horizontal qtyFrm">
-                                    <h3>Total of order: </h3>
-                                    <br />
-                                    <!-- Click to show product of this order-->
-                                    <a href="#viewOrderDetail" class="btn btn-primary" data-toggle="modal">
-                                        View details <i class=" icon-search"></i>
-                                    </a>
-                                    <a href="#cancelOrder" class="btn btn-danger" data-toggle="modal">
-                                        Cancel this order
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <table id="compairTbl" class="table table-bordered" ng-repeat="item in histories">
+                            <thead>
+                                <tr>
+                                    <th>Order #{{$index}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Quantity</td>
+                                    <td style="text-align: center">
+                                        {{item.quantity}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>PaymentStatus</td>
+                                    <td style="text-align: center">
+                                        {{item.paymentStatus}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>OrderDate</td>
+                                    <td style="text-align: center">
+                                        {{item.paymentDate | date:'dd/MM/yyyy'}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DeliveryDate</td>
+                                    <td style="text-align: center">
+                                        {{item.deliveryDate | date:'dd/MM/yyyy'}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td style="text-align: center">
+                                        {{item.status}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Total of order:</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <a href="#viewOrderDetail" class="btn btn-primary" data-toggle="modal">
+                                            View details <i class=" icon-search"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#cancelOrder" class="btn btn-danger" data-toggle="modal">
+                                            Cancel this order
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <br class="clr" />

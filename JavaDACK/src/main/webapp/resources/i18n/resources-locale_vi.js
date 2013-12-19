@@ -9,7 +9,14 @@
 
 
 
-
+{
+	"key":"_NAV_FILTER_",
+	"value": "Lọc"
+},
+{
+	"key":"_NAV_ORDERS_",
+	"value": "Đơn hàng"
+},
 {
 	"key":"_NAV_SPECIAL_",
 	"value": "Khuyến mãi"
@@ -24,7 +31,10 @@
 },
 
 
-
+{
+	"key":"_BTN_HOME_",
+	"value": "Trang chủ"
+},
 {
 	"key":"_BTN_CART_",
 	"value": "sản phầm trong giỏ hàng"
@@ -75,4 +85,13 @@
 {
 	"key":"_PLA_PASS_",
 	"value": "Nhập mật khẩu"
-}]
+},
+{
+	"key":"_TEXT_COMPAIR_",
+	"value": "So sánh sản phẩm"
+}
+
+
+
+
+]
