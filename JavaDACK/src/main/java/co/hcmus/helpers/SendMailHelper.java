@@ -13,6 +13,8 @@ import javax.mail.internet.MimeMessage;
 import co.hcmus.models.EmailForm;
 import co.hcmus.util.Constant;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,7 +23,8 @@ import org.springframework.stereotype.Service;
  */
 @Service("sendMailHelper")
 public class SendMailHelper {
-
+	private static final Logger logger = LoggerFactory.getLogger(SendMailHelper.class);
+	
 	public SendMailHelper() {
 
 	}
@@ -41,6 +44,7 @@ public class SendMailHelper {
 			final String password, String subject, String body)
 			throws Exception {
 		// Config
+		logger.info("Config smtp server");
 		Properties props = new Properties();
 		props.put("mail.smtp.host", Constant.SMTP_GMAIL);
 		props.put("mail.smtp.socketFactory.port", Constant.SMTP_GMAIL_PORT);
@@ -66,7 +70,7 @@ public class SendMailHelper {
 			message.setText(body);
 
 			Transport.send(message);
-			System.out.println("Done");
+			logger.info("Send mail done");
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}

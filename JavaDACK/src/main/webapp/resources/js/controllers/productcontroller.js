@@ -154,11 +154,14 @@ function compairCtrl ($scope, $rootScope) {
     
 }
 
-function orderCtrl ($scope, $rootScope, Order) {
-    Order.getOrders({
+function orderCtrl ($scope, $rootScope, History) {
+    $scope.histories = [];
+    History.getHistory({
 
     }, function (data) {
         // body...
+        console.log(data);
+        $scope.histories = data;
     });
 }
 

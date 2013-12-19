@@ -184,16 +184,16 @@ public class History {
 	/**
 	 * @return the paymentTyeId
 	 */
-	public String getPaymentTyeId() {
-		return paymentTyeId;
+	public String getPaymentTypeId() {
+		return paymentTypeId;
 	}
 
 	/**
 	 * @param paymentTyeId
 	 *            the paymentTyeId to set
 	 */
-	public void setPaymentTyeId(String paymentTyeId) {
-		this.paymentTyeId = paymentTyeId;
+	public void setPaymentTypeId(String paymentTyeId) {
+		this.paymentTypeId = paymentTypeId;
 	}
 
 	public PaymentType getPaymentType() {

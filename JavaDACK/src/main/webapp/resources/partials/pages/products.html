@@ -15,8 +15,6 @@
                     <small class="pull-right">{{listProducts.length}} products are available</small>
                 </h3>
                 <hr class="soft" />
-                <p>Description</p>
-                <hr class="soft" />
                 <form class="form-horizontal span6">
                     <div class="control-group">
                         <!-- Sort tren day luon -->
@@ -30,7 +28,7 @@
                             <option value="-quantity">Decrement Quantity</option>
                         </select>
                     </div>
-                </form>
+                </form>                
 
                 <div id="myTab" class="pull-right">
                     <a href="#listView" data-toggle="tab">
@@ -52,12 +50,10 @@
                                 <img src="themes/images/products/3.jpg" alt="" />
                             </div>
                             <div class="span4">
-                                <h3>{{item.status}}</h3>
+                                <h3>{{item.name}}</h3>
                                 <hr class="soft" />
-                                <h5>{{item.name}}</h5>
+                                <h5>{{item.status}}</h5>
                                 <p>desciption</p>
-                                <a class="btn btn-small pull-right" href="#/product_details/{{item.id}}">
-                                    View Details</a> 
                                 <br class="clr" />
                             </div>
                             <div class="span3 alignR">
@@ -67,11 +63,11 @@
                                         <input type="checkbox" ng-click="compair(item, check[$index])" ng-model="check[$index]">Adds product to compair
                                     </label>
                                     <br />
-                                    <button class="btn btn-large btn-primary" ng-click="addToCart(item.id)">
+                                    <button class="btn btn-primary" ng-click="addToCart(item.id)">
                                         Add to <i class=" icon-shopping-cart"></i>
                                     </button>
-                                    <a href="#/product_details/{{item.id}}" class="btn btn-large">
-                                        <i class="icon-zoom-in"></i>
+                                    <a href="#/product_details/{{item.id}}" class="btn">
+                                        View Details <i class="icon-zoom-in"></i>
                                     </a>
                                 </div>
                             </div>

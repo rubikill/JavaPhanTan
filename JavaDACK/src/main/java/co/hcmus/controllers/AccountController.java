@@ -65,7 +65,8 @@ public class AccountController {
 	}
 
 	/**
-	 * ADMIN PAGE - Block an account 
+	 * ADMIN PAGE - Block an account
+	 * 
 	 * @param locale
 	 * @param model
 	 * @param request
@@ -91,7 +92,7 @@ public class AccountController {
 	}
 
 	/**
-	 * ADMIN PAGE - Edit an account passing from MANAGE ACCOUNT 
+	 * ADMIN PAGE - Edit an account passing from MANAGE ACCOUNT
 	 * 
 	 * @param locale
 	 * @param model
@@ -145,6 +146,7 @@ public class AccountController {
 
 	/**
 	 * ADMIN PAGE - Prepair data for loading
+	 * 
 	 * @param request
 	 */
 	private void prepairData(HttpServletRequest request) {
@@ -201,7 +203,6 @@ public class AccountController {
 	 *            contain email and password
 	 * @return Result
 	 */
-
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody String json,
 			HttpSession session) {
@@ -274,11 +275,8 @@ public class AccountController {
 		Account account = new Account();
 		try {
 			JsonNode jsonNode = mapper.readTree(json);
-			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
-			// parse payment date
-
 			account.setEmail(jsonNode.path("email").getTextValue());
+			
 			if (accountService.getAccount(account.getEmail()) != null) {
 				return new ResponseEntity<String>(
 						"{\"message\" : \"This email has been used\"}",
@@ -286,8 +284,8 @@ public class AccountController {
 			}
 
 			account.setName(jsonNode.path("name").getTextValue());
-			account.setBirthday(formatter.parse(jsonNode.path("birthday")
-					.getTextValue()));
+			account.setBirthday(Tools.formatDate(jsonNode.path("birthday")
+					.getTextValue(), Constant.ISO_FORMAT_DATETME));
 			account.setPassword(encryptPasswordProvider.hash(
 					jsonNode.path("password").getTextValue(), Constant.MD5)
 					.toString());
@@ -300,9 +298,6 @@ public class AccountController {
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 		// Gen Token here
@@ -312,17 +307,17 @@ public class AccountController {
 
 		// Set status
 		account.setStatus(STATUS.INACTIVE.getStatusCode());
-		
+
 		try {
 			accountService.addAccount(account);
-			
+
 			EmailForm emailForm = new EmailForm();
 			emailForm.reciver = account.getEmail();
 			emailForm.subject = "Welcome to Camera Shop";
 			emailForm.body = "Your new password is: " + token;
-			
+
 			sendMailHelper.sendMail(emailForm);
-			
+
 			return new ResponseEntity<String>(
 					"{\"message\" : \"Create success\"}", headers,
 					HttpStatus.OK);
@@ -348,7 +343,7 @@ public class AccountController {
 		// Recive a email address here
 		String email = json;
 
-//		Account account = accountService.getAccount(json);
+		// Account account = accountService.getAccount(json);
 
 		// Do reset pass here
 

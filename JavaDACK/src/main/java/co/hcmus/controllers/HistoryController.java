@@ -111,7 +111,8 @@ public class HistoryController {
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		
 		// TODO CHECK IF CUSTOMER IS LOGON
-		List<Cart> cartItems = (List<Cart>) session.getAttribute("ShopCart");
+		List<Cart> cartItems = (List<Cart>) session
+					.getAttribute("ShopCart");
 		if (cartItems == null) {
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
@@ -121,17 +122,21 @@ public class HistoryController {
 			String id = UUID.randomUUID().toString();
 			
 			int quantity = 0;
-			for (int i = 0; i < cartItems.size(); i++) {
-				Cart cart = cartItems.get(i);
+
+			for(Cart cart : cartItems){
 				quantity += cart.getCount();
 				HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
 						cart.getId(), STATUS.ACTIVE.getStatusCode());
 				historyDetailSevice.addHistoryDetail(hd);
 			}
-			// parse json String to jsonNode
-			JsonNode jsonNode = mapper.readTree(json);
 
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+			JsonNode jsonNode = mapper.readTree(json);
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+
+			System.out.println(json);
+			System.out.println(jsonNode.path("paymentDelivery")
+					.getTextValue());
 			// parse payment date
 			Date paymentDate = formatter.parse(jsonNode.path("paymentDate")
 					.getTextValue());
@@ -140,19 +145,18 @@ public class HistoryController {
 			// parse deliver date
 			Date deliveryDate = formatter.parse(jsonNode
 					.path("paymentDelivery").getTextValue());
-			// parse paymentTypeId
-			//String paymentTypeID = jsonNode.path("paymentTypeId")
-			//		.getTextValue();
-			// parse paymentStatus
-			String paymentStatus = jsonNode.path("paymentStatus")
-					.getTextValue();
+			
+			System.out.println(deliveryDate);
+
+			// String paymentStatus = jsonNode.path("paymentStatus")
+			// 		.getTextValue();
 			// Get email from session
 			String email = (String) session.getAttribute("email");
 
 			
 			System.out.println(jsonNode);
 			history = new History(email, quantity, STATUS.ACTIVE.getStatusCode(),
-					paymentStatus, new Date(), deliveryDate, paymentDate,
+					null, new Date(), deliveryDate, paymentDate,
 					null);
 
 			history.setId(id);
@@ -160,6 +164,7 @@ public class HistoryController {
 			historyService.addHistory(history);
 
 			System.out.println("create history success");
+			session.removeAttribute("ShopCart");
 
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
@@ -174,6 +179,7 @@ public class HistoryController {
 			return new ResponseEntity<String>(Tools.toJson(history), headers,
 					HttpStatus.BAD_REQUEST);
 		}
+
 		return new ResponseEntity<String>(Tools.toJson(history), headers,
 				HttpStatus.OK);
 	}

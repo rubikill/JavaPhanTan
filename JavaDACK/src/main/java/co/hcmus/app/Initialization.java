@@ -1,5 +1,7 @@
 package co.hcmus.app;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -30,6 +32,8 @@ import co.hcmus.models.Tag;
  */
 public class Initialization implements InitializingBean {
 
+	private static final Logger logger = LoggerFactory.getLogger(Initialization.class);
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
@@ -43,9 +47,10 @@ public class Initialization implements InitializingBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		System.out.println("----------------------------------------------");
-		System.out.println("----------------INITIALIZATION----------------");
-		System.out.println("----------------------------------------------");
+		logger.info("----------------------------------------------");
+		logger.info("----------------------------------------------");
+		logger.info("----------------INITIALIZATION----------------");
+		logger.info("----------------------------------------------");
 
 		// create collection Account if not exits
 		if (!mongoTemplate.collectionExists(Account.class)) {
