@@ -37,6 +37,10 @@
 	<definition name="orders" extends="templateMain">
 		<put-attribute name="content" value="/WEB-INF/page/order/all.jsp" />
 	</definition>
+	
+	<definition name="orders/detail" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/order/detail.jsp" />
+	</definition>
 
 	<definition name="type" extends="templateMain">
 		<put-attribute name="content" value="/WEB-INF/page/product/type.jsp" />

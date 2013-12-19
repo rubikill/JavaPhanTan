@@ -56,6 +56,64 @@ public class HistoryController {
 
 	ObjectMapper mapper = new ObjectMapper();
 
+	@RequestMapping(value = "/admin/orders/{id}", method = RequestMethod.GET)
+	public String getHistoryDetails(Locale locale, Model model,
+			HttpServletRequest request, @PathVariable String id) {
+		List<HistoryDetail> listHistoryDetails = historyDetailSevice
+				.getHistoryDetails();
+		History history = historyService.getHistory(id);
+		request.setAttribute("history", history);
+		request.setAttribute("historyDetail", new HistoryDetail());
+		request.setAttribute("listHistoryDetails", listHistoryDetails);
+		request.setAttribute("nav", "orders");
+		return "orders/detail";
+	}
+
+	@RequestMapping(value = "/admin/orders/{id}/add", method = RequestMethod.POST)
+	public String addProductHistoryDetails(Locale locale, Model model,
+			HttpServletRequest request, @PathVariable String id,
+			HistoryDetail historyDetail) {
+		historyDetail.setId(null);
+		System.out.println("1." + historyDetail.getId());
+		System.out.println("2." + historyDetail.getProductId());
+		System.out.println("3." + historyDetail.getHistoryId());
+		System.out.println("4." + historyDetail.getAmount());
+		System.out.println("5." + historyDetail.getStatus());
+		historyDetail.setHistoryId(id);
+		
+		historyDetailSevice.addHistoryDetail(historyDetail);
+		return "redirect:/admin/orders/" + id;
+	}
+
+	@RequestMapping(value = "/admin/orders/{id}/edit", method = RequestMethod.POST)
+	public String editProductHistoryDetails(Locale locale, Model model,
+			HttpServletRequest request, @PathVariable String id,
+			HistoryDetail historyDetail) {
+		historyDetailSevice.updateHistoryDetail(historyDetail);
+		return "redirect:/admin/orders/" + id;
+	}
+	
+	@RequestMapping(value = "/admin/orders/{id}/active", method = RequestMethod.POST)
+	public String setProductHistoryDetailsActive(Locale locale, Model model,
+			HttpServletRequest request, @PathVariable String id,
+			HistoryDetail historyDetail) {
+		historyDetail = historyDetailSevice.getHistoryDetailById(historyDetail.getHistoryId());
+		historyDetail.setStatus(STATUS.ACTIVE.getStatusCode());
+		historyDetailSevice.updateHistoryDetail(historyDetail);
+		return "redirect:/admin/orders/" + id;
+	}
+	
+	@RequestMapping(value = "/admin/orders/{id}/deactive", method = RequestMethod.POST)
+	public String setProductHistoryDetailsDeactive(Locale locale, Model model,
+			HttpServletRequest request, @PathVariable String id,
+			HistoryDetail historyDetail) {
+		historyDetail = historyDetailSevice.getHistoryDetailById(historyDetail.getHistoryId());
+		historyDetail.setStatus(STATUS.INACTIVE.getStatusCode());
+		historyDetailSevice.updateHistoryDetail(historyDetail);
+		return "redirect:/admin/orders/" + id;
+	}
+	
+	
 	/**
 	 * ADMIN PAGE - Show all orders
 	 * 
@@ -65,7 +123,7 @@ public class HistoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/orders", method = RequestMethod.GET)
-	public String getProducType(Locale locale, Model model,
+	public String getHistory(Locale locale, Model model,
 			HttpServletRequest request) {
 		List<History> listHistory = historyService.getHistorys();
 		List<PaymentType> listPaymentType = paymentTypeService
@@ -87,7 +145,7 @@ public class HistoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/orders/edit", method = RequestMethod.POST)
-	public String editProducType(Locale locale, Model model,
+	public String editHistory(Locale locale, Model model,
 			HttpServletRequest request, History history) {
 		historyService.updateHistory(history);
 		return "redirect:/admin/orders";
@@ -103,7 +161,7 @@ public class HistoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/orders/create", method = RequestMethod.POST)
-	public String addProducType(Locale locale, Model model,
+	public String addHistory(Locale locale, Model model,
 			HttpServletRequest request, History history) {
 		historyService.addHistory(history);
 		return "redirect:/admin/orders";
@@ -119,7 +177,7 @@ public class HistoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/orders/active/{id}", method = RequestMethod.GET)
-	public String activeProducType(Locale locale, Model model,
+	public String activeHistory(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
 		History history = historyService.getHistory(id);
 		history.setStatus(STATUS.ACTIVE.getStatusCode());
@@ -137,7 +195,7 @@ public class HistoryController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/orders/deactive/{id}", method = RequestMethod.GET)
-	public String deactiveProducType(Locale locale, Model model,
+	public String deactiveHistory(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
 		History history = historyService.getHistory(id);
 		history.setStatus(STATUS.INACTIVE.getStatusCode());
