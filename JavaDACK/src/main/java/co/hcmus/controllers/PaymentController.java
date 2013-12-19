@@ -1,7 +1,6 @@
 package co.hcmus.controllers;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,105 +19,88 @@ import co.hcmus.services.Imp.PaymentTypeServiceMongo;
 import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
 
+/**
+ * 
+ * @author WindyZBoy
+ * 
+ */
 @Controller
 public class PaymentController {
 	@Autowired
 	PaymentTypeServiceMongo paymentTypeService;
 
 	/**
-	 * ADMIN PAGE - get all payment type
-	 * @param locale
-	 * @param model
+	 * ADMIN PAGE - get all payment type and render by return its name
+	 * 
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/paymenttype", method = RequestMethod.GET)
-	public String getPaymentType(Locale locale, Model model,
-			HttpServletRequest request) {
+	public String getPaymentType(HttpServletRequest request) {
 		prepairData(request);
 		return "paymenttype";
 	}
 
 	/**
 	 * ADMIN PAGE - add new payment type
-	 * @param locale
-	 * @param model
-	 * @param request
+	 * 
 	 * @param paymentType
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/paymenttype/add", method = RequestMethod.POST)
-	public String addPaymentType(Locale locale, Model model,
-			HttpServletRequest request, PaymentType paymentType) {
+	public String addPaymentType(PaymentType paymentType) {
 		paymentTypeService.addPaymentType(paymentType);
-		request.setAttribute("nav", "paymenttype");
 		return "redirect:/admin/paymenttype";
 	}
 
 	/**
 	 * ADMIN PAGE - Active a payment
-	 * @param locale
-	 * @param model
-	 * @param request
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/paymenttype/active/{id}", method = RequestMethod.GET)
-	public String activePaymentType(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String activePaymentType(@PathVariable String id) {
 		PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
 		paymentType.setStatus(STATUS.ACTIVE.getStatusCode());
 		paymentTypeService.updatePaymentType(paymentType);
-		request.setAttribute("nav", "paymenttype");
 		return "redirect:/admin/paymenttype";
 	}
 
 	/**
 	 * ADMIN PAGE - Deactive a payment
-	 * @param locale
-	 * @param model
-	 * @param request
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/paymenttype/deactive/{id}", method = RequestMethod.GET)
-	public String deactivePaymentType(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String deactivePaymentType(@PathVariable String id) {
 		PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
 		paymentType.setStatus(STATUS.INACTIVE.getStatusCode());
 		paymentTypeService.updatePaymentType(paymentType);
-		request.setAttribute("nav", "paymenttype");
 		return "redirect:/admin/paymenttype";
 	}
 
 	/**
+	 * ADMIN PAGE - Edit a payment
 	 * 
-	 * @param model
-	 * @param request
 	 * @param paymentType
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/paymenttype/edit", method = RequestMethod.POST)
-	public String editPaymentType(Model model, HttpServletRequest request,
-			PaymentType paymentType) {
+	public String editPaymentType(PaymentType paymentType) {
 		paymentTypeService.updatePaymentType(paymentType);
-		System.out.println("id: " + paymentType.getId());
-		System.out.println("name: " + paymentType.getName());
-		System.out.println("status: " + paymentType.getStatus());
-		
-		
-		request.setAttribute("nav", "paymenttype");
 		return "redirect:/admin/paymenttype";
 	}
 
 	/**
 	 * Prepair data for loading payment
+	 * 
 	 * @param request
 	 */
 	private void prepairData(HttpServletRequest request) {
 		List<PaymentType> listPaymentType = paymentTypeService
 				.getPaymentTypes();
-
 		request.setAttribute("listPaymentType", listPaymentType);
 		request.setAttribute("paymentType", new PaymentType());
 		request.setAttribute("nav", "paymenttype");

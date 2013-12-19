@@ -42,7 +42,7 @@
 							<td id="1">${paymentType.name }</td>
 							<td id="2">${paymentType.status }</td>
 							<td>
-								<button class="open-PaymentTypeEditDialog btn btn-info"
+								<button class="open-PaymentTypeEditDialog btn btn-warning"
 									data-toggle="modal" data-target="#editModal"
 									data-id="${status.index}">Edit</button>
 								<button class="open-PaymentTypeActiveDialog btn btn-success"

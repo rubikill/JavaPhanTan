@@ -74,7 +74,7 @@
 							<td hidden="true" id="18">${currentPage}</td>
 							<td>
 
-								<button class="open-ProductDetailDialog btn btn-danger"
+								<button class="open-ProductDetailDialog btn btn-info"
 									data-toggle="modal" data-target="#detailModal"
 									data-id="${status.index}">Detail</button>
 								<button class="open-ProductEditDialog btn btn-warning"

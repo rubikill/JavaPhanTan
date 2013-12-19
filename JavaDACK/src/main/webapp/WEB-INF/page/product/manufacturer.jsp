@@ -42,7 +42,7 @@
 							<td id="1">${manufacturer.name }</td>
 							<td id="2">${manufacturer.status }</td>
 							<td>
-								<button class="open-ManufacturerEditDialog btn btn-info"
+								<button class="open-ManufacturerEditDialog btn btn-warning"
 									data-toggle="modal" data-target="#editModal"
 									data-id="${status.index}">Edit</button>
 								<button class="open-ManufacturerActiveDialog btn btn-success"

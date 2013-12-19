@@ -1,7 +1,6 @@
 package co.hcmus.controllers;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,45 +25,69 @@ public class ManufacturerController {
 	@Autowired
 	private IManufacturerService manufacturerService;
 
+	/**
+	 * ADMIN PAGE - get all manufacturers and render by return its name
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/manufacturer", method = RequestMethod.GET)
-	public String getManufacturer(Locale locale, Model model,
-			HttpServletRequest request) {
+	public String getManufacturer(HttpServletRequest request) {
 		prepairData(request);
 		return "manufacturer";
 	}
 
+	/**
+	 * ADMIN PAGE - add new manufacturer and redirect to /admin/manufacturer   
+	 * @param manufacturer
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/manufacturer/add", method = RequestMethod.POST)
-	public String addManufacturer(Locale locale, Model model,
-			HttpServletRequest request, Manufacturer manufacturer) {
+	public String addManufacturer(Manufacturer manufacturer) {
 		manufacturerService.addManufacturer(manufacturer);
 		return "redirect:/admin/manufacturer";
 	}
 
+	/**
+	 * ADMIN PAGE - activea a manufacturer and redirect to /admin/manufacturer 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/manufacturer/active/{id}", method = RequestMethod.GET)
-	public String activeManufacturer(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String activeManufacturer(@PathVariable String id) {
 		Manufacturer Manufacturer = manufacturerService.getManufacturerById(id);
 		Manufacturer.setStatus(STATUS.ACTIVE.getStatusCode());
 		manufacturerService.updateManufacturer(Manufacturer);
 		return "redirect:/admin/manufacturer";
 	}
 
+	/**
+	 * ADMIN PAGE - deactive a manufacturer and redirect to /admin/manufacturer 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/manufacturer/deactive/{id}", method = RequestMethod.GET)
-	public String deactiveManufacturer(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String deactiveManufacturer(@PathVariable String id) {
 		Manufacturer Manufacturer = manufacturerService.getManufacturerById(id);
 		Manufacturer.setStatus(STATUS.INACTIVE.getStatusCode());
 		manufacturerService.updateManufacturer(Manufacturer);
 		return "redirect:/admin/manufacturer";
 	}
 
+	/**
+	 * ADMIN PAGE - edit a manufacturer and redirect to /admin/manufacturer 
+	 * @param manufacturer
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/manufacturer/edit", method = RequestMethod.POST)
-	public String editManufacturer(Model model, HttpServletRequest request,
-			Manufacturer manufacturer) {
+	public String editManufacturer(Manufacturer manufacturer) {
 		manufacturerService.updateManufacturer(manufacturer);
 		return "redirect:/admin/manufacturer";
 	}
 
+	/**
+	 * Prepair data for loading /admin/manufacturer
+	 * @param request
+	 */
 	private void prepairData(HttpServletRequest request) {
 		List<Manufacturer> listManufacturer = manufacturerService
 				.getManufacturers();

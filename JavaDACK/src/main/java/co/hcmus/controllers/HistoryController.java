@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,9 +54,15 @@ public class HistoryController {
 
 	ObjectMapper mapper = new ObjectMapper();
 
+	/**
+	 * ADMIN PAGE - Get all products of an order by its id
+	 * @param request
+	 * @param id
+	 * @return 
+	 */
 	@RequestMapping(value = "/admin/orders/{id}", method = RequestMethod.GET)
-	public String getHistoryDetails(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String getHistoryDetails(HttpServletRequest request,
+			@PathVariable String id) {
 		List<HistoryDetail> listHistoryDetails = historyDetailSevice
 				.getHistoryDetails();
 		History history = historyService.getHistory(id);
@@ -69,62 +73,73 @@ public class HistoryController {
 		return "orders/detail";
 	}
 
+	/**
+	 * ADMIN PAGE - Add new product into an order
+	 * @param id
+	 * @param historyDetail
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/orders/{id}/add", method = RequestMethod.POST)
-	public String addProductHistoryDetails(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id,
+	public String addProductHistoryDetails(@PathVariable String id,
 			HistoryDetail historyDetail) {
 		historyDetail.setId(null);
-		System.out.println("1." + historyDetail.getId());
-		System.out.println("2." + historyDetail.getProductId());
-		System.out.println("3." + historyDetail.getHistoryId());
-		System.out.println("4." + historyDetail.getAmount());
-		System.out.println("5." + historyDetail.getStatus());
 		historyDetail.setHistoryId(id);
-		
 		historyDetailSevice.addHistoryDetail(historyDetail);
 		return "redirect:/admin/orders/" + id;
 	}
 
+	/**
+	 * ADMIN PAGE - Edit a product in an order
+	 * @param id
+	 * @param historyDetail
+	 * @return redirect to orders's home in admin page
+	 */
 	@RequestMapping(value = "/admin/orders/{id}/edit", method = RequestMethod.POST)
-	public String editProductHistoryDetails(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id,
+	public String editProductHistoryDetails(@PathVariable String id,
 			HistoryDetail historyDetail) {
 		historyDetailSevice.updateHistoryDetail(historyDetail);
 		return "redirect:/admin/orders/" + id;
 	}
-	
+
+	/**
+	 * ADMIN PAGE - Active a product in an order
+	 * @param id
+	 * @param historyDetail
+	 * @return redirect to orders's home in admin page
+	 */
 	@RequestMapping(value = "/admin/orders/{id}/active", method = RequestMethod.POST)
-	public String setProductHistoryDetailsActive(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id,
+	public String setProductHistoryDetailsActive(@PathVariable String id,
 			HistoryDetail historyDetail) {
-		historyDetail = historyDetailSevice.getHistoryDetailById(historyDetail.getHistoryId());
+		historyDetail = historyDetailSevice.getHistoryDetailById(historyDetail
+				.getHistoryId());
 		historyDetail.setStatus(STATUS.ACTIVE.getStatusCode());
 		historyDetailSevice.updateHistoryDetail(historyDetail);
 		return "redirect:/admin/orders/" + id;
 	}
-	
+
+	/**
+	 * ADMIN PAGE - Deactive a product in an order
+	 * @param id
+	 * @param historyDetail
+	 * @return redirect to orders's home in admin page 
+	 */
 	@RequestMapping(value = "/admin/orders/{id}/deactive", method = RequestMethod.POST)
-	public String setProductHistoryDetailsDeactive(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id,
+	public String setProductHistoryDetailsDeactive(@PathVariable String id,
 			HistoryDetail historyDetail) {
-		historyDetail = historyDetailSevice.getHistoryDetailById(historyDetail.getHistoryId());
+		historyDetail = historyDetailSevice.getHistoryDetailById(historyDetail
+				.getHistoryId());
 		historyDetail.setStatus(STATUS.INACTIVE.getStatusCode());
 		historyDetailSevice.updateHistoryDetail(historyDetail);
 		return "redirect:/admin/orders/" + id;
 	}
-	
-	
+
 	/**
 	 * ADMIN PAGE - Show all orders
-	 * 
-	 * @param locale
-	 * @param model
 	 * @param request
-	 * @return
+	 * @return redirect to orders's home in admin page
 	 */
 	@RequestMapping(value = "/admin/orders", method = RequestMethod.GET)
-	public String getHistory(Locale locale, Model model,
-			HttpServletRequest request) {
+	public String getHistory(HttpServletRequest request) {
 		List<History> listHistory = historyService.getHistorys();
 		List<PaymentType> listPaymentType = paymentTypeService
 				.getPaymentTypes();
@@ -137,48 +152,33 @@ public class HistoryController {
 
 	/**
 	 * ADMIN PAGE - Edit an orders
-	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param history
-	 * @return
+	 * @return redirect to orders's home in admin page
 	 */
 	@RequestMapping(value = "/admin/orders/edit", method = RequestMethod.POST)
-	public String editHistory(Locale locale, Model model,
-			HttpServletRequest request, History history) {
+	public String editHistory(History history) {
 		historyService.updateHistory(history);
 		return "redirect:/admin/orders";
 	}
 
 	/**
 	 * ADMIN PAGE - Create an orders
-	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param history
-	 * @return
+	 * @return redirect to orders's home in admin page
 	 */
 	@RequestMapping(value = "/admin/orders/create", method = RequestMethod.POST)
-	public String addHistory(Locale locale, Model model,
-			HttpServletRequest request, History history) {
+	public String addHistory(History history) {
 		historyService.addHistory(history);
 		return "redirect:/admin/orders";
 	}
 
 	/**
 	 * ADMIN PAGE - Active an orders
-	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
-	 * @param history
-	 * @return
+	 * @param id
+	 * @return redirect to orders's home in admin page
 	 */
 	@RequestMapping(value = "/admin/orders/active/{id}", method = RequestMethod.GET)
-	public String activeHistory(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String activeHistory(@PathVariable String id) {
 		History history = historyService.getHistory(id);
 		history.setStatus(STATUS.ACTIVE.getStatusCode());
 		historyService.updateHistory(history);
@@ -187,16 +187,11 @@ public class HistoryController {
 
 	/**
 	 * ADMIN PAGE - Deactive an orders
-	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
-	 * @param history
-	 * @return
+	 * @param id
+	 * @return redirect to orders's home in admin page
 	 */
 	@RequestMapping(value = "/admin/orders/deactive/{id}", method = RequestMethod.GET)
-	public String deactiveHistory(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String deactiveHistory(@PathVariable String id) {
 		History history = historyService.getHistory(id);
 		history.setStatus(STATUS.INACTIVE.getStatusCode());
 		historyService.updateHistory(history);

@@ -1,7 +1,6 @@
 package co.hcmus.controllers;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,15 +34,13 @@ public class PromotionDetailController {
 	/**
 	 * ADMIN PAGE - Show all product of a Promotion by Promotion's ID
 	 * 
-	 * @param locale
-	 * @param model
 	 * @param request
-	 * @param id
+	 * @param id 
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/{id}", method = RequestMethod.GET)
-	public String showPromotionDetail(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String showPromotionDetail(HttpServletRequest request,
+			@PathVariable String id) {
 		PromotionDetail promotionDetail = new PromotionDetail();
 		Promotion promotion = promotionService.getPromotionById(id);
 		List<PromotionDetail> listPromotionDetail = promotionDetailService
@@ -58,19 +54,13 @@ public class PromotionDetailController {
 	/**
 	 * ADMIN PAGE - Add new Promotion detail
 	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param promotionDetail
 	 * @param id
-	 *            //Promotion's id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/{id}/add", method = RequestMethod.POST)
-	public String addPromotionDetail(Locale locale, Model model,
-			HttpServletRequest request, PromotionDetail promotionDetail,
+	public String addPromotionDetail(PromotionDetail promotionDetail,
 			@PathVariable String id) {
-
 		promotionDetail.setPromotionId(id);
 		promotionDetail.setId(null);
 		promotionDetailService.addPromotionDetail(promotionDetail);
@@ -78,18 +68,14 @@ public class PromotionDetailController {
 	}
 
 	/**
-	 * ADMIN PAGE - Block a product from promotion
+	 * ADMIN PAGE - Deactive a product from promotion
 	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param promotionDetail
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/{id}/block", method = RequestMethod.POST)
-	public String blockPromotionDetail(Locale locale, Model model,
-			HttpServletRequest request, PromotionDetail promotionDetail,
+	public String blockPromotionDetail(PromotionDetail promotionDetail,
 			@PathVariable String id) {
 		promotionDetail.setPromotionId(id);
 		promotionDetail.setStatus(STATUS.INACTIVE.getStatusCode());
@@ -100,16 +86,12 @@ public class PromotionDetailController {
 	/**
 	 * ADMIN PAGE - Active a product from promotion
 	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param promotionDetail
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/{id}/active", method = RequestMethod.POST)
-	public String activePromotionDetail(Locale locale, Model model,
-			HttpServletRequest request, PromotionDetail promotionDetail,
+	public String activePromotionDetail(PromotionDetail promotionDetail,
 			@PathVariable String id) {
 		promotionDetail.setPromotionId(id);
 		promotionDetail.setStatus(STATUS.ACTIVE.getStatusCode());
@@ -120,16 +102,12 @@ public class PromotionDetailController {
 	/**
 	 * ADMIN PAGE - Edit a promotion detail
 	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param promotionDetail
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/{id}/edit", method = RequestMethod.POST)
-	public String editPromotionDetail(Locale locale, Model model,
-			HttpServletRequest request, PromotionDetail promotionDetail,
+	public String editPromotionDetail(PromotionDetail promotionDetail,
 			@PathVariable String id) {
 		promotionDetail.setPromotionId(id);
 		promotionDetailService.updatePromotionDetail(promotionDetail);
