@@ -17,6 +17,9 @@
 
 
 <script>
+
+<!-- ================================ ACCOUNT =========================== -->
+
 <!-- Fill text field in Modal fade ACCOUNT EDIT dialog-->
 $(document).on("click", ".open-AccountEditDialog", function () 
 {  
@@ -39,6 +42,15 @@ $(document).on("click", ".open-AccountBlockDialog", function ()
 	$(".modal-dialog #inputEmail").val($("#rowAccount" + index + " #0").text()); 
 });
 
+<!-- Fill text field in Modal fade ACCOUNT BLOCK dialog-->
+$(document).on("click", ".open-AccountActiveDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputEmail").val($("#rowAccount" + index + " #0").text()); 
+});
+
+
+<!-- ======================= PROMOTION =============================-->
 <!-- Fill text field in Modal fade PROMOTION BLOCK dialog-->
 $(document).on("click", ".open-PromotionBlockDialog", function () 
 {  
@@ -46,6 +58,13 @@ $(document).on("click", ".open-PromotionBlockDialog", function ()
 	$(".modal-footer #BlockButton").attr("onClick","location.href='/admin/promotions/block/" + $("#rowPromotion" + index + " #0").text()+ "';"); 
 });
 
+<!-- Fill text field in Modal fade PROMOTION ACTIVE dialog-->
+$(document).on("click", ".open-PromotionActiveDialog", function () 
+{  
+	console.log("open promotionactiveDialog");
+	var index = $(this).data('id'); 
+	$(".modal-footer #ActiveButton").attr("onClick","location.href='/admin/promotions/active/" + $("#rowPromotion" + index + " #0").text()+ "';"); 
+});
 
 
 <!-- Fill text field in Modal fade PROMOTION edit dialog-->
@@ -63,6 +82,8 @@ $(document).on("click", ".open-PromotionEditDialog", function ()
 	
 });
 
+
+<!-- ========================= PRODUCT ==================================-->
 <!-- Fill text field in Modal fade Product BLOCK dialog-->
 $(document).on("click", ".open-ProductBlockDialog", function () 
 {  
@@ -117,7 +138,10 @@ $(document).on("click", ".open-ProductEditDialog", function ()
 			$(".modal-body #inputHeight").val($("#rowProduct" + index + " #13").text());
 			});
 		
-		
+
+
+<!-- ==================================== PROMOTION DETAIL ==================================-->
+
 <!-- Fill text field in Modal fade PROMOTION DETAIL EDIT dialog-->
 $(document).on("click", ".open-PromotionDetailEditDialog", function () 
 { 
@@ -142,8 +166,6 @@ $(document).on("click", ".open-PromotionDetailBlockDialog", function ()
 $(document).on("click", ".open-ProductTypeActiveDialog", function () 
 {  
 	var index = $(this).data('id');
-	console.log("index:",index);
-	console.log("ID:",$("#rowProductType" + index + " #0").text());
 	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/producttype/active/" + $("#rowProductType" + index + " #0").text()+ "';"); 
 });
 
@@ -158,7 +180,6 @@ $(document).on("click", ".open-ProductTypeDeactiveDialog", function ()
 $(document).on("click", ".open-ProductTypeEditDialog", function () 
 { 
 	var index = $(this).data('id'); 	
-	console.log("EDIT DIALOG");
 	$(".modal-body #inputId").val($("#rowProductType" + index + " #0").text());
 	$(".modal-body #inputName").val($("#rowProductType" + index + " #1").text());
 	$(".modal-body #inputStatus").val($("#rowProductType" + index + " #2").text());
@@ -167,34 +188,31 @@ $(document).on("click", ".open-ProductTypeEditDialog", function ()
 
 <!--========================= ORDERS (HISTORY) =====================-->
 
-<!-- Set href for button in Modal fade HISTORY ACTIVE dialog-->
+<!-- Set href for button in Modal fade ORDER (HISTORY) ACTIVE dialog-->
 $(document).on("click", ".open-HistoryActiveDialog", function () 
 {  
 	var index = $(this).data('id');
-	console.log("index:",index);
-	console.log("email:",$("#rowProductType" + index + " #0").text());
+
 	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/orders/active/" + $("#rowHistory" + index + " #0").text()+ "';"); 
 });
 
-<!-- Set href for button in Modal fade HISTORY DEACIVEdialog-->
-$(document).on("click", ".open-HistoryDectiveDialog", function () 
+<!-- Set href for button in Modal fade ORDER (HISTORY) DEACIVEdialog-->
+$(document).on("click", ".open-HistoryDeactiveDialog", function () 
 {  
 	var index = $(this).data('id'); 
 	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/orders/deactive/" + $("#rowHistory" + index + " #0").text()+ "';"); 
 });
 
-<!-- Fill text field in Modal fade HISTORY EDIT dialog-->
+<!-- Fill text field in Modal fade ORDER (HISTORY) EDIT dialog-->
 $(document).on("click", ".open-HistoryEditDialog", function () 
 { 
 	var index = $(this).data('id'); 	
-	console.log("HISTORY EDIT DIALOG");
 	$(".modal-body #inputId").val($("#rowHistory" + index + " #0").text());
 	$(".modal-body #inputEmail").val($("#rowHistory" + index + " #1").text());
 	$(".modal-body #inputQuantity").val($("#rowHistory" + index + " #2").text());
 	$(".modal-body #inputOrderDate").val($("#rowHistory" + index + " #3").text());
 	$(".modal-body #inputDeliveryDate").val($("#rowHistory" + index + " #4").text());
 	$(".modal-body #inputPaymentDate").val($("#rowHistory" + index + " #5").text());
-	console.log("paymentType",$("#rowHistory" + index + " #6").text());
 	$(".modal-body #selectPaymentType").val($("#rowHistory" + index + " #6").text());
 	$(".modal-body #selectPaymentStatus").val($("#rowHistory" + index + " #7").text());
 	$(".modal-body #selectStatus").val($("#rowHistory" + index + " #8").text());
@@ -207,8 +225,6 @@ $(document).on("click", ".open-HistoryEditDialog", function ()
 $(document).on("click", ".open-PaymentTypeActiveDialog", function () 
 {  
 	var index = $(this).data('id');
-	console.log("index:",index);
-	console.log("ID:",$("#rowPaymentType" + index + " #0").text());
 	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/paymenttype/active/" + $("#rowPaymentType" + index + " #0").text()+ "';"); 
 });
 
@@ -223,7 +239,6 @@ $(document).on("click", ".open-PaymentTypeDeactiveDialog", function ()
 $(document).on("click", ".open-PaymentTypeEditDialog", function () 
 { 
 	var index = $(this).data('id'); 	
-	console.log("EDIT DIALOG");
 	$(".modal-body #inputId").val($("#rowPaymentType" + index + " #0").text());
 	$(".modal-body #inputName").val($("#rowPaymentType" + index + " #1").text());
 	$(".modal-body #inputStatus").val($("#rowPaymentType" + index + " #2").text());
@@ -236,8 +251,6 @@ $(document).on("click", ".open-PaymentTypeEditDialog", function ()
 $(document).on("click", ".open-ManufacturerActiveDialog", function () 
 {  
 	var index = $(this).data('id');
-	console.log("index:",index);
-	console.log("ID:",$("#rowManufacturer" + index + " #0").text());
 	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/manufacturer/active/" + $("#rowManufacturer" + index + " #0").text()+ "';"); 
 });
 
@@ -252,7 +265,6 @@ $(document).on("click", ".open-ManufacturerDeactiveDialog", function ()
 $(document).on("click", ".open-ManufacturerEditDialog", function () 
 { 
 	var index = $(this).data('id'); 	
-	console.log("EDIT DIALOG");
 	$(".modal-body #inputId").val($("#rowManufacturer" + index + " #0").text());
 	$(".modal-body #inputName").val($("#rowManufacturer" + index + " #1").text());
 	$(".modal-body #inputStatus").val($("#rowManufacturer" + index + " #2").text());

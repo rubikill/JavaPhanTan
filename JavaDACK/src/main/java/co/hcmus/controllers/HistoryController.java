@@ -118,7 +118,7 @@ public class HistoryController {
 	 * @param history
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/orders/active/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/orders/active/{id}", method = RequestMethod.GET)
 	public String activeProducType(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
 		History history = historyService.getHistory(id);
@@ -136,7 +136,7 @@ public class HistoryController {
 	 * @param history
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/orders/deactive", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/orders/deactive/{id}", method = RequestMethod.GET)
 	public String deactiveProducType(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
 		History history = historyService.getHistory(id);

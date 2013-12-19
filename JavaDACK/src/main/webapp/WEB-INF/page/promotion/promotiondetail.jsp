@@ -57,9 +57,14 @@
 								<button class="open-PromotionDetailEditDialog btn btn-warning"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
+								<button
+									class="open-PromotionDetailActiveDialog  btn btn-success"
+									data-toggle="modal" data-id="${status.index}"
+									data-target="#activeModal">Active</button>
 								<button class="open-PromotionDetailBlockDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#deleteModal">Block</button>
+
 							</td>
 						</tr>
 					</c:forEach>
@@ -161,6 +166,36 @@
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" id="BlockButton"
 						onClick="">Save changes</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</form:form>
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="activeModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<form:form class="form-group"
+			action="/admin/promotions/${promotion.id }/active"
+			commandName="promotionDetail" method="POST">
+			<form:input path="id" type="hidden" id="inputId" />
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Confirm active</h4>
+				</div>
+				<div class="modal-body">
+					<p>Are you sure to active this product?</p>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" id="ActiveButton"
+						onClick="">Active</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>

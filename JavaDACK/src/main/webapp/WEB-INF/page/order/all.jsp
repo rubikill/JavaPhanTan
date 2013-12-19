@@ -37,8 +37,8 @@
 						<th style="width: 10%">Payment date <i class="fa fa-sort"></i></th>
 						<th style="width: 7%">Payment type <i class="fa fa-sort"></i></th>
 						<th style="width: 7%">Payment status <i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Status <i class="fa fa-sort"></i></th>
-						<th style="width: 26%">Action</th>
+						<th style="width: 7%">Status <i class="fa fa-sort"></i></th>
+						<th style="width: 29%">Action</th>
 					</tr>
 				</thead>
 				<tbody>

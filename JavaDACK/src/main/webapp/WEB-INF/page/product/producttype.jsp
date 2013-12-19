@@ -42,7 +42,7 @@
 							<td id="1">${productType.name }</td>
 							<td id="2">${productType.status }</td>
 							<td>
-								<button class="open-ProductTypeEditDialog btn btn-info"
+								<button class="open-ProductTypeEditDialog btn btn-warning"
 									data-toggle="modal" data-target="#editModal"
 									data-id="${status.index}">Edit</button>
 								<button class="open-ProductTypeActiveDialog btn btn-success"

@@ -33,9 +33,9 @@
 						<th style="width: 8%">End <i class="fa fa-sort"></i></th>
 						<th style="width: 15%">Content <i class="fa fa-sort"></i></th>
 						<th style="width: 15%">Note <i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Tag id <i class="fa fa-sort"></i></th>
+						<th style="width: 7%">Tag id <i class="fa fa-sort"></i></th>
 						<th style="width: 7%">Status <i class="fa fa-sort"></i></th>
-						<th style="width: 17%">Action</th>
+						<th style="width: 20%">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,8 +43,9 @@
 						varStatus="status">
 						<tr class="rowPromotion" id="rowPromotion${status.index}">
 							<td hidden="true" id="0">${promotion.id }</td>
-							<td id="1" > <a href="/admin/promotions/${promotion.id }">${promotion.name }</a></td>
-							
+							<td id="1"><a href="/admin/promotions/${promotion.id }">${promotion.name
+									}</a></td>
+
 							<fmt:formatDate value="${promotion.date_start}"
 								pattern="dd/MM/yyyy" var="date_start" />
 							<td id="2">${date_start}</td>
@@ -60,6 +61,9 @@
 								<button class="open-PromotionEditDialog btn btn-warning"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
+								<button class="open-PromotionActiveDialog  btn btn-success"
+									data-toggle="modal" data-id="${status.index}"
+									data-target="#activeModal">Active</button>
 								<button class="open-PromotionBlockDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#deleteModal">Block</button>
@@ -99,8 +103,8 @@
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Id</label>
 						<div class="col-sm-8">
-							<form:input path="id" type="text" class="form-control"
-								id="id" placeholder="Empty" readonly="readonly"/>
+							<form:input path="id" type="text" class="form-control" id="id"
+								placeholder="Empty" readonly="readonly" />
 						</div>
 					</div>
 
@@ -182,13 +186,40 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Confirm delete</h4>
+				<h4 class="modal-title" id="myModalLabel">Confirm deactive</h4>
 			</div>
 			<div class="modal-body">
-				<p>Are you sure to block this account?</p>
+				<p>Are you sure to deactive this promotion?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="BlockButton" onClick="">Save changes</button>
+				<button type="button" class="btn btn-primary" id="BlockButton"
+					onClick="">Save changes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="activeModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Confirm active</h4>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure to active this promotion?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="ActiveButton"
+					onClick="">Active</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>

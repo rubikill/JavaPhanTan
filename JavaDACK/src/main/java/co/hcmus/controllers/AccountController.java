@@ -55,9 +55,6 @@ public class AccountController {
 	public String accounts(Locale locale, Model model,
 			HttpServletRequest request) {
 		prepairData(request);
-		// Account account = new Account();
-		// // account.setBirthday(new Date());
-		// model.addAttribute("account", account);
 		return "accounts";
 	}
 
@@ -73,21 +70,28 @@ public class AccountController {
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
 	public String blockPromotion(Locale locale, Model model,
 			HttpServletRequest request, Account account) {
-		// System.out.println("\n email:'" + email +"'");
-		// Account account = accountService.getAccount(email);
-		if (account != null) {
-			System.out.println("\n email:" + account.getEmail());
-			System.out.println("\n address:" + account.getAddress());
-			System.out.println("\n name:" + account.getName());
-		} else
-			System.out.println("\n NULL");
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.BLOCK.getStatusCode());
 		accountService.updateAccount(account);
-		prepairData(request);
-		return "accounts";
+		return "redirect:/admin/accounts";
 	}
 
+	/**
+	 * ADMIN PAGE - Active an account
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/account/active", method = RequestMethod.POST)
+	public String activePromotion(Locale locale, Model model,
+			HttpServletRequest request, Account account) {
+		account = accountService.getAccount(account.getEmail());
+		account.setStatus(STATUS.ACTIVE.getStatusCode());
+		accountService.updateAccount(account);
+		return "redirect:/admin/accounts";
+	}
 	/**
 	 * ADMIN PAGE - Edit an account passing from MANAGE ACCOUNT
 	 * 
@@ -107,13 +111,30 @@ public class AccountController {
 		// TODO add MD5 hash password
 
 		accountService.updateAccount(account);
-		prepairData(request);
+		
 		//
 		// Account account1 = new Account();
 		// model.addAttribute("account", account1);
-		return "accounts";
+		return "redirect:/admin/accounts";
 	}
 
+	@RequestMapping(value = "/admin/account/create", method = RequestMethod.POST)
+	public String createAccount(Locale locale, Model model,
+			HttpServletRequest request, Account account) {
+
+		// System.out.println("email:" + account.getEmail());
+		// System.out.println("account:" + account.getName());
+
+		// TODO add MD5 hash password
+
+		accountService.addAccount(account);
+		//
+		// Account account1 = new Account();
+		// model.addAttribute("account", account1);
+		return "redirect:/admin/accounts";
+	}
+	
+	
 	// @RequestMapping(value = "/admin/account/block", method =
 	// RequestMethod.POST)
 	// public String blockAccount(Locale locale, Model model,
