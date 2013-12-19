@@ -57,7 +57,7 @@
                    </table>
                    <!-- If you not login -->
 
-                   <table class="table table-bordered">
+                   <table class="table table-bordered" ng-hide="user">
                     <thead>
                         <tr>
                             <th>Product</th>
@@ -126,10 +126,12 @@
                         </td>
                     </tr>
                 </table> -->
+                <span>payment date</span>
                 <input type="text" class="input-small" ng-model="bill.paymentDate" bs-datepicker>
+                <span>deliverry date</span>
                 <input type="text" class="input-small" ng-model="bill.paymentDelivery" bs-datepicker>
                 <div class="alert alert-error" ng-hide="user">You must login first</div>
-                <button class="btn btn-large btn-success pull-right" ng-click="checkOut()" ng-disabled="!user">
+                <button class="btn btn-large btn-success pull-right" ng-click="checkOut()" ng-disabled="!user || cart.length == 0">
                 <i class="icon-gift"></i>  Check out
                 </button>
             </div>

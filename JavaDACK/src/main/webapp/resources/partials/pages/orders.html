@@ -60,17 +60,11 @@
                                     <td>Total of order:</td>
                                     <td></td>
                                 </tr>
-
-                                <tr>
+                                <tr ng-show="item.status == 'Active'">
                                     <td>
-                                        <a href="#viewOrderDetail" class="btn btn-primary" data-toggle="modal">
-                                            View details <i class=" icon-search"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="#cancelOrder" class="btn btn-danger" data-toggle="modal">
+                                    <button class="btn btn-danger" ng-click="confirmCanel(item)">
                                             Cancel this order
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -83,23 +77,6 @@
     </div>
 </div>
 
-
-<div id="viewOrderDetail" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3>Details</h3>
-    </div>
-    <div class="modal-body">
-        <p>Details goes here</p>
-        <!-- repeat here -->
-        productId: amount
-    </div>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-success" ng-click="removeFromCart(selectedItem.id, selectedItem.index)" data-i18n="_BTN_OK_"></button>
-        <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="_BTN_CANCEL_"></button>
-    </div>
-</div>
-
 <div id="cancelOrder" class="modal hide fade in" tabindex="-1" role="dialog" aria-hidden="false">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -109,7 +86,7 @@
         <p>Are you sure to cancel order?</p>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-success" ng-click="removeFromCart(selectedItem.id, selectedItem.index)" data-i18n="_BTN_OK_"></button>
+        <button type="submit" class="btn btn-success" ng-click="canelHistory()" data-i18n="_BTN_OK_"></button>
         <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="_BTN_CANCEL_"></button>
     </div>
 </div>

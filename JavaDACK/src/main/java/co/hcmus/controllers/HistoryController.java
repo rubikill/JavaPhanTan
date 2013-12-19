@@ -2,6 +2,7 @@ package co.hcmus.controllers;
 
 import java.io.IOException;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,9 +69,9 @@ public class HistoryController {
 	 */
 	@RequestMapping(value = "/admin/orders/{id}", method = RequestMethod.GET)
 	public String getHistoryDetails(HttpServletRequest request,
-			@PathVariable String id) {
+		@PathVariable String id) {
 		List<HistoryDetail> listHistoryDetails = historyDetailSevice
-				.getHistoryDetails();
+		.getHistoryDetails();
 		History history = historyService.getHistory(id);
 		request.setAttribute("history", history);
 		request.setAttribute("historyDetail", new HistoryDetail());
@@ -88,7 +89,7 @@ public class HistoryController {
 	 */
 	@RequestMapping(value = "/admin/orders/{id}/add", method = RequestMethod.POST)
 	public String addProductHistoryDetails(@PathVariable String id,
-			HistoryDetail historyDetail) {
+		HistoryDetail historyDetail) {
 		historyDetail.setId(null);
 		historyDetail.setHistoryId(id);
 		historyDetailSevice.addHistoryDetail(historyDetail);
@@ -104,7 +105,7 @@ public class HistoryController {
 	 */
 	@RequestMapping(value = "/admin/orders/{id}/edit", method = RequestMethod.POST)
 	public String editProductHistoryDetails(@PathVariable String id,
-			HistoryDetail historyDetail) {
+		HistoryDetail historyDetail) {
 		historyDetailSevice.updateHistoryDetail(historyDetail);
 		logger.info("Admin edit HisttoryDetail with Id : " + id);
 		return "redirect:/admin/orders/" + id;
@@ -118,9 +119,9 @@ public class HistoryController {
 	 */
 	@RequestMapping(value = "/admin/orders/{id}/active", method = RequestMethod.POST)
 	public String setProductHistoryDetailsActive(@PathVariable String id,
-			HistoryDetail historyDetail) {
+		HistoryDetail historyDetail) {
 		historyDetail = historyDetailSevice.getHistoryDetailById(historyDetail
-				.getHistoryId());
+			.getHistoryId());
 		historyDetail.setStatus(STATUS.ACTIVE.getStatusCode());
 		historyDetailSevice.updateHistoryDetail(historyDetail);
 		logger.info("Admin active HisttoryDetail with Id : " + id);
@@ -135,9 +136,9 @@ public class HistoryController {
 	 */
 	@RequestMapping(value = "/admin/orders/{id}/deactive", method = RequestMethod.POST)
 	public String setProductHistoryDetailsDeactive(@PathVariable String id,
-			HistoryDetail historyDetail) {
+		HistoryDetail historyDetail) {
 		historyDetail = historyDetailSevice.getHistoryDetailById(historyDetail
-				.getHistoryId());
+			.getHistoryId());
 		historyDetail.setStatus(STATUS.INACTIVE.getStatusCode());
 		historyDetailSevice.updateHistoryDetail(historyDetail);
 		logger.info("Admin delete HisttoryDetail with Id : " + id);
@@ -153,7 +154,7 @@ public class HistoryController {
 	public String getHistory(HttpServletRequest request) {
 		List<History> listHistory = historyService.getHistorys();
 		List<PaymentType> listPaymentType = paymentTypeService
-				.getPaymentTypes();
+		.getPaymentTypes();
 		request.setAttribute("history", new History());
 		request.setAttribute("listHistory", listHistory);
 		request.setAttribute("listPaymentType", listPaymentType);
@@ -224,7 +225,7 @@ public class HistoryController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/history/create", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> addNewHistory(HttpSession session,
-			@RequestBody String json) {
+		@RequestBody String json) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		logger.info("User create a history");
@@ -243,24 +244,24 @@ public class HistoryController {
 			for (Cart cart : cartItems) {
 				quantity += cart.getCount();
 				HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
-						cart.getId(), STATUS.ACTIVE.getStatusCode());
+					cart.getId(), STATUS.ACTIVE.getStatusCode());
 				historyDetailSevice.addHistoryDetail(hd);
 			}
 
 			JsonNode jsonNode = mapper.readTree(json);
 			SimpleDateFormat formatter = new SimpleDateFormat(
-					"yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+				"yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
 
 			System.out.println(json);
 			System.out.println(jsonNode.path("paymentDelivery").getTextValue());
 			// parse payment date
 			Date paymentDate = formatter.parse(jsonNode.path("paymentDate")
-					.getTextValue());
+				.getTextValue());
 
 			System.out.println(paymentDate);
 			// parse deliver date
 			Date deliveryDate = formatter.parse(jsonNode
-					.path("paymentDelivery").getTextValue());
+				.path("paymentDelivery").getTextValue());
 
 			System.out.println(deliveryDate);
 
@@ -271,8 +272,8 @@ public class HistoryController {
 
 			System.out.println(jsonNode);
 			history = new History(email, quantity,
-					STATUS.ACTIVE.getStatusCode(), null, new Date(),
-					deliveryDate, paymentDate, null);
+				STATUS.ACTIVE.getStatusCode(), null, new Date(),
+				deliveryDate, paymentDate, null);
 
 			history.setId(id);
 
@@ -285,21 +286,21 @@ public class HistoryController {
 			logger.error("Error Create History JsonProcessingException : " + e.toString());
 			e.printStackTrace();
 			return new ResponseEntity<String>(Tools.toJson(history), headers,
-					HttpStatus.BAD_REQUEST);
+				HttpStatus.BAD_REQUEST);
 		} catch (IOException e) {
 			logger.error("Error Create History IOException : " + e.toString());
 			e.printStackTrace();
 			return new ResponseEntity<String>(Tools.toJson(history), headers,
-					HttpStatus.BAD_REQUEST);
+				HttpStatus.BAD_REQUEST);
 		} catch (ParseException e) {
 			logger.error("Error Create History ParseException : " + e.toString());
 			e.printStackTrace();
 			return new ResponseEntity<String>(Tools.toJson(history), headers,
-					HttpStatus.BAD_REQUEST);
+				HttpStatus.BAD_REQUEST);
 		}
 
 		return new ResponseEntity<String>(Tools.toJson(history), headers,
-				HttpStatus.OK);
+			HttpStatus.OK);
 	}
 
 	/**
@@ -324,22 +325,22 @@ public class HistoryController {
 		}
 		logger.info("Get All history");
 		return new ResponseEntity<String>(Tools.toJsonArray(listTemp), headers,
-				HttpStatus.OK);
+			HttpStatus.OK);
 	}
 
 	/**
-	 * Web service to update history
+	 * Web service to cancel oder
 	 * 
 	 * @param json
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "/history/update", method = RequestMethod.PUT, headers = "Accept=application/json")
-	public ResponseEntity<String> updateCart(@RequestBody String json,
-			HttpSession session) {
-		/*
+	/*@RequestMapping(value = "/history/cancel/{id}", method = RequestMethod.POST, headers = "Accept=application/json")
+	public ResponseEntity<String> updateCart(@PathVariable("id") String id,
+		HttpSession session) {
+		
 		 * { "historyId":xxx, "cart": { ... } ","paymentId":... }
-		 */
+		 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		logger.info("Update History");
@@ -377,12 +378,10 @@ public class HistoryController {
 					.getTextValue();
 			// Get email from session
 			String email = (String) session.getAttribute("email");
+		try{
+			History history = historyService.getHistory(id);
 
-			history = new History(email, quantity,
-					STATUS.ACTIVE.getStatusCode(), paymentStatus, new Date(),
-					deliveryDate, paymentDate, paymentTypeID);
-
-			history.setId(id);
+			history.setStatus(STATUS.DISABLE.getStatusCode());
 
 			historyService.updateHistory(history);
 			logger.info("Update History successful with Id : " + id);
@@ -397,10 +396,66 @@ public class HistoryController {
 		} catch (ParseException e) {
 			logger.error("Error Update History ParseException");
 			e.printStackTrace();
+			return new ResponseEntity<String>(headers, HttpStatus.OK);
+		} catch(Exception ex){
+			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<String>(Tools.toJson(history), headers,
-				HttpStatus.OK);
 
-	}
+		// History history = new History();
+		// ObjectMapper mapper = new ObjectMapper();
+		// try {
+		// 	String id = (String) session.getAttribute("historyId");
+		// 	// parse json String to jsonNode
+		// 	JsonNode jsonNode = mapper.readTree(json);
+		// 	// get list cart item from json
+		// 	@SuppressWarnings("deprecation")
+		// 	List<Cart> listCartToUpdate = (List<Cart>) Tools.fromJsonToArray(
+		// 			jsonNode.getPath("cart").getTextValue(), Cart.class);
+		// 	int quantity = 0;
+		// 	for (int i = 0; i < listCartToUpdate.size(); i++) {
+		// 		Cart cart = listCartToUpdate.get(i);
+		// 		quantity += cart.getCount();
+		// 		HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
+		// 				cart.getId(), STATUS.ACTIVE.getStatusCode());
+		// 		historyDetailSevice.updateHistoryDetail(hd);
+		// 	}
+
+		// 	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		// 	// parse payment date
+		// 	Date paymentDate = formatter.parse(jsonNode.path("paymentDate")
+		// 			.getTextValue());
+		// 	// parse deliver date
+		// 	Date deliveryDate = formatter.parse(jsonNode
+		// 			.path("paymentDelivery").getTextValue());
+		// 	// parse paymentTypeId
+		// 	String paymentTypeID = jsonNode.path("paymentTypeId")
+		// 			.getTextValue();
+		// 	// parse paymentStatus
+		// 	String paymentStatus = jsonNode.path("paymentStatus")
+		// 			.getTextValue();
+		// 	// Get email from session
+		// 	String email = (String) session.getAttribute("email");
+
+		// 	history = new History(email, quantity,
+		// 			STATUS.ACTIVE.getStatusCode(), paymentStatus, new Date(),
+		// 			deliveryDate, paymentDate, paymentTypeID);
+
+		// 	history.setId(id);
+
+		// 	historyService.updateHistory(history);
+
+		// 	session.setAttribute("ShopCart", listCartToUpdate);
+
+		// } catch (JsonProcessingException e) {
+		// 	e.printStackTrace();
+		// } catch (IOException e) {
+		// 	e.printStackTrace();
+		// } catch (ParseException e) {
+		// 	e.printStackTrace();
+		// }
+		// return new ResponseEntity<String>(Tools.toJson(history), headers,
+		// 		HttpStatus.OK);
+
+	}*/
 
 }

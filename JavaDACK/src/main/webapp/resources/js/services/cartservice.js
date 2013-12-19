@@ -26,8 +26,9 @@ shopsv.factory('Cart', function ($resource) {
 });
 
 shopsv.factory('History', function ($resource) {
-    return $resource('history/:action', {
-        action: '@action'
+    return $resource('history/:action/:id', {
+        action: '@action',
+        id: '@id'
     }, {
         checkout: {
             method: 'POST',
@@ -38,6 +39,9 @@ shopsv.factory('History', function ($resource) {
         getHistory: {
             method: 'GET',
             isArray: true
+        },
+        cancelHistory: {
+            method: 'POST'
         }
     });
 });

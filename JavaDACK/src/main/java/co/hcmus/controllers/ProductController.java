@@ -237,7 +237,7 @@ public class ProductController {
 
 	/**
 	 * 
-	 admin crate product
+	 * admin crate product
 	 */
 
 	@RequestMapping(value = "/admin/product/edit", method = RequestMethod.POST)
