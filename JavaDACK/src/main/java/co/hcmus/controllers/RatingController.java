@@ -1,5 +1,7 @@
 package co.hcmus.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,7 +21,8 @@ import co.hcmus.util.Tools;
 
 @Controller
 public class RatingController {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(RatingController.class);
 	@Autowired
 	private IRatingService ratingService;
 
@@ -48,14 +51,14 @@ public class RatingController {
 		// create header
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-
+		logger.info("Rest to rating a product with productId :" + productId);
 		ProductRate productRate = new ProductRate();
 		productRate.rateAverage = resultAverage;
-
+		
 		if (resultAverage == -1) {
 			productRate.isRate = false;
 			productRate.rateEmail = null;
-
+			logger.error("Error rating");
 			return new ResponseEntity<String>(Tools.toJson(productRate),
 					headers, HttpStatus.BAD_REQUEST);
 		}
@@ -66,7 +69,7 @@ public class RatingController {
 
 		productRate.isRate = true;
 		productRate.rateEmail = ratingByEmail.getStar();
-
+		logger.info("get rating success with productId : " + productId);
 		return new ResponseEntity<String>(Tools.toJson(productRate), headers,
 				HttpStatus.OK);
 	}
@@ -107,7 +110,9 @@ public class RatingController {
 				ratingInsert.setStar(rate);
 				ratingInsert.setStatus(STATUS.ACTIVE.getStatusCode());
 				ratingService.addRating(ratingInsert);
+				logger.info("Add rating with productId : " + productId);
 			} catch (Exception e) {
+				logger.error("Error Add rating");
 				return new ResponseEntity<String>(headers,
 						HttpStatus.BAD_REQUEST);
 			}
@@ -126,7 +131,9 @@ public class RatingController {
 				ratingUpdate.setStar(rate);
 				ratingUpdate.setStatus(STATUS.ACTIVE.getStatusCode());
 				ratingService.updateRating(ratingUpdate);
+				logger.info("Update rating with productId : " + productId);
 			} catch (Exception e) {
+				logger.error("Error update rating");
 				return new ResponseEntity<String>(headers,
 						HttpStatus.BAD_REQUEST);
 			}

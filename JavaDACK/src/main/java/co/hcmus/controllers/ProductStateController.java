@@ -2,6 +2,8 @@ package co.hcmus.controllers;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,7 @@ import co.hcmus.util.Tools;
 
 @Controller
 public class ProductStateController {
-
+	private static final Logger logger = LoggerFactory.getLogger(ProductStateController.class);
 	@Autowired
 	private IProductStateService productStateService;
 
@@ -33,11 +35,13 @@ public class ProductStateController {
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		// get all product
 		try {
+			logger.info("Rest get all product State");
 			List<ProductState> listProductState = productStateService
 					.getProductStates();
 			return new ResponseEntity<String>(
 					Tools.toJsonArray(listProductState), headers, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("Error get all product State");
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 

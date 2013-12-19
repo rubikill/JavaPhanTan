@@ -39,9 +39,10 @@ import co.hcmus.util.Tools;
  */
 @Controller
 public class AccountController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
-	
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(AccountController.class);
+
 	@Autowired
 	private IAccountService accountService;
 
@@ -56,6 +57,7 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/admin/account", method = RequestMethod.GET)
 	public String accounts(HttpServletRequest request) {
+		logger.info("Admin get all Accounts");
 		prepairData(request);
 		return "accounts";
 	}
@@ -71,11 +73,13 @@ public class AccountController {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.INACTIVE.getStatusCode());
 		accountService.updateAccount(account);
+		logger.info("Admin block a Account with Email : "  + account.getEmail());
 		return "redirect:/admin/accounts";
 	}
 
 	/**
 	 * ADMIN PAGE - Active an account
+	 * 
 	 * @param account
 	 * @return
 	 */
@@ -84,11 +88,13 @@ public class AccountController {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.ACTIVE.getStatusCode());
 		accountService.updateAccount(account);
+		logger.info("Admin active a Account with Email : "  + account.getEmail());
 		return "redirect:/admin/accounts";
 	}
 
 	/**
 	 * ADMIN PAGE - Edit an account passing from MANAGE ACCOUNT
+	 * 
 	 * @param account
 	 * @return
 	 */
@@ -96,11 +102,13 @@ public class AccountController {
 	public String editAccount(Account account) {
 		// TODO add MD5 hash password
 		accountService.updateAccount(account);
+		logger.info("Admin edit a Account with Email : "  + account.getEmail());
 		return "redirect:/admin/accounts";
 	}
 
 	/**
 	 * ADMIN PAGE - Create new account
+	 * 
 	 * @param account
 	 * @return
 	 */
@@ -108,6 +116,7 @@ public class AccountController {
 	public String createAccount(Account account) {
 		// TODO add MD5 hash password
 		accountService.addAccount(account);
+		logger.info("Admin create a Account with Email");
 		return "redirect:/admin/accounts";
 	}
 
@@ -174,30 +183,40 @@ public class AccountController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody String json,
 			HttpSession session) {
-		Account accountTemp = Tools.fromJsonTo(json, Account.class);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
-		// Create AccountService
-		// get Account with email
-
-		Account account = accountService.getAccount(accountTemp.getEmail());
-
-		// check account
-		if (account == null) {
-			return new ResponseEntity<String>("Account does not exsits",
-					headers, HttpStatus.BAD_REQUEST);
-		} else {
-			if (encryptPasswordProvider.checkSum(accountTemp.getPassword(),
-					account.getPassword(), Constant.MD5)) {
-				System.out.println("Login success");
-				session.setAttribute("email", account.getEmail());
-				return new ResponseEntity<String>(Tools.toJson(account),
-						headers, HttpStatus.OK);
+		try {
+			Account accountTemp = Tools.fromJsonTo(json, Account.class);
+			// Create AccountService
+			// get Account with email
+			logger.info("User login with Account { Email : "
+					+ accountTemp.getEmail() + "}"); // loger
+			Account account = accountService.getAccount(accountTemp.getEmail());
+			// check account
+			if (account == null) {
+				logger.error("Account does not exsits with  Account { Email : "
+						+ accountTemp.getEmail() + "}");
+				return new ResponseEntity<String>("Account does not exsits",
+						headers, HttpStatus.BAD_REQUEST);
 			} else {
-				return new ResponseEntity<String>("Wrong password", headers,
-						HttpStatus.BAD_REQUEST);
+				if (encryptPasswordProvider.checkSum(accountTemp.getPassword(),
+						account.getPassword(), Constant.MD5)) {
+					logger.info("User login success with  Account { Email : "
+							+ accountTemp.getEmail() + "}");
+					session.setAttribute("email", account.getEmail());
+					return new ResponseEntity<String>(Tools.toJson(account),
+							headers, HttpStatus.OK);
+				} else {
+					logger.info("User login not success with  Account { Email : "
+							+ accountTemp.getEmail() + "}");
+					return new ResponseEntity<String>("Wrong password",
+							headers, HttpStatus.BAD_REQUEST);
+				}
 			}
+		} catch (Exception e) {
+			logger.error("Error in rest login Account");
+			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -211,7 +230,7 @@ public class AccountController {
 			headers.add("Content-Type", "application/json");
 			Account account = accountService.getAccount(session.getAttribute(
 					"email").toString());
-			logger.error("ping success...");
+			logger.info("ping success...");
 			return new ResponseEntity<String>(Tools.toJson(account), headers,
 					HttpStatus.OK);
 		}
@@ -244,8 +263,13 @@ public class AccountController {
 		try {
 			JsonNode jsonNode = mapper.readTree(json);
 			account.setEmail(jsonNode.path("email").getTextValue());
+			// loger
+			logger.info("Registrer Account with Email : "
+					+ jsonNode.path("email").getTextValue());
 
 			if (accountService.getAccount(account.getEmail()) != null) {
+				logger.error("Email has been used : "
+						+ jsonNode.path("email").getTextValue());
 				return new ResponseEntity<String>(
 						"{\"message\" : \"This email has been used\"}",
 						headers, HttpStatus.BAD_REQUEST);
@@ -262,9 +286,11 @@ public class AccountController {
 
 		} catch (JsonProcessingException e1) {
 			// TODO Auto-generated catch block
+			logger.error("Error JsonProcessingException : " + e1.toString());
 			e1.printStackTrace();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
+			logger.error("Error IOException : " + e1.toString());
 			e1.printStackTrace();
 		}
 
@@ -285,13 +311,14 @@ public class AccountController {
 			emailForm.body = "Your new password is: " + token;
 
 			sendMailHelper.sendMail(emailForm);
-
+			logger.info("Register sucess with Email : " + account.getEmail());
 			return new ResponseEntity<String>(
 					"{\"message\" : \"Create success\"}", headers,
 					HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 			// System.out.println("Problem when create account");
+			logger.error("Problem when create account : " + e.toString());
 			e.printStackTrace();
 			return new ResponseEntity<String>(
 					"{\"message\" : \"Problem when create account\"}", headers,
@@ -317,7 +344,7 @@ public class AccountController {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json");
-
+		logger.info("Forgerpass with Email : " + email);
 		EmailForm emailForm = new EmailForm();
 		emailForm.reciver = email;
 		emailForm.subject = "Reset password for " + email;
@@ -326,11 +353,12 @@ public class AccountController {
 		// Send a email to reset password
 		try {
 			sendMailHelper.sendMail(emailForm);
-
+			logger.info("Forgerpass Send mail succsess with Email  : " + email);
 			return new ResponseEntity<String>("Send mail succsess", headers,
 					HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			logger.error("Forgerpass Send mail failure with Email  : " + email);
 			e.printStackTrace();
 			return new ResponseEntity<String>("Send mail failure", headers,
 					HttpStatus.BAD_REQUEST);

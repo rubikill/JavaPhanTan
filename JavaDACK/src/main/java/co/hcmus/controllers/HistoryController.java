@@ -1,6 +1,7 @@
 package co.hcmus.controllers;
 
 import java.io.IOException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +48,9 @@ import co.hcmus.util.Tools;
 @Controller
 @Scope("request")
 public class HistoryController {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(HistoryController.class);
 	@Autowired
 	private IHistoryService historyService;
 	@Autowired
@@ -70,6 +76,7 @@ public class HistoryController {
 		request.setAttribute("historyDetail", new HistoryDetail());
 		request.setAttribute("listHistoryDetails", listHistoryDetails);
 		request.setAttribute("nav", "orders");
+		logger.info("Admin get histtoryDetails with Id : " + id);
 		return "orders/detail";
 	}
 
@@ -85,6 +92,7 @@ public class HistoryController {
 		historyDetail.setId(null);
 		historyDetail.setHistoryId(id);
 		historyDetailSevice.addHistoryDetail(historyDetail);
+		logger.info("Admin add HisttoryDetail with HistoryId : " + id);
 		return "redirect:/admin/orders/" + id;
 	}
 
@@ -98,6 +106,7 @@ public class HistoryController {
 	public String editProductHistoryDetails(@PathVariable String id,
 			HistoryDetail historyDetail) {
 		historyDetailSevice.updateHistoryDetail(historyDetail);
+		logger.info("Admin edit HisttoryDetail with Id : " + id);
 		return "redirect:/admin/orders/" + id;
 	}
 
@@ -114,6 +123,7 @@ public class HistoryController {
 				.getHistoryId());
 		historyDetail.setStatus(STATUS.ACTIVE.getStatusCode());
 		historyDetailSevice.updateHistoryDetail(historyDetail);
+		logger.info("Admin active HisttoryDetail with Id : " + id);
 		return "redirect:/admin/orders/" + id;
 	}
 
@@ -130,6 +140,7 @@ public class HistoryController {
 				.getHistoryId());
 		historyDetail.setStatus(STATUS.INACTIVE.getStatusCode());
 		historyDetailSevice.updateHistoryDetail(historyDetail);
+		logger.info("Admin delete HisttoryDetail with Id : " + id);
 		return "redirect:/admin/orders/" + id;
 	}
 
@@ -147,6 +158,7 @@ public class HistoryController {
 		request.setAttribute("listHistory", listHistory);
 		request.setAttribute("listPaymentType", listPaymentType);
 		request.setAttribute("nav", "orders");
+		logger.info("Admin get  all History ");
 		return "orders";
 	}
 
@@ -158,6 +170,7 @@ public class HistoryController {
 	@RequestMapping(value = "/admin/orders/edit", method = RequestMethod.POST)
 	public String editHistory(History history) {
 		historyService.updateHistory(history);
+		logger.info("Admin edit History with Id :"  + history.getId());
 		return "redirect:/admin/orders";
 	}
 
@@ -169,6 +182,7 @@ public class HistoryController {
 	@RequestMapping(value = "/admin/orders/create", method = RequestMethod.POST)
 	public String addHistory(History history) {
 		historyService.addHistory(history);
+		logger.info("Admin create History ");
 		return "redirect:/admin/orders";
 	}
 
@@ -182,6 +196,7 @@ public class HistoryController {
 		History history = historyService.getHistory(id);
 		history.setStatus(STATUS.ACTIVE.getStatusCode());
 		historyService.updateHistory(history);
+		logger.info("Admin active History with Id :"  + history.getId());
 		return "redirect:/admin/orders";
 	}
 
@@ -195,6 +210,7 @@ public class HistoryController {
 		History history = historyService.getHistory(id);
 		history.setStatus(STATUS.INACTIVE.getStatusCode());
 		historyService.updateHistory(history);
+		logger.info("Admin deactive History with Id :"  + history.getId());
 		return "redirect:/admin/orders";
 	}
 
@@ -211,8 +227,10 @@ public class HistoryController {
 			@RequestBody String json) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
+		logger.info("User create a history");
 		List<Cart> cartItems = (List<Cart>) session.getAttribute("ShopCart");
 		if (cartItems == null) {
+			logger.error("Cart item failing...");
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 
@@ -260,18 +278,21 @@ public class HistoryController {
 
 			historyService.addHistory(history);
 
-			System.out.println("create history success");
+			logger.info("User create History success");
 			session.removeAttribute("ShopCart");
 
 		} catch (JsonProcessingException e) {
+			logger.error("Error Create History JsonProcessingException : " + e.toString());
 			e.printStackTrace();
 			return new ResponseEntity<String>(Tools.toJson(history), headers,
 					HttpStatus.BAD_REQUEST);
 		} catch (IOException e) {
+			logger.error("Error Create History IOException : " + e.toString());
 			e.printStackTrace();
 			return new ResponseEntity<String>(Tools.toJson(history), headers,
 					HttpStatus.BAD_REQUEST);
 		} catch (ParseException e) {
+			logger.error("Error Create History ParseException : " + e.toString());
 			e.printStackTrace();
 			return new ResponseEntity<String>(Tools.toJson(history), headers,
 					HttpStatus.BAD_REQUEST);
@@ -301,6 +322,7 @@ public class HistoryController {
 		if (listTemp == null) {
 			listTemp = new ArrayList<History>();
 		}
+		logger.info("Get All history");
 		return new ResponseEntity<String>(Tools.toJsonArray(listTemp), headers,
 				HttpStatus.OK);
 	}
@@ -320,6 +342,7 @@ public class HistoryController {
 		 */
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
+		logger.info("Update History");
 		History history = new History();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -362,14 +385,17 @@ public class HistoryController {
 			history.setId(id);
 
 			historyService.updateHistory(history);
-
+			logger.info("Update History successful with Id : " + id);
 			session.setAttribute("ShopCart", listCartToUpdate);
 
 		} catch (JsonProcessingException e) {
+			logger.error("Error Update History JsonProcessingException");
 			e.printStackTrace();
 		} catch (IOException e) {
+			logger.error("Error Update History IOException");
 			e.printStackTrace();
 		} catch (ParseException e) {
+			logger.error("Error Update History ParseException");
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>(Tools.toJson(history), headers,

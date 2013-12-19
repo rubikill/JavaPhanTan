@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,8 @@ import co.hcmus.util.Tools;
 
 @Controller
 public class PromotionController {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(PromotionController.class);
 	@Autowired
 	private IPromotionService promotionService;
 
@@ -35,6 +38,7 @@ public class PromotionController {
 	@RequestMapping(value = "/admin/promotions", method = RequestMethod.GET)
 	public String getPromotions(HttpServletRequest request) {
 		prepairData(request);
+		logger.info("Admin get all promotions");
 		return "promotion";
 	}
 
@@ -47,6 +51,7 @@ public class PromotionController {
 	@RequestMapping(value = "/admin/promotions/add", method = RequestMethod.POST)
 	public String addPromotion(Promotion promotion) {
 		promotionService.addPromotion(promotion);
+		logger.info("Admin create a promotion");
 		return "redirect:/admin/promotions";
 	}
 
@@ -61,6 +66,7 @@ public class PromotionController {
 		Promotion promotion = promotionService.getPromotionById(id);
 		promotion.setStatus(STATUS.INACTIVE.getStatusCode());
 		promotionService.updatePromotion(promotion);
+		logger.info("Admin inactive Promotion with Id : " + id);
 		return "redirect:/admin/promotions";
 	}
 
@@ -75,6 +81,7 @@ public class PromotionController {
 		Promotion promotion = promotionService.getPromotionById(id);
 		promotion.setStatus(STATUS.ACTIVE.getStatusCode());
 		promotionService.updatePromotion(promotion);
+		logger.info("Admin active Promotion with Id : " + id);
 		return "redirect:/admin/promotions";
 	}
 
@@ -87,6 +94,7 @@ public class PromotionController {
 	@RequestMapping(value = "/admin/promotions/edit", method = RequestMethod.POST)
 	public String editPromotion(Promotion promotion) {
 		promotionService.updatePromotion(promotion);
+		logger.info("Admin edit Promotion with Id : " + promotion.getId());
 		return "redirect:/admin/promotions";
 	}
 
@@ -117,9 +125,11 @@ public class PromotionController {
 		// get all product
 		try {
 			List<Promotion> listPromotion = promotionService.getPromotions();
+			logger.info("Rest get all promotions");
 			return new ResponseEntity<String>(Tools.toJsonArray(listPromotion),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("Error get all promotions");
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 
@@ -140,8 +150,11 @@ public class PromotionController {
 			Promotion promotion = (Promotion) Tools.fromJsonTo(json,
 					Promotion.class);
 			promotionService.addPromotion(promotion);
+			logger.info("Rest create a promotion with name : "
+					+ promotion.getName());
 			return new ResponseEntity<String>(headers, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("Error create a promotion");
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -161,8 +174,11 @@ public class PromotionController {
 			Promotion promotion = (Promotion) Tools.fromJsonTo(json,
 					Promotion.class);
 			promotionService.updatePromotion(promotion);
+			logger.info("Rest update a promotion with Id : "
+					+ promotion.getId());
 			return new ResponseEntity<String>(headers, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("Error update a promotion");
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}

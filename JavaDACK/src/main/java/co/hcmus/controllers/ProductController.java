@@ -64,13 +64,12 @@ public class ProductController {
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> getProducts() {
-		logger.error("-----------------GET PRODUCT--------");
-		
-		
+			
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		// get all product
 		List<Product> result = productService.getProducts();
+		logger.info("Rest to get all Products");
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
@@ -86,9 +85,11 @@ public class ProductController {
 	public ResponseEntity<String> getProductId(@PathVariable("id") String id) {
 		// get product byID
 		Product product = productService.getProductById(id);
+		logger.info("Rest to get Product with Id : " + id);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		if (product == null) {
+			logger.error("Product not found with Id : " + id);
 			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<String>(Tools.toJson(product), headers,
@@ -108,6 +109,7 @@ public class ProductController {
 		// get all product by type productID
 		List<Product> result = productService.getProductsByTypeId(id,
 				STATUS.ACTIVE.getStatusCode());
+		logger.info("Get all product have productType with productTypeId : " + id);
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
@@ -127,6 +129,7 @@ public class ProductController {
 		// get all product by manufacturer productID
 		List<Product> result = productService.getProductsByManufacturerId(id,
 				STATUS.ACTIVE.getStatusCode());
+		logger.info("Get all product have manufacturer with ManufacturerId : " + id);
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
@@ -147,9 +150,11 @@ public class ProductController {
 			List<Product> temp = productService.getProductByProductStateId(id,
 					STATUS.ACTIVE.getStatusCode());
 			List<Product> result = temp.subList(0, 9);
+			logger.info("Get all product have productstate with productStateId : " + id);
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("Error get all  product have productstate with productStateId : " + id);
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -176,9 +181,11 @@ public class ProductController {
 				Product product = productService.getProductById(productId);
 				result.add(product);
 			}
+			logger.info("Get all product have promotion with promotionid : " + promotionid);
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("Error get all  product have promotion with promotionid : " + promotionid);
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -198,9 +205,11 @@ public class ProductController {
 		try {
 			List<Product> listProduct = productService.searchProductByName(
 					name, STATUS.ACTIVE.getStatusCode());
+			logger.info("Get all product by name with name  : " + name);
 			return new ResponseEntity<String>(Tools.toJsonArray(listProduct),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
+			logger.error("Error Get all product by name with name : " + name);
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -222,6 +231,7 @@ public class ProductController {
 	public String productsAdmin(Locale locale, Model model,
 			HttpServletRequest request, @RequestParam("Page") int currentPage) {
 		prepairData(request, currentPage);
+		logger.info("Admin get all Products");
 		return "products";
 	}
 
@@ -253,7 +263,7 @@ public class ProductController {
 
 		try {
 			// update product
-			System.out.println("UPDATE");
+			logger.info("Admin edit  Product with Id : " + id);
 			Product product = productService.getProductById(id);
 			product.setName(name);
 			product.setName(name);
@@ -278,6 +288,7 @@ public class ProductController {
 			productDetail.setHeight(height);
 			productDetailService.updateProductDetail(productDetail);
 		} catch (Exception e) {
+			logger.error(" Error Admin edit  Product with Id : " + id);
 		}
 		prepairData(request, currentPage);
 		return "redirect:/admin/products" + "?Page=" + currentPage;
@@ -305,6 +316,7 @@ public class ProductController {
 			@RequestParam("Page") int currentPage) {
 
 		try {
+			logger.info("Admin crate  Product with name : " + name);
 			// Create product
 			Product product = new Product();
 			product.setName(name);
@@ -333,7 +345,7 @@ public class ProductController {
 			productDetailService.addProductDetail(productDetail);
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(" Error Admin create  Product with name : " + name);
 		}
 		prepairData(request, currentPage);
 		return "redirect:/admin/products" + "?Page=" + currentPage;
@@ -344,10 +356,11 @@ public class ProductController {
 			@RequestParam(value = "inputProductId", required = true) String id,
 			@RequestParam("inputCurrentPage") int currentPage) {
 		try {
+			logger.info("Admin inactive  Product with id : " + id);
 			productService.deleteProduct(id);
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(" Error Admin inactive  Product with id : " + id);
 		}
 		prepairData(request, currentPage);
 		return "redirect:/admin/products" + "?Page=" + currentPage;
@@ -359,10 +372,11 @@ public class ProductController {
 			@RequestParam(value = "inputProductId", required = true) String id,
 			@RequestParam("inputCurrentPage") int currentPage) {
 		try {
+			logger.info("Admin active  Product with id : " + id);
 			productService.activeProduct(id);
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			logger.error(" Error Admin active  Product with id : " + id);
 		}
 		prepairData(request, currentPage);
 		return "redirect:/admin/products" + "?Page=" + currentPage;

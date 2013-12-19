@@ -2,8 +2,11 @@ package co.hcmus.controllers;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,9 @@ import co.hcmus.util.Tools;
  */
 @Controller
 public class PaymentController {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(PaymentController.class);
 	@Autowired
 	PaymentTypeServiceMongo paymentTypeService;
 
@@ -38,6 +44,7 @@ public class PaymentController {
 	@RequestMapping(value = "/admin/paymenttype", method = RequestMethod.GET)
 	public String getPaymentType(HttpServletRequest request) {
 		prepairData(request);
+		logger.info("Admin get all paymenttype");
 		return "paymenttype";
 	}
 
@@ -50,6 +57,7 @@ public class PaymentController {
 	@RequestMapping(value = "/admin/paymenttype/add", method = RequestMethod.POST)
 	public String addPaymentType(PaymentType paymentType) {
 		paymentTypeService.addPaymentType(paymentType);
+		logger.info("Admin create PaymentType with name " + paymentType.getName());
 		return "redirect:/admin/paymenttype";
 	}
 
@@ -64,6 +72,7 @@ public class PaymentController {
 		PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
 		paymentType.setStatus(STATUS.ACTIVE.getStatusCode());
 		paymentTypeService.updatePaymentType(paymentType);
+		logger.info("Admin active PaymentType with Id " + id);
 		return "redirect:/admin/paymenttype";
 	}
 
@@ -78,6 +87,7 @@ public class PaymentController {
 		PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
 		paymentType.setStatus(STATUS.INACTIVE.getStatusCode());
 		paymentTypeService.updatePaymentType(paymentType);
+		logger.info("Admin deactive PaymentType with Id " + id);
 		return "redirect:/admin/paymenttype";
 	}
 
@@ -90,6 +100,7 @@ public class PaymentController {
 	@RequestMapping(value = "/admin/paymenttype/edit", method = RequestMethod.POST)
 	public String editPaymentType(PaymentType paymentType) {
 		paymentTypeService.updatePaymentType(paymentType);
+		logger.info("Admin edit PaymentType with Id " + paymentType.getId());
 		return "redirect:/admin/paymenttype";
 	}
 
@@ -119,6 +130,7 @@ public class PaymentController {
 		// get all product
 		List<PaymentType> listPaymentType = paymentTypeService
 				.getPaymentTypes();
+		logger.info("Rest to get all PaymentType");
 		return new ResponseEntity<String>(Tools.toJsonArray(listPaymentType),
 				headers, HttpStatus.OK);
 	}

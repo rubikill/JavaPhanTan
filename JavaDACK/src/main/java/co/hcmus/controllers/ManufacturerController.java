@@ -2,8 +2,11 @@ package co.hcmus.controllers;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,9 @@ import co.hcmus.util.Tools;
 @Controller
 public class ManufacturerController {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(ManufacturerController.class);
+	
 	@Autowired
 	private IManufacturerService manufacturerService;
 
@@ -33,6 +39,7 @@ public class ManufacturerController {
 	@RequestMapping(value = "/admin/manufacturer", method = RequestMethod.GET)
 	public String getManufacturer(HttpServletRequest request) {
 		prepairData(request);
+		logger.info("Admin get All manufacturer");
 		return "manufacturer";
 	}
 
@@ -44,6 +51,7 @@ public class ManufacturerController {
 	@RequestMapping(value = "/admin/manufacturer/add", method = RequestMethod.POST)
 	public String addManufacturer(Manufacturer manufacturer) {
 		manufacturerService.addManufacturer(manufacturer);
+		logger.info("Admin create  manufacturer with name : "  + manufacturer.getName());
 		return "redirect:/admin/manufacturer";
 	}
 
@@ -57,6 +65,7 @@ public class ManufacturerController {
 		Manufacturer Manufacturer = manufacturerService.getManufacturerById(id);
 		Manufacturer.setStatus(STATUS.ACTIVE.getStatusCode());
 		manufacturerService.updateManufacturer(Manufacturer);
+		logger.info("Admin active  manufacturer with Id : " + id);
 		return "redirect:/admin/manufacturer";
 	}
 
@@ -70,6 +79,7 @@ public class ManufacturerController {
 		Manufacturer Manufacturer = manufacturerService.getManufacturerById(id);
 		Manufacturer.setStatus(STATUS.INACTIVE.getStatusCode());
 		manufacturerService.updateManufacturer(Manufacturer);
+		logger.info("Admin deacitve  manufacturer with Id : " + id);
 		return "redirect:/admin/manufacturer";
 	}
 
@@ -81,6 +91,7 @@ public class ManufacturerController {
 	@RequestMapping(value = "/admin/manufacturer/edit", method = RequestMethod.POST)
 	public String editManufacturer(Manufacturer manufacturer) {
 		manufacturerService.updateManufacturer(manufacturer);
+		logger.info("Admin edit  manufacturer with Id : " + manufacturer.getId());
 		return "redirect:/admin/manufacturer";
 	}
 
@@ -110,6 +121,7 @@ public class ManufacturerController {
 		// get all product
 		List<Manufacturer> listManufacturer = manufacturerService
 				.getManufacturers();
+		logger.info("Rest get all manufacturer");
 		return new ResponseEntity<String>(Tools.toJsonArray(listManufacturer),
 				headers, HttpStatus.OK);
 	}

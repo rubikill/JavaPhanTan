@@ -1,5 +1,7 @@
 package co.hcmus.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +18,7 @@ import co.hcmus.util.Tools;
 
 @Controller
 public class ProductDetailController {
-
+	private static final Logger logger = LoggerFactory.getLogger(ProductDetailController.class);
 	@Autowired
 	private IProductDetailService productDetailSerivce;
 	
@@ -33,7 +35,9 @@ public class ProductDetailController {
 		ProductDetail productDetail = productDetailSerivce.getProductDetailByProductId(productId);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
+		logger.info("Rest get ProductDetail by ProductId : " + productId);
 		if (productDetail == null) {
+			logger.error("Error get ProductDetail by ProductId : " + productId);
 			return new ResponseEntity<String>(headers, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<String>(Tools.toJson(productDetail), headers,
