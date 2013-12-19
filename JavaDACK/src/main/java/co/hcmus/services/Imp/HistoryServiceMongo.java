@@ -14,6 +14,11 @@ import co.hcmus.services.IHistoryDetailService;
 import co.hcmus.services.IHistoryService;
 import co.hcmus.util.STATUS;
 
+/**
+ * 
+ * @author WindyZBoy
+ *
+ */
 @Service("historyService")
 @Transactional
 public class HistoryServiceMongo implements IHistoryService {

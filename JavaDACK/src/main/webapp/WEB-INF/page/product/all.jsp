@@ -42,6 +42,9 @@
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
+						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
+						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
+						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 20%">Action</th>
 					</tr>
@@ -64,14 +67,18 @@
 							<td hidden="true" id="12">${product.productDetail.weight }</td>
 							<td hidden="true" id="13">${product.productDetail.height }</td>
 							<td id="14">${product.status }</td>
+							<td hidden="true" id="15">${product.productType.id }</td>
+							<td hidden="true" id="16">${product.manufacturer.id }</td>
+							<td hidden="true" id="17">${product.productState.id }</td>
 							<td>
 
 								<button class="open-ProductDetailDialog btn btn-danger"
 									data-toggle="modal" data-target="#detailModal"
 									data-id="${status.index}">Detail</button>
-								<button class="btn btn-warning" data-toggle="modal"
-									data-target="#editModal" data-id="${status.index}">Edit</button>
-								<c:if test="${product.status == 'Active'}">
+								<button class="open-ProductEditDialog btn btn-warning"
+									data-toggle="modal" data-target="#editModal"
+									data-id="${status.index}">Edit</button> <c:if
+									test="${product.status == 'Active'}">
 									<button class="open-ProductBlockDialog btn btn-danger"
 										data-toggle="modal" data-target="#deleteModal"
 										data-id="${status.index}">Delete</button>
@@ -105,98 +112,145 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit product</h4>
-			</div>
-			<div class="modal-body">
-				<form class="form-horizontal" role="form">
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Name</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputPassword3"
-								placeholder="Password">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Product
-							type</label>
-						<div class="col-sm-8">
-							<select class="form-control">
-								<option value='${listProductType.get(0).getId()}'>${listProductType.get(0).getName()}</option>
-								<c:forEach var="i" begin="1" end="${listProductType.size() - 1}">
-									<option value='${_listhang.get(i).getId()}'>${listProductType.get(i).getName()}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Quantity</label>
-						<div class="col-sm-8">
-							<input type="number" class="form-control" id="inputPassword3"
-								placeholder="Password">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Sell
-							Count</label>
-						<div class="col-sm-8">
-							<input type="number" class="form-control" id="inputPassword3"
-								placeholder="Password">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Import
-							Count</label>
-						<div class="col-sm-8">
-							<input type="number" class="form-control" id="inputPassword3"
-								placeholder="Password">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Manufacturer</label>
-						<div class="col-sm-8">
-							<select class="form-control">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Price</label>
-						<div class="col-sm-8">
-							<div class="form-group input-group">
-								<span class="input-group-addon">$</span> <input
-									class="form-control" type="text">
+		<form method="POST" action="/admin/product/edit"
+			name="formEditProduct">
+			<input type="hidden" name="inputProductId" value=""
+				id="inputProductId" />
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Edit product</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputName"
+									name="inputName" placeholder="Name....">
 							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Point</label>
-						<div class="col-sm-8">
-							<input type="text" class="form-control" id="inputPassword3"
-								placeholder="Password">
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Product
+								type</label>
+							<div class="col-sm-8">
+								<select class="form-control" id="inputProductType"
+									name="inputProductType">
+									<c:forEach var="i" begin="0"
+										end="${listProductType.size() - 1}">
+										<option value='${listProductType.get(i).getId()}'>${listProductType.get(i).getName()}</option>
+									</c:forEach>
+								</select>
+							</div>
 						</div>
-					</div>
-				</form>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Quantity</label>
+							<div class="col-sm-8">
+								<input type="number" class="form-control" id="inputQuantity"
+									name="inputQuantity" placeholder="Quantity...">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Sell
+								Count</label>
+							<div class="col-sm-8">
+								<input type="number" class="form-control" id="inputSellCount"
+									name="inputSellCount" placeholder="SellCount...">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Import
+								Count</label>
+							<div class="col-sm-8">
+								<input type="number" class="form-control" id="inputImportCount"
+									name="inputImportCount" placeholder="ImportCount...">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Manufacturer</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="inputManufacturer"
+									id="inputManufacturer">
+									<c:forEach var="i" begin="0"
+										end="${listManufacturer.size() - 1}">
+										<option value='${listManufacturer.get(i).getId()}'>${listManufacturer.get(i).getName()}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Price</label>
+							<div class="col-sm-8">
+								<!-- <span class="input-group-addon">$</span> -->
+								<input class="form-control" type="text" id="inputPrice"
+									name="inputPrice">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Description</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputDescription"
+									name="inputDescription" placeholder="Description...">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Product
+								State</label>
+							<div class="col-sm-8">
+								<select class="form-control" name="inputProductState"
+									id="inputProductState">
+									<c:forEach var="i" begin="0"
+										end="${listProductState.size() - 1}">
+										<option value='${listProductState.get(i).getId()}'>${listProductState.get(i).getName()}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Point</label>
+							<div class="col-sm-8">
+								<input type="number" class="form-control" id="inputPoint"
+									name="inputPoint" placeholder="Point....">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Warranty</label>
+							<div class="col-sm-8">
+								<input type="number" class="form-control" id="inputWarranty"
+									name="inputWarranty" name="inputPoint"
+									placeholder="Warranty...">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Weight</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputWeight"
+									name="inputWeight" placeholder="Weight...">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Height</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputHeight"
+									name="inputHeight" placeholder="Height....">
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">Save changes</button>
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
+			<!-- /.modal-content -->
+		</form>
 	</div>
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 
-<!-- Modal -->
+<!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -254,7 +308,7 @@
 </div>
 <!-- /.modal -->
 
-<!-- Modal add product type -->
+<!-- create Modal-->
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -368,14 +422,14 @@
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-4 control-label">Weight</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control" id="inputPassword3"
+								<input type="text" class="form-control" id="inputPassword3"
 									name="inputWeight" placeholder="Weight...">
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-4 control-label">Height</label>
 							<div class="col-sm-8">
-								<input type="number" class="form-control" id="inputPassword3"
+								<input type="text" class="form-control" id="inputPassword3"
 									name="inputHeight" placeholder="Height....">
 							</div>
 						</div>
@@ -407,8 +461,6 @@
 
 
 <!--  detail modal -->
-
-<!-- Modal add product type -->
 <div class="modal fade" id="detailModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -416,7 +468,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Add new</h4>
+				<h4 class="modal-title" id="myModalLabel">Details</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" role="form">
@@ -505,14 +557,14 @@
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Weight</label>
 						<div class="col-sm-8">
-							<input type="number" class="form-control" id="inputWeight"
+							<input type="text" class="form-control" id="inputWeight"
 								name="inputWeight" placeholder="Weight...">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Height</label>
 						<div class="col-sm-8">
-							<input type="number" class="form-control" id="inputHeight"
+							<input type="text" class="form-control" id="inputHeight"
 								name="inputHeight" placeholder="Height....">
 						</div>
 					</div>
