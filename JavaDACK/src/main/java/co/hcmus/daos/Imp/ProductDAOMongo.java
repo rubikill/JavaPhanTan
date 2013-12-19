@@ -181,4 +181,21 @@ public class ProductDAOMongo implements IProductDAO {
 			return mongoTemplate.find(searchProductQueryByProductState,
 					Product.class, COLLECTION_NAME);
 	}
+
+	@Override
+	public Product getProductByName(String name) {
+		// TODO Auto-generated method stub
+		Query searchProductQueryByName = new Query(Criteria
+				.where("name").is(name));
+		return mongoTemplate.findOne(searchProductQueryByName,
+				Product.class, COLLECTION_NAME);
+	}
+
+	@Override
+	public void activeProduct(String id) {
+		Product product = getProductById(id);
+		product.setStatus(STATUS.ACTIVE.getStatusCode());
+		mongoTemplate.save(product, COLLECTION_NAME);
+		
+	}
 }

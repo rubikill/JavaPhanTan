@@ -232,4 +232,29 @@ public class ProductServiceMongo implements IProductService {
 		return listProduct;
 	}
 
+	@Override
+	public Product getProductByName(String name) {
+		// TODO Auto-generated method stub
+		return productDAO.getProductByName(name);
+	}
+
+	@Override
+	public void activeProduct(String id) {
+		ProductDetail productDetail = productDetailService
+				.getProductDetailByProductId(id);
+		productDetailService.activeProductDetail(productDetail.getId());
+		List<PromotionDetail> listPromotionDetail = promotionDetailService
+				.getPromotionDetailsByProductId(id,
+						STATUS.INACTIVE.getStatusCode());
+		for (PromotionDetail promotionDetail : listPromotionDetail)
+			promotionDetailService.activePromotionDetail(promotionDetail
+					.getId());
+		List<Comment> listComment = commentService.getCommentByProductId(id,
+				STATUS.INACTIVE.getStatusCode());
+		for (Comment cm : listComment)
+			commentService.activeComment(cm.getId());
+		productDAO.activeProduct(id);
+
+	}
+
 }

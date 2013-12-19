@@ -2,7 +2,6 @@ package co.hcmus.controllers;
 
 import java.util.ArrayList;
 
-
 import java.util.List;
 import java.util.Locale;
 
@@ -17,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import co.hcmus.models.Manufacturer;
 import co.hcmus.models.Product;
+import co.hcmus.models.ProductDetail;
 import co.hcmus.models.ProductState;
 import co.hcmus.models.ProductType;
 import co.hcmus.models.PromotionDetail;
@@ -42,7 +43,7 @@ public class ProductController {
 
 	@Autowired
 	private IPromotionDetailService promotionDetailService;
-	
+
 	@Autowired
 	private IProductDetailService productDetailService;
 	@Autowired
@@ -51,7 +52,6 @@ public class ProductController {
 	private IProductStateService productStateService;
 	@Autowired
 	private IManufacturerService manufacturerService;
-
 
 	/**
 	 * webservice for get all product
@@ -174,10 +174,10 @@ public class ProductController {
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	
+
 	/**
 	 * rest to search product by name
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -188,47 +188,121 @@ public class ProductController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		try {
-			List<Product> listProduct = productService.searchProductByName(name, STATUS.ACTIVE.getStatusCode());
+			List<Product> listProduct = productService.searchProductByName(
+					name, STATUS.ACTIVE.getStatusCode());
 			return new ResponseEntity<String>(Tools.toJsonArray(listProduct),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	/**
 	 * Controller for admin
 	 */
-	
-	
-/*	@RequestMapping(value = "/admin/producttype", method = RequestMethod.GET)
-	public String products(Locale locale, Model model, HttpServletRequest request) {
-		request.setAttribute("nav", "producttype");
-		return "type";
-	}
 
+	/*
+	 * @RequestMapping(value = "/admin/producttype", method = RequestMethod.GET)
+	 * public String products(Locale locale, Model model, HttpServletRequest
+	 * request) { request.setAttribute("nav", "producttype"); return "type"; }
+	 * 
+	 * @RequestMapping(value = "/admin/products", method = RequestMethod.GET)
+	 * public String getProducts(Locale locale, Model model, HttpServletRequest
+	 * request) { request.setAttribute("nav", "products"); return "products"; }
+	 */
 	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
-	public String getProducts(Locale locale, Model model, HttpServletRequest request) {
-		request.setAttribute("nav", "products");
-		return "products";
-	}
-	*/
-	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
-	public String productsAdmin(Locale locale, Model model,HttpServletRequest request) {
+	public String productsAdmin(Locale locale, Model model,
+			HttpServletRequest request) {
 		prepairData(request);
 		return "products";
 	}
+
+	/**
+	 * 
+	 admin crate product
+	 */
+
+	@RequestMapping(value = "/admin/product/create", method = RequestMethod.POST)
+	public String adminCreateProduct(
+
+			Locale locale,
+			HttpServletRequest request,
+			@RequestParam(value = "inputName", required = false) String name,
+			@RequestParam(value = "inputProductType", required = false) String productTypeId,
+			@RequestParam(value = "inputQuantity", required = false) int quantity,
+			@RequestParam(value = "inputSellCount", required = false) int sellCount,
+			@RequestParam(value = "inputImportCount", required = false) int importCount,
+			@RequestParam(value = "inputManufacturer", required = false) String manufacturerId,
+			@RequestParam(value = "inputPrice", required = false) double price,
+			@RequestParam(value = "inputDescription", required = false) String description,
+			@RequestParam(value = "inputProductState", required = false) String productStateId,
+			@RequestParam(value = "inputPoint", required = false) int point,
+			@RequestParam(value = "inputWarranty", required = false) int warranty,
+			@RequestParam(value = "inputWeight", required = false) double weight,
+			@RequestParam(value = "inputHeight", required = false) double height,
+			@RequestParam(value = "inputStatus", required = false) String status) {
+
+		// Create product
+		Product product = new Product();
+		product.setName(name);
+		product.setProductTypeId(productTypeId);
+		product.setQuantity(quantity);
+		product.setSellCount(sellCount);
+		product.setImportCount(importCount);
+		product.setManufacturerId(manufacturerId);
+		product.setPrice(price);
+		product.setDescription(description);
+		product.setProductStateId(productStateId);
+		product.setPoint(point);
+		product.setStatus(status);
+		productService.addProduct(product);
+		// get productid of product have created
+		Product productTemp = productService.getProductByName(name);
+		String productId = productTemp.getId();
+
+		// create product detail
+		ProductDetail productDetail = new ProductDetail();
+		productDetail.setProductId(productId);
+		productDetail.setWarranty(warranty);
+		productDetail.setWeight(weight);
+		productDetail.setHeight(height);
+		productDetail.setStatus(status);
+		productDetailService.addProductDetail(productDetail);
+		prepairData(request);
+		return "products";
+	}
+
+	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.POST)
+	public String adminDeleteProduct(Locale locale, HttpServletRequest request,
+			@RequestParam(value = "inputProductId", required = true) String id) {
+		productService.deleteProduct(id);
+		prepairData(request);
+		return "products";
+
+	}
 	
+	@RequestMapping(value = "/admin/product/active", method = RequestMethod.POST)
+	public String adminActiveProduct(Locale locale, HttpServletRequest request,
+			@RequestParam(value = "inputProductId", required = true) String id) {
+		productService.activeProduct(id);
+		prepairData(request);
+		return "products";
+
+	}
+
+
 	private void prepairData(HttpServletRequest request) {
 		List<Product> listProduct = productService.getProducts();
-		List<ProductType> listProductType = productTypeService.getProductTypes();
-		List<ProductState> listProductState = productStateService.getProductStates();
-		List<Manufacturer> listManufacturer = manufacturerService.getManufacturers();
-		
+		List<ProductType> listProductType = productTypeService
+				.getProductTypes();
+		List<ProductState> listProductState = productStateService
+				.getProductStates();
+		List<Manufacturer> listManufacturer = manufacturerService
+				.getManufacturers();
 		request.setAttribute("listProduct", listProduct);
 		request.setAttribute("listProductType", listProductType);
 		request.setAttribute("listProductState", listProductState);
-		request.setAttribute("listManufacturer", listManufacturer);		
+		request.setAttribute("listManufacturer", listManufacturer);
 		request.setAttribute("nav", "products");
 	}
 }

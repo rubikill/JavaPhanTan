@@ -47,4 +47,6 @@ public interface IProductDetailService {
 	 * @return
 	 */
 	public ProductDetail getProductDetailByProductId(String productId);
+	
+	public void activeProductDetail(String id);
 }

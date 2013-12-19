@@ -93,4 +93,17 @@ public class CommentDAOMongo implements ICommentDAO {
 				COLLECTION_NAME);
 	}
 
+	@Override
+	public void activeComment(String id) {
+		Comment comment = getComment(id);
+		comment.setStatus(STATUS.ACTIVE.getStatusCode());
+
+		List<Comment> listComment = getCommentOfCommentRoot(comment.getId(),
+				STATUS.INACTIVE.getStatusCode());
+		for (Comment commentTemp : listComment)
+			activeComment(commentTemp.getId());
+		mongoTemplate.save(comment, COLLECTION_NAME);
+		
+	}
+
 }

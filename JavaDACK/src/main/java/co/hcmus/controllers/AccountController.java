@@ -20,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +28,6 @@ import co.hcmus.helpers.SendMailHelper;
 import co.hcmus.models.Account;
 import co.hcmus.models.AccountType;
 import co.hcmus.models.EmailForm;
-import co.hcmus.models.Promotion;
 import co.hcmus.provider.EncryptProvider;
 import co.hcmus.services.IAccountService;
 import co.hcmus.services.IAccountTypeService;
@@ -66,6 +64,14 @@ public class AccountController {
 		return "accounts";
 	}
 
+	/**
+	 * ADMIN PAGE - Block an account 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param account
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
 	public String blockPromotion(Locale locale, Model model,
 			HttpServletRequest request, Account account) {
@@ -85,7 +91,7 @@ public class AccountController {
 	}
 
 	/**
-	 * Controller to edit an account passing from MANAGE ACCOUNT - Admin page
+	 * ADMIN PAGE - Edit an account passing from MANAGE ACCOUNT 
 	 * 
 	 * @param locale
 	 * @param model
@@ -137,6 +143,10 @@ public class AccountController {
 		return "forgotpass";
 	}
 
+	/**
+	 * ADMIN PAGE - Prepair data for loading
+	 * @param request
+	 */
 	private void prepairData(HttpServletRequest request) {
 		List<Account> listAccount = accountService.getAccounts();
 
@@ -191,7 +201,7 @@ public class AccountController {
 	 *            contain email and password
 	 * @return Result
 	 */
-	@SuppressWarnings("deprecation")
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<String> login(@RequestBody String json,
 			HttpSession session) {
@@ -338,7 +348,7 @@ public class AccountController {
 		// Recive a email address here
 		String email = json;
 
-		Account account = accountService.getAccount(json);
+//		Account account = accountService.getAccount(json);
 
 		// Do reset pass here
 

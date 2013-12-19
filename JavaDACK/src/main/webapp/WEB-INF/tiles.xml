@@ -3,46 +3,55 @@
        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-    <!-- Template main -->
-    <definition name="templateMain" template="/WEB-INF/template/templateMain.jsp">
-        <put-attribute name="style" value="/WEB-INF/layout/style.jsp" />
-        <put-attribute name="script" value="/WEB-INF/layout/script.jsp" /> 
-        <put-attribute name="menu_bar" value="/WEB-INF/layout/nav.jsp" />
-        <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
-    </definition>
-    
-    <!-- Page with main -->
-    <definition name="home" extends="templateMain">
-        <put-attribute name="content" value="/WEB-INF/page/home.jsp"/>
-    </definition>
+	<!-- Template main -->
+	<definition name="templateMain" template="/WEB-INF/template/templateMain.jsp">
+		<put-attribute name="style" value="/WEB-INF/layout/style.jsp" />
+		<put-attribute name="script" value="/WEB-INF/layout/script.jsp" />
+		<put-attribute name="menu_bar" value="/WEB-INF/layout/nav.jsp" />
+		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+	</definition>
 
-    <definition name="accounts" extends="templateMain">
-        <put-attribute name="content" value="/WEB-INF/page/account/all.jsp"/>
-    </definition>
+	<!-- Page with main -->
+	<definition name="home" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/home.jsp" />
+	</definition>
 
-    <definition name="products" extends="templateMain">
-        <put-attribute name="content" value="/WEB-INF/page/product/all.jsp"/>
-    </definition>
+	<definition name="accounts" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/account/all.jsp" />
+	</definition>
 
-    <definition name="order" extends="templateMain">
-        <put-attribute name="content" value="/WEB-INF/page/order/all.jsp"/>
-    </definition>
-    
-    <definition name="type" extends="templateMain">
-        <put-attribute name="content" value="/WEB-INF/page/product/type.jsp"/>
-    </definition>
+	<definition name="producttype" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/product/producttype.jsp" />
+	</definition>
 
-    <definition name="promotion" extends="templateMain">
-        <put-attribute name="content" value="/WEB-INF/page/promotion/all.jsp"/>
-    </definition>
+	<definition name="products" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/product/all.jsp" />
+	</definition>
 
-    <definition name="login" template="/WEB-INF/template/templateForm.jsp">
-        <put-attribute name="content" value="/WEB-INF/page/login.jsp"/>
-    </definition>
+	<definition name="order" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/order/all.jsp" />
+	</definition>
 
-    <definition name="forgotpass" template="/WEB-INF/template/templateForm.jsp">
-        <put-attribute name="content" value="/WEB-INF/page/forgotpass.jsp"/>
-    </definition>
-    
+	<definition name="type" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/product/type.jsp" />
+	</definition>
+
+	<definition name="promotion" extends="templateMain">
+		<put-attribute name="content" value="/WEB-INF/page/promotion/all.jsp" />
+	</definition>
+
+	<definition name="promotiondetail" extends="templateMain">
+		<put-attribute name="content"
+			value="/WEB-INF/page/promotion/promotiondetail.jsp" />
+	</definition>
+
+	<definition name="login" template="/WEB-INF/template/templateForm.jsp">
+		<put-attribute name="content" value="/WEB-INF/page/login.jsp" />
+	</definition>
+
+	<definition name="forgotpass" template="/WEB-INF/template/templateForm.jsp">
+		<put-attribute name="content" value="/WEB-INF/page/forgotpass.jsp" />
+	</definition>
+
 
 </tiles-definitions>

@@ -52,9 +52,6 @@ $(document).on("click", ".open-PromotionBlockDialog", function ()
 $(document).on("click", ".open-PromotionEditDialog", function () 
 { 
 	var index = $(this).data('id'); 
-	console.log("id:",$("#rowPromotion" + index + " #0").text());
-	console.log("name:",$("#rowPromotion" + index + " #1").text());
-	
 	$(".editModal #id").val($("#rowPromotion" + index + " #0").text());
 	$(".editModal #name").val($("#rowPromotion" + index + " #1").text()); 
 	$(".editModal #dateStart").val($("#rowPromotion" + index + " #2").text()); 
@@ -66,6 +63,85 @@ $(document).on("click", ".open-PromotionEditDialog", function ()
 	
 });
 
+<!-- Fill text field in Modal fade Product BLOCK dialog-->
+$(document).on("click", ".open-ProductBlockDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputProductId").val($("#rowProduct" + index + " #0").text()); 
+});
+
+<!-- Fill text field in Modal fade Product Active dialog-->
+$(document).on("click", ".open-ProductActiveDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputProductId").val($("#rowProduct" + index + " #0").text()); 
+});
+
+<!-- Fill text field in Modal fade Product Detail dialog-->
+$(document).on("click", ".open-ProductDetailDialog", function () 
+		{  
+			var index = $(this).data('id');  
+			$(".modal-body #inputName").val($("#rowProduct" + index + " #1").text()); 
+			$(".modal-body #inputProductType").val($("#rowProduct" + index + " #2").text());
+			$(".modal-body #inputQuantity").val($("#rowProduct" + index + " #3").text());
+			$(".modal-body #inputSellCount").val($("#rowProduct" + index + " #4").text());
+			$(".modal-body #inputImportCount").val($("#rowProduct" + index + " #5").text());
+			$(".modal-body #inputManufacturer").val($("#rowProduct" + index + " #6").text());
+			$(".modal-body #inputPrice").val($("#rowProduct" + index + " #7").text());
+			$(".modal-body #inputDescription").val($("#rowProduct" + index + " #8").text());
+			$(".modal-body #inputProductState").val($("#rowProduct" + index + " #9").text());
+			$(".modal-body #inputPoint").val($("#rowProduct" + index + " #10").text());
+			$(".modal-body #inputWarranty").val($("#rowProduct" + index + " #11").text());
+			$(".modal-body #inputWeight").val($("#rowProduct" + index + " #12").text());
+			$(".modal-body #inputHeight").val($("#rowProduct" + index + " #13").text());
+			$(".modal-body #inputStatus").val($("#rowProduct" + index + " #14").text());
+		});
+		
+<!-- Fill text field in Modal fade PROMOTION DETAIL EDIT dialog-->
+$(document).on("click", ".open-PromotionDetailEditDialog", function () 
+{ 
+	var index = $(this).data('id'); 	
+	$(".editModal #id").val($("#rowPromotionDetail" + index + " #0").text());
+	$(".editModal #productId").val($("#rowPromotionDetail" + index + " #1").text()); 
+	$(".editModal #discount").val($("#rowPromotionDetail" + index + " #2").text()); 
+	$(".editModal #status").val($("#rowPromotionDetail" + index + " #3").text());
+	
+});
+
+<!-- Fill text field in Modal fade PROMOTION DETAIL BLOCK dialog-->
+$(document).on("click", ".open-PromotionDetailBlockDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputId").val($("#rowAccount" + index + " #0").text()); 
+});
+
+<!-- Set href for button in Modal fade PRODUCT TYPE ACTIVE dialog-->
+$(document).on("click", ".open-ProductTypeActiveDialog", function () 
+{  
+	var index = $(this).data('id');
+	console.log("index:",index);
+	console.log("ID:",$("#rowProductType" + index + " #0").text());
+	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/producttype/active/" + $("#rowProductType" + index + " #0").text()+ "';"); 
+});
+
+<!-- Set href for button in Modal fade PRODUCT TYPE DEACIVEdialog-->
+$(document).on("click", ".open-ProductTypeDeactiveDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/producttype/deactive/" + $("#rowProductType" + index + " #0").text()+ "';"); 
+});
+
+<!-- Fill text field in Modal fade PRODUCT TYPE EDIT dialog-->
+$(document).on("click", ".open-ProductTypeEditDialog", function () 
+{ 
+	var index = $(this).data('id'); 	
+	console.log("EDIT DIALOG");
+	$(".modal-body #inputId").val($("#rowProductType" + index + " #0").text());
+	$(".modal-body #inputName").val($("#rowProductType" + index + " #1").text());
+	$(".modal-body #inputStatus").val($("#rowProductType" + index + " #2").text());
+	
+});
 
 </script>
+
 <!-- <script src="${pageContext.request.contextPath}/themes/js/angular.min.js"></script> -->

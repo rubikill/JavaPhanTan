@@ -42,6 +42,7 @@ public class ProductType {
 		return id;
 	}
 
+
 	/**
 	 * @param id
 	 *            the id to set

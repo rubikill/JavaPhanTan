@@ -22,13 +22,13 @@
 </div>
 <div class="row">
 	<div class="col-lg-12">
-		<h2>List product</h2>
+		<h2>List promotions</h2>
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th style="width: 5%">Id <i class="fa fa-sort"></i></th>
-						<th style="width: 15%">Name <i class="fa fa-sort"></i></th>
+						<th hidden="true" style="width: 1%">Id <i class="fa fa-sort"></i></th>
+						<th style="width: 14%">Name <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Start <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">End <i class="fa fa-sort"></i></th>
 						<th style="width: 15%">Content <i class="fa fa-sort"></i></th>
@@ -42,8 +42,9 @@
 					<c:forEach var="promotion" items="${listPromotions }"
 						varStatus="status">
 						<tr class="rowPromotion" id="rowPromotion${status.index}">
-							<td id="0">${promotion.id }</td>
-							<td id="1">${promotion.name }</td>
+							<td hidden="true" id="0">${promotion.id }</td>
+							<td id="1" > <a href="/admin/promotions/${promotion.id }">${promotion.name }</a></td>
+							
 							<fmt:formatDate value="${promotion.date_start}"
 								pattern="dd/MM/yyyy" var="date_start" />
 							<td id="2">${date_start}</td>

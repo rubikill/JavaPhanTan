@@ -11,10 +11,10 @@ import co.hcmus.services.IProductDetailService;
 
 @Service("productDetailService")
 @Transactional
-public class ProductDetailServiceMongo implements IProductDetailService{
+public class ProductDetailServiceMongo implements IProductDetailService {
 	@Autowired
 	private IProductDetailDAO productDetailDAO;
-	
+
 	@Override
 	public void addProductDetail(ProductDetail productDetail) {
 		// TODO Auto-generated method stub
@@ -35,8 +35,8 @@ public class ProductDetailServiceMongo implements IProductDetailService{
 
 	@Override
 	public void deleteProductDetail(String id) {
-		// TODO Auto-generated method stub
-		
+		productDetailDAO.deleteProductDetail(id);
+
 	}
 
 	@Override
@@ -49,6 +49,12 @@ public class ProductDetailServiceMongo implements IProductDetailService{
 	public ProductDetail getProductDetailByProductId(String productId) {
 		// TODO Auto-generated method stub
 		return productDetailDAO.getProductDetailByProductId(productId);
+	}
+
+	@Override
+	public void activeProductDetail(String id) {
+		productDetailDAO.activeProductDetail(id);
+
 	}
 
 }
