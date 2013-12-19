@@ -68,6 +68,7 @@ $(document).on("click", ".open-ProductBlockDialog", function ()
 {  
 	var index = $(this).data('id'); 
 	$(".modal-dialog #inputProductId").val($("#rowProduct" + index + " #0").text()); 
+	$(".modal-dialog #inputCurrentPage").val($("#rowProduct" + index + " #18").text()); 
 });
 
 <!-- Fill text field in Modal fade Product Active dialog-->
@@ -75,7 +76,11 @@ $(document).on("click", ".open-ProductActiveDialog", function ()
 {  
 	var index = $(this).data('id'); 
 	$(".modal-dialog #inputProductId").val($("#rowProduct" + index + " #0").text()); 
+	$(".modal-dialog #inputCurrentPage").val($("#rowProduct" + index + " #18").text()); 
 });
+
+
+
 
 <!-- Fill text field in Modal fade Product Detail dialog-->
 $(document).on("click", ".open-ProductDetailDialog", function () 
@@ -115,6 +120,7 @@ $(document).on("click", ".open-ProductEditDialog", function ()
 			$(".modal-body #inputWarranty").val($("#rowProduct" + index + " #11").text());
 			$(".modal-body #inputWeight").val($("#rowProduct" + index + " #12").text());
 			$(".modal-body #inputHeight").val($("#rowProduct" + index + " #13").text());
+			$(".modal-dialog #inputCurrentPage").val($("#rowProduct" + index + " #18").text()); 
 			});
 		
 		

@@ -16,8 +16,8 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<button class="btn btn-primary pull-right" data-toggle="modal"
-			data-target="#createModal">New product</button>
+		<button class="open-ProductCreateDialog btn btn-primary pull-right"
+			data-toggle="modal" data-target="#createModal">New product</button>
 	</div>
 </div>
 
@@ -32,6 +32,7 @@
 						<th style="width: 40%">Product name <i class="fa fa-sort"></i></th>
 						<th style="width: 20%">Product type <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Quantity <i class="fa fa-sort"></i></th>
+						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
@@ -70,6 +71,7 @@
 							<td hidden="true" id="15">${product.productType.id }</td>
 							<td hidden="true" id="16">${product.manufacturer.id }</td>
 							<td hidden="true" id="17">${product.productState.id }</td>
+							<td hidden="true" id="18">${currentPage}</td>
 							<td>
 
 								<button class="open-ProductDetailDialog btn btn-danger"
@@ -98,12 +100,19 @@
 	</div>
 	<div class="col-lg-12">
 		<ul class="pagination">
-			<li class="disabled"><span>&laquo;</span></li>
-			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-			<li><span>2 <span class="sr-only">(current)</span></span></li>
-			<li><span>3 <span class="sr-only">(current)</span></span></li>
-			<li><span>4 <span class="sr-only">(current)</span></span></li>
-			<li><span>&raquo;</span></li>
+			<li><a href="/admin/products?Page=1"><span>&laquo;</span></a></li>
+			<c:forEach var="i" begin="1" end="${totalPage}">
+				<c:if test="${i == currentPage}">
+					<li class="active"><a href="/admin/products?Page=${i}"><span>${i}<span
+								class="sr-only">(current)</span></span></a></li>
+				</c:if>
+				<c:if test="${i != currentPage}">
+					<li><a href="/admin/products?Page=${i}"><span>${i}<span
+								class="sr-only">(current)</span></span></a></li>
+				</c:if>
+			</c:forEach>
+			<li><a href="/admin/products?Page=${totalPage}"><span>&raquo;</span></a></li>
+			<li><span>${currentPage}/${totalPage}</span></li>
 		</ul>
 	</div>
 </div>
@@ -115,7 +124,8 @@
 		<form method="POST" action="/admin/product/edit"
 			name="formEditProduct">
 			<input type="hidden" name="inputProductId" value=""
-				id="inputProductId" />
+				id="inputProductId" /> <input type="hidden" name="inputCurrentPage"
+				value="" id="inputCurrentPage" />
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -257,7 +267,8 @@
 		<form method="POST" action="/admin/product/delete"
 			name="formDeleteProduct">
 			<input type="hidden" name="inputProductId" value=""
-				id="inputProductId" />
+				id="inputProductId" /> <input type="hidden" name="inputCurrentPage"
+				value="" id="inputCurrentPage" />
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -286,7 +297,8 @@
 		<form method="POST" action="/admin/product/active"
 			name="formActiveProduct">
 			<input type="hidden" name="inputProductId" value=""
-				id="inputProductId" />
+				id="inputProductId" /> <input type="hidden" name="inputCurrentPage"
+				value="" id="inputCurrentPage" />
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -312,7 +324,7 @@
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form method="POST" action="/admin/product/create"
+		<form method="POST" action="/admin/product/create?Page=${currentPage}"
 			name="formCreateProduct">
 			<div class="modal-content">
 				<div class="modal-header">
