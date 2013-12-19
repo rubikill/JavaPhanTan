@@ -230,6 +230,35 @@ $(document).on("click", ".open-PaymentTypeEditDialog", function ()
 	
 });
 
+<!--======================= MANUFACTURER ====================-->
+
+<!-- Set href for button in Modal fade MANUFACTURER ACTIVE dialog-->
+$(document).on("click", ".open-ManufacturerActiveDialog", function () 
+{  
+	var index = $(this).data('id');
+	console.log("index:",index);
+	console.log("ID:",$("#rowManufacturer" + index + " #0").text());
+	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/manufacturer/active/" + $("#rowManufacturer" + index + " #0").text()+ "';"); 
+});
+
+<!-- Set href for button in Modal fade MANUFACTURER DEACIVEdialog-->
+$(document).on("click", ".open-ManufacturerDeactiveDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/manufacturer/deactive/" + $("#rowManufacturer" + index + " #0").text()+ "';"); 
+});
+
+<!-- Fill text field in Modal fade PRODUCT TYPE EDIT dialog-->
+$(document).on("click", ".open-ManufacturerEditDialog", function () 
+{ 
+	var index = $(this).data('id'); 	
+	console.log("EDIT DIALOG");
+	$(".modal-body #inputId").val($("#rowManufacturer" + index + " #0").text());
+	$(".modal-body #inputName").val($("#rowManufacturer" + index + " #1").text());
+	$(".modal-body #inputStatus").val($("#rowManufacturer" + index + " #2").text());
+	
+});
+
 
 </script>
 

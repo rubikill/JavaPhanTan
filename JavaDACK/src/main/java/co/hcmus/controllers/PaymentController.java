@@ -26,6 +26,13 @@ public class PaymentController {
 	@Autowired
 	PaymentTypeServiceMongo paymentTypeService;
 
+	/**
+	 * ADMIN PAGE - get all payment type
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/paymenttype", method = RequestMethod.GET)
 	public String getPaymentType(Locale locale, Model model,
 			HttpServletRequest request) {
@@ -33,6 +40,14 @@ public class PaymentController {
 		return "paymenttype";
 	}
 
+	/**
+	 * ADMIN PAGE - add new payment type
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param paymentType
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/paymenttype/add", method = RequestMethod.POST)
 	public String addPaymentType(Locale locale, Model model,
 			HttpServletRequest request, PaymentType paymentType) {
@@ -41,6 +56,14 @@ public class PaymentController {
 		return "redirect:/admin/paymenttype";
 	}
 
+	/**
+	 * ADMIN PAGE - Active a payment
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/paymenttype/active/{id}", method = RequestMethod.GET)
 	public String activePaymentType(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
@@ -51,6 +74,14 @@ public class PaymentController {
 		return "redirect:/admin/paymenttype";
 	}
 
+	/**
+	 * ADMIN PAGE - Deactive a payment
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/paymenttype/deactive/{id}", method = RequestMethod.GET)
 	public String deactivePaymentType(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
@@ -61,6 +92,13 @@ public class PaymentController {
 		return "redirect:/admin/paymenttype";
 	}
 
+	/**
+	 * 
+	 * @param model
+	 * @param request
+	 * @param paymentType
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/paymenttype/edit", method = RequestMethod.POST)
 	public String editPaymentType(Model model, HttpServletRequest request,
 			PaymentType paymentType) {
@@ -74,6 +112,10 @@ public class PaymentController {
 		return "redirect:/admin/paymenttype";
 	}
 
+	/**
+	 * Prepair data for loading payment
+	 * @param request
+	 */
 	private void prepairData(HttpServletRequest request) {
 		List<PaymentType> listPaymentType = paymentTypeService
 				.getPaymentTypes();

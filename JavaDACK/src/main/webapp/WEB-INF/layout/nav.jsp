@@ -7,6 +7,9 @@
 	<li class=${nav == "account"? 'active' : ''}>
 		<a href="/admin/account"><i class="fa fa-user"></i> Account Manage</a>
 	</li>	
+	<li class=${nav == "manufacturer"? 'active' : ''}>
+		<a href="/admin/manufacturer"><i class="fa fa-file-text-o"></i> Manufacturer</a>
+	</li>
 	<li class=${nav == "producttype"? 'active' : ''}>
 		<a href="/admin/producttype"><i class="fa fa-tag"></i> Product Type</a>
 	</li>
@@ -19,6 +22,7 @@
 	<li class=${nav == "paymenttype"? 'active' : ''}>
 		<a href="/admin/paymenttype"><i class="fa fa-file-text-o"></i> Payment type</a>
 	</li>
+	
 	<li class=${nav == "orders"? 'active' : ''}>
 		<a href="/admin/orders"><i class="fa fa-file-text-o"></i> Orders Manage</a>
 	</li>
