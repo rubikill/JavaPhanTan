@@ -28,7 +28,7 @@
 		<put-attribute name="content" value="/WEB-INF/page/product/all.jsp" />
 	</definition>
 
-	<definition name="order" extends="templateMain">
+	<definition name="orders" extends="templateMain">
 		<put-attribute name="content" value="/WEB-INF/page/order/all.jsp" />
 	</definition>
 

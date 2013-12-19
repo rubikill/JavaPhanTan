@@ -2,6 +2,7 @@ package co.hcmus.services.Imp;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,23 +15,21 @@ import co.hcmus.services.IPaymentTypeService;
 @Transactional
 public class PaymentTypeServiceMongo implements IPaymentTypeService {
 
+	@Autowired
 	private IPaymentTypeDAO paymentTypeDAO;
 	
 	@Override
 	public void addPaymentType(PaymentType paymentType) {
-		// TODO Auto-generated method stub
 		paymentTypeDAO.addPaymentType(paymentType);
 	}
 
 	@Override
 	public void updatePaymentType(PaymentType paymentType) {
-		// TODO Auto-generated method stub
 		paymentTypeDAO.updatePaymentType(paymentType);
 	}
 
 	@Override
 	public PaymentType getPaymentTypeById(String id) {
-		// TODO Auto-generated method stub
 		return paymentTypeDAO.getPaymentTypeById(id);
 	}
 
@@ -42,7 +41,6 @@ public class PaymentTypeServiceMongo implements IPaymentTypeService {
 
 	@Override
 	public List<PaymentType> getPaymentTypes() {
-		// TODO Auto-generated method stub
 		return paymentTypeDAO.getPaymentTypes();
 	}
 

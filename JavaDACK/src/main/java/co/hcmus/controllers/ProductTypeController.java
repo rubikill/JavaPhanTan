@@ -42,6 +42,14 @@ public class ProductTypeController {
 		return "producttype";
 	}
 
+	/**
+	 * ADMIN PAGE - Add new product type
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param productType
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/producttype/add", method = RequestMethod.POST)
 	public String addProductType(Locale locale, Model model,
 			HttpServletRequest request, ProductType productType) {
@@ -53,6 +61,14 @@ public class ProductTypeController {
 		return "redirect:/admin/producttype";
 	}
 	
+	/**
+	 * ADMIN PAGE - edit a product type
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param productType
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/producttype/edit", method = RequestMethod.POST)
 	public String editProductType(Locale locale, Model model,
 			HttpServletRequest request, ProductType productType) {
@@ -60,6 +76,14 @@ public class ProductTypeController {
 		return "redirect:/admin/producttype";
 	}
 
+	/**
+	 * ADMIN PAGE - Set product type to active
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/producttype/active/{id}", method = RequestMethod.GET)
 	public String activeProductType(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
@@ -70,6 +94,14 @@ public class ProductTypeController {
 		return "redirect:/admin/producttype";
 	}
 
+	/**
+	 * ADMIN PAGE - Set product type to deactive
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/producttype/deactive/{id}", method = RequestMethod.GET)
 	public String deactiveProductType(Locale locale, Model model,
 			HttpServletRequest request, @PathVariable String id) {
@@ -79,12 +111,17 @@ public class ProductTypeController {
 		return "redirect:/admin/producttype";
 	}
 
+	/**
+	 * Prepair data for loading product type
+	 * @param request
+	 */
 	private void repairData(HttpServletRequest request) {
 		List<ProductType> listProductType = productTypeService
 				.getProductTypes();
 		ProductType productType = new ProductType();
 		request.setAttribute("productType", productType);
 		request.setAttribute("listProductType", listProductType);
+		request.setAttribute("nav", "producttype");
 	}
 
 	/**

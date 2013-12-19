@@ -15,28 +15,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-//	@Autowired
-//	private ImageServiceMongo imageService;
+	// @Autowired
+	// private ImageServiceMongo imageService;
 
 	// private Manufacturer
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpServletRequest request) {		
-		//productService.saveImage("52a60af5dcac3f217a062f8d", "E:\\DropBox\\Java + LTHD\\DACK\\RESOURCE\\Resource\\1_detail.jpg");
-		//productService.writeImage("52a60af5dcac3f217a062f8d", "abcdbab.jpg");
+	public String home(Locale locale, Model model, HttpServletRequest request) {
+		// productService.saveImage("52a60af5dcac3f217a062f8d",
+		// "E:\\DropBox\\Java + LTHD\\DACK\\RESOURCE\\Resource\\1_detail.jpg");
+		// productService.writeImage("52a60af5dcac3f217a062f8d", "abcdbab.jpg");
 
 		request.setAttribute("nav", "home");
 		return "home";
 	}
-
-	@RequestMapping(value = "/admin/orders", method = RequestMethod.GET)
-	public String order(Locale locale, Model model, HttpServletRequest request) {
-		request.setAttribute("nav", "orders");
-		return "order";
-	}
-
-	
 
 }

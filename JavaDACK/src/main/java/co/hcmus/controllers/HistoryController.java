@@ -7,7 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonNode;
@@ -19,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,8 +31,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import co.hcmus.models.Cart;
 import co.hcmus.models.History;
 import co.hcmus.models.HistoryDetail;
+import co.hcmus.models.PaymentType;
 import co.hcmus.services.IHistoryDetailService;
 import co.hcmus.services.IHistoryService;
+import co.hcmus.services.IPaymentTypeService;
 import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
 
@@ -39,8 +45,56 @@ public class HistoryController {
 	private IHistoryService historyService;
 	@Autowired
 	private IHistoryDetailService historyDetailSevice;
+	@Autowired
+	private IPaymentTypeService paymentTypeService;
 
 	ObjectMapper mapper = new ObjectMapper();
+	
+	/**
+	 * ADMIN PAGE - Show all orders
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/orders", method = RequestMethod.GET)
+	public String getProducType(Locale locale, Model model,
+			HttpServletRequest request) {
+		List<History> listHistory = historyService.getHistorys();
+		List<PaymentType> listPaymentType = paymentTypeService.getPaymentTypes();
+		request.setAttribute("history", new History());
+		request.setAttribute("listHistory", listHistory);
+		request.setAttribute("listPaymentType", listPaymentType);
+		request.setAttribute("nav", "orders");
+		return "orders";
+	}
+
+	@RequestMapping(value = "/admin/orders/add", method = RequestMethod.POST)
+	public String addProducType(Locale locale, Model model,
+			HttpServletRequest request, History history) {
+		historyService.addHistory(history);
+		request.setAttribute("nav", "orders");
+		return "redirect:/admin/orders";
+	}
+	
+	@RequestMapping(value = "/admin/orders/active", method = RequestMethod.POST)
+	public String activeProducType(Locale locale, Model model,
+			HttpServletRequest request, History history) {
+		history.setStatus(STATUS.ACTIVE.getStatusCode());
+		historyService.updateHistory(history);
+		request.setAttribute("nav", "orders");
+		return "redirect:/admin/orders";
+	}
+	
+	@RequestMapping(value = "/admin/orders/deactive", method = RequestMethod.POST)
+	public String deactiveProducType(Locale locale, Model model,
+			HttpServletRequest request, History history) {
+		history.setStatus(STATUS.INACTIVE.getStatusCode());
+		historyService.updateHistory(history);
+		request.setAttribute("nav", "orders");
+		return "redirect:/admin/orders";
+	}
 	
 	/**
 	 * Web service to create new history from cart

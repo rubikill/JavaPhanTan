@@ -23,16 +23,15 @@ public class History {
 	private Date orderDate; // Order date
 	private Date deliveryDate; // Delivery date
 	private Date paymentDate; // Payment date
-	private String paymentTyeId; // Id of PaymentType, which referenced to
+	private String paymentTypeId; // Id of PaymentType, which referenced to
 									// collection PaymentType
 									// private String historyDetailId;
 									// DetailHistory's Id, referenced to
+									// collection HistoryDetail where
+									// listed all products in this bill.
 
-	// // collection HistoryDetail where
-	// // listed all products in this bill.
-	/**
-	 * 
-	 */
+	private PaymentType paymentType;
+
 	public History() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -50,7 +49,7 @@ public class History {
 	 */
 	public History(String email, int quantity, String status,
 			String paymentStatus, Date orderDate, Date deliveryDate,
-			Date paymentDate, String paymentTyeId) {
+			Date paymentDate, String paymentTypeId) {
 		super();
 		this.email = email;
 		this.quantity = quantity;
@@ -59,7 +58,7 @@ public class History {
 		this.orderDate = orderDate;
 		this.deliveryDate = deliveryDate;
 		this.paymentDate = paymentDate;
-		this.paymentTyeId = paymentTyeId;
+		this.paymentTypeId = paymentTypeId;
 	}
 
 	/**
@@ -195,6 +194,14 @@ public class History {
 	 */
 	public void setPaymentTyeId(String paymentTyeId) {
 		this.paymentTyeId = paymentTyeId;
+	}
+
+	public PaymentType getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(PaymentType paymentType) {
+		this.paymentType = paymentType;
 	}
 
 }

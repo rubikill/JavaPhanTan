@@ -28,9 +28,6 @@ public class ProductTypeDAOMongo implements IProductTypeDAO {
 		if (!mongoTemplate.collectionExists(ProductType.class)) {
 			mongoTemplate.createCollection(ProductType.class);
 		}
-		System.out.println("Add product type:" + productType.getName());
-		System.out.println("Add product type:" + productType.getId());
-		System.out.println("Add product type:" + productType.getStatus());
 		mongoTemplate.insert(productType, COLLECTION_NAME);
 
 	}

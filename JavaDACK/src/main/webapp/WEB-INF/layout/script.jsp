@@ -115,6 +115,8 @@ $(document).on("click", ".open-PromotionDetailBlockDialog", function ()
 	$(".modal-dialog #inputId").val($("#rowAccount" + index + " #0").text()); 
 });
 
+<!--======================= PRODUCT TYPE ====================-->
+
 <!-- Set href for button in Modal fade PRODUCT TYPE ACTIVE dialog-->
 $(document).on("click", ".open-ProductTypeActiveDialog", function () 
 {  
@@ -141,6 +143,41 @@ $(document).on("click", ".open-ProductTypeEditDialog", function ()
 	$(".modal-body #inputStatus").val($("#rowProductType" + index + " #2").text());
 	
 });
+
+<!--========================= ORDERS (HISTORY) =====================-->
+
+<!-- Set href for button in Modal fade HISTORY ACTIVE dialog-->
+$(document).on("click", ".open-HistoryActiveDialog", function () 
+{  
+	var index = $(this).data('id');
+	console.log("index:",index);
+	console.log("email:",$("#rowProductType" + index + " #0").text());
+	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/orders/active/" + $("#rowHistory" + index + " #0").text()+ "';"); 
+});
+
+<!-- Set href for button in Modal fade HISTORY DEACIVEdialog-->
+$(document).on("click", ".open-HistoryDectiveDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/orders/deactive/" + $("#rowHistory" + index + " #0").text()+ "';"); 
+});
+
+<!-- Fill text field in Modal fade HISTORY EDIT dialog-->
+$(document).on("click", ".open-HistoryEditDialog", function () 
+{ 
+	var index = $(this).data('id'); 	
+	console.log("HISTORY EDIT DIALOG");
+	$(".modal-body #inputEmail").val($("#rowHistory" + index + " #0").text());
+	$(".modal-body #inputQuantity").val($("#rowHistory" + index + " #1").text());
+	$(".modal-body #inputOrderDate").val($("#rowHistory" + index + " #2").text());
+	$(".modal-body #inputDeliveryDate").val($("#rowHistory" + index + " #3").text());
+	$(".modal-body #inputPaymentDate").val($("#rowHistory" + index + " #4").text());
+	$(".modal-body #selectPaymentType").val($("#rowHistory" + index + " #5").text());
+	$(".modal-body #selectPaymentStatus").val($("#rowHistory" + index + " #6").text());
+	$(".modal-body #selectStatus").val($("#rowHistory" + index + " #7").text());
+	
+});
+
 
 </script>
 
