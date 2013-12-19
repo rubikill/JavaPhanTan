@@ -188,14 +188,45 @@ $(document).on("click", ".open-HistoryEditDialog", function ()
 { 
 	var index = $(this).data('id'); 	
 	console.log("HISTORY EDIT DIALOG");
-	$(".modal-body #inputEmail").val($("#rowHistory" + index + " #0").text());
-	$(".modal-body #inputQuantity").val($("#rowHistory" + index + " #1").text());
-	$(".modal-body #inputOrderDate").val($("#rowHistory" + index + " #2").text());
-	$(".modal-body #inputDeliveryDate").val($("#rowHistory" + index + " #3").text());
-	$(".modal-body #inputPaymentDate").val($("#rowHistory" + index + " #4").text());
-	$(".modal-body #selectPaymentType").val($("#rowHistory" + index + " #5").text());
-	$(".modal-body #selectPaymentStatus").val($("#rowHistory" + index + " #6").text());
-	$(".modal-body #selectStatus").val($("#rowHistory" + index + " #7").text());
+	$(".modal-body #inputId").val($("#rowHistory" + index + " #0").text());
+	$(".modal-body #inputEmail").val($("#rowHistory" + index + " #1").text());
+	$(".modal-body #inputQuantity").val($("#rowHistory" + index + " #2").text());
+	$(".modal-body #inputOrderDate").val($("#rowHistory" + index + " #3").text());
+	$(".modal-body #inputDeliveryDate").val($("#rowHistory" + index + " #4").text());
+	$(".modal-body #inputPaymentDate").val($("#rowHistory" + index + " #5").text());
+	console.log("paymentType",$("#rowHistory" + index + " #6").text());
+	$(".modal-body #selectPaymentType").val($("#rowHistory" + index + " #6").text());
+	$(".modal-body #selectPaymentStatus").val($("#rowHistory" + index + " #7").text());
+	$(".modal-body #selectStatus").val($("#rowHistory" + index + " #8").text());
+	
+});
+
+<!--======================= PAYMENT TYPE ====================-->
+
+<!-- Set href for button in Modal fade PAYMENT TYPE ACTIVE dialog-->
+$(document).on("click", ".open-PaymentTypeActiveDialog", function () 
+{  
+	var index = $(this).data('id');
+	console.log("index:",index);
+	console.log("ID:",$("#rowPaymentType" + index + " #0").text());
+	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/paymenttype/active/" + $("#rowPaymentType" + index + " #0").text()+ "';"); 
+});
+
+<!-- Set href for button in Modal fade PAYMENT TYPE DEACIVE dialog-->
+$(document).on("click", ".open-PaymentTypeDeactiveDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/paymenttype/deactive/" + $("#rowPaymentType" + index + " #0").text()+ "';"); 
+});
+
+<!-- Fill text field in Modal fade PAYMENT TYPE EDIT dialog-->
+$(document).on("click", ".open-PaymentTypeEditDialog", function () 
+{ 
+	var index = $(this).data('id'); 	
+	console.log("EDIT DIALOG");
+	$(".modal-body #inputId").val($("#rowPaymentType" + index + " #0").text());
+	$(".modal-body #inputName").val($("#rowPaymentType" + index + " #1").text());
+	$(".modal-body #inputStatus").val($("#rowPaymentType" + index + " #2").text());
 	
 });
 

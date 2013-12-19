@@ -29,40 +29,41 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th style="width: 20%">Email <i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Quantity <i class="fa fa-sort"></i></th>
+						<th style="width: 1%" hidden="true" />
+						<th style="width: 19%">Email <i class="fa fa-sort"></i></th>
+						<th style="width: 8%">Quantity <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Order date <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Delivery date <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Payment date <i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Payment type <i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Payment status <i class="fa fa-sort"></i></th>
+						<th style="width: 7%">Payment type <i class="fa fa-sort"></i></th>
+						<th style="width: 7%">Payment status <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Status <i class="fa fa-sort"></i></th>
-						<th style="width: 20%">Action</th>
+						<th style="width: 26%">Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="history" items="${listHistory}" varStatus="status">
 						<tr class="rowHistory" id="rowHistory${status.index}">
-
-							<td id="0">${history.email }</td>
-							<td id="1">${history.quantity }</td>
+							<td id="0" hidden="true">${history.id }</td>
+							<td id="1">${history.email }</td>
+							<td id="2">${history.quantity }</td>
 							<fmt:formatDate value="${history.orderDate}" pattern="dd/MM/yyyy"
 								var="orderDate" />
-							<td id="2">${orderDate}</td>
+							<td id="3">${orderDate}</td>
 							<fmt:formatDate value="${history.deliveryDate}"
 								pattern="dd/MM/yyyy" var="deliveryDate" />
-							<td id="3">${deliveryDate }</td>
+							<td id="4">${deliveryDate }</td>
 							<fmt:formatDate value="${history.paymentDate}"
 								pattern="dd/MM/yyyy" var="paymentDate" />
-							<td id="4">${deliveryDate }</td>
-							<td id="5">${history.paymentType.name }</td>
-							<td id="6">${history.paymentStatus}</td>
-							<td id="7">${history.status }</td>
+							<td id="5">${deliveryDate }</td>
+							<td id="6">${history.paymentType.name }</td>
+							<td id="7">${history.paymentStatus}</td>
+							<td id="8">${history.status }</td>
 							<td>
-								<button class="open-HistoryEditDialog btn btn-warning"
+								<button class="open-HistoryEditDialog btn btn-info"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
-								<button class="open-HistoryActiveDialog  btn btn-danger"
+								<button class="open-HistoryActiveDialog  btn btn-success"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#activeModal">Active</button>
 								<button class="open-HistoryDeactiveDialog  btn btn-danger"
@@ -101,7 +102,7 @@
 					<h4 class="modal-title" id="myModalLabel">Edit order</h4>
 				</div>
 				<div class="modal-body">
-
+					<form:input path="id" id="inputId" type="hidden" />
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">Email</label>
 						<div class="col-sm-8">
@@ -157,7 +158,7 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Payment
 							status</label>
 						<div class="col-sm-8">
-							<form:select path="status" class="form-control"
+							<form:select path="paymentStatus" class="form-control"
 								id="selectPaymentStatus">
 								<form:option value="Paid" label="Paid" />
 								<form:option value="Unpaid" label="Unpaid" />
@@ -193,14 +194,16 @@
 <!-- Modal -->
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form:form class="form-group" action="/admin/oders/create"
-				commandName="history" method="POST">
+	<form:form class="form-group" action="/admin/orders/create"
+		commandName="history" method="POST">
+		<div class="modal-dialog">
+
+			<div class="modal-content">
+
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Edit order</h4>
+					<h4 class="modal-title" id="myModalLabel">Create order</h4>
 				</div>
 				<div class="modal-body">
 
@@ -218,7 +221,7 @@
 								id="inputName" />
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Order
 							date</label>
@@ -260,7 +263,7 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Payment
 							status</label>
 						<div class="col-sm-8">
-							<form:select path="status" class="form-control"
+							<form:select path="paymentStatus" class="form-control"
 								id="selectPaymentStatus">
 								<form:option value="Paid" label="Paid" />
 								<form:option value="Unpaid" label="Unpaid" />
@@ -285,12 +288,13 @@
 					<button type="submit" class="btn btn-primary">Create</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
-			</form:form>
-		</div>
 
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</form:form>
 </div>
 <!-- /.modal -->
 
@@ -298,25 +302,23 @@
 <div class="modal fade" id="activeModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form:form class="form-group" action="/admin/orders/active"
-			commandName="history" method="POST">
-			<form:input path="email" type="hidden" id="inputEmail" />
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Confirm active</h4>
-				</div>
-				<div class="modal-body">
-					<p>Are you sure to active this orders?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" id="activeButton"
-						onclick="">Active</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
+
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Confirm active</h4>
 			</div>
-		</form:form>
+			<div class="modal-body">
+				<p>Are you sure to active this orders?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="activeButton"
+					onclick="">Active</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
@@ -327,25 +329,23 @@
 <div class="modal fade" id="deactiveModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form:form class="form-group" action="/admin/orders/deactive"
-			commandName="history" method="POST">
-			<form:input path="email" type="hidden" id="inputEmail" />
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Confirm deactive</h4>
-				</div>
-				<div class="modal-body">
-					<p>Are you sure to deactive this orders?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" id="deactiveButton"
-						onclick="">Deactive</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
+
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Confirm deactive</h4>
 			</div>
-		</form:form>
+			<div class="modal-body">
+				<p>Are you sure to deactive this orders?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" id="deactiveButton"
+					onclick="">Deactive</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->

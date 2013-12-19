@@ -1,7 +1,6 @@
 package co.hcmus.controllers;
 
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,6 +38,12 @@ import co.hcmus.services.IPaymentTypeService;
 import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
 
+/**
+ * History (order) controller
+ * 
+ * @author WindyZBoy
+ * 
+ */
 @Controller
 @Scope("request")
 public class HistoryController {
@@ -49,7 +55,7 @@ public class HistoryController {
 	private IPaymentTypeService paymentTypeService;
 
 	ObjectMapper mapper = new ObjectMapper();
-	
+
 	/**
 	 * ADMIN PAGE - Show all orders
 	 * 
@@ -62,7 +68,8 @@ public class HistoryController {
 	public String getProducType(Locale locale, Model model,
 			HttpServletRequest request) {
 		List<History> listHistory = historyService.getHistorys();
-		List<PaymentType> listPaymentType = paymentTypeService.getPaymentTypes();
+		List<PaymentType> listPaymentType = paymentTypeService
+				.getPaymentTypes();
 		request.setAttribute("history", new History());
 		request.setAttribute("listHistory", listHistory);
 		request.setAttribute("listPaymentType", listPaymentType);
@@ -70,32 +77,74 @@ public class HistoryController {
 		return "orders";
 	}
 
-	@RequestMapping(value = "/admin/orders/add", method = RequestMethod.POST)
+	/**
+	 * ADMIN PAGE - Edit an orders
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param history
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/orders/edit", method = RequestMethod.POST)
+	public String editProducType(Locale locale, Model model,
+			HttpServletRequest request, History history) {
+		historyService.updateHistory(history);
+		return "redirect:/admin/orders";
+	}
+
+	/**
+	 * ADMIN PAGE - Create an orders
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param history
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/orders/create", method = RequestMethod.POST)
 	public String addProducType(Locale locale, Model model,
 			HttpServletRequest request, History history) {
 		historyService.addHistory(history);
-		request.setAttribute("nav", "orders");
 		return "redirect:/admin/orders";
 	}
-	
-	@RequestMapping(value = "/admin/orders/active", method = RequestMethod.POST)
+
+	/**
+	 * ADMIN PAGE - Active an orders
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param history
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/orders/active/{id}", method = RequestMethod.POST)
 	public String activeProducType(Locale locale, Model model,
-			HttpServletRequest request, History history) {
+			HttpServletRequest request, @PathVariable String id) {
+		History history = historyService.getHistory(id);
 		history.setStatus(STATUS.ACTIVE.getStatusCode());
 		historyService.updateHistory(history);
-		request.setAttribute("nav", "orders");
 		return "redirect:/admin/orders";
 	}
-	
+
+	/**
+	 * ADMIN PAGE - Deactive an orders
+	 * 
+	 * @param locale
+	 * @param model
+	 * @param request
+	 * @param history
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/orders/deactive", method = RequestMethod.POST)
 	public String deactiveProducType(Locale locale, Model model,
-			HttpServletRequest request, History history) {
+			HttpServletRequest request, @PathVariable String id) {
+		History history = historyService.getHistory(id);
 		history.setStatus(STATUS.INACTIVE.getStatusCode());
 		historyService.updateHistory(history);
-		request.setAttribute("nav", "orders");
 		return "redirect:/admin/orders";
 	}
-	
+
 	/**
 	 * Web service to create new history from cart
 	 * 
@@ -109,21 +158,18 @@ public class HistoryController {
 			@RequestBody String json) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-		
-		// TODO CHECK IF CUSTOMER IS LOGON
-		List<Cart> cartItems = (List<Cart>) session
-					.getAttribute("ShopCart");
+		List<Cart> cartItems = (List<Cart>) session.getAttribute("ShopCart");
 		if (cartItems == null) {
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		History history = null;
 		try {
 			String id = UUID.randomUUID().toString();
-			
+
 			int quantity = 0;
 
-			for(Cart cart : cartItems){
+			for (Cart cart : cartItems) {
 				quantity += cart.getCount();
 				HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
 						cart.getId(), STATUS.ACTIVE.getStatusCode());
@@ -135,29 +181,27 @@ public class HistoryController {
 					"yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
 
 			System.out.println(json);
-			System.out.println(jsonNode.path("paymentDelivery")
-					.getTextValue());
+			System.out.println(jsonNode.path("paymentDelivery").getTextValue());
 			// parse payment date
 			Date paymentDate = formatter.parse(jsonNode.path("paymentDate")
 					.getTextValue());
-			
+
 			System.out.println(paymentDate);
 			// parse deliver date
 			Date deliveryDate = formatter.parse(jsonNode
 					.path("paymentDelivery").getTextValue());
-			
+
 			System.out.println(deliveryDate);
 
 			// String paymentStatus = jsonNode.path("paymentStatus")
-			// 		.getTextValue();
+			// .getTextValue();
 			// Get email from session
 			String email = (String) session.getAttribute("email");
 
-			
 			System.out.println(jsonNode);
-			history = new History(email, quantity, STATUS.ACTIVE.getStatusCode(),
-					null, new Date(), deliveryDate, paymentDate,
-					null);
+			history = new History(email, quantity,
+					STATUS.ACTIVE.getStatusCode(), null, new Date(),
+					deliveryDate, paymentDate, null);
 
 			history.setId(id);
 
@@ -192,14 +236,11 @@ public class HistoryController {
 	 *            httpservlet request
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/history", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> getHistorys(HttpSession session) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-
-		// TODO NEED TO CONFIRM THAT CUSTOMER HAS LOGON
 
 		String email = (String) session.getAttribute("email");
 		List<History> listTemp = historyService.getHistorysByEmail(email);
@@ -218,7 +259,6 @@ public class HistoryController {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/history/update", method = RequestMethod.PUT, headers = "Accept=application/json")
 	public ResponseEntity<String> updateCart(@RequestBody String json,
 			HttpSession session) {
@@ -234,6 +274,7 @@ public class HistoryController {
 			// parse json String to jsonNode
 			JsonNode jsonNode = mapper.readTree(json);
 			// get list cart item from json
+			@SuppressWarnings("deprecation")
 			List<Cart> listCartToUpdate = (List<Cart>) Tools.fromJsonToArray(
 					jsonNode.getPath("cart").getTextValue(), Cart.class);
 			int quantity = 0;
@@ -261,9 +302,9 @@ public class HistoryController {
 			// Get email from session
 			String email = (String) session.getAttribute("email");
 
-			history = new History(email, quantity, STATUS.ACTIVE.getStatusCode(),
-					paymentStatus, new Date(), deliveryDate, paymentDate,
-					paymentTypeID);
+			history = new History(email, quantity,
+					STATUS.ACTIVE.getStatusCode(), paymentStatus, new Date(),
+					deliveryDate, paymentDate, paymentTypeID);
 
 			history.setId(id);
 
@@ -272,13 +313,10 @@ public class HistoryController {
 			session.setAttribute("ShopCart", listCartToUpdate);
 
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return new ResponseEntity<String>(Tools.toJson(history), headers,

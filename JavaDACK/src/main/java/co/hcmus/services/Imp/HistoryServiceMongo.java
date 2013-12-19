@@ -46,7 +46,7 @@ public class HistoryServiceMongo implements IHistoryService {
 					paymentTypeDAO.getPaymentTypeById(listHistory.get(i)
 							.getPaymentTypeId()));
 		}
-		return HistoryDAO.getHistorys();
+		return listHistory;
 	}
 
 	@Override
