@@ -5,6 +5,11 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 
+/**
+ * Form of an email
+ * @author Thanh Toan
+ *
+ */
 public class EmailForm{
 	@NotNull
 	@Email

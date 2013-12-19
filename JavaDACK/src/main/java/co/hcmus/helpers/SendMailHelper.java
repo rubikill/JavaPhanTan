@@ -19,14 +19,13 @@ import org.springframework.stereotype.Service;
  * @author Thanh Toan
  * 
  */
-
 @Service("sendMailHelper")
 public class SendMailHelper {
 
-	public SendMailHelper(){
+	public SendMailHelper() {
 
 	}
-	
+
 	/**
 	 * Send mail from "from" to "to" with "subject" and "body"
 	 * 
@@ -39,27 +38,30 @@ public class SendMailHelper {
 	 * @throws Exception
 	 */
 	public void send(String smtpServer, String to, final String from,
-		final String password, String subject, String body)
-	throws Exception {
+			final String password, String subject, String body)
+			throws Exception {
+		// Config
 		Properties props = new Properties();
 		props.put("mail.smtp.host", Constant.SMTP_GMAIL);
 		props.put("mail.smtp.socketFactory.port", Constant.SMTP_GMAIL_PORT);
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", Constant.SMTP_GMAIL_PORT);
 
 		Session session = Session.getDefaultInstance(props,
-			new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(from, password);
-				}
-			});
+				new javax.mail.Authenticator() {
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(from, password);
+					}
+				});
 		try {
 			Transport transport = session.getTransport("smtp");
 			transport.connect(smtpServer, from, password);
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(to));
 			message.setSubject(subject);
 			message.setText(body);
 
@@ -78,6 +80,7 @@ public class SendMailHelper {
 		String from = Constant.SHOP_EMAIL;
 		String password = Constant.SHOP_EMAIL_PASSWORD;
 
-		this.send(smtpServer, email.reciver, from, password, email.subject, email.body);
+		this.send(smtpServer, email.reciver, from, password, email.subject,
+				email.body);
 	}
 }

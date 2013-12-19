@@ -22,6 +22,12 @@ import co.hcmus.models.PromotionDetail;
 import co.hcmus.models.Rating;
 import co.hcmus.models.Tag;
 
+/**
+ * This class use for initializing database
+ * 
+ * @author Thanh Toan
+ *
+ */
 public class Initialization implements InitializingBean {
 
 	@Autowired

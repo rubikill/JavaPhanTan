@@ -3,6 +3,12 @@ package co.hcmus.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Promotion detail
+ * 
+ * @author Thanh Toan
+ * 
+ */
 @Document
 public class PromotionDetail {
 
@@ -13,58 +19,101 @@ public class PromotionDetail {
 	private String status; // status
 	private int discount; // discount
 
-	public PromotionDetail(String id, String promotionId, String productId,
-			String status, int discount) {
+	/**
+	 * 
+	 */
+	public PromotionDetail() {
 		super();
-		this.id = id;
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param promotionId
+	 * @param productId
+	 * @param status
+	 * @param discount
+	 */
+	public PromotionDetail(String promotionId, String productId, String status,
+			int discount) {
+		super();
 		this.promotionId = promotionId;
 		this.productId = productId;
 		this.status = status;
 		this.discount = discount;
 	}
 
-	public PromotionDetail() {
-
-	}
-
+	/**
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 *            the id to set
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the promotionId
+	 */
 	public String getPromotionId() {
 		return promotionId;
 	}
 
+	/**
+	 * @param promotionId
+	 *            the promotionId to set
+	 */
 	public void setPromotionId(String promotionId) {
 		this.promotionId = promotionId;
 	}
 
+	/**
+	 * @return the productId
+	 */
 	public String getProductId() {
 		return productId;
 	}
 
+	/**
+	 * @param productId
+	 *            the productId to set
+	 */
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 
+	/**
+	 * @return the status
+	 */
 	public String getStatus() {
 		return status;
 	}
 
+	/**
+	 * @param status
+	 *            the status to set
+	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
+	/**
+	 * @return the discount
+	 */
 	public int getDiscount() {
 		return discount;
 	}
 
+	/**
+	 * @param discount
+	 *            the discount to set
+	 */
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-
 }

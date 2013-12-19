@@ -13,9 +13,16 @@ import co.hcmus.daos.IAccountDAO;
 import co.hcmus.models.Account;
 import co.hcmus.util.STATUS;
 
+/**
+ * Impl using mongodb
+ * 
+ * @author Thanh Toan
+ * 
+ */
 @Repository("accountDAO")
 @Transactional
 public class AccountDAOMongo implements IAccountDAO {
+
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	public static final String COLLECTION_NAME = "account"; // Collection name
@@ -53,11 +60,10 @@ public class AccountDAOMongo implements IAccountDAO {
 	// Get a specific account by email
 	@Override
 	public Account getAccount(String email) {
-		System.out.println("email in DAO:'" + email + "'");
 		Query searchAccountQuery = new Query(Criteria.where("email").is(email));
-		
+
 		System.out.println("query:" + searchAccountQuery.toString());
-//		searchAccountQuery.
+
 		return mongoTemplate.findOne(searchAccountQuery, Account.class,
 				COLLECTION_NAME);
 	}
@@ -66,18 +72,20 @@ public class AccountDAOMongo implements IAccountDAO {
 	public List<Account> getAccountByAccountType(String accountTypeId,
 			String status) {
 		Query searchAccountByAccountTypeIdQuery;
-		if (status.equals("none")) {
-			searchAccountByAccountTypeIdQuery = new Query(Criteria
-					.where("accountTypeId").is(accountTypeId));
-		} else {
 
+		if (status.equals("none")) {
+			searchAccountByAccountTypeIdQuery = new Query(Criteria.where(
+					"accountTypeId").is(accountTypeId));
+		} else {
 			searchAccountByAccountTypeIdQuery = new Query(Criteria
 					.where("accountTypeId").is(accountTypeId).and("status")
 					.is(status));
 		}
+
 		return mongoTemplate.find(searchAccountByAccountTypeIdQuery,
 				Account.class, COLLECTION_NAME);
 	}
+
 	// @Override
 	// public UserDetails loadUserByUsername(String email)
 	// throws UsernameNotFoundException {

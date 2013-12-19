@@ -5,6 +5,11 @@ import java.security.NoSuchAlgorithmException;
 
 import org.springframework.stereotype.Service;
 
+/**
+ * Encrypt password
+ * @author Thanh Toan
+ *
+ */
 @Service("encryptPasswordProvider")
 public class EncryptPasswordProvider implements EncryptProvider {
 
@@ -40,19 +45,14 @@ public class EncryptPasswordProvider implements EncryptProvider {
 		return null;
 	}
 
-	private Boolean isMatch(String plainPassword, String checkSum, String algorithm){
-		String hashedPassword = doHash(plainPassword, algorithm).toString();
-
-		return hashedPassword.equals(checkSum);
-	}
-
 	@Override
 	public StringBuffer hash(String path, String algorithm) {
 		return doHash(path, algorithm);
 	}
 
 	@Override
-	public Boolean checkSum(String srcPath, String desPath, String algorithm){
-		return isMatch(srcPath, desPath, algorithm);
+	public Boolean checkSum(String plainPassword, String desPath, String algorithm){
+		String hashedPassword = doHash(plainPassword, algorithm).toString();
+		return hashedPassword.equals(desPath);
 	}
 }

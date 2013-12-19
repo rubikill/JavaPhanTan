@@ -28,7 +28,7 @@ function accountCtrl($scope, $rootScope, $location, LoginService, localize, Acco
             }, $scope.regUser, function(data) {
                 alertify.success(data.message);
             }, function(response) {
-                console.log(JSON.stringify(response));
+                alertify.error(JSON.stringify(response));
             });
         }
     }

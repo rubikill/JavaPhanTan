@@ -1,5 +1,9 @@
 package co.hcmus.controllers;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -8,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -55,24 +60,22 @@ public class AccountController {
 	public String accounts(Locale locale, Model model,
 			HttpServletRequest request) {
 		prepairData(request);
-//		Account account = new Account();
-//		// account.setBirthday(new Date());
-//		model.addAttribute("account", account);
+		// Account account = new Account();
+		// // account.setBirthday(new Date());
+		// model.addAttribute("account", account);
 		return "accounts";
 	}
 
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
 	public String blockPromotion(Locale locale, Model model,
 			HttpServletRequest request, Account account) {
-//		System.out.println("\n email:'" + email  +"'");
-//		Account account = accountService.getAccount(email);
-		if (account!= null)
-		{
+		// System.out.println("\n email:'" + email +"'");
+		// Account account = accountService.getAccount(email);
+		if (account != null) {
 			System.out.println("\n email:" + account.getEmail());
 			System.out.println("\n address:" + account.getAddress());
 			System.out.println("\n name:" + account.getName());
-		}
-		else
+		} else
 			System.out.println("\n NULL");
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.BLOCK.getStatusCode());
@@ -101,9 +104,9 @@ public class AccountController {
 
 		accountService.updateAccount(account);
 		prepairData(request);
-//
-//		Account account1 = new Account();
-//		model.addAttribute("account", account1);
+		//
+		// Account account1 = new Account();
+		// model.addAttribute("account", account1);
 		return "accounts";
 	}
 
@@ -242,7 +245,7 @@ public class AccountController {
 		System.out.println("logout...");
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
-	
+
 	ObjectMapper mapper = new ObjectMapper();
 
 	/**
@@ -254,20 +257,43 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody String json) {
-		JsonNode j = mapper.convertValue(json, JsonNode.class);
-		
-		System.out.println(j.findValue("birthday"));
-		Account account = Tools.fromJsonTo(json, Account.class);
-
-		// verify account infomation here
-		// ...
-
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "text/plain");
-		// Create AccountService
-		// get Account with email
-		account.setPassword(encryptPasswordProvider.hash(account.getPassword(),
-				Constant.MD5).toString());
+
+		// parse json String to jsonNode
+		Account account = new Account();
+		try {
+			JsonNode jsonNode = mapper.readTree(json);
+			SimpleDateFormat formatter = new SimpleDateFormat(
+					"yyyy-MM-dd'T'hh:mm:ss.SSS'Z'");
+			// parse payment date
+
+			account.setEmail(jsonNode.path("email").getTextValue());
+			if (accountService.getAccount(account.getEmail()) != null) {
+				return new ResponseEntity<String>(
+						"{\"message\" : \"This email has been used\"}",
+						headers, HttpStatus.BAD_REQUEST);
+			}
+
+			account.setName(jsonNode.path("name").getTextValue());
+			account.setBirthday(formatter.parse(jsonNode.path("birthday")
+					.getTextValue()));
+			account.setPassword(encryptPasswordProvider.hash(
+					jsonNode.path("password").getTextValue(), Constant.MD5)
+					.toString());
+			account.setAddress(jsonNode.path("address").getTextValue());
+			account.setPhone(jsonNode.path("phone").getTextValue());
+
+		} catch (JsonProcessingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// Gen Token here
 		String token = UUID.randomUUID().toString();
@@ -276,30 +302,28 @@ public class AccountController {
 
 		// Set status
 		account.setStatus(STATUS.INACTIVE.getStatusCode());
-		// check account
-		if (accountService.getAccount(account.getEmail()) == null) {
-			try {
-				accountService.addAccount(account);
-
-				EmailForm emailForm = new EmailForm();
-				emailForm.reciver = account.getEmail();
-				emailForm.subject = "Welcome to Camera Shop";
-				emailForm.body = "Your new password is: " + token;
-				
-				sendMailHelper.sendMail(emailForm);
-
-			} catch (Exception e) {
-				// TODO: handle exception
-				//System.out.println("Problem when create account");
-				e.printStackTrace();
-				return new ResponseEntity<String>("{\"message\" : \"Problem when create account\"}", headers,
-					HttpStatus.BAD_REQUEST);
-			}
-			return new ResponseEntity<String>("{\"message\" : \"Create success\"}", headers,
+		
+		try {
+			accountService.addAccount(account);
+			
+			EmailForm emailForm = new EmailForm();
+			emailForm.reciver = account.getEmail();
+			emailForm.subject = "Welcome to Camera Shop";
+			emailForm.body = "Your new password is: " + token;
+			
+			sendMailHelper.sendMail(emailForm);
+			
+			return new ResponseEntity<String>(
+					"{\"message\" : \"Create success\"}", headers,
 					HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			// System.out.println("Problem when create account");
+			e.printStackTrace();
+			return new ResponseEntity<String>(
+					"{\"message\" : \"Problem when create account\"}", headers,
+					HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<String>("{\"message\" : \"Create failure\"}", headers,
-				HttpStatus.BAD_REQUEST);
 	}
 
 	/**

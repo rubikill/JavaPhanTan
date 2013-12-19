@@ -2,28 +2,62 @@ package co.hcmus.models;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * Point level
+ * @author Thanh Toan
+ *
+ */
 @Document
 public class PointLevel {
 
 	private String VIP;
 	private String status;
-	public String getStatus() {
-		return status;
+
+	/**
+	 * 
+	 */
+	public PointLevel() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setStatus(String status) {
+	/**
+	 * @param vIP
+	 * @param status
+	 */
+	public PointLevel(String vIP, String status) {
+		super();
+		VIP = vIP;
 		this.status = status;
 	}
 
+	/**
+	 * @return the vIP
+	 */
 	public String getVIP() {
 		return VIP;
 	}
 
-	public String VIP() {
-		return VIP;
+	/**
+	 * @param vIP
+	 *            the vIP to set
+	 */
+	public void setVIP(String vIP) {
+		VIP = vIP;
 	}
 
-	public void setVIP(String VIP) {
-		this.VIP = VIP;
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

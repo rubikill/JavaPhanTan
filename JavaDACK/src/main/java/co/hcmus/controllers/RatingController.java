@@ -32,49 +32,48 @@ public class RatingController {
 	@RequestMapping(value = "rating/{productId}", method = RequestMethod.POST, headers = "Accept=application/json")
 	@ResponseBody
 	public ResponseEntity<String> checkRatingByProductIdByEmail(
-		@PathVariable("productId") String productId,
-		@RequestBody String json) {
+			@PathVariable("productId") String productId,
+			@RequestBody String json) {
 
 		// catch rating from json to get email
 		Rating ratingTempFromJson = (Rating) Tools.fromJsonTo(json,
-			Rating.class);
+				Rating.class);
 
 		// get email
 		String email = ratingTempFromJson.getEmail();
 
-		//System.out.println("-------:" + email);
 		// get product byID
-		double  resultAverage = ratingService.checkRaingByProductIdByEmail(productId,
-			email, STATUS.ACTIVE.getStatusCode());
+		double resultAverage = ratingService.checkRaingByProductIdByEmail(
+				productId, email, STATUS.ACTIVE.getStatusCode());
 		// create header
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 
-		if (resultAverage ==  -1) {
-			ProductRate productRate = new ProductRate();
-			productRate.rateAverage = resultAverage;
+		ProductRate productRate = new ProductRate();
+		productRate.rateAverage = resultAverage;
+
+		if (resultAverage == -1) {
 			productRate.isRate = false;
 			productRate.rateEmail = null;
 
-			return new ResponseEntity<String>(Tools.toJson(productRate) , headers,
-				HttpStatus.BAD_REQUEST);
-		} else {
-			// get rating by email
-			Rating ratingByEmail = ratingService.getRatingByEmail(email,
+			return new ResponseEntity<String>(Tools.toJson(productRate),
+					headers, HttpStatus.BAD_REQUEST);
+		}
+
+		// get rating by email
+		Rating ratingByEmail = ratingService.getRatingByEmail(email,
 				STATUS.ACTIVE.getStatusCode());
 
-			ProductRate productRate = new ProductRate();
-			productRate.rateAverage = resultAverage;
-			productRate.isRate = true;
-			productRate.rateEmail = ratingByEmail.getStar();
+		productRate.isRate = true;
+		productRate.rateEmail = ratingByEmail.getStar();
 
-			return new ResponseEntity<String>(Tools.toJson(productRate), headers,
+		return new ResponseEntity<String>(Tools.toJson(productRate), headers,
 				HttpStatus.OK);
-		}
 	}
 
 	/**
 	 * web service to save or update rating of email with product id
+	 * 
 	 * @param productId
 	 * @param json
 	 * @return
@@ -82,12 +81,12 @@ public class RatingController {
 	@RequestMapping(value = "rating/{productId}", method = RequestMethod.PUT, headers = "Accept=application/json")
 	@ResponseBody
 	public ResponseEntity<String> ratingSaveOrUpdate(
-		@PathVariable("productId") String productId,
-		@RequestBody String json) {
+			@PathVariable("productId") String productId,
+			@RequestBody String json) {
 
 		// catch rating from json to get email
 		Rating ratingTempFromJson = (Rating) Tools.fromJsonTo(json,
-			Rating.class);
+				Rating.class);
 
 		// get email
 		String email = ratingTempFromJson.getEmail();
@@ -95,7 +94,7 @@ public class RatingController {
 		int rate = ratingTempFromJson.getStar();
 		// get rating byID and email
 		Double result = ratingService.checkRaingByProductIdByEmail(productId,
-			email, STATUS.ACTIVE.getStatusCode());
+				email, STATUS.ACTIVE.getStatusCode());
 		// create header
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
@@ -110,16 +109,16 @@ public class RatingController {
 				ratingService.addRating(ratingInsert);
 			} catch (Exception e) {
 				return new ResponseEntity<String>(headers,
-					HttpStatus.BAD_REQUEST);
+						HttpStatus.BAD_REQUEST);
 			}
 		} else // update
 		{
 			try {
-				
-				//get rating with email
+
+				// get rating with email
 				Rating ratingByEmail = ratingService.getRatingByEmail(email,
-					STATUS.ACTIVE.getStatusCode());
-				
+						STATUS.ACTIVE.getStatusCode());
+
 				Rating ratingUpdate = new Rating();
 				ratingUpdate.setId(ratingByEmail.getId());
 				ratingUpdate.setProductId(productId);
@@ -129,7 +128,7 @@ public class RatingController {
 				ratingService.updateRating(ratingUpdate);
 			} catch (Exception e) {
 				return new ResponseEntity<String>(headers,
-					HttpStatus.BAD_REQUEST);
+						HttpStatus.BAD_REQUEST);
 			}
 		}
 
