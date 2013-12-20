@@ -220,8 +220,8 @@ public class ProductController {
 	 */
 	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
 	public String productsAdmin(Locale locale, Model model,
-			HttpServletRequest request) {
-		prepairData(request);
+			HttpServletRequest request, @RequestParam("Page") int currentPage) {
+		prepairData(request, currentPage);
 		return "products";
 	}
 
@@ -248,7 +248,8 @@ public class ProductController {
 			@RequestParam(value = "inputPoint", required = false) int point,
 			@RequestParam(value = "inputWarranty", required = false) int warranty,
 			@RequestParam(value = "inputWeight", required = false) Double weight,
-			@RequestParam(value = "inputHeight", required = false) Double height) {
+			@RequestParam(value = "inputHeight", required = false) Double height,
+			@RequestParam("inputCurrentPage") int currentPage) {
 
 		try {
 			// update product
@@ -278,8 +279,8 @@ public class ProductController {
 			productDetailService.updateProductDetail(productDetail);
 		} catch (Exception e) {
 		}
-		prepairData(request);
-		return "redirect:/admin/products";
+		prepairData(request, currentPage);
+		return "redirect:/admin/products" + "?Page=" + currentPage;
 	}
 
 	@RequestMapping(value = "/admin/product/create", method = RequestMethod.POST)
@@ -300,7 +301,8 @@ public class ProductController {
 			@RequestParam(value = "inputWarranty", required = false) int warranty,
 			@RequestParam(value = "inputWeight", required = false) Double weight,
 			@RequestParam(value = "inputHeight", required = false) Double height,
-			@RequestParam(value = "inputStatus", required = false) String status) {
+			@RequestParam(value = "inputStatus", required = false) String status,
+			@RequestParam("Page") int currentPage) {
 
 		try {
 			// Create product
@@ -333,49 +335,62 @@ public class ProductController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		prepairData(request);
-		return "redirect:/admin/products";
+		prepairData(request, currentPage);
+		return "redirect:/admin/products" + "?Page=" + currentPage;
 	}
 
 	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.POST)
 	public String adminDeleteProduct(Locale locale, HttpServletRequest request,
-			@RequestParam(value = "inputProductId", required = true) String id) {
+			@RequestParam(value = "inputProductId", required = true) String id,
+			@RequestParam("inputCurrentPage") int currentPage) {
 		try {
 			productService.deleteProduct(id);
 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		prepairData(request);
-		return "redirect:/admin/products";
+		prepairData(request, currentPage);
+		return "redirect:/admin/products" + "?Page=" + currentPage;
 
 	}
 
 	@RequestMapping(value = "/admin/product/active", method = RequestMethod.POST)
 	public String adminActiveProduct(Locale locale, HttpServletRequest request,
-			@RequestParam(value = "inputProductId", required = true) String id) {
+			@RequestParam(value = "inputProductId", required = true) String id,
+			@RequestParam("inputCurrentPage") int currentPage) {
 		try {
 			productService.activeProduct(id);
 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		prepairData(request);
-		return "redirect:/admin/products";
+		prepairData(request, currentPage);
+		return "redirect:/admin/products" + "?Page=" + currentPage;
 
 	}
 
-	private void prepairData(HttpServletRequest request) {
+	private void prepairData(HttpServletRequest request, int currentPage) {
 
 		try {
 			List<Product> listProduct = productService.getProducts();
+			List<Product> listResult;
+			if (listProduct.size() < 10*currentPage) {
+				listResult = listProduct.subList(10 * (currentPage - 1),
+						listProduct.size());
+			} else {
+				listResult = listProduct.subList(10 * (currentPage - 1),
+						(10 * currentPage));
+			}
 			List<ProductType> listProductType = productTypeService
 					.getProductTypes();
 			List<ProductState> listProductState = productStateService
 					.getProductStates();
 			List<Manufacturer> listManufacturer = manufacturerService
 					.getManufacturers();
-			request.setAttribute("listProduct", listProduct);
+			int totalPage = getTotalPage(listProduct);
+			request.setAttribute("totalPage", totalPage);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("listProduct", listResult);
 			request.setAttribute("listProductType", listProductType);
 			request.setAttribute("listProductState", listProductState);
 			request.setAttribute("listManufacturer", listManufacturer);
@@ -383,6 +398,18 @@ public class ProductController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
+	}
+
+	private int getTotalPage(List<Product> listProduct) {
+		if (listProduct.size() == 0)
+			return 1;
+		if (listProduct.size() <= 10)
+			return 1;
+		int totalPage = listProduct.size() / 10;
+		if (listProduct.size() % 10 == 0)
+			return totalPage;
+		return totalPage + 1;
 
 	}
 

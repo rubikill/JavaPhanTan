@@ -29,8 +29,8 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th style="width: 1%" hidden="true" />
-						<th style="width: 19%">Email <i class="fa fa-sort"></i></th>
+						<th style="width: 4%">Id<i class="fa fa-sort"></i></th>
+						<th style="width: 15%">Email <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Quantity <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Order date <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Delivery date <i class="fa fa-sort"></i></th>
@@ -44,7 +44,7 @@
 				<tbody>
 					<c:forEach var="history" items="${listHistory}" varStatus="status">
 						<tr class="rowHistory" id="rowHistory${status.index}">
-							<td id="0" hidden="true">${history.id }</td>
+							<td id="0">${history.id }</td>
 							<td id="1">${history.email }</td>
 							<td id="2">${history.quantity }</td>
 							<fmt:formatDate value="${history.orderDate}" pattern="dd/MM/yyyy"
@@ -60,7 +60,9 @@
 							<td id="7">${history.paymentStatus}</td>
 							<td id="8">${history.status }</td>
 							<td>
-								<button class="open-HistoryEditDialog btn btn-info"
+								<button class="btn btn-info"
+									onClick="window.location.href='/admin/orders/${history.id }'">Detail</button>
+								<button class="open-HistoryEditDialog btn btn-warning"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
 								<button class="open-HistoryActiveDialog  btn btn-success"
@@ -69,6 +71,7 @@
 								<button class="open-HistoryDeactiveDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#deactiveModal">Deactive</button>
+
 							</td>
 						</tr>
 					</c:forEach>

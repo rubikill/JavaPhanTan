@@ -1,7 +1,6 @@
 package co.hcmus.controllers;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,12 +9,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import co.hcmus.models.Promotion;
 import co.hcmus.services.IPromotionService;
 import co.hcmus.util.STATUS;
@@ -30,14 +29,11 @@ public class PromotionController {
 	/**
 	 * ADMIN PAGE - Manage promotion (load)
 	 * 
-	 * @param locale
-	 * @param model
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions", method = RequestMethod.GET)
-	public String getPromotions(Locale locale, Model model,
-			HttpServletRequest request) {
+	public String getPromotions(HttpServletRequest request) {
 		prepairData(request);
 		return "promotion";
 	}
@@ -45,31 +41,23 @@ public class PromotionController {
 	/**
 	 * ADMIN PAGE - ADD new Promotion
 	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param promotion
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/add", method = RequestMethod.POST)
-	public String addPromotion(Locale locale, Model model,
-			HttpServletRequest request, Promotion promotion) {
+	public String addPromotion(Promotion promotion) {
 		promotionService.addPromotion(promotion);
 		return "redirect:/admin/promotions";
 	}
 
 	/**
-	 * ADMIN PAGE - Block a promotion
+	 * ADMIN PAGE - Deactive a promotion
 	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/block/{id}", method = RequestMethod.GET)
-	public String blockPromotion(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String blockPromotion(@PathVariable String id) {
 		Promotion promotion = promotionService.getPromotionById(id);
 		promotion.setStatus(STATUS.INACTIVE.getStatusCode());
 		promotionService.updatePromotion(promotion);
@@ -78,34 +66,26 @@ public class PromotionController {
 
 	/**
 	 * ADMIN PAGE - Active a promotion
-	 * @param locale
-	 * @param model
-	 * @param request
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/active/{id}", method = RequestMethod.GET)
-	public String activePromotion(Locale locale, Model model,
-			HttpServletRequest request, @PathVariable String id) {
+	public String activePromotion(@PathVariable String id) {
 		Promotion promotion = promotionService.getPromotionById(id);
 		promotion.setStatus(STATUS.ACTIVE.getStatusCode());
 		promotionService.updatePromotion(promotion);
 		return "redirect:/admin/promotions";
 	}
 
-	
 	/**
 	 * ADMIN PAGE - Edit a promotion
 	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param promotion
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/promotions/edit", method = RequestMethod.POST)
-	public String editPromotion(Locale locale, Model model,
-			HttpServletRequest request, Promotion promotion) {
+	public String editPromotion(Promotion promotion) {
 		promotionService.updatePromotion(promotion);
 		return "redirect:/admin/promotions";
 	}

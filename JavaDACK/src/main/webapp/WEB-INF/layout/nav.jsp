@@ -14,7 +14,7 @@
 		<a href="/admin/producttype"><i class="fa fa-tag"></i> Product Type</a>
 	</li>
 	<li class=${nav == "products"? 'active' : ''}>
-		<a href="/admin/products"><i class="fa fa-suitcase"></i> All Product</a>
+		<a href="/admin/products?Page=1"><i class="fa fa-suitcase"></i> All Product</a>
 		</li>	
 	<li class=${nav == "promotions"? 'active' : ''}>
 		<a href="/admin/promotions"><i class="fa fa-bullhorn"></i> Promotion Manage</a>

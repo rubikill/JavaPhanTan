@@ -138,7 +138,7 @@ public class ShopCartController {
 	 * @param session
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+
 	@RequestMapping(value = "/cart/updateCart", method = RequestMethod.PUT, headers = "Accept=application/json")
 	public ResponseEntity<String> updateCart(@RequestBody String json,
 			HttpSession session) {

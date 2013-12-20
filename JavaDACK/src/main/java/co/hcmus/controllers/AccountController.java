@@ -49,112 +49,67 @@ public class AccountController {
 	private IAccountTypeService accountTypeService;
 
 	/**
-	 * Controller to mapping admin page - MANAGE ACCOUNT
+	 * ADMIN PAGE - Controller to mapping admin page - MANAGE ACCOUNT
 	 * 
-	 * @param locale
-	 * @param model
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/account", method = RequestMethod.GET)
-	public String accounts(Locale locale, Model model,
-			HttpServletRequest request) {
+	public String accounts(HttpServletRequest request) {
 		prepairData(request);
 		return "accounts";
 	}
 
 	/**
-	 * ADMIN PAGE - Block an account
+	 * ADMIN PAGE - Deactive an account
 	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param account
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
-	public String blockPromotion(Locale locale, Model model,
-			HttpServletRequest request, Account account) {
+	public String blockPromotion(Account account) {
 		account = accountService.getAccount(account.getEmail());
-		account.setStatus(STATUS.BLOCK.getStatusCode());
+		account.setStatus(STATUS.INACTIVE.getStatusCode());
 		accountService.updateAccount(account);
 		return "redirect:/admin/accounts";
 	}
 
 	/**
 	 * ADMIN PAGE - Active an account
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param account
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/account/active", method = RequestMethod.POST)
-	public String activePromotion(Locale locale, Model model,
-			HttpServletRequest request, Account account) {
+	public String activePromotion(Account account) {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.ACTIVE.getStatusCode());
 		accountService.updateAccount(account);
 		return "redirect:/admin/accounts";
 	}
+
 	/**
 	 * ADMIN PAGE - Edit an account passing from MANAGE ACCOUNT
-	 * 
-	 * @param locale
-	 * @param model
-	 * @param request
 	 * @param account
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/account/edit", method = RequestMethod.POST)
-	public String editAccount(Locale locale, Model model,
-			HttpServletRequest request, Account account) {
-
-		// System.out.println("email:" + account.getEmail());
-		// System.out.println("account:" + account.getName());
-
+	public String editAccount(Account account) {
 		// TODO add MD5 hash password
-
 		accountService.updateAccount(account);
-		
-		//
-		// Account account1 = new Account();
-		// model.addAttribute("account", account1);
 		return "redirect:/admin/accounts";
 	}
 
+	/**
+	 * ADMIN PAGE - Create new account
+	 * @param account
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/account/create", method = RequestMethod.POST)
-	public String createAccount(Locale locale, Model model,
-			HttpServletRequest request, Account account) {
-
-		// System.out.println("email:" + account.getEmail());
-		// System.out.println("account:" + account.getName());
-
+	public String createAccount(Account account) {
 		// TODO add MD5 hash password
-
 		accountService.addAccount(account);
-		//
-		// Account account1 = new Account();
-		// model.addAttribute("account", account1);
 		return "redirect:/admin/accounts";
 	}
-	
-	
-	// @RequestMapping(value = "/admin/account/block", method =
-	// RequestMethod.POST)
-	// public String blockAccount(Locale locale, Model model,
-	// HttpServletRequest request, Account account) {
-	//
-	// System.out.println("email:" + account.getEmail());
-	// System.out.println("account:" + account.getName());
-	//
-	// accountService.updateAccount(account);
-	// prepairData(request);
-	//
-	// Account account1 = new Account();
-	// model.addAttribute("account", account1);
-	// return "accounts";
-	// }
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String login(Locale locale, Model model, HttpServletRequest request) {
@@ -174,18 +129,8 @@ public class AccountController {
 	 */
 	private void prepairData(HttpServletRequest request) {
 		List<Account> listAccount = accountService.getAccounts();
-
-		AccountType act = listAccount.get(0).getAccountType();
-		if (act != null) {
-			System.out.println(act.getName());
-		} else
-			System.out.println("ACT NULL");
-
 		List<AccountType> listAccountType = accountTypeService
 				.getAccountTypes();
-		for (int i = 0; i < listAccountType.size(); i++) {
-			// System.out.println(listAccountType.get(i).getName());
-		}
 		Account account = new Account();
 		request.setAttribute("account", account);
 		request.setAttribute("listAccountType", listAccountType);
@@ -299,7 +244,7 @@ public class AccountController {
 		try {
 			JsonNode jsonNode = mapper.readTree(json);
 			account.setEmail(jsonNode.path("email").getTextValue());
-			
+
 			if (accountService.getAccount(account.getEmail()) != null) {
 				return new ResponseEntity<String>(
 						"{\"message\" : \"This email has been used\"}",

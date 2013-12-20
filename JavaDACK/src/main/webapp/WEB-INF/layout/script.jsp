@@ -89,6 +89,7 @@ $(document).on("click", ".open-ProductBlockDialog", function ()
 {  
 	var index = $(this).data('id'); 
 	$(".modal-dialog #inputProductId").val($("#rowProduct" + index + " #0").text()); 
+	$(".modal-dialog #inputCurrentPage").val($("#rowProduct" + index + " #18").text()); 
 });
 
 <!-- Fill text field in Modal fade Product Active dialog-->
@@ -96,7 +97,11 @@ $(document).on("click", ".open-ProductActiveDialog", function ()
 {  
 	var index = $(this).data('id'); 
 	$(".modal-dialog #inputProductId").val($("#rowProduct" + index + " #0").text()); 
+	$(".modal-dialog #inputCurrentPage").val($("#rowProduct" + index + " #18").text()); 
 });
+
+
+
 
 <!-- Fill text field in Modal fade Product Detail dialog-->
 $(document).on("click", ".open-ProductDetailDialog", function () 
@@ -136,6 +141,7 @@ $(document).on("click", ".open-ProductEditDialog", function ()
 			$(".modal-body #inputWarranty").val($("#rowProduct" + index + " #11").text());
 			$(".modal-body #inputWeight").val($("#rowProduct" + index + " #12").text());
 			$(".modal-body #inputHeight").val($("#rowProduct" + index + " #13").text());
+			$(".modal-dialog #inputCurrentPage").val($("#rowProduct" + index + " #18").text()); 
 			});
 		
 
@@ -219,6 +225,27 @@ $(document).on("click", ".open-HistoryEditDialog", function ()
 	
 });
 
+<!-- ==================================== (ORDER) HISTORY_DETAIL ==================================-->
+
+<!-- Fill text field in Modal fade HISTORY_DETAIL EDIT dialog-->
+$(document).on("click", ".open-HistoryDetailEditDialog", function () 
+{ 
+	var index = $(this).data('id'); 	
+	$(".editModal #id").val($("#rowHistoryDetail" + index + " #0").text());
+	$(".editModal #productId").val($("#rowHistoryDetail" + index + " #1").text()); 
+	$(".editModal #quantity").val($("#rowHistoryDetail" + index + " #2").text()); 
+	$(".editModal #status").val($("#rowHistoryDetail" + index + " #3").text());
+	
+});
+
+<!-- Fill text field in Modal fade HISTORY_DETAIL BLOCK dialog-->
+$(document).on("click", ".open-HistoryDetailBlockDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputId").val($("#rowAccount" + index + " #0").text()); 
+});
+
+
 <!--======================= PAYMENT TYPE ====================-->
 
 <!-- Set href for button in Modal fade PAYMENT TYPE ACTIVE dialog-->
@@ -261,7 +288,7 @@ $(document).on("click", ".open-ManufacturerDeactiveDialog", function ()
 	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/manufacturer/deactive/" + $("#rowManufacturer" + index + " #0").text()+ "';"); 
 });
 
-<!-- Fill text field in Modal fade PRODUCT TYPE EDIT dialog-->
+<!-- Fill text field in Modal fade MANUFACTURER EDIT dialog-->
 $(document).on("click", ".open-ManufacturerEditDialog", function () 
 { 
 	var index = $(this).data('id'); 	
