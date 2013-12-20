@@ -1,10 +1,15 @@
 package co.hcmus.provider;
 
 import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Encrypt file
@@ -12,6 +17,9 @@ import java.security.NoSuchAlgorithmException;
  *
  */
 public class EncryptFileProvider implements EncryptProvider {
+	
+	private static final Logger logger = LoggerFactory.getLogger(EncryptFileProvider.class);
+	
 	public EncryptFileProvider() {
 
 	}
@@ -44,10 +52,13 @@ public class EncryptFileProvider implements EncryptProvider {
 						.substring(1));
 			}
 			fis.close();
+			logger.info("EncryptFileProvider do Hash");
 			return sb;
 		} catch (NoSuchAlgorithmException e) {
+			logger.error("Error EncryptFileProvider NoSuchAlgorithmException dohash ");
 			e.printStackTrace();
 		} catch (IOException e) {
+			logger.error("Error EncryptFileProvider IOException dohash ");
 			e.printStackTrace();
 		}
 

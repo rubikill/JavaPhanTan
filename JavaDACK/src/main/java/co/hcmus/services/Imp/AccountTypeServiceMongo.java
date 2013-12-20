@@ -2,6 +2,8 @@ package co.hcmus.services.Imp;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,9 @@ import co.hcmus.util.STATUS;
 @Transactional
 public class AccountTypeServiceMongo implements IAccountTypeService {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(AccountTypeServiceMongo.class);
+	
 	@Autowired
 	private IAccountTypeDAO accountTypeDAO;
 	@Autowired
@@ -29,18 +34,21 @@ public class AccountTypeServiceMongo implements IAccountTypeService {
 
 	@Override
 	public void addAccountType(AccountType accountType) {
+		logger.info("AccountTypeServiceMongo add accountType with name : " + accountType.getName());
 		accountTypeDAO.addAccountType(accountType);
 
 	}
 
 	@Override
 	public void updateAccountType(AccountType accountType) {
+		logger.info("AccountTypeServiceMongo update accountType with id : " + accountType.getId());
 		accountTypeDAO.updateAccountType(accountType);
 
 	}
 
 	@Override
 	public AccountType getAccountType(String id) {
+		logger.info("AccountTypeServiceMongo get accountType with id : " + id);
 		return accountTypeDAO.getAccountType(id);
 	}
 
@@ -57,11 +65,13 @@ public class AccountTypeServiceMongo implements IAccountTypeService {
 		for (PermissionDetail permissionDetail : listPermissionDetail)
 			permissionDetailService.deletePermissionDetail(permissionDetail
 					.getId());
+		logger.info("AccountTypeServiceMongo delete accountType with id : " + id);
 		accountTypeDAO.deleteAccountType(id);
 	}
 
 	@Override
 	public List<AccountType> getAccountTypes() {
+		logger.info("AccountTypeServiceMongo get all AccountType");
 		return accountTypeDAO.getAccountTypes();
 	}
 

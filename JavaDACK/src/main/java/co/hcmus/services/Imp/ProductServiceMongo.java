@@ -2,6 +2,8 @@ package co.hcmus.services.Imp;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,10 @@ import co.hcmus.util.STATUS;
 @Service("productService")
 @Transactional
 public class ProductServiceMongo implements IProductService {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProductServiceMongo.class);
+	
 	@Autowired
 	private IProductDAO productDAO;
 	@Autowired
@@ -43,12 +49,14 @@ public class ProductServiceMongo implements IProductService {
 	@Override
 	public void addProduct(Product product) {
 		// TODO Auto-generated method stub
+		logger.info("ProductServiceMongo add product with Name : " + product.getName());
 		productDAO.addProduct(product);
 	}
 
 	@Override
 	public void updateProduct(Product product) {
 		// TODO Auto-generated method stub
+		logger.info("ProductServiceMongo update product with Id : " + product.getName());
 		productDAO.updateProduct(product);
 	}
 
@@ -64,6 +72,7 @@ public class ProductServiceMongo implements IProductService {
 				.getProductTypeId()));
 		product.setManufacturer(manufacturerService.getManufacturerById(product
 				.getManufacturerId()));
+		logger.info("ProductServiceMongo get product with Id : " + id);
 		return product;
 	}
 
@@ -82,6 +91,7 @@ public class ProductServiceMongo implements IProductService {
 				STATUS.ACTIVE.getStatusCode());
 		for (Comment cm : listComment)
 			commentService.deleteComment(cm.getId());
+		logger.info("ProductServiceMongo delete product with Id : " + id);
 		productDAO.deleteProduct(id);
 
 	}
@@ -107,6 +117,7 @@ public class ProductServiceMongo implements IProductService {
 					manufacturerService.getManufacturerById(listProduct.get(i)
 							.getManufacturerId()));
 		}
+		logger.info("ProductServiceMongo get all  product");
 		return listProduct;
 	}
 
@@ -131,6 +142,7 @@ public class ProductServiceMongo implements IProductService {
 					manufacturerService.getManufacturerById(listProduct.get(i)
 							.getManufacturerId()));
 		}
+		logger.info("ProductServiceMongo get product by productTypeId : " + id);
 		return listProduct;
 	}
 
@@ -156,28 +168,33 @@ public class ProductServiceMongo implements IProductService {
 					manufacturerService.getManufacturerById(listProduct.get(i)
 							.getManufacturerId()));
 		}
+		logger.info("ProductServiceMongo get product by ManufactuerId : " + id);
 		return listProduct;
 	}
 
 	@Override
 	public void saveImage(String name, String path) {
+		logger.info("ProductServiceMongo save Image with Name : " + name);
 		productDAO.saveImage(name, path);
 
 	}
 
 	@Override
 	public GridFSDBFile getImageByName(String name) {
+		logger.info("ProductServiceMongo get Image by name: " + name);
 		return productDAO.getImageByName(name);
 	}
 
 	@Override
 	public void writeImage(String name, String path) {
+		logger.info("ProductServiceMongo write image by name : " + name);
 		productDAO.writeImage(name, path);
 
 	}
 
 	@Override
 	public void deleteImageByName(String name) {
+		logger.info("ProductServiceMongo delete Image by Name : " + name);
 		productDAO.deleteImageByName(name);
 
 	}
@@ -204,6 +221,7 @@ public class ProductServiceMongo implements IProductService {
 					manufacturerService.getManufacturerById(listProduct.get(i)
 							.getManufacturerId()));
 		}
+		logger.info("ProductServiceMongo get product by productStateId : " + id);
 		return listProduct;
 	}
 
@@ -229,12 +247,14 @@ public class ProductServiceMongo implements IProductService {
 					manufacturerService.getManufacturerById(listProduct.get(i)
 							.getManufacturerId()));
 		}
+		logger.info("ProductServiceMongo search product by name : " + name);
 		return listProduct;
 	}
 
 	@Override
 	public Product getProductByName(String name) {
 		// TODO Auto-generated method stub
+		logger.info("ProductServiceMongo get product by name : " + name);
 		return productDAO.getProductByName(name);
 	}
 
@@ -253,6 +273,7 @@ public class ProductServiceMongo implements IProductService {
 				STATUS.INACTIVE.getStatusCode());
 		for (Comment cm : listComment)
 			commentService.activeComment(cm.getId());
+		logger.info("ProductServiceMongo active product by Id : " + id);
 		productDAO.activeProduct(id);
 
 	}

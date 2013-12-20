@@ -83,7 +83,7 @@ public class SendMailHelper {
 		String smtpServer = Constant.SMTP_GMAIL;
 		String from = Constant.SHOP_EMAIL;
 		String password = Constant.SHOP_EMAIL_PASSWORD;
-
+		logger.info("Send Email");
 		this.send(smtpServer, email.reciver, from, password, email.subject,
 				email.body);
 	}
