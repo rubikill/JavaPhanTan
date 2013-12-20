@@ -2,6 +2,8 @@ package co.hcmus.daos.Imp;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,6 +19,9 @@ import co.hcmus.util.STATUS;
 @Transactional
 public class ManufacturerDAOMongo implements IManufacturerDAO {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(ManufacturerDAOMongo.class);
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
@@ -28,6 +33,7 @@ public class ManufacturerDAOMongo implements IManufacturerDAO {
 			mongoTemplate.createCollection(Manufacturer.class);
 		}
 		// insert a document
+		logger.info("ManufacturerDAOMongo add Manufacturer");
 		mongoTemplate.insert(manufacturer, COLLECTION_NAME);
 
 	}
@@ -35,6 +41,7 @@ public class ManufacturerDAOMongo implements IManufacturerDAO {
 	@Override
 	public void updateManufacturer(Manufacturer manufacturer) {
 		// update a document
+		logger.info("ManufacturerDAOMongo update Manufacturer with Id : " + manufacturer.getId());
 		mongoTemplate.save(manufacturer, COLLECTION_NAME);
 
 	}
@@ -42,6 +49,7 @@ public class ManufacturerDAOMongo implements IManufacturerDAO {
 	@Override
 	public Manufacturer getManufacturerById(String id) {
 		Query searchManufaturerQuery = new Query(Criteria.where("_id").is(id));
+		logger.info("ManufacturerDAOMongo get Manufacturer with Id : " + id);
 		return mongoTemplate.findOne(searchManufaturerQuery,
 				Manufacturer.class, COLLECTION_NAME);
 	}
@@ -51,12 +59,14 @@ public class ManufacturerDAOMongo implements IManufacturerDAO {
 		// TODO Auto-generated method stub
 		Manufacturer manufacturer = getManufacturerById(id);
 		manufacturer.setStatus(STATUS.INACTIVE.getStatusCode());
+		logger.info("ManufacturerDAOMongo delete Manufacturer with Id : " + id);
 		mongoTemplate.save(manufacturer, COLLECTION_NAME);
 	}
 
 	@Override
 	public List<Manufacturer> getManufacturers() {
 		// get all docuemnt
+		logger.info("ManufacturerDAOMongo get all Manufacturer");
 		return mongoTemplate.findAll(Manufacturer.class, COLLECTION_NAME);
 	}
 

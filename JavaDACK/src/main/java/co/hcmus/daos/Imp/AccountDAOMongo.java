@@ -2,13 +2,15 @@ package co.hcmus.daos.Imp;
 
 import java.util.List;
 
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import co.hcmus.daos.IAccountDAO;
 import co.hcmus.models.Account;
 import co.hcmus.util.STATUS;
@@ -22,7 +24,9 @@ import co.hcmus.util.STATUS;
 @Repository("accountDAO")
 @Transactional
 public class AccountDAOMongo implements IAccountDAO {
-
+	private static final Logger logger = LoggerFactory
+			.getLogger(AccountDAOMongo.class);
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	public static final String COLLECTION_NAME = "account"; // Collection name
@@ -34,18 +38,21 @@ public class AccountDAOMongo implements IAccountDAO {
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
 		}
+		logger.info("AccountDAOMongo add account");
 		mongoTemplate.insert(account, COLLECTION_NAME);
 	}
 
 	// Get all Accounts
 	@Override
 	public List<Account> getAccounts() {
+		logger.info("AccountDAOMongo get all accounts");
 		return mongoTemplate.findAll(Account.class, COLLECTION_NAME);
 	}
 
 	// Update an Account
 	@Override
 	public void updateAccount(Account account) {
+		logger.info("AccountDAOMongo update Account with Email :" + account.getEmail());
 		mongoTemplate.save(account, COLLECTION_NAME);
 	}
 
@@ -54,6 +61,7 @@ public class AccountDAOMongo implements IAccountDAO {
 	public void deleteAccount(String email) {
 		Account account = getAccount(email);
 		account.setStatus(STATUS.INACTIVE.getStatusCode());
+		logger.info("AccountDAOMongo delete Account with Email :" + email);
 		mongoTemplate.save(account, COLLECTION_NAME);
 	}
 
@@ -63,7 +71,7 @@ public class AccountDAOMongo implements IAccountDAO {
 		Query searchAccountQuery = new Query(Criteria.where("email").is(email));
 
 		System.out.println("query:" + searchAccountQuery.toString());
-
+		logger.info("AccountDAOMongo get Account with Email :" + email);
 		return mongoTemplate.findOne(searchAccountQuery, Account.class,
 				COLLECTION_NAME);
 	}
@@ -81,7 +89,7 @@ public class AccountDAOMongo implements IAccountDAO {
 					.where("accountTypeId").is(accountTypeId).and("status")
 					.is(status));
 		}
-
+		logger.info("AccountDAOMongo get Accounts by Type with TypeId :" + accountTypeId);
 		return mongoTemplate.find(searchAccountByAccountTypeIdQuery,
 				Account.class, COLLECTION_NAME);
 	}

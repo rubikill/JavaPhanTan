@@ -2,6 +2,8 @@ package co.hcmus.daos.Imp;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,6 +19,9 @@ import co.hcmus.util.STATUS;
 @Transactional
 public class ProductDetailDAOMongo implements IProductDetailDAO {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProductDetailDAOMongo.class);
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
@@ -28,6 +33,7 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 			mongoTemplate.createCollection(ProductDetail.class);
 		}
 		// insert a document
+		logger.info("ProductDetailDAOMongo add productDetail");
 		mongoTemplate.insert(productDetail, COLLECTION_NAME);
 
 	}
@@ -35,6 +41,7 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 	@Override
 	public void updateProductDetail(ProductDetail productDetail) {
 		// update a document
+		logger.info("ProductDetailDAOMongo update productDetail with Id : " + productDetail.getId());
 		mongoTemplate.save(productDetail, COLLECTION_NAME);
 
 	}
@@ -42,6 +49,7 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 	@Override
 	public ProductDetail getProductDetailById(String id) {
 		Query searchProductDetailQuery = new Query(Criteria.where("_id").is(id));
+		logger.info("ProductDetailDAOMongo get productDetail with Id : " + id);
 		return mongoTemplate.findOne(searchProductDetailQuery,
 				ProductDetail.class, COLLECTION_NAME);
 	}
@@ -51,12 +59,14 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 		// TODO Auto-generated method stub
 		ProductDetail productDetail = getProductDetailById(id);
 		productDetail.setStatus(STATUS.INACTIVE.getStatusCode());
+		logger.info("ProductDetailDAOMongo delete productDetail with Id : " + id);
 		mongoTemplate.save(productDetail, COLLECTION_NAME);
 	}
 
 	@Override
 	public List<ProductDetail> getProductDetails() {
 		// get all docuemnt
+		logger.info("ProductDetailDAOMongo get all  productDetail ");
 		return mongoTemplate.findAll(ProductDetail.class, COLLECTION_NAME);
 	}
 
@@ -64,6 +74,7 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 	public ProductDetail getProductDetailByProductId(String productId) {
 		// TODO Auto-generated method stub
 		Query searchProductDetailByProductIdQuery = new Query(Criteria.where("productId").is(productId));
+		logger.info("ProductDetailDAOMongo get productDetail by ProductId : " + productId);
 		return mongoTemplate.findOne(searchProductDetailByProductIdQuery,
 				ProductDetail.class, COLLECTION_NAME);
 	}
@@ -72,6 +83,7 @@ public class ProductDetailDAOMongo implements IProductDetailDAO {
 	public void activeProductDetail(String id) {
 		ProductDetail productDetail = getProductDetailById(id);
 		productDetail.setStatus(STATUS.ACTIVE.getStatusCode());
+		logger.info("ProductDetailDAOMongo active productDetail with id : " + id);
 		mongoTemplate.save(productDetail, COLLECTION_NAME);
 		
 	}

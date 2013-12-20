@@ -2,6 +2,8 @@ package co.hcmus.daos.Imp;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,6 +19,10 @@ import co.hcmus.util.STATUS;
 @Repository("commentDAO")
 @Transactional
 public class CommentDAOMongo implements ICommentDAO {
+	
+	private static final Logger logger = LoggerFactory
+			.getLogger(CommentDAOMongo.class);
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
@@ -28,6 +34,7 @@ public class CommentDAOMongo implements ICommentDAO {
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
 		}
+		logger.info("CommentDAOMongo add comment");
 		mongoTemplate.insert(comment, COLLECTION_NAME);
 
 	}
@@ -35,6 +42,7 @@ public class CommentDAOMongo implements ICommentDAO {
 	// Update a Comment
 	@Override
 	public void updateComment(Comment comment) {
+		logger.info("CommentDAOMongo update comment with Id :" + comment.getId());
 		mongoTemplate.save(comment, COLLECTION_NAME);
 
 	}
@@ -43,6 +51,7 @@ public class CommentDAOMongo implements ICommentDAO {
 	@Override
 	public Comment getComment(String id) {
 		Query searchCommentQuery = new Query(Criteria.where("_id").is(id));
+		logger.info("CommentDAOMongo get comment with Id :" + id);
 		return mongoTemplate.findOne(searchCommentQuery, Comment.class,
 				COLLECTION_NAME);
 	}
@@ -57,6 +66,7 @@ public class CommentDAOMongo implements ICommentDAO {
 				STATUS.ACTIVE.getStatusCode());
 		for (Comment commentTemp : listComment)
 			deleteComment(commentTemp.getId());
+		logger.info("CommentDAOMongo delete comment with Id :" + id);
 		mongoTemplate.save(comment, COLLECTION_NAME);
 
 	}
@@ -64,6 +74,7 @@ public class CommentDAOMongo implements ICommentDAO {
 	// Get all Comment
 	@Override
 	public List<Comment> getComments() {
+		logger.info("CommentDAOMongo get all comments");
 		return mongoTemplate.findAll(Comment.class, COLLECTION_NAME);
 	}
 
@@ -71,6 +82,7 @@ public class CommentDAOMongo implements ICommentDAO {
 	public List<Comment> getCommentByEmail(String email, String status) {
 		Query searchCommentByEmailQuery = new Query(Criteria.where("email")
 				.is(email).and("status").is(status));
+		logger.info("CommentDAOMongo get comment with Email :" + email);
 		return mongoTemplate.find(searchCommentByEmailQuery, Comment.class,
 				COLLECTION_NAME);
 	}
@@ -79,6 +91,7 @@ public class CommentDAOMongo implements ICommentDAO {
 	public List<Comment> getCommentByProductId(String productId, String status) {
 		Query searchCommentByEmailQuery = new Query(Criteria.where("productId")
 				.is(productId).and("status").is(status));
+		logger.info("CommentDAOMongo get comment with productId :" + productId);
 		return mongoTemplate.find(searchCommentByEmailQuery, Comment.class,
 				COLLECTION_NAME);
 	}
@@ -102,6 +115,7 @@ public class CommentDAOMongo implements ICommentDAO {
 				STATUS.INACTIVE.getStatusCode());
 		for (Comment commentTemp : listComment)
 			activeComment(commentTemp.getId());
+		logger.info("CommentDAOMongo active comment with id :" +  id);
 		mongoTemplate.save(comment, COLLECTION_NAME);
 		
 	}

@@ -2,6 +2,8 @@ package co.hcmus.daos.Imp;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,6 +19,9 @@ import co.hcmus.util.STATUS;
 @Transactional
 public class ProductTypeDAOMongo implements IProductTypeDAO {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProductTypeDAOMongo.class);
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
@@ -28,6 +33,7 @@ public class ProductTypeDAOMongo implements IProductTypeDAO {
 		if (!mongoTemplate.collectionExists(ProductType.class)) {
 			mongoTemplate.createCollection(ProductType.class);
 		}
+		logger.info("ProductTypeDAOMongo add productType with name : " + productType.getName());
 		mongoTemplate.insert(productType, COLLECTION_NAME);
 
 	}
@@ -35,6 +41,7 @@ public class ProductTypeDAOMongo implements IProductTypeDAO {
 	// Update ProductType
 	@Override
 	public void updateProductType(ProductType productType) {
+		logger.info("ProductTypeDAOMongo update productType with id : " + productType.getId());
 		mongoTemplate.save(productType, COLLECTION_NAME);
 
 	}
@@ -43,6 +50,7 @@ public class ProductTypeDAOMongo implements IProductTypeDAO {
 	@Override
 	public ProductType getProductType(String id) {
 		Query searchProductTypeQuery = new Query(Criteria.where("_id").is(id));
+		logger.info("ProductTypeDAOMongo get productType with id : " + id);
 		return mongoTemplate.findOne(searchProductTypeQuery, ProductType.class,
 				COLLECTION_NAME);
 	}
@@ -52,6 +60,7 @@ public class ProductTypeDAOMongo implements IProductTypeDAO {
 	public void deleteProductType(String id) {
 		ProductType productType = getProductType(id);
 		productType.setStatus(STATUS.INACTIVE.getStatusCode());
+		logger.info("ProductTypeDAOMongo delete productType with id : " + id);
 		mongoTemplate.save(productType, COLLECTION_NAME);
 
 	}
@@ -59,6 +68,7 @@ public class ProductTypeDAOMongo implements IProductTypeDAO {
 	// Get all ProductTypes
 	@Override
 	public List<ProductType> getProductTypes() {
+		logger.info("ProductTypeDAOMongo get all producttype");
 		return mongoTemplate.findAll(ProductType.class, COLLECTION_NAME);
 	}
 

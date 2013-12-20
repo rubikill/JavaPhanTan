@@ -2,6 +2,8 @@ package co.hcmus.daos.Imp;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -18,6 +20,9 @@ import co.hcmus.util.STATUS;
 @Transactional
 public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(PermissionDetailDAOMongo.class);
+
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
@@ -29,6 +34,7 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
 		}
+		logger.info("PermissionDetailDAOMongo add PermissionDetail");
 		mongoTemplate.insert(permissionDetail, COLLECTION_NAME);
 
 	}
@@ -36,6 +42,8 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 	// update PermissionDetail
 	@Override
 	public void updatePermissionDetail(PermissionDetail permissionDetail) {
+		logger.info("PermissionDetailDAOMongo update PermissionDetail with Id : "
+				+ permissionDetail.getId());
 		mongoTemplate.save(permissionDetail, COLLECTION_NAME);
 
 	}
@@ -45,6 +53,8 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 	public PermissionDetail getPermissionDetail(String id) {
 		Query searchPermissionDetailQuery = new Query(Criteria.where("_id").is(
 				id));
+		logger.info("PermissionDetailDAOMongo get PermissionDetail with Id : "
+				+ id);
 		return mongoTemplate.findOne(searchPermissionDetailQuery,
 				PermissionDetail.class, COLLECTION_NAME);
 	}
@@ -54,6 +64,8 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 	public void deletePermissionDetail(String id) {
 		PermissionDetail permissionDetail = getPermissionDetail(id);
 		permissionDetail.setStatus(STATUS.INACTIVE.getStatusCode());
+		logger.info("PermissionDetailDAOMongo delete PermissionDetail with Id : "
+				+ id);
 		mongoTemplate.save(permissionDetail, COLLECTION_NAME);
 
 	}
@@ -61,6 +73,7 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 	// Get all permissionDetail
 	@Override
 	public List<PermissionDetail> getPermissionDetails() {
+		logger.info("PermissionDetailDAOMongo get all PermissionDetails");
 		return mongoTemplate.findAll(PermissionDetail.class, COLLECTION_NAME);
 	}
 
@@ -69,6 +82,8 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 			String status) {
 		Query searchPermissionDetailByPermissionIdQuery = new Query(Criteria
 				.where("permissionId").is(id).and("status").is(status));
+		logger.info("PermissionDetailDAOMongo get Permissiondetail by permissionid : "
+				+ id);
 		return mongoTemplate.find(searchPermissionDetailByPermissionIdQuery,
 				PermissionDetail.class, COLLECTION_NAME);
 	}
@@ -79,6 +94,8 @@ public class PermissionDetailDAOMongo implements IPermissionDetailDAO {
 		// TODO Auto-generated method stub
 		Query searchPermissionDetailByAccountTypeIdQuery = new Query(Criteria
 				.where("accountTypeId").is(id).and("status").is(status));
+		logger.info("PermissionDetailDAOMongo get Permissiondetail by AccountTypeId : "
+				+ id);
 		return mongoTemplate.find(searchPermissionDetailByAccountTypeIdQuery,
 				PermissionDetail.class, COLLECTION_NAME);
 	}

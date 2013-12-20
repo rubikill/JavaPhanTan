@@ -2,6 +2,8 @@ package co.hcmus.daos.Imp;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -18,6 +20,9 @@ import co.hcmus.util.STATUS;
 @Transactional
 public class PointLevelDAOMongo implements IPointLevelDAO {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(PointLevelDAOMongo.class);
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	// Collection name save in MongoDB
@@ -29,6 +34,7 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 		if (!mongoTemplate.collectionExists(Account.class)) {
 			mongoTemplate.createCollection(Account.class);
 		}
+		logger.info("PointLevelDAOMongo add pointLevel");
 		mongoTemplate.insert(pointLevel, COLLECTION_NAME);
 
 	}
@@ -36,6 +42,7 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 	// Update PointLevel
 	@Override
 	public void updatePointLevel(PointLevel pointLevel) {
+		logger.info("PointLevelDAOMongo update pointLevel");
 		mongoTemplate.save(pointLevel, COLLECTION_NAME);
 
 	}
@@ -44,6 +51,7 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 	@Override
 	public PointLevel getPointLevel(String id) {
 		Query searchPointLevelQuery = new Query(Criteria.where("_id").is(id));
+		logger.info("PointLevelDAOMongo get pointLevel with Id : " + id);
 		return mongoTemplate.findOne(searchPointLevelQuery, PointLevel.class,
 				COLLECTION_NAME);
 	}
@@ -53,6 +61,7 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 	public void deletePointLevel(String id) {
 		PointLevel pointLevel = getPointLevel(id);
 		pointLevel.setStatus(STATUS.INACTIVE.getStatusCode());
+		logger.info("PointLevelDAOMongo delete pointLevel with Id : " + id);
 		mongoTemplate.save(pointLevel, COLLECTION_NAME);
 
 	}
@@ -60,6 +69,7 @@ public class PointLevelDAOMongo implements IPointLevelDAO {
 	// Get all PointLevels
 	@Override
 	public List<PointLevel> getPointLevels() {
+		logger.info("PointLevelDAOMongo get All pointLevel");
 		return mongoTemplate.findAll(PointLevel.class, COLLECTION_NAME);
 	}
 
