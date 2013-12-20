@@ -1,6 +1,7 @@
 'use strict';
 
 //Product controller
+
 function productCtrl($scope, $rootScope, $location, Product, $routeParams, Cart) {
 
     //List product
@@ -47,13 +48,13 @@ function productCtrl($scope, $rootScope, $location, Product, $routeParams, Cart)
     $scope.predicate = '+name';
 
     $scope.check = [];
-    
+
     $rootScope.compairItems = [];
 
-    $scope.compair = function (item, isCheck) {
-        if (isCheck){
-            if ($rootScope.compairItems !== undefined || $rootScope.compairItems !==  null){
-                if($rootScope.compairItems.length == 4){
+    $scope.compair = function(item, isCheck) {
+        if (isCheck) {
+            if ($rootScope.compairItems !== undefined || $rootScope.compairItems !== null) {
+                if ($rootScope.compairItems.length == 4) {
                     alertify.error("Only compair 4 product");
                 } else {
                     $rootScope.compairItems.push(item);
@@ -63,7 +64,7 @@ function productCtrl($scope, $rootScope, $location, Product, $routeParams, Cart)
 
         } else {
             for (var i = 0; i < $rootScope.compairItems.length; i++) {
-                if ($rootScope.compairItems[i].id == item.id){
+                if ($rootScope.compairItems[i].id == item.id) {
                     $rootScope.compairItems.splice(i, 1);
                     alertify.error("You have removed a product from compair list");
                 }
@@ -89,9 +90,10 @@ function productTypeCtrl($scope, $rootScope, ProductType, $routeParams) {
 }
 
 /**
-*	Product details controller
-*	Get details of product
-*/
+ *  Product details controller
+ *  Get details of product
+ */
+
 function productDetailsCtrl($scope, $rootScope, $location, $routeParams, ProductDetails, Product, Cart, Rating) {
     $scope.rating = 1;
 
@@ -150,31 +152,58 @@ function productDetailsCtrl($scope, $rootScope, $location, $routeParams, Product
 }
 
 
-function compairCtrl ($scope, $rootScope) {
-    
+function compairCtrl($scope, $rootScope) {
+
 }
 
-function orderCtrl ($scope, $rootScope, History) {
+function orderCtrl($scope, $rootScope, History) {
     $scope.histories = [];
+
+    $scope.selectedItem = {};
+
+    $scope.confirmCanel = function(item) {
+        $('#cancelOrder').modal('show');
+        $scope.selectedItem = item;
+    }
+
+    $scope.canelHistory = function() {
+        $('#cancelOrder').modal('hide');
+        History.cancelHistory({
+            action: 'cancel',
+            id: $scope.selectedItem.id
+        }, function(data) {
+            alertify.success("You have cancel a History");
+            History.getHistory({
+
+            }, function(data) {
+                // body...
+                console.log(data);
+                $scope.histories = data;
+            });
+        }, function(response) {
+            console.log(response);
+        });
+    }
+
     History.getHistory({
 
-    }, function (data) {
+    }, function(data) {
         // body...
         console.log(data);
         $scope.histories = data;
     });
 }
 
-function filterCtrl ($scope, $rootScope, Product) {
+function filterCtrl($scope, $rootScope, Product) {
     //List product
     $scope.listProducts = [];
 
     Product.getProducts({
 
-    }, function (data) {
+    }, function(data) {
         $scope.listProducts = data;
         $scope.numberOfPages = Math.ceil($scope.listProducts.length / $scope.pageSize);
-    }, function (response) {
+    }, function(response) {
         // body...
     });
 
