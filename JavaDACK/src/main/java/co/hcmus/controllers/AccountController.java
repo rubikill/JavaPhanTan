@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,6 +39,9 @@ import co.hcmus.util.Tools;
  */
 @Controller
 public class AccountController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+	
 	@Autowired
 	private IAccountService accountService;
 
@@ -254,14 +259,14 @@ public class AccountController {
 	@RequestMapping(value = "/ping", method = RequestMethod.GET)
 	public ResponseEntity<String> ping(HttpSession session) {
 		if (session.getAttribute("email") == null) {
-			System.out.println("ping failure...");
+			logger.error("ping failure...");
 			return new ResponseEntity<String>(HttpStatus.UNAUTHORIZED);
 		} else {
 			HttpHeaders headers = new HttpHeaders();
 			headers.add("Content-Type", "application/json");
 			Account account = accountService.getAccount(session.getAttribute(
 					"email").toString());
-			System.out.println("ping success...");
+			logger.error("ping success...");
 			return new ResponseEntity<String>(Tools.toJson(account), headers,
 					HttpStatus.OK);
 		}
@@ -271,7 +276,7 @@ public class AccountController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ResponseEntity<String> logout(HttpSession session) {
 		session.removeAttribute("email");
-		System.out.println("logout...");
+		logger.info("logout...");
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
