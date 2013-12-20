@@ -19,9 +19,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.hcmus.helpers.SendMailHelper;
 import co.hcmus.models.Account;
@@ -71,7 +73,7 @@ public class AccountController {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.INACTIVE.getStatusCode());
 		accountService.updateAccount(account);
-		return "redirect:/admin/accounts";
+		return "redirect:/admin/account";
 	}
 
 	/**
@@ -84,7 +86,7 @@ public class AccountController {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.ACTIVE.getStatusCode());
 		accountService.updateAccount(account);
-		return "redirect:/admin/accounts";
+		return "redirect:/admin/account";
 	}
 
 	/**
@@ -96,7 +98,7 @@ public class AccountController {
 	public String editAccount(Account account) {
 		// TODO add MD5 hash password
 		accountService.updateAccount(account);
-		return "redirect:/admin/accounts";
+		return "redirect:/admin/account";
 	}
 
 	/**
@@ -108,11 +110,24 @@ public class AccountController {
 	public String createAccount(Account account) {
 		// TODO add MD5 hash password
 		accountService.addAccount(account);
-		return "redirect:/admin/accounts";
+		return "redirect:/admin/account";
 	}
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model, HttpServletRequest request) {
+	public String login(@RequestParam(value="error", required=false) boolean error, ModelMap model) {
+		if (error == true) {
+			// Assign an error message
+			model.put("error", "You have entered an invalid username or password!");
+		} else {
+			model.put("error", "");
+		}
+		System.out.println("AT THE LOGIN CONTROLLER");
+		return "login";
+	}
+	
+	@RequestMapping(value = "/admin/logout", method = RequestMethod.GET)
+	public String logout(Locale locale, Model model, HttpServletRequest request) {
+		System.out.println("AT THE LOGOUT CONTROLLER");
 		return "login";
 	}
 

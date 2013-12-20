@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -218,6 +219,7 @@ public class ProductController {
 	 * public String getProducts(Locale locale, Model model, HttpServletRequest
 	 * request) { request.setAttribute("nav", "products"); return "products"; }
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
 	public String productsAdmin(Locale locale, Model model,
 			HttpServletRequest request, @RequestParam("Page") int currentPage) {

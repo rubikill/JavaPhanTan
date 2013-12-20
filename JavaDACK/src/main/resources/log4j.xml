@@ -11,7 +11,7 @@
 	</appender>
 
 	<appender name="roll" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="D://log/portal.log" />
+		<param name="file" value="E://log/portal.log" />
 		<param name="append" value="true" />
 		<param name="encoding" value="UTF-8" />
 		<rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">

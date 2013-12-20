@@ -15,22 +15,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Account {
 
 	@Id
-	private String email;			// Email
-	private String name;			// Full name
-	private String phone;			// Phone number
-	private String address;			// Address
-	private Date birthday;			// Birthday
-	private String accountTypeId;	// Id in AccountType collection, define which account's type is
-	private String password;		// Password -- MD5 (incomplete - hash)
-	private String status;			// Status of account (inactive, active, block)	
-	private String token;			// Token key
-	private int point;				// Point - after reach a number of points, account type will 
-									// be changed to VIP. Limit is defined in PointLevel colection
+	private String email; 					// Email
+	private String name; 					// Full name
+	private String phone; 					// Phone number
+	private String address; 				// Address
+	private Date birthday; 					// Birthday
+	private String accountTypeId; 			// Id in AccountType collection, define which
+											// account's type is
+	private String password; 				// Password -- MD5
+	private String status; 					// Status of account (inactive, active, block)
+	private String token;					// Token key
+	private int point; 						// Point - after reach a number of points, account type
+											// will be changed to VIP. Limit is defined in PointLevel colection
 
 	private AccountType accountType;
 
 	/**
-	 * @return the email
+	 * @return Email
 	 */
 	public String getEmail() {
 		return email;
@@ -45,7 +46,7 @@ public class Account {
 	}
 
 	/**
-	 * @return the name
+	 * @return Full name
 	 */
 	public String getName() {
 		return name;
@@ -53,14 +54,14 @@ public class Account {
 
 	/**
 	 * @param name
-	 *            the name to set
+	 *            Full name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * @return the phone
+	 * @return Phone number
 	 */
 	public String getPhone() {
 		return phone;
@@ -68,7 +69,7 @@ public class Account {
 
 	/**
 	 * @param phone
-	 *            the phone to set
+	 *            Phone number to set
 	 */
 	public void setPhone(String phone) {
 		this.phone = phone;
@@ -90,7 +91,7 @@ public class Account {
 	}
 
 	/**
-	 * @return the birthday
+	 * @return Birthday
 	 */
 	public Date getBirthday() {
 		return birthday;
@@ -98,14 +99,14 @@ public class Account {
 
 	/**
 	 * @param birthday
-	 *            the birthday to set
+	 *            Birthday to set
 	 */
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
 
 	/**
-	 * @return the accountTypeId
+	 * @return Id in AccountType collection, define which account's type is
 	 */
 	public String getAccountTypeId() {
 		return accountTypeId;
@@ -120,7 +121,7 @@ public class Account {
 	}
 
 	/**
-	 * @return the password
+	 * @return Password -- MD5
 	 */
 	public String getPassword() {
 		return password;
@@ -128,14 +129,14 @@ public class Account {
 
 	/**
 	 * @param password
-	 *            the password to set
+	 *            Password -- MD5 to set
 	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
 	/**
-	 * @return the status
+	 * @return Status of account (Inactive, Active, Block)
 	 */
 	public String getStatus() {
 		return status;
@@ -143,14 +144,14 @@ public class Account {
 
 	/**
 	 * @param status
-	 *            the status to set
+	 *            Account's status to set, get it from STATUS
 	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
 	/**
-	 * @return the token
+	 * @return Token key
 	 */
 	public String getToken() {
 		return token;
@@ -158,14 +159,15 @@ public class Account {
 
 	/**
 	 * @param token
-	 *            the token to set
+	 *            Token key to set
 	 */
 	public void setToken(String token) {
 		this.token = token;
 	}
 
 	/**
-	 * @return the point
+	 * @return Point - after reach a number of points, account type will be
+	 *         changed to VIP. Limit is defined in PointLevel collection
 	 */
 	public int getPoint() {
 		return point;
@@ -173,7 +175,9 @@ public class Account {
 
 	/**
 	 * @param point
-	 *            the point to set
+	 *            the point to set. After reach a number of points, account type
+	 *            will be changed to VIP. Limit is defined in PointLevel
+	 *            collection
 	 */
 	public void setPoint(int point) {
 		this.point = point;
@@ -232,5 +236,4 @@ public class Account {
 		this.accountType = accountType;
 	}
 
-	
 }
