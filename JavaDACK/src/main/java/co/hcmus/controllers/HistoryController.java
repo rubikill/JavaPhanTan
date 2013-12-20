@@ -51,7 +51,7 @@ import co.hcmus.util.Tools;
 public class HistoryController {
 	
 	private static final Logger logger = LoggerFactory
-			.getLogger(HistoryController.class);
+	.getLogger(HistoryController.class);
 	@Autowired
 	private IHistoryService historyService;
 	@Autowired
@@ -335,127 +335,27 @@ public class HistoryController {
 	 * @param session
 	 * @return
 	 */
-	/*@RequestMapping(value = "/history/cancel/{id}", method = RequestMethod.POST, headers = "Accept=application/json")
+	@RequestMapping(value = "/history/cancel/{id}", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> updateCart(@PathVariable("id") String id,
 		HttpSession session) {
-		
+		/*
 		 * { "historyId":xxx, "cart": { ... } ","paymentId":... }
-		 
+		 */
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
-		logger.info("Update History");
-		History history = new History();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			String id = (String) session.getAttribute("historyId");
-			// parse json String to jsonNode
-			JsonNode jsonNode = mapper.readTree(json);
-			// get list cart item from json
-			@SuppressWarnings("deprecation")
-			List<Cart> listCartToUpdate = (List<Cart>) Tools.fromJsonToArray(
-					jsonNode.getPath("cart").getTextValue(), Cart.class);
-			int quantity = 0;
-			for (int i = 0; i < listCartToUpdate.size(); i++) {
-				Cart cart = listCartToUpdate.get(i);
-				quantity += cart.getCount();
-				HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
-						cart.getId(), STATUS.ACTIVE.getStatusCode());
-				historyDetailSevice.updateHistoryDetail(hd);
-			}
-
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-			// parse payment date
-			Date paymentDate = formatter.parse(jsonNode.path("paymentDate")
-					.getTextValue());
-			// parse deliver date
-			Date deliveryDate = formatter.parse(jsonNode
-					.path("paymentDelivery").getTextValue());
-			// parse paymentTypeId
-			String paymentTypeID = jsonNode.path("paymentTypeId")
-					.getTextValue();
-			// parse paymentStatus
-			String paymentStatus = jsonNode.path("paymentStatus")
-					.getTextValue();
-			// Get email from session
-			String email = (String) session.getAttribute("email");
 		try{
+			
 			History history = historyService.getHistory(id);
 
 			history.setStatus(STATUS.DISABLE.getStatusCode());
-
+			logger.info("Cancel history scusses");
 			historyService.updateHistory(history);
-			logger.info("Update History successful with Id : " + id);
-			session.setAttribute("ShopCart", listCartToUpdate);
 
-		} catch (JsonProcessingException e) {
-			logger.error("Error Update History JsonProcessingException");
-			e.printStackTrace();
-		} catch (IOException e) {
-			logger.error("Error Update History IOException");
-			e.printStackTrace();
-		} catch (ParseException e) {
-			logger.error("Error Update History ParseException");
-			e.printStackTrace();
 			return new ResponseEntity<String>(headers, HttpStatus.OK);
 		} catch(Exception ex){
+			logger.error("Error cancel history");
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
-
-		// History history = new History();
-		// ObjectMapper mapper = new ObjectMapper();
-		// try {
-		// 	String id = (String) session.getAttribute("historyId");
-		// 	// parse json String to jsonNode
-		// 	JsonNode jsonNode = mapper.readTree(json);
-		// 	// get list cart item from json
-		// 	@SuppressWarnings("deprecation")
-		// 	List<Cart> listCartToUpdate = (List<Cart>) Tools.fromJsonToArray(
-		// 			jsonNode.getPath("cart").getTextValue(), Cart.class);
-		// 	int quantity = 0;
-		// 	for (int i = 0; i < listCartToUpdate.size(); i++) {
-		// 		Cart cart = listCartToUpdate.get(i);
-		// 		quantity += cart.getCount();
-		// 		HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
-		// 				cart.getId(), STATUS.ACTIVE.getStatusCode());
-		// 		historyDetailSevice.updateHistoryDetail(hd);
-		// 	}
-
-		// 	SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		// 	// parse payment date
-		// 	Date paymentDate = formatter.parse(jsonNode.path("paymentDate")
-		// 			.getTextValue());
-		// 	// parse deliver date
-		// 	Date deliveryDate = formatter.parse(jsonNode
-		// 			.path("paymentDelivery").getTextValue());
-		// 	// parse paymentTypeId
-		// 	String paymentTypeID = jsonNode.path("paymentTypeId")
-		// 			.getTextValue();
-		// 	// parse paymentStatus
-		// 	String paymentStatus = jsonNode.path("paymentStatus")
-		// 			.getTextValue();
-		// 	// Get email from session
-		// 	String email = (String) session.getAttribute("email");
-
-		// 	history = new History(email, quantity,
-		// 			STATUS.ACTIVE.getStatusCode(), paymentStatus, new Date(),
-		// 			deliveryDate, paymentDate, paymentTypeID);
-
-		// 	history.setId(id);
-
-		// 	historyService.updateHistory(history);
-
-		// 	session.setAttribute("ShopCart", listCartToUpdate);
-
-		// } catch (JsonProcessingException e) {
-		// 	e.printStackTrace();
-		// } catch (IOException e) {
-		// 	e.printStackTrace();
-		// } catch (ParseException e) {
-		// 	e.printStackTrace();
-		// }
-		// return new ResponseEntity<String>(Tools.toJson(history), headers,
-		// 		HttpStatus.OK);
-
-	}*/
+	}
 
 }
