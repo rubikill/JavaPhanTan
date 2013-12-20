@@ -60,13 +60,14 @@
 			</beans:list>
 		</beans:property>
 	</beans:bean>
-	<!--======================= Security from database =====================-->
 	<security:authentication-manager>
 		<security:authentication-provider
 			user-service-ref="userDetailsService">
 			<security:password-encoder hash="md5" />
 		</security:authentication-provider>
 	</security:authentication-manager>
+	<!--======================= Security from database =====================-->
+	
 
 	<!--security:authentication-manager> <security:authentication-provider user-service-ref="userDetailsService"> 
 		<security:password-encoder ref="passwordEncoder" /> </security:authentication-provider> 
