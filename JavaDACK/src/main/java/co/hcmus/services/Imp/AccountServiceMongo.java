@@ -2,7 +2,6 @@ package co.hcmus.services.Imp;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,25 +37,29 @@ public class AccountServiceMongo implements IAccountService {
 
 	public List<Account> getAccounts() {
 		List<Account> accounts = accountDAO.getAccounts();
-		for (int i=0; i<accounts.size(); i++) {
+		for (int i = 0; i < accounts.size(); i++) {
 			String id = accounts.get(i).getAccountTypeId();
 
 			accounts.get(i).setAccountType(accountTypeDAO.getAccountType(id));
+
 		}
-		
+
 		return accounts;
 	}
 
 	@Override
 	public Account getAccount(String email) {
-		return accountDAO.getAccount(email);
+		Account account = accountDAO.getAccount(email);
+		account.setAccountType(accountTypeDAO.getAccountType(account
+				.getAccountTypeId()));
+		return account;
 	}
 
 	@Override
 	public void deleteAccount(String email) {
 		List<Comment> listComment = commentService.getCommentByEmail(email,
 				STATUS.ACTIVE.getStatusCode());
-		for(Comment comment : listComment)
+		for (Comment comment : listComment)
 			commentService.deleteComment(comment.getId());
 		accountDAO.deleteAccount(email);
 	}

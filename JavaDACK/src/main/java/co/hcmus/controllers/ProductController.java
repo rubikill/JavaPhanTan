@@ -219,7 +219,7 @@ public class ProductController {
 	 * public String getProducts(Locale locale, Model model, HttpServletRequest
 	 * request) { request.setAttribute("nav", "products"); return "products"; }
 	 */
-	@Secured("ROLE_ADMIN")
+	@Secured("ROLE_NORMAL")
 	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
 	public String productsAdmin(Locale locale, Model model,
 			HttpServletRequest request, @RequestParam("Page") int currentPage) {
