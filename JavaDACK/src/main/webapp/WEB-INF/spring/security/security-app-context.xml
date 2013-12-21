@@ -14,7 +14,7 @@
 
 		<security:form-login login-page="/admin/login"
 			authentication-failure-url="/admin/login?error=true"
-			default-target-url="/admin/home" />
+			default-target-url="/admin" />
 
 		<security:logout invalidate-session="true"
 			logout-success-url="/admin/login" logout-url="/admin/logout" />

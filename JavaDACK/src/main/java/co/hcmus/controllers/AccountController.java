@@ -147,6 +147,12 @@ public class AccountController {
 		return "redirect:/admin/account";
 	}
 
+	/**
+	 * ADMIN PAGE - Login page 
+	 * @param error
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String login(
 			@RequestParam(value = "error", required = false) boolean error,
@@ -157,7 +163,7 @@ public class AccountController {
 					"You have entered an invalid username or password!");
 		} else {
 			logger.info("An user login success");
-			model.put("error", "");
+			model.put("error", null);
 		}
 		return "login";
 	}
