@@ -1,12 +1,12 @@
 package co.hcmus.controllers;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
+
+
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -276,7 +276,8 @@ public class ProductController {
 			@RequestParam(value = "inputWarranty", required = false) int warranty,
 			@RequestParam(value = "inputWeight", required = false) Double weight,
 			@RequestParam(value = "inputHeight", required = false) Double height,
-			@RequestParam("inputCurrentPage") int currentPage) {
+			@RequestParam("inputCurrentPage") int currentPage,
+			@RequestParam("inputFile") String url) {
 
 		try {
 			// update product
@@ -293,6 +294,7 @@ public class ProductController {
 			product.setDescription(description);
 			product.setProductStateId(productStateId);
 			product.setPoint(point);
+			product.setUrl(url);
 			productService.updateProduct(product);
 
 			// update productDetail
@@ -337,7 +339,7 @@ public class ProductController {
 		try {
 			logger.info("Admin crate  Product with name : " + name);
 			// Create product
-			System.out.println(url);
+			
 			Product product = new Product();
 			product.setName(name);
 			product.setProductTypeId(productTypeId);
@@ -350,6 +352,7 @@ public class ProductController {
 			product.setProductStateId(productStateId);
 			product.setPoint(point);
 			product.setStatus(status);
+			product.setUrl(url);
 			productService.addProduct(product);
 			
 			// get productid of product have created

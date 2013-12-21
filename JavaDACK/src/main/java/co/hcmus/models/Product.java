@@ -24,6 +24,15 @@ public class Product {
 	private double price; // price of product
 	private String status; // status
 	private int point; // Product's point
+	private String url;
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	private ProductDetail productDetail;
 	private ProductType productType;
 	private ProductState productState;

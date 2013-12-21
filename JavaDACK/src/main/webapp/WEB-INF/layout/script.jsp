@@ -14,8 +14,7 @@
 	src="${pageContext.request.contextPath}/admin/js/tablesorter/jquery.tablesorter.js"></script>
 <script
 	src="${pageContext.request.contextPath}/admin/js/tablesorter/tables.js"></script>
-<script
-	src="${pageContext.request.contextPath}/admin/js/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/admin/js/moment.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/admin/js/bootstrap-datetimepicker.min.js"></script>
 
@@ -145,6 +144,9 @@ $(document).on("click", ".open-ProductDetailDialog", function ()
 			$(".modal-body #inputWeight").val($("#rowProduct" + index + " #12").text());
 			$(".modal-body #inputHeight").val($("#rowProduct" + index + " #13").text());
 			$(".modal-body #inputStatus").val($("#rowProduct" + index + " #14").text());
+			$(".modal-body #imgtextDetail").val($("#rowProduct" + index + " #19").text());
+			 $(".modal-dialog #imgDetail").prop("src", $("#rowProduct" + index + " #19").text());
+	
 });
 
 <!-- Fill text field in Modal fade Edit Product  dialog-->
@@ -166,14 +168,23 @@ $(document).on("click", ".open-ProductEditDialog", function ()
 			$(".modal-body #inputWeight").val($("#rowProduct" + index + " #12").text());
 			$(".modal-body #inputHeight").val($("#rowProduct" + index + " #13").text());
 			$(".modal-dialog #inputCurrentPage").val($("#rowProduct" + index + " #18").text()); 
+			$(".modal-body #imgtextEdit").val($("#rowProduct" + index + " #19").text());
+			 $(".modal-dialog #imgEdit").prop("src", $("#rowProduct" + index + " #19").text());
 			});
 		
 
 <!-- Fill Image when click input a url image-->
 $(function() {
-	  $("#imgInp").on("change", function() {
+	  $("#imgtextCreate").on("change", function() {
 		  console.log("AAA");
-	    $("#blah").prop("src", $(this).val());
+	    $("#imgCreate").prop("src", $(this).val());
+	  });
+	});
+	
+$(function() {
+	  $("#imgtextEdit").on("change", function() {
+		  console.log("AAA");
+	    $("#imgEdit").prop("src", $(this).val());
 	  });
 	});
 
