@@ -41,9 +41,10 @@ import co.hcmus.util.Tools;
  */
 @Controller
 public class ProductController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
-	
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProductController.class);
+
 	@Autowired
 	private IProductService productService;
 
@@ -62,11 +63,11 @@ public class ProductController {
 	/**
 	 * webservice for get all product
 	 */
-	
+
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> getProducts() {
-			
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		// get all product
@@ -111,7 +112,8 @@ public class ProductController {
 		// get all product by type productID
 		List<Product> result = productService.getProductsByTypeId(id,
 				STATUS.ACTIVE.getStatusCode());
-		logger.info("Get all product have productType with productTypeId : " + id);
+		logger.info("Get all product have productType with productTypeId : "
+				+ id);
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
@@ -131,7 +133,8 @@ public class ProductController {
 		// get all product by manufacturer productID
 		List<Product> result = productService.getProductsByManufacturerId(id,
 				STATUS.ACTIVE.getStatusCode());
-		logger.info("Get all product have manufacturer with ManufacturerId : " + id);
+		logger.info("Get all product have manufacturer with ManufacturerId : "
+				+ id);
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
@@ -151,12 +154,18 @@ public class ProductController {
 		try {
 			List<Product> temp = productService.getProductByProductStateId(id,
 					STATUS.ACTIVE.getStatusCode());
-			List<Product> result = temp.subList(0, 9);
-			logger.info("Get all product have productstate with productStateId : " + id);
+			List<Product> result;
+			if (temp.size() < 10)
+				result = temp.subList(0, temp.size());
+			else
+				result = temp.subList(0, 10);
+			logger.info("Get all product have productstate with productStateId : "
+					+ id);
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
-			logger.error("Error get all  product have productstate with productStateId : " + id);
+			logger.error("Error get all  product have productstate with productStateId : "
+					+ id);
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -183,11 +192,13 @@ public class ProductController {
 				Product product = productService.getProductById(productId);
 				result.add(product);
 			}
-			logger.info("Get all product have promotion with promotionid : " + promotionid);
+			logger.info("Get all product have promotion with promotionid : "
+					+ promotionid);
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
-			logger.error("Error get all  product have promotion with promotionid : " + promotionid);
+			logger.error("Error get all  product have promotion with promotionid : "
+					+ promotionid);
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -390,7 +401,7 @@ public class ProductController {
 		try {
 			List<Product> listProduct = productService.getProducts();
 			List<Product> listResult;
-			if (listProduct.size() < 10*currentPage) {
+			if (listProduct.size() < 10 * currentPage) {
 				listResult = listProduct.subList(10 * (currentPage - 1),
 						listProduct.size());
 			} else {
