@@ -100,7 +100,7 @@
 					<h4 class="modal-title" id="myModalLabel">Edit account</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<div class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 							<div class="col-sm-10">
@@ -175,7 +175,7 @@
 									placeholder="Empty" id="inputPoint" />
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Save changes</button>
@@ -202,7 +202,7 @@
 					<h4 class="modal-title" id="myModalLabel">New account</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<div class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 							<div class="col-sm-10">
@@ -284,7 +284,7 @@
 									id="inputPoint" placeholder="Point" />
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Create</button>
@@ -361,30 +361,34 @@
 <div class="modal fade" id="changePasswordModal" tabindex="-1"
 	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form:form class="form-group" action="/admin/account/changepassword"
-			commandName="account" method="POST">
+		<form:form class="form-group" action="/admin/account/changepassword" commandName="account" method="POST">
 			<form:input path="email" type="hidden" id="inputEmail" />
 			<div class="modal-content">
+
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Change password</h4>
 				</div>
+
 				<div class="modal-body">
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Enter
-							new password</label>
-						<div class="col-sm-10">
-							<form:input path="password" type="text" class="form-control"
-								id="inputPoint" placeholder="Empty" />
+
+					<div class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Enter new password</label>
+							<div class="col-sm-10">
+								<form:input path="password" type="text" class="form-control"
+									id="inputPoint" placeholder="Empty" />
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Confirm
-							password:</label>
-						<div class="col-sm-10">
-							<form:input path="address" type="text" class="form-control"
-								id="inputPoint" placeholder="Empty" />
+
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Confirm
+								password:</label>
+							<div class="col-sm-10">
+								<form:input path="address" type="text" class="form-control"
+									id="inputPoint" placeholder="Empty" />
+							</div>
 						</div>
 					</div>
 				</div>

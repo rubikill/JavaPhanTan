@@ -17,7 +17,35 @@ shopsv.factory('Product', function($resource) {
             method: 'GET',
             isArray: true,
             params: {
-            	type: "type"
+                type: "type"
+            }
+        },
+        getProductsByManufacturer: {
+            method: 'GET',
+            isArray: true,
+            params: {
+                type: "manufacturer"
+            }
+        },
+        getProductsByPromotion: {
+            method: 'GET',
+            isArray: true,
+            params: {
+                type: "promotion"
+            }
+        },
+        getProductsByProductstate: {
+            method: 'GET',
+            isArray: true,
+            params: {
+                type: "productstate"
+            }
+        },
+        getProductsByName: {
+            method: 'GET',
+            isArray: true,
+            params: {
+                type: "search"
             }
         }
     });

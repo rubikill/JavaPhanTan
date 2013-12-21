@@ -121,8 +121,7 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form method="POST" action="/admin/product/edit"
-			name="formEditProduct">
+		<form method="POST" action="/admin/product/edit" name="formEditProduct">
 			<input type="hidden" name="inputProductId" value=""
 				id="inputProductId" /> <input type="hidden" name="inputCurrentPage"
 				value="" id="inputCurrentPage" />
@@ -133,7 +132,7 @@
 					<h4 class="modal-title" id="myModalLabel">Edit product</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<div class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-4 control-label">Name</label>
 							<div class="col-sm-8">
@@ -246,7 +245,7 @@
 									name="inputHeight" placeholder="Height....">
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Save changes</button>
@@ -333,7 +332,7 @@
 					<h4 class="modal-title" id="myModalLabel">Add new</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<div class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-4 control-label">Name</label>
 							<div class="col-sm-8">
@@ -457,7 +456,7 @@
 								</select>
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Add Product</button>
