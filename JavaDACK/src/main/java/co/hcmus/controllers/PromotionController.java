@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,7 @@ public class PromotionController {
 	 * @param request
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions", method = RequestMethod.GET)
 	public String getPromotions(HttpServletRequest request) {
 		prepairData(request);
@@ -48,6 +50,7 @@ public class PromotionController {
 	 * @param promotion
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/add", method = RequestMethod.POST)
 	public String addPromotion(Promotion promotion) {
 		promotionService.addPromotion(promotion);
@@ -61,6 +64,7 @@ public class PromotionController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/block/{id}", method = RequestMethod.GET)
 	public String blockPromotion(@PathVariable String id) {
 		Promotion promotion = promotionService.getPromotionById(id);
@@ -76,6 +80,7 @@ public class PromotionController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/active/{id}", method = RequestMethod.GET)
 	public String activePromotion(@PathVariable String id) {
 		Promotion promotion = promotionService.getPromotionById(id);
@@ -91,6 +96,7 @@ public class PromotionController {
 	 * @param promotion
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/edit", method = RequestMethod.POST)
 	public String editPromotion(Promotion promotion) {
 		promotionService.updatePromotion(promotion);
@@ -103,6 +109,7 @@ public class PromotionController {
 	 * 
 	 * @param request
 	 */
+	@Secured("ROLE_ADMIN")
 	private void prepairData(HttpServletRequest request) {
 		Promotion promotion = new Promotion();
 		System.out.println("id: " + promotion.getId());

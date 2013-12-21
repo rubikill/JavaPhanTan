@@ -240,6 +240,7 @@ public class ProductController {
 	 * public String getProducts(Locale locale, Model model, HttpServletRequest
 	 * request) { request.setAttribute("nav", "products"); return "products"; }
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
 	public String productsAdmin(Locale locale, Model model,
 			HttpServletRequest request, @RequestParam("Page") int currentPage) {
@@ -252,7 +253,7 @@ public class ProductController {
 	 * 
 	 * admin crate product
 	 */
-
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/product/edit", method = RequestMethod.POST)
 	public String adminEditProduct(
 
@@ -307,6 +308,7 @@ public class ProductController {
 		return "redirect:/admin/products" + "?Page=" + currentPage;
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/product/create", method = RequestMethod.POST)
 	public String adminCreateProduct(
 
@@ -364,6 +366,7 @@ public class ProductController {
 		return "redirect:/admin/products" + "?Page=" + currentPage;
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.POST)
 	public String adminDeleteProduct(Locale locale, HttpServletRequest request,
 			@RequestParam(value = "inputProductId", required = true) String id,
@@ -380,6 +383,7 @@ public class ProductController {
 
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/product/active", method = RequestMethod.POST)
 	public String adminActiveProduct(Locale locale, HttpServletRequest request,
 			@RequestParam(value = "inputProductId", required = true) String id,

@@ -7,5 +7,5 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Access Denied!</h1><p>Only admins can see this page!</p></body>
+<h1 class="center">Access Denied!</h1><p class="center">Only admins can see this page!</p></body>
 </html>

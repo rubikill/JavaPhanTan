@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -58,6 +59,7 @@ public class AccountController {
 	 * @param request
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account", method = RequestMethod.GET)
 	public String accounts(HttpServletRequest request) {
 		logger.info("Admin get all Accounts");
@@ -71,6 +73,7 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
 	public String blockAccount(Account account) {
 		account = accountService.getAccount(account.getEmail());
@@ -86,6 +89,7 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/active", method = RequestMethod.POST)
 	public String activeAccount(Account account) {
 		account = accountService.getAccount(account.getEmail());
@@ -100,6 +104,7 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/changepassword", method = RequestMethod.POST)
 	public String changePassword(Account account) {
 		String password1 = account.getPassword();
@@ -125,6 +130,7 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/edit", method = RequestMethod.POST)
 	public String editAccount(Account account) {
 		account.setPassword(accountService.getAccount(account.getEmail()).getPassword());
@@ -139,6 +145,7 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/create", method = RequestMethod.POST)
 	public String createAccount(Account account) {
 		account.setPassword(encryptPasswordProvider.hash(account.getPassword(), Constant.MD5).toString());
@@ -153,6 +160,7 @@ public class AccountController {
 	 * @param model
 	 * @return
 	 */
+
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String login(
 			@RequestParam(value = "error", required = false) boolean error,

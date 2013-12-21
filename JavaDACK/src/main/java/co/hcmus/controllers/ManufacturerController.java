@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +37,7 @@ public class ManufacturerController {
 	 * @param request
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/manufacturer", method = RequestMethod.GET)
 	public String getManufacturer(HttpServletRequest request) {
 		prepairData(request);
@@ -48,6 +50,7 @@ public class ManufacturerController {
 	 * @param manufacturer
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/manufacturer/add", method = RequestMethod.POST)
 	public String addManufacturer(Manufacturer manufacturer) {
 		manufacturerService.addManufacturer(manufacturer);
@@ -60,6 +63,7 @@ public class ManufacturerController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/manufacturer/active/{id}", method = RequestMethod.GET)
 	public String activeManufacturer(@PathVariable String id) {
 		Manufacturer Manufacturer = manufacturerService.getManufacturerById(id);
@@ -74,6 +78,7 @@ public class ManufacturerController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/manufacturer/deactive/{id}", method = RequestMethod.GET)
 	public String deactiveManufacturer(@PathVariable String id) {
 		Manufacturer Manufacturer = manufacturerService.getManufacturerById(id);
@@ -88,6 +93,7 @@ public class ManufacturerController {
 	 * @param manufacturer
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/manufacturer/edit", method = RequestMethod.POST)
 	public String editManufacturer(Manufacturer manufacturer) {
 		manufacturerService.updateManufacturer(manufacturer);

@@ -68,6 +68,7 @@ public class HistoryController {
 	 * @param id
 	 * @return 
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/{id}", method = RequestMethod.GET)
 	public String getHistoryDetails(HttpServletRequest request,
 		@PathVariable String id) {
@@ -88,6 +89,7 @@ public class HistoryController {
 	 * @param historyDetail
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/{id}/add", method = RequestMethod.POST)
 	public String addProductHistoryDetails(@PathVariable String id,
 		HistoryDetail historyDetail) {
@@ -104,6 +106,7 @@ public class HistoryController {
 	 * @param historyDetail
 	 * @return redirect to orders's home in admin page
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/{id}/edit", method = RequestMethod.POST)
 	public String editProductHistoryDetails(@PathVariable String id,
 		HistoryDetail historyDetail) {
@@ -118,6 +121,7 @@ public class HistoryController {
 	 * @param historyDetail
 	 * @return redirect to orders's home in admin page
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/{id}/active", method = RequestMethod.POST)
 	public String setProductHistoryDetailsActive(@PathVariable String id,
 		HistoryDetail historyDetail) {
@@ -135,6 +139,7 @@ public class HistoryController {
 	 * @param historyDetail
 	 * @return redirect to orders's home in admin page 
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/{id}/deactive", method = RequestMethod.POST)
 	public String setProductHistoryDetailsDeactive(@PathVariable String id,
 		HistoryDetail historyDetail) {
@@ -151,6 +156,7 @@ public class HistoryController {
 	 * @param request
 	 * @return redirect to orders's home in admin page
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders", method = RequestMethod.GET)
 	public String getHistory(HttpServletRequest request) {
 		List<History> listHistory = historyService.getHistorys();
@@ -169,6 +175,7 @@ public class HistoryController {
 	 * @param history
 	 * @return redirect to orders's home in admin page
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/edit", method = RequestMethod.POST)
 	public String editHistory(History history) {
 		historyService.updateHistory(history);
@@ -181,6 +188,7 @@ public class HistoryController {
 	 * @param history
 	 * @return redirect to orders's home in admin page
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/create", method = RequestMethod.POST)
 	public String addHistory(History history) {
 		historyService.addHistory(history);
@@ -193,6 +201,7 @@ public class HistoryController {
 	 * @param id
 	 * @return redirect to orders's home in admin page
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/active/{id}", method = RequestMethod.GET)
 	public String activeHistory(@PathVariable String id) {
 		History history = historyService.getHistory(id);
@@ -207,6 +216,7 @@ public class HistoryController {
 	 * @param id
 	 * @return redirect to orders's home in admin page
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/orders/deactive/{id}", method = RequestMethod.GET)
 	public String deactiveHistory(@PathVariable String id) {
 		History history = historyService.getHistory(id);
@@ -223,6 +233,7 @@ public class HistoryController {
 	 * @param json
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/history/create", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> addNewHistory(HttpSession session,
