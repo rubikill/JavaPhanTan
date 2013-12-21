@@ -58,7 +58,10 @@ public class AccountServiceMongo implements IAccountService {
 	@Override
 	public Account getAccount(String email) {
 		logger.info("AccountServiceMongo get account by email : " + email);
-		return accountDAO.getAccount(email);
+		Account account = accountDAO.getAccount(email);
+		account.setAccountType(accountTypeDAO.getAccountType(account
+				.getAccountTypeId()));
+		return account;
 	}
 
 	@Override
