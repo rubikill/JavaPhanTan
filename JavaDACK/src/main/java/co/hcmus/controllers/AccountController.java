@@ -74,9 +74,9 @@ public class AccountController {
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
 	public String blockAccount(Account account) {
 		account = accountService.getAccount(account.getEmail());
-		account.setStatus(STATUS.INACTIVE.getStatusCode());
+		account.setStatus(STATUS.BLOCK.getStatusCode());
 		accountService.updateAccount(account);
-		logger.info("Admin block a Account with Email : " + account.getEmail());
+		logger.info("Admin block an Account with Email : " + account.getEmail());
 		return "redirect:/admin/account";
 	}
 
@@ -91,7 +91,7 @@ public class AccountController {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.ACTIVE.getStatusCode());
 		accountService.updateAccount(account);
-		logger.info("Admin active a Account with Email : " + account.getEmail());
+		logger.info("Admin active an Account with Email : " + account.getEmail());
 		return "redirect:/admin/account";
 	}
 
@@ -127,9 +127,9 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/admin/account/edit", method = RequestMethod.POST)
 	public String editAccount(Account account) {
-		// TODO add MD5 hash password
+		account.setPassword(accountService.getAccount(account.getEmail()).getPassword());
 		accountService.updateAccount(account);
-		logger.info("Admin edit a Account with Email : " + account.getEmail());
+		logger.info("Admin edit an Account with Email : " + account.getEmail());
 		return "redirect:/admin/account";
 	}
 
@@ -141,9 +141,9 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "/admin/account/create", method = RequestMethod.POST)
 	public String createAccount(Account account) {
-		// TODO add MD5 hash password
+		account.setPassword(encryptPasswordProvider.hash(account.getPassword(), Constant.MD5).toString());
 		accountService.addAccount(account);
-		logger.info("Admin create a Account with Email");
+		logger.info("Admin create an Account with Email");
 		return "redirect:/admin/account";
 	}
 
