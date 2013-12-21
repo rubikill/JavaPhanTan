@@ -332,11 +332,12 @@ public class ProductController {
 			@RequestParam(value = "inputHeight", required = false) Double height,
 			@RequestParam(value = "inputStatus", required = false) String status,
 			@RequestParam("Page") int currentPage,
-			@RequestParam("inputFile") File file) {
+			@RequestParam("inputFile") String url) {
 
 		try {
 			logger.info("Admin crate  Product with name : " + name);
 			// Create product
+			System.out.println(url);
 			Product product = new Product();
 			product.setName(name);
 			product.setProductTypeId(productTypeId);
@@ -363,11 +364,6 @@ public class ProductController {
 			productDetail.setHeight(height);
 			productDetail.setStatus(status);
 			productDetailService.addProductDetail(productDetail);
-			String[] listStr = file.getName().split(".");
-			String fileName = productId  + "." + listStr[1];
-			BufferedImage image = ImageIO.read(file);
-			String path = "/resources/img/" + fileName ;
-			ImageIO.write(image, listStr[1],new File(path));
 
 		} catch (Exception e) {
 			System.out.println(e.toString());

@@ -461,7 +461,7 @@
 							<label for="inputPassword3" class="col-sm-4 control-label">Image
 							</label>
 							<div class="col-sm-8">
-								<input type="file" id="imgInp" name ="inputFile" /> <img id="blah" src="#"
+								<input type="text" id="imgInp" name ="inputFile" /> <img  name ="inputUrl" id="blah" src="#"
 									alt="your image" height="100" width ="100"/>
 							</div>
 						</div>
