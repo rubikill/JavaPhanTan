@@ -59,8 +59,13 @@ public class AccountServiceMongo implements IAccountService {
 	public Account getAccount(String email) {
 		logger.info("AccountServiceMongo get account by email : " + email);
 		Account account = accountDAO.getAccount(email);
-		account.setAccountType(accountTypeDAO.getAccountType(account
-				.getAccountTypeId()));
+		try{
+			account.setAccountType(accountTypeDAO.getAccountType(account
+					 		.getAccountTypeId()));
+		}catch(Exception ex) {
+
+		}
+		
 		return account;
 	}
 
