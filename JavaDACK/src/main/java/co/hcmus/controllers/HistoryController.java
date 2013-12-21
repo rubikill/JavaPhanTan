@@ -312,7 +312,7 @@ public class HistoryController {
 	 *            httpservlet request
 	 * @return
 	 */
-	@Secured("ROLE_ADMIN")
+	
 	@RequestMapping(value = "/history", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> getHistorys(HttpSession session) {

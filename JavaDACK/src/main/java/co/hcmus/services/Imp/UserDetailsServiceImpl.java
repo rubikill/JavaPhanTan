@@ -52,6 +52,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		String password = account.getPassword();
 		boolean enabled = account.getStatus().equals(
 				STATUS.ACTIVE.getStatusCode()) ? true : false;
+		System.out.println("- email:" + account.getEmail() + "- password:"
+				+ account.getPassword() + "- status: " + account.getStatus()
+				+ "- enable: " + enabled + "- Account Type:"
+				+ account.getAccountType().getName());
 
 		boolean accountNonExpired = enabled;
 		boolean credentialsNonExpired = enabled;
@@ -71,14 +75,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 			authorities.add(new SimpleGrantedAuthority("ROLE_VIP"));
 			authorities.add(new SimpleGrantedAuthority("ROLE_NORMAL"));
+			System.out.println("- set ROLE: ROLE_ADMIN, ROLE_VIP, ROLE_NORMAL");
 			logger.info("- set ROLE: ROLE_ADMIN, ROLE_VIP, ROLE_NORMAL");
 		} else if (accountType.equals("VIP")) {
 			System.out.println("\n SET ROLE VIP USER \n");
 			authorities.add(new SimpleGrantedAuthority("ROLE_VIP"));
 			authorities.add(new SimpleGrantedAuthority("ROLE_NORMAL"));
 			logger.info("- set ROLE: ROLE_VIP, ROLE_NORMAL");
+			System.out.println("- set ROLE: ROLE_VIP, ROLE_NORMAL");
 		} else if (accountType.equals("NORMAL")) {
 			authorities.add(new SimpleGrantedAuthority("ROLE_NORMAL"));
+			System.out.println("ROLE_NORMAL");
 			logger.info("- set ROLE: ROLE_NORMAL");
 		}
 

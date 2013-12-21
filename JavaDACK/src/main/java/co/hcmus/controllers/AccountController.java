@@ -45,6 +45,7 @@ public class AccountController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AccountController.class);
 
+	
 	@Autowired
 	private IAccountService accountService;
 
@@ -71,11 +72,11 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
-	public String blockPromotion(Account account) {
+	public String blockAccount(Account account) {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.INACTIVE.getStatusCode());
 		accountService.updateAccount(account);
-		logger.info("Admin block a Account with Email : "  + account.getEmail());
+		logger.info("Admin block a Account with Email : " + account.getEmail());
 		return "redirect:/admin/account";
 	}
 
@@ -86,11 +87,35 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/account/active", method = RequestMethod.POST)
-	public String activePromotion(Account account) {
+	public String activeAccount(Account account) {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.ACTIVE.getStatusCode());
 		accountService.updateAccount(account);
-		logger.info("Admin active a Account with Email : "  + account.getEmail());
+		logger.info("Admin active a Account with Email : " + account.getEmail());
+		return "redirect:/admin/account";
+	}
+
+	/**
+	 * ADMIN PAGE - Change password
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping(value = "/admin/account/changepassword", method = RequestMethod.POST)
+	public String changePassword(Account account) {
+		String password1 = account.getPassword();
+		String password2 = account.getAddress();
+		if (password1.equals(password2)) {
+			account = accountService.getAccount(account.getEmail());
+			account.setPassword(encryptPasswordProvider.hash(password1, Constant.MD5).toString());
+			accountService.updateAccount(account);
+			logger.info("Change password success. Email : "
+					+ account.getEmail());
+		}
+		else
+		{
+			logger.info("Change password fail. password mismatch. Email:"
+					+ account.getEmail());
+		}
 		return "redirect:/admin/account";
 	}
 
@@ -104,7 +129,7 @@ public class AccountController {
 	public String editAccount(Account account) {
 		// TODO add MD5 hash password
 		accountService.updateAccount(account);
-		logger.info("Admin edit a Account with Email : "  + account.getEmail());
+		logger.info("Admin edit a Account with Email : " + account.getEmail());
 		return "redirect:/admin/account";
 	}
 
@@ -123,24 +148,25 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
-	public String login(@RequestParam(value="error", required=false) boolean error, ModelMap model) {
+	public String login(
+			@RequestParam(value = "error", required = false) boolean error,
+			ModelMap model) {
 		if (error == true) {
 			logger.info("An user login fail");
-			model.put("error", "You have entered an invalid username or password!");
+			model.put("error",
+					"You have entered an invalid username or password!");
 		} else {
 			logger.info("An user login success");
 			model.put("error", "");
 		}
 		return "login";
 	}
-		
+
 	@RequestMapping(value = "/admin/logout", method = RequestMethod.GET)
 	public String logout(Locale locale, Model model, HttpServletRequest request) {
 		logger.info("An user logout fail");
 		return "login";
 	}
-
-	
 
 	@RequestMapping(value = "/admin/forgotpass", method = RequestMethod.GET)
 	public String forgotpass(Locale locale, Model model,
