@@ -28,13 +28,7 @@
 	<!-- Factory bean that creates the Mongo instance -->
 	<beans:bean id="mongo"
 		class="org.springframework.data.mongodb.core.MongoFactoryBean">
-		<beans:property name="host" value="ds061208.mongolab.com" />
-		<beans:property name="port" value="61208" />
-	</beans:bean>
-	<beans:bean id="userCredentials"
-		class="org.springframework.data.authentication.UserCredentials">
-		<beans:constructor-arg name="username" value="windyzboy" />
-		<beans:constructor-arg name="password" value="informationt8" />
+		<beans:property name="host" value="localhost" />
 	</beans:bean>
 	<beans:bean id="initBean" class="co.hcmus.app.Initialization" />
 	<context:annotation-config />
@@ -44,8 +38,6 @@
 		<beans:constructor-arg name="mongo" ref="mongo" />
 		<beans:constructor-arg name="databaseName"
 			value="shop" />
-		<beans:constructor-arg name="userCredentials"
-			ref="userCredentials" />
 	</beans:bean>
 
 	<!-- Use this post processor to translate any MongoExceptions thrown in 
@@ -74,8 +66,8 @@
 			<security:password-encoder hash="md5" />
 		</security:authentication-provider>
 	</security:authentication-manager>
-	<!--======================= Security from database ===================== -->
-
+	<!--======================= Security from database =====================-->
+	
 
 	<!--security:authentication-manager> <security:authentication-provider user-service-ref="userDetailsService"> 
 		<security:password-encoder ref="passwordEncoder" /> </security:authentication-provider> 
