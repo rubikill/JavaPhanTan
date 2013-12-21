@@ -317,8 +317,9 @@ public class AccountController {
 
 		// parse json String to jsonNode
 		Account account = new Account();
+		JsonNode jsonNode = null;
 		try {
-			JsonNode jsonNode = mapper.readTree(json);
+			jsonNode = mapper.readTree(json);
 			account.setEmail(jsonNode.path("email").getTextValue());
 			// loger
 			logger.info("Registrer Account with Email : "
@@ -365,7 +366,7 @@ public class AccountController {
 			EmailForm emailForm = new EmailForm();
 			emailForm.reciver = account.getEmail();
 			emailForm.subject = "Welcome to Camera Shop";
-			emailForm.body = "Your new password is: " + token;
+			emailForm.body = "Your have registered, your password is: " + jsonNode.path("password").getTextValue();
 
 			sendMailHelper.sendMail(emailForm);
 			logger.info("Register sucess with Email : " + account.getEmail());
