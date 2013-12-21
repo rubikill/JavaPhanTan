@@ -68,7 +68,7 @@
 		<put-attribute name="content" value="/WEB-INF/page/forgotpass.jsp" />
 	</definition>
 
-	<definition name="denied" extends="templateMain">
+	<definition name="denied" template="/WEB-INF/template/templateForm.jsp">
 		<put-attribute name="content" value="/WEB-INF/page/denied.jsp" />
 	</definition>
 	
