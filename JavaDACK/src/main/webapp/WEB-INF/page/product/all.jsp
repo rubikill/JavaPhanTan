@@ -121,7 +121,8 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<form method="POST" action="/admin/product/edit" name="formEditProduct">
+		<form method="POST" action="/admin/product/edit"
+			name="formEditProduct">
 			<input type="hidden" name="inputProductId" value=""
 				id="inputProductId" /> <input type="hidden" name="inputCurrentPage"
 				value="" id="inputCurrentPage" />
@@ -454,6 +455,14 @@
 									<option value="Disable">Disable</option>
 									<option value="Inactive">Inactive</option>
 								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Image
+							</label>
+							<div class="col-sm-8">
+								<input type="file" id="imgInp" name ="inputFile" /> <img id="blah" src="#"
+									alt="your image" height="100" width ="100"/>
 							</div>
 						</div>
 					</div>

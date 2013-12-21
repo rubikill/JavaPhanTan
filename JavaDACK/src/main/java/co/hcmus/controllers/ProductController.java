@@ -1,9 +1,12 @@
 package co.hcmus.controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -328,7 +331,8 @@ public class ProductController {
 			@RequestParam(value = "inputWeight", required = false) Double weight,
 			@RequestParam(value = "inputHeight", required = false) Double height,
 			@RequestParam(value = "inputStatus", required = false) String status,
-			@RequestParam("Page") int currentPage) {
+			@RequestParam("Page") int currentPage,
+			@RequestParam("inputFile") File file) {
 
 		try {
 			logger.info("Admin crate  Product with name : " + name);
@@ -346,6 +350,7 @@ public class ProductController {
 			product.setPoint(point);
 			product.setStatus(status);
 			productService.addProduct(product);
+			
 			// get productid of product have created
 			Product productTemp = productService.getProductByName(name);
 			String productId = productTemp.getId();
@@ -358,8 +363,14 @@ public class ProductController {
 			productDetail.setHeight(height);
 			productDetail.setStatus(status);
 			productDetailService.addProductDetail(productDetail);
+			String[] listStr = file.getName().split(".");
+			String fileName = productId  + "." + listStr[1];
+			BufferedImage image = ImageIO.read(file);
+			String path = "/resources/img/" + fileName ;
+			ImageIO.write(image, listStr[1],new File(path));
 
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			logger.error(" Error Admin create  Product with name : " + name);
 		}
 		prepairData(request, currentPage);
