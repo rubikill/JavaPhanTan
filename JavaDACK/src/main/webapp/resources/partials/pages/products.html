@@ -47,7 +47,7 @@
                     <div class="tab-pane active" id="listView">
                         <div class="row" ng-repeat="item in listProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize ">
                             <div class="span2">
-                                <img src="themes/images/products/3.jpg" alt="" />
+                                <img src="{{item.url}}.jpg" alt="" />
                             </div>
                             <div class="span4">
                                 <h3>{{item.name}}</h3>
@@ -79,7 +79,7 @@
                             <li class="span3" ng-repeat="item in listProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
                                 <div class="thumbnail" style="height: 400px;">
                                     <a href="#/product_details/{{item.id}}">
-                                        <img src="themes/images/products/3.jpg" alt="" />
+                                        <img src="{{item.url}}.jpg" alt="" />
                                     </a>
                                     <div class="caption">
                                         <h5>{{item.name}}</h5>
