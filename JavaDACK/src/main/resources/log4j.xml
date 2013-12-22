@@ -42,7 +42,7 @@
 	</logger>
 
 	<logger name="org.springframework.security">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<logger name="org.springframework.context">

@@ -46,6 +46,7 @@
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
+						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 20%">Action</th>
 					</tr>
@@ -72,6 +73,7 @@
 							<td hidden="true" id="16">${product.manufacturer.id }</td>
 							<td hidden="true" id="17">${product.productState.id }</td>
 							<td hidden="true" id="18">${currentPage}</td>
+							<td hidden="true" id="19">${product.url}</td>
 							<td>
 
 								<button class="open-ProductDetailDialog btn btn-info"
@@ -244,6 +246,15 @@
 							<div class="col-sm-8">
 								<input type="text" class="form-control" id="inputHeight"
 									name="inputHeight" placeholder="Height....">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Image
+							</label>
+							<div class="col-sm-8">
+								<input type="text" id="imgtextEdit" name="inputFile" /> <img
+									name="inputUrl" id="imgEdit" src="#" alt="your image" height="100"
+									width="100" />
 							</div>
 						</div>
 					</div>
@@ -457,12 +468,13 @@
 								</select>
 							</div>
 						</div>
-						<div class="form-group">
+							<div class="form-group">
 							<label for="inputPassword3" class="col-sm-4 control-label">Image
 							</label>
 							<div class="col-sm-8">
-								<input type="text" id="imgInp" name ="inputFile" /> <img  name ="inputUrl" id="blah" src="#"
-									alt="your image" height="100" width ="100"/>
+								<input type="text" id="imgtextCreate" name="inputFile" /> <img
+									name="inputUrl" id="imgCreate" src="#" alt="your image" height="100"
+									width="100" />
 							</div>
 						</div>
 					</div>
@@ -595,6 +607,15 @@
 								name="inputStatus" placeholder="Status...">
 						</div>
 					</div>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Image
+							</label>
+							<div class="col-sm-8">
+								<input type="text" id="imgtextDetail" name="inputFile" /> <img
+									name="inputUrl" id="imgDetail" src="#" alt="your image" height="100"
+									width="100" />
+							</div>
+						</div>
 				</form>
 			</div>
 			<div class="modal-footer">
