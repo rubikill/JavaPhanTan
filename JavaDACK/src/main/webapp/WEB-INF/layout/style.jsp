@@ -7,3 +7,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/font-awesome/css/font-awesome.min.css">
 <!-- Page Specific CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/css/morris-0.4.3.min.css">
+
+<link rel="stylesheet" href="${pageContext.request.contextPath}/admin/css/morris-0.4.3.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/admin/css/bootstrap-datetimepicker.min.css">

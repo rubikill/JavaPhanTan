@@ -119,16 +119,16 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							start</label>
 						<div class="col-sm-8">
-							<form:input path="date_start" type="number" class="form-control"
-								id="dateStart" placeholder="Empty" />
+							<form:input path="date_start" type="text" 
+								placeholder="Empty" id="dateStart" class="form-control" data-format="YYYY/MM/DD"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							end</label>
 						<div class="col-sm-8">
-							<form:input path="date_end" type="number" class="form-control"
-								id="dateEnd" placeholder="Empty" />
+							<form:input path="date_end" type="text" 
+								placeholder="Empty" id="dateEnd" class="form-control" data-format="YYYY/MM/DD"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -254,16 +254,16 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							start</label>
 						<div class="col-sm-8">
-							<form:input path="date_start" type="number" class="form-control"
-								id="date_start" placeholder="Empty" />
+							<form:input path="date_start" type="text" 
+								id="dateStart" class="form-control" data-format="YYYY/MM/DD"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							end</label>
 						<div class="col-sm-8">
-							<form:input path="date_end" type="number" class="form-control"
-								id="dateEnd" placeholder="Empty" />
+							<form:input path="date_end" type="text" 
+								id="dateEnd" class="form-control" data-format="YYYY/MM/DD"/>
 						</div>
 					</div>
 					<div class="form-group">

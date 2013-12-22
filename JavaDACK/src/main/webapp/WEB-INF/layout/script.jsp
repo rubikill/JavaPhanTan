@@ -14,9 +14,26 @@
 	src="${pageContext.request.contextPath}/admin/js/tablesorter/jquery.tablesorter.js"></script>
 <script
 	src="${pageContext.request.contextPath}/admin/js/tablesorter/tables.js"></script>
+<script
+	src="${pageContext.request.contextPath}/admin/js/moment.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/admin/js/bootstrap-datetimepicker.min.js"></script>
+
+<script type="text/javascript">
+	$(function () {
+		$('#inputBirthday').datetimepicker();
+		$('#dateEnd').datetimepicker();
+		$('#dateStart').datetimepicker();
+	});
+
+
+</script>
 
 
 <script>
+
+
+
 
 <!-- ================================ ACCOUNT =========================== -->
 
