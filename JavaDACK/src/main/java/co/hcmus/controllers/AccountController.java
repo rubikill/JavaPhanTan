@@ -17,11 +17,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.hcmus.helpers.SendMailHelper;
 import co.hcmus.models.Account;
@@ -43,6 +46,7 @@ public class AccountController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(AccountController.class);
 
+	
 	@Autowired
 	private IAccountService accountService;
 
@@ -55,6 +59,7 @@ public class AccountController {
 	 * @param request
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account", method = RequestMethod.GET)
 	public String accounts(HttpServletRequest request) {
 		logger.info("Admin get all Accounts");
@@ -68,13 +73,14 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/block", method = RequestMethod.POST)
-	public String blockPromotion(Account account) {
+	public String blockAccount(Account account) {
 		account = accountService.getAccount(account.getEmail());
-		account.setStatus(STATUS.INACTIVE.getStatusCode());
+		account.setStatus(STATUS.BLOCK.getStatusCode());
 		accountService.updateAccount(account);
-		logger.info("Admin block a Account with Email : "  + account.getEmail());
-		return "redirect:/admin/accounts";
+		logger.info("Admin block an Account with Email : " + account.getEmail());
+		return "redirect:/admin/account";
 	}
 
 	/**
@@ -83,13 +89,39 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/active", method = RequestMethod.POST)
-	public String activePromotion(Account account) {
+	public String activeAccount(Account account) {
 		account = accountService.getAccount(account.getEmail());
 		account.setStatus(STATUS.ACTIVE.getStatusCode());
 		accountService.updateAccount(account);
-		logger.info("Admin active a Account with Email : "  + account.getEmail());
-		return "redirect:/admin/accounts";
+		logger.info("Admin active an Account with Email : " + account.getEmail());
+		return "redirect:/admin/account";
+	}
+
+	/**
+	 * ADMIN PAGE - Change password
+	 * @param account
+	 * @return
+	 */
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value = "/admin/account/changepassword", method = RequestMethod.POST)
+	public String changePassword(Account account) {
+		String password1 = account.getPassword();
+		String password2 = account.getAddress();
+		if (password1.equals(password2)) {
+			account = accountService.getAccount(account.getEmail());
+			account.setPassword(encryptPasswordProvider.hash(password1, Constant.MD5).toString());
+			accountService.updateAccount(account);
+			logger.info("Change password success. Email : "
+					+ account.getEmail());
+		}
+		else
+		{
+			logger.info("Change password fail. password mismatch. Email:"
+					+ account.getEmail());
+		}
+		return "redirect:/admin/account";
 	}
 
 	/**
@@ -98,12 +130,13 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/edit", method = RequestMethod.POST)
 	public String editAccount(Account account) {
-		// TODO add MD5 hash password
+		account.setPassword(accountService.getAccount(account.getEmail()).getPassword());
 		accountService.updateAccount(account);
-		logger.info("Admin edit a Account with Email : "  + account.getEmail());
-		return "redirect:/admin/accounts";
+		logger.info("Admin edit an Account with Email : " + account.getEmail());
+		return "redirect:/admin/account";
 	}
 
 	/**
@@ -112,16 +145,40 @@ public class AccountController {
 	 * @param account
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/account/create", method = RequestMethod.POST)
 	public String createAccount(Account account) {
-		// TODO add MD5 hash password
+		account.setPassword(encryptPasswordProvider.hash(account.getPassword(), Constant.MD5).toString());
 		accountService.addAccount(account);
-		logger.info("Admin create a Account with Email");
-		return "redirect:/admin/accounts";
+		logger.info("Admin create an Account with Email");
+		return "redirect:/admin/account";
 	}
 
+	/**
+	 * ADMIN PAGE - Login page 
+	 * @param error
+	 * @param model
+	 * @return
+	 */
+
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
-	public String login(Locale locale, Model model, HttpServletRequest request) {
+	public String login(
+			@RequestParam(value = "error", required = false) boolean error,
+			ModelMap model) {
+		if (error == true) {
+			logger.info("An user login fail");
+			model.put("error",
+					"You have entered an invalid username or password!");
+		} else {
+			logger.info("An user login success");
+			model.put("error", null);
+		}
+		return "login";
+	}
+
+	@RequestMapping(value = "/admin/logout", method = RequestMethod.GET)
+	public String logout(Locale locale, Model model, HttpServletRequest request) {
+		logger.info("An user logout fail");
 		return "login";
 	}
 
@@ -260,8 +317,9 @@ public class AccountController {
 
 		// parse json String to jsonNode
 		Account account = new Account();
+		JsonNode jsonNode = null;
 		try {
-			JsonNode jsonNode = mapper.readTree(json);
+			jsonNode = mapper.readTree(json);
 			account.setEmail(jsonNode.path("email").getTextValue());
 			// loger
 			logger.info("Registrer Account with Email : "
@@ -308,7 +366,7 @@ public class AccountController {
 			EmailForm emailForm = new EmailForm();
 			emailForm.reciver = account.getEmail();
 			emailForm.subject = "Welcome to Camera Shop";
-			emailForm.body = "Your new password is: " + token;
+			emailForm.body = "Your have registered, your password is: " + jsonNode.path("password").getTextValue();
 
 			sendMailHelper.sendMail(emailForm);
 			logger.info("Register sucess with Email : " + account.getEmail());

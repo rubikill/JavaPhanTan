@@ -1,9 +1,12 @@
 package co.hcmus.controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,9 +44,10 @@ import co.hcmus.util.Tools;
  */
 @Controller
 public class ProductController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
-	
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProductController.class);
+
 	@Autowired
 	private IProductService productService;
 
@@ -61,10 +66,11 @@ public class ProductController {
 	/**
 	 * webservice for get all product
 	 */
+
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	@ResponseBody
 	public ResponseEntity<String> getProducts() {
-			
+
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 		// get all product
@@ -109,7 +115,8 @@ public class ProductController {
 		// get all product by type productID
 		List<Product> result = productService.getProductsByTypeId(id,
 				STATUS.ACTIVE.getStatusCode());
-		logger.info("Get all product have productType with productTypeId : " + id);
+		logger.info("Get all product have productType with productTypeId : "
+				+ id);
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
@@ -129,7 +136,8 @@ public class ProductController {
 		// get all product by manufacturer productID
 		List<Product> result = productService.getProductsByManufacturerId(id,
 				STATUS.ACTIVE.getStatusCode());
-		logger.info("Get all product have manufacturer with ManufacturerId : " + id);
+		logger.info("Get all product have manufacturer with ManufacturerId : "
+				+ id);
 		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
 				HttpStatus.OK);
 	}
@@ -149,12 +157,18 @@ public class ProductController {
 		try {
 			List<Product> temp = productService.getProductByProductStateId(id,
 					STATUS.ACTIVE.getStatusCode());
-			List<Product> result = temp.subList(0, 9);
-			logger.info("Get all product have productstate with productStateId : " + id);
+			List<Product> result;
+			if (temp.size() < 10)
+				result = temp.subList(0, temp.size());
+			else
+				result = temp.subList(0, 10);
+			logger.info("Get all product have productstate with productStateId : "
+					+ id);
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
-			logger.error("Error get all  product have productstate with productStateId : " + id);
+			logger.error("Error get all  product have productstate with productStateId : "
+					+ id);
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -181,11 +195,13 @@ public class ProductController {
 				Product product = productService.getProductById(productId);
 				result.add(product);
 			}
-			logger.info("Get all product have promotion with promotionid : " + promotionid);
+			logger.info("Get all product have promotion with promotionid : "
+					+ promotionid);
 			return new ResponseEntity<String>(Tools.toJsonArray(result),
 					headers, HttpStatus.OK);
 		} catch (Exception e) {
-			logger.error("Error get all  product have promotion with promotionid : " + promotionid);
+			logger.error("Error get all  product have promotion with promotionid : "
+					+ promotionid);
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -227,6 +243,7 @@ public class ProductController {
 	 * public String getProducts(Locale locale, Model model, HttpServletRequest
 	 * request) { request.setAttribute("nav", "products"); return "products"; }
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/products", method = RequestMethod.GET)
 	public String productsAdmin(Locale locale, Model model,
 			HttpServletRequest request, @RequestParam("Page") int currentPage) {
@@ -239,7 +256,7 @@ public class ProductController {
 	 * 
 	 * admin crate product
 	 */
-
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/product/edit", method = RequestMethod.POST)
 	public String adminEditProduct(
 
@@ -294,6 +311,7 @@ public class ProductController {
 		return "redirect:/admin/products" + "?Page=" + currentPage;
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/product/create", method = RequestMethod.POST)
 	public String adminCreateProduct(
 
@@ -313,11 +331,13 @@ public class ProductController {
 			@RequestParam(value = "inputWeight", required = false) Double weight,
 			@RequestParam(value = "inputHeight", required = false) Double height,
 			@RequestParam(value = "inputStatus", required = false) String status,
-			@RequestParam("Page") int currentPage) {
+			@RequestParam("Page") int currentPage,
+			@RequestParam("inputFile") String url) {
 
 		try {
 			logger.info("Admin crate  Product with name : " + name);
 			// Create product
+			System.out.println(url);
 			Product product = new Product();
 			product.setName(name);
 			product.setProductTypeId(productTypeId);
@@ -331,6 +351,7 @@ public class ProductController {
 			product.setPoint(point);
 			product.setStatus(status);
 			productService.addProduct(product);
+			
 			// get productid of product have created
 			Product productTemp = productService.getProductByName(name);
 			String productId = productTemp.getId();
@@ -345,12 +366,14 @@ public class ProductController {
 			productDetailService.addProductDetail(productDetail);
 
 		} catch (Exception e) {
+			System.out.println(e.toString());
 			logger.error(" Error Admin create  Product with name : " + name);
 		}
 		prepairData(request, currentPage);
 		return "redirect:/admin/products" + "?Page=" + currentPage;
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/product/delete", method = RequestMethod.POST)
 	public String adminDeleteProduct(Locale locale, HttpServletRequest request,
 			@RequestParam(value = "inputProductId", required = true) String id,
@@ -367,6 +390,7 @@ public class ProductController {
 
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/product/active", method = RequestMethod.POST)
 	public String adminActiveProduct(Locale locale, HttpServletRequest request,
 			@RequestParam(value = "inputProductId", required = true) String id,
@@ -388,7 +412,7 @@ public class ProductController {
 		try {
 			List<Product> listProduct = productService.getProducts();
 			List<Product> listResult;
-			if (listProduct.size() < 10*currentPage) {
+			if (listProduct.size() < 10 * currentPage) {
 				listResult = listProduct.subList(10 * (currentPage - 1),
 						listProduct.size());
 			} else {

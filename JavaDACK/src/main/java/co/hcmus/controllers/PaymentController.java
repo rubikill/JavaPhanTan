@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class PaymentController {
 	 * @param request
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/paymenttype", method = RequestMethod.GET)
 	public String getPaymentType(HttpServletRequest request) {
 		prepairData(request);
@@ -54,6 +56,7 @@ public class PaymentController {
 	 * @param paymentType
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/paymenttype/add", method = RequestMethod.POST)
 	public String addPaymentType(PaymentType paymentType) {
 		paymentTypeService.addPaymentType(paymentType);
@@ -67,6 +70,7 @@ public class PaymentController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/paymenttype/active/{id}", method = RequestMethod.GET)
 	public String activePaymentType(@PathVariable String id) {
 		PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
@@ -82,6 +86,7 @@ public class PaymentController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/paymenttype/deactive/{id}", method = RequestMethod.GET)
 	public String deactivePaymentType(@PathVariable String id) {
 		PaymentType paymentType = paymentTypeService.getPaymentTypeById(id);
@@ -97,6 +102,7 @@ public class PaymentController {
 	 * @param paymentType
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/paymenttype/edit", method = RequestMethod.POST)
 	public String editPaymentType(PaymentType paymentType) {
 		paymentTypeService.updatePaymentType(paymentType);

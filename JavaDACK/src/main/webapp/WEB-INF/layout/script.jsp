@@ -49,6 +49,13 @@ $(document).on("click", ".open-AccountActiveDialog", function ()
 	$(".modal-dialog #inputEmail").val($("#rowAccount" + index + " #0").text()); 
 });
 
+<!-- Fill text field in Modal fade ACCOUNT BLOCK dialog-->
+$(document).on("click", ".open-AccountChangePasswordDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	$(".modal-dialog #inputEmail").val($("#rowAccount" + index + " #0").text()); 
+});
+
 
 <!-- ======================= PROMOTION =============================-->
 <!-- Fill text field in Modal fade PROMOTION BLOCK dialog-->
@@ -145,6 +152,13 @@ $(document).on("click", ".open-ProductEditDialog", function ()
 			});
 		
 
+<!-- Fill Image when click input a url image-->
+$(function() {
+	  $("#imgInp").on("change", function() {
+		  console.log("AAA");
+	    $("#blah").prop("src", $(this).val());
+	  });
+	});
 
 <!-- ==================================== PROMOTION DETAIL ==================================-->
 

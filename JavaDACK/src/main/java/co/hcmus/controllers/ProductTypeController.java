@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class ProductTypeController {
 	 * @param request
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/producttype", method = RequestMethod.GET)
 	public String getProducType(HttpServletRequest request) {
 		repairData(request);
@@ -46,6 +48,7 @@ public class ProductTypeController {
 	 * @param productType
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/producttype/add", method = RequestMethod.POST)
 	public String addProductType(ProductType productType) {
 		productTypeService.addProductType(productType);
@@ -59,6 +62,7 @@ public class ProductTypeController {
 	 * @param productType
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/producttype/edit", method = RequestMethod.POST)
 	public String editProductType(ProductType productType) {
 		productTypeService.updateProductType(productType);
@@ -72,6 +76,7 @@ public class ProductTypeController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/producttype/active/{id}", method = RequestMethod.GET)
 	public String activeProductType(@PathVariable String id) {
 		ProductType productType = productTypeService.getProductType(id);
@@ -87,6 +92,7 @@ public class ProductTypeController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/producttype/deactive/{id}", method = RequestMethod.GET)
 	public String deactiveProductType(@PathVariable String id) {
 		ProductType productType = productTypeService.getProductType(id);

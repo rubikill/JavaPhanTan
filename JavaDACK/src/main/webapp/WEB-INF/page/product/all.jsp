@@ -133,7 +133,7 @@
 					<h4 class="modal-title" id="myModalLabel">Edit product</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<div class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-4 control-label">Name</label>
 							<div class="col-sm-8">
@@ -246,7 +246,7 @@
 									name="inputHeight" placeholder="Height....">
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Save changes</button>
@@ -333,7 +333,7 @@
 					<h4 class="modal-title" id="myModalLabel">Add new</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<div class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-4 control-label">Name</label>
 							<div class="col-sm-8">
@@ -457,7 +457,15 @@
 								</select>
 							</div>
 						</div>
-					</form>
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Image
+							</label>
+							<div class="col-sm-8">
+								<input type="text" id="imgInp" name ="inputFile" /> <img  name ="inputUrl" id="blah" src="#"
+									alt="your image" height="100" width ="100"/>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Add Product</button>

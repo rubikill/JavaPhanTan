@@ -1,42 +1,47 @@
 <!-- Navbar ================================================== -->
 <div id="logoArea" class="navbar" ng-controller="menuCtrl">
-	<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-		<span class="icon-bar"></span> 
-		<span class="icon-bar"></span> 
-		<span class="icon-bar"></span>
-	</a>
+    <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
 
-	<div class="navbar-inner">
-		<a class="brand" href="#/">
-			<img src="themes/images/logo.png" alt="Bootsshop" />
-		</a>
-		<ul class="nav" id="topMenu">
-			<li ng-class="{active : path == '/filter' }">
-				<a href="#/filter" data-i18n="_NAV_FILTER_"></a>
-			</li> 
-			<li ng-class="{active : path == '/orders' }">
-				<a href="#/orders" data-i18n="_NAV_ORDERS_"></a>
-			</li>
-			<li ng-class="{active : path == '/special_offer' }">
-				<a href="#/special_offer" data-i18n="_NAV_SPECIAL_"></a>
-			</li>
-			<li ng-class="{active : path == '/product_summary' }">
-				<a href="#/product_summary" data-i18n="_NAV_CART_"></a>
-			</li>
-			<li ng-class="{active : path == '/contact' }">
-				<a href="#/contact" data-i18n="_NAV_CONTACT_"></a>
-			</li>
-		</ul>
-		<ul id="topMenu" class="nav pull-right">	
-			<!-- Hide if user has loged in-->
-			<li>
-				<a ng-hide="user" href="#/login" style="padding-right: 0">
-					<span class="btn btn-large btn-success" data-i18n="_BTN_LOGIN_"></span>
-				</a>
-				<a ng-show="user" style="padding-right: 0" ng-click="logout()">
-					<span class="btn btn-large btn-success" data-i18n="_BTN_LOGOUT_"></span>
-				</a>
-			</li>
-		</ul>
-	</div>
+    <div class="navbar-inner">
+        <a class="brand" href="#/">
+            <img src="themes/images/logo.png" alt="Bootsshop" />
+        </a>
+        <ul class="nav" id="topMenu">
+            <li ng-class="{active : path == '/filter' }">
+                <a href="#/filter" data-i18n="_NAV_FILTER_"></a>
+            </li>
+            <li ng-class="{active : path == '/orders' }">
+                <a href="#/orders" data-i18n="_NAV_ORDERS_"></a>
+            </li>
+            <li ng-class="{active : path == '/special_offer' }">
+                <a href="#/special_offer" data-i18n="_NAV_SPECIAL_"></a>
+            </li>
+            <li ng-class="{active : path == '/product_summary' }">
+                <a href="#/product_summary" data-i18n="_NAV_CART_"></a>
+            </li>
+            <li ng-class="{active : path == '/contact' }">
+                <a href="#/contact" data-i18n="_NAV_CONTACT_"></a>
+            </li>
+        </ul>
+        <ul id="topMenu" class="nav pull-right">
+            <!-- Hide if user has loged in-->
+            <li>
+                <a ng-hide="user" href="#/login" style="padding-right: 0">
+                    <span class="btn btn-large btn-success" data-i18n="_BTN_LOGIN_"></span>
+                </a>
+                <a ng-show="user" style="padding-right: 0" ng-click="logout()">
+                    <span class="btn btn-large btn-success" data-i18n="_BTN_LOGOUT_"></span>
+                </a>
+            </li>
+            <li ng-hide="user">
+                <a href="#/register" style="padding-right: 0">
+                    <span data-i18n="_BTN_REG_" class="btn btn-large btn-success"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>

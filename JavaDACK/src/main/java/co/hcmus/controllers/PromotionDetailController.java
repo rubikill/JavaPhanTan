@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,6 +42,7 @@ public class PromotionDetailController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/{id}", method = RequestMethod.GET)
 	public String showPromotionDetail(HttpServletRequest request,
 			@PathVariable String id) {
@@ -62,6 +64,7 @@ public class PromotionDetailController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/{id}/add", method = RequestMethod.POST)
 	public String addPromotionDetail(PromotionDetail promotionDetail,
 			@PathVariable String id) {
@@ -79,6 +82,7 @@ public class PromotionDetailController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/{id}/block", method = RequestMethod.POST)
 	public String blockPromotionDetail(PromotionDetail promotionDetail,
 			@PathVariable String id) {
@@ -97,6 +101,7 @@ public class PromotionDetailController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/{id}/active", method = RequestMethod.POST)
 	public String activePromotionDetail(PromotionDetail promotionDetail,
 			@PathVariable String id) {
@@ -115,6 +120,7 @@ public class PromotionDetailController {
 	 * @param id
 	 * @return
 	 */
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/{id}/edit", method = RequestMethod.POST)
 	public String editPromotionDetail(PromotionDetail promotionDetail,
 			@PathVariable String id) {

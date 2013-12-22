@@ -5,9 +5,9 @@
 var shop = angular.module('shop', ['shopsv.services', 'localization', 'ngCookies', 'ngResource']);
 
 /*
-*   Config route
-*   Navigate when you click on show link
-*/
+ *   Config route
+ *   Navigate when you click on show link
+ */
 shop.config(['$routeProvider',
     function($routeProvider, $rootScope) {
         $routeProvider.when('/', {
@@ -16,7 +16,7 @@ shop.config(['$routeProvider',
         })
             .when('/compair', {
                 templateUrl: '/partials/pages/compair.html',
-                controller : compairCtrl
+                controller: compairCtrl
             })
             .when('/product_details/:id', {
                 templateUrl: '/partials/pages/product_details.html',
@@ -55,7 +55,7 @@ shop.config(['$routeProvider',
             })
             .when('/orders', {
                 templateUrl: '/partials/pages/orders.html',
-                controller : orderCtrl
+                controller: orderCtrl
             })
             .when('/filter', {
                 templateUrl: '/partials/pages/filter.html',
@@ -68,10 +68,10 @@ shop.config(['$routeProvider',
 ]);
 
 /**
-*   This function run on app start
-*   Config multi language
-*
-*/
+ *   This function run on app start
+ *   Config multi language
+ *
+ */
 shop.run(function($rootScope, $location, localize, $cookieStore) {
     $rootScope.requests401 = []; // global init, todo replace by module
 
@@ -102,14 +102,14 @@ shop.run(function($rootScope, $location, localize, $cookieStore) {
 });
 
 /**
-*   Shop sevice
-*   Every service goes here
-*/
+ *   Shop sevice
+ *   Every service goes here
+ */
 var shopsv = angular.module('shopsv.services', ['ngResource']);
 
 /**
-*   this function for paging
-*/
+ *   this function for paging
+ */
 shopsv.filter('startFrom', function() {
     return function(input, start) {
         if (input) {
@@ -197,11 +197,7 @@ shopsv.directive('bsDatepicker', function() {
 shopsv.directive('fundooRating', function() {
     return {
         restrict: 'A',
-        template: '<ul class="rating">' 
-            + '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' 
-            + '\u2605' 
-            + '</li>' 
-            + '</ul>',
+        template: '<ul class="rating">' + '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' + '\u2605' + '</li>' + '</ul>',
         scope: {
             ratingValue: '=',
             max: '=',
@@ -229,7 +225,7 @@ shopsv.directive('fundooRating', function() {
                 });
             };
 
-            scope.$watch('ratingValue', function(oldVal, newVal) {                
+            scope.$watch('ratingValue', function(oldVal, newVal) {
                 if (newVal) {
                     updateStars();
                 }

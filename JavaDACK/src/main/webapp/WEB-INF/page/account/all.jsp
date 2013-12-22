@@ -29,15 +29,15 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th style="width: 10%">Email <i class="fa fa-sort"></i></th>
+						<th style="width: 9%">Email <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Name <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Phone <i class="fa fa-sort"></i></th>
 						<th style="width: 18%">Address <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Birthday <i class="fa fa-sort"></i></th>
-						<th style="width: 6%">Point <i class="fa fa-sort"></i></th>
+						<th style="width: 7%">Point <i class="fa fa-sort"></i></th>
 						<th style="width: 6%">Type <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Status <i class="fa fa-sort"></i></th>
-						<th style="width: 22%">Action</th>
+						<th style="width: 23%">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,6 +55,9 @@
 							<td id="6">${account.accountType.name }</td>
 							<td id="7">${account.status }</td>
 							<td>
+								<button class="open-AccountChangePasswordDialog btn btn-default"
+									data-toggle="modal" data-id="${status.index}"
+									data-target="#changePasswordModal">Change password</button>
 								<button class="open-AccountEditDialog btn btn-warning"
 									data-toggle="modal" data-id="${status.index}"
 									data-target="#editModal">Edit</button>
@@ -97,7 +100,7 @@
 					<h4 class="modal-title" id="myModalLabel">Edit account</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<div class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 							<div class="col-sm-10">
@@ -109,21 +112,21 @@
 							<label for="inputPassword3" class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
 								<form:input path="name" type="text" class="form-control"
-									id="inputName" />
+									placeholder="Empty" id="inputName" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Phone</label>
 							<div class="col-sm-10">
 								<form:input path="phone" type="text" class="form-control"
-									id="inputPhone" />
+									placeholder="Empty" id="inputPhone" />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Address</label>
 							<div class="col-sm-10">
 								<form:input path="address" type="text" class="form-control"
-									id="inputAddress" />
+									placeholder="Empty" id="inputAddress" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -132,7 +135,7 @@
 								<fmt:formatDate value="${Account.birthday}" pattern="dd.MM.yyyy"
 									var="birthday" />
 								<form:input path="birthday" type="text" class="form-control"
-									id="inputBirthday" />
+									placeholder="Empty" id="inputBirthday" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -169,10 +172,10 @@
 							<label for="inputPassword3" class="col-sm-2 control-label">Point</label>
 							<div class="col-sm-10">
 								<form:input path="point" type="text" class="form-control"
-									id="inputPoint" placeholder="Point" />
+									placeholder="Empty" id="inputPoint" />
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Save changes</button>
@@ -199,12 +202,19 @@
 					<h4 class="modal-title" id="myModalLabel">New account</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-horizontal" role="form">
+					<div class="form-horizontal" role="form">
 						<div class="form-group">
 							<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 							<div class="col-sm-10">
 								<form:input path="email" type="email" class="form-control"
-									id="inputEmail" placeholder="Empty" readonly="readonly" />
+									id="inputEmail" placeholder="Empty" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-2 control-label">Password</label>
+							<div class="col-sm-10">
+								<form:input path="password" type="password" class="form-control"
+									id="inputPassword" placeholder="Empty" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -274,7 +284,7 @@
 									id="inputPoint" placeholder="Point" />
 							</div>
 						</div>
-					</form>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary">Create</button>
@@ -347,5 +357,52 @@
 </div>
 <!-- /.modal -->
 
+<!-- Modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1"
+	role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<form:form class="form-group" action="/admin/account/changepassword" commandName="account" method="POST">
+			<form:input path="email" type="hidden" id="inputEmail" />
+			<div class="modal-content">
 
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Change password</h4>
+				</div>
+
+				<div class="modal-body">
+
+					<div class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Enter new password</label>
+							<div class="col-sm-10">
+								<form:input path="password" type="text" class="form-control"
+									id="inputPoint" placeholder="Empty" />
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputPassword3" class="col-sm-4 control-label">Confirm
+								password:</label>
+							<div class="col-sm-10">
+								<form:input path="address" type="text" class="form-control"
+									id="inputPoint" placeholder="Empty" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" id="BlockButton"
+						onclick="">Change</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</form:form>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 

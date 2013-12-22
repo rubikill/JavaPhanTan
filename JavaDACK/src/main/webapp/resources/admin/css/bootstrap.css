@@ -7070,6 +7070,11 @@ td.hidden-lg {
     display: none !important;
   }
 }
+.center {
+     float: none;
+     margin-left: auto;
+     margin-right: auto;
+}
 
 .visible-print,
 tr.visible-print,

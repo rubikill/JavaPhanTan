@@ -209,7 +209,7 @@
 					<h4 class="modal-title" id="myModalLabel">Create order</h4>
 				</div>
 				<div class="modal-body">
-
+<div class="form-horizontal" role="form">
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-4 control-label">Email</label>
 						<div class="col-sm-8">
@@ -284,7 +284,7 @@
 							</form:select>
 						</div>
 					</div>
-
+</div>
 
 				</div>
 				<div class="modal-footer">

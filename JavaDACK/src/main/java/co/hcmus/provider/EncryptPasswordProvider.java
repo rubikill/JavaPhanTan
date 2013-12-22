@@ -3,6 +3,8 @@ package co.hcmus.provider;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 @Service("encryptPasswordProvider")
 public class EncryptPasswordProvider implements EncryptProvider {
 
+	private static final Logger logger = LoggerFactory.getLogger(EncryptPasswordProvider.class);
+	
 	public EncryptPasswordProvider(){
 		
 	}
@@ -37,9 +41,11 @@ public class EncryptPasswordProvider implements EncryptProvider {
 				sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16)
 						.substring(1));
 			}
+			logger.info("EncryptPasswordProvider doHash");
 			return sb;
 		} catch (NoSuchAlgorithmException e) {
 			System.out.print("EncryptPasswordProvider: NO SUCH ALGORITHM");
+			logger.error(" Error EncryptPasswordProvider: NO SUCH ALGORITHM");
 			e.printStackTrace();
 		}
 		return null;
