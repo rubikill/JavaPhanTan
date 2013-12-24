@@ -48,7 +48,7 @@
                     <div class="tab-pane active" id="listView">
                         <div class="row" ng-repeat="item in listProducts | orderBy:predicate:reverse  | filter:searchText:strict">
                             <div class="span2">
-                                <img src="{{item.url}}.jpg" alt="" />
+                                <img src="{{item.url}}" alt="" />
                             </div>
                             <div class="span4">
                                 <h3>{{item.status}}</h3>
