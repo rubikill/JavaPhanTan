@@ -1,196 +1,219 @@
 <!-- <ng-include src="'partials/slider.html'" scope="" onload=""></ng-include> -->
 <div id="mainBody">
-    <div class="container">
-        <div class="row">
-            <ng-include src="'partials/sidebar.html'" scope="" onload=""></ng-include>
+	<div id="fb-root"></div>
+	<div id="fb-root"></div>
+	<script>
+		(function(d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id))
+				return;
+			js = d.createElement(s);
+			js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=646542498720208";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+	<div class="container">
+		<div class="row">
+			<ng-include src="'partials/sidebar.html'" scope="" onload=""></ng-include>
 
-            <div class="span9">
-                <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a> 
-                        <span class="divider">/</span>
-                    </li>
-                    <li><a href="products.html">Products</a> 
-                        <span class="divider">/</span>
-                    </li>
-                    <li class="active">product Details</li>
-                </ul>
-                <div class="row">
-                    <div id="gallery" class="span3">
-                        <a href="themes/images/products/large/f1.jpg" title="Fujifilm FinePix S2950 Digital Camera">
-                            <img src="{{item.url}}" style="width: 100%" alt="Fujifilm FinePix S2950 Digital Camera" />
-                        </a>
-                        <div id="differentview" class="moreOptopm carousel slide">
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <a href="themes/images/products/large/f1.jpg">
-                                        <img style="width: 29%" src="themes/images/products/large/f1.jpg" alt="" />
-                                    </a>
-                                    <a href="themes/images/products/large/f2.jpg">
-                                        <img style="width: 29%" src="themes/images/products/large/f2.jpg" alt="" />
-                                    </a>
-                                    <a href="themes/images/products/large/f3.jpg">
-                                        <img style="width: 29%" src="themes/images/products/large/f3.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="item">
-                                    <a href="themes/images/products/large/f3.jpg">
-                                        <img style="width: 29%" src="themes/images/products/large/f3.jpg" alt="" />
-                                    </a>
-                                    <a href="themes/images/products/large/f1.jpg">
-                                        <img style="width: 29%" src="themes/images/products/large/f1.jpg" alt="" />
-                                    </a>
-                                    <a href="themes/images/products/large/f2.jpg">
-                                        <img style="width: 29%" src="themes/images/products/large/f2.jpg" alt="" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h4>Rate average: {{rateAverage}}</h4>
-                            <h4>Your rate</h4>
-                            <div fundoo-rating rating-value="rating" max="5" style="font-size: 30px;">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span6">
-                        <h3>{{product.name}}</h3>
-                        <small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
-                        <hr class="soft" />
-                        <div class="form-horizontal qtyFrm">
-                            <div class="control-group">
-                                <label class="control-label">
-                                    <span><strong>{{product.price | currency}}</strong></span>
-                                </label>
-                                <div class="controls">
-                                    <!-- <input type="number" class="span1" placeholder="Qty." /> -->
-                                    <button type="submit" class="btn btn-large btn-primary pull-right" ng-click="addToCart(product.id)">
-                                        Add to cart <i class=" icon-shopping-cart"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="soft clr" />
-                        <p ng-show="product.description">{{product.description}}</p>
-                        <p ng-hide="product.description">This product have no description</p>
-                        <hr class="soft" />
-                    </div>
+			<div class="span9">
+				<ul class="breadcrumb">
+					<li><a href="index.html">Home</a> <span class="divider">/</span>
+					</li>
+					<li><a href="products.html">Products</a> <span class="divider">/</span>
+					</li>
+					<li class="active">product Details</li>
+				</ul>
+				<div class="row">
+					<div id="gallery" class="span3">
+						<a href="themes/images/products/large/f1.jpg"
+							title="Fujifilm FinePix S2950 Digital Camera"> <img
+							src="{{item.url}}" style="width: 100%"
+							alt="Fujifilm FinePix S2950 Digital Camera" />
+						</a>
+						<div id="differentview" class="moreOptopm carousel slide">
+							<div class="carousel-inner">
+								<div class="item active">
+									<a href="themes/images/products/large/f1.jpg"> <img
+										style="width: 29%" src="themes/images/products/large/f1.jpg"
+										alt="" />
+									</a> <a href="themes/images/products/large/f2.jpg"> <img
+										style="width: 29%" src="themes/images/products/large/f2.jpg"
+										alt="" />
+									</a> <a href="themes/images/products/large/f3.jpg"> <img
+										style="width: 29%" src="themes/images/products/large/f3.jpg"
+										alt="" />
+									</a>
+								</div>
+								<div class="item">
+									<a href="themes/images/products/large/f3.jpg"> <img
+										style="width: 29%" src="themes/images/products/large/f3.jpg"
+										alt="" />
+									</a> <a href="themes/images/products/large/f1.jpg"> <img
+										style="width: 29%" src="themes/images/products/large/f1.jpg"
+										alt="" />
+									</a> <a href="themes/images/products/large/f2.jpg"> <img
+										style="width: 29%" src="themes/images/products/large/f2.jpg"
+										alt="" />
+									</a>
+								</div>
+							</div>
+						</div>
+						<div>
+							<h4>Rate average: {{rateAverage}}</h4>
+							<h4>Your rate</h4>
+							<div fundoo-rating rating-value="rating" max="5"
+								style="font-size: 30px;"></div>
+						</div>
+					</div>
+					<div class="span6">
+						<h3>{{product.name}}</h3>
+						<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
+						<hr class="soft" />
+						<div class="form-horizontal qtyFrm">
+							<div class="control-group">
+								<label class="control-label"> <span><strong>{{product.price
+											| currency}}</strong></span>
+								</label>
+								<div class="controls">
+									<!-- <input type="number" class="span1" placeholder="Qty." /> -->
+									<button type="submit"
+										class="btn btn-large btn-primary pull-right"
+										ng-click="addToCart(product.id)">
+										Add to cart <i class=" icon-shopping-cart"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+						<hr class="soft clr" />
+						<p ng-show="product.description">{{product.description}}</p>
+						<p ng-hide="product.description">This product have no
+							description</p>
+						<hr class="soft" />
+					</div>
 
-                    <div class="span9">
-                        <ul id="productDetail" class="nav nav-tabs">
-                            <li class="active"><a href="#home" data-toggle="tab">Product
-                              Details</a>
-                          </li>
-                          <li><a href="#profile" data-toggle="tab">Related Products</a>
-                          </li>
-                      </ul>
-                      <div id="myTabContent" class="tab-content">
-                        <div class="tab-pane fade active in" id="home">
-                            <h4>Product Information</h4>
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr class="techSpecRow">
-                                        <th colspan="2">Product Details</th>
-                                    </tr>
-                                    <tr class="techSpecRow">
-                                        <td class="techSpecTD1">Height</td>
-                                        <td class="techSpecTD2">{{product.details.height * 100}} mm</td>
-                                    </tr>
-                                    <tr class="techSpecRow">
-                                        <td class="techSpecTD1">Price</td>
-                                        <td class="techSpecTD2">{{product.price}} $</td>
-                                    </tr>
-                                    <tr class="techSpecRow">
-                                        <td class="techSpecTD1">Quantity</td>
-                                        <td class="techSpecTD2">{{product.quantity}}</td>
-                                    </tr>
-                                    <tr class="techSpecRow">
-                                        <td class="techSpecTD1">Warranty</td>
-                                        <td class="techSpecTD2">{{product.details.warranty}}</td>
-                                    </tr>
-                                    <tr class="techSpecRow">
-                                        <td class="techSpecTD1">Status</td>
-                                        <td class="techSpecTD2">{{product.details.status}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+					<div class="span9">
+						<ul id="productDetail" class="nav nav-tabs">
+							<li class="active"><a href="#home" data-toggle="tab">Product
+									Details</a></li>
+							<li><a href="#profile" data-toggle="tab">Related
+									Products</a></li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade active in" id="home">
+								<h4>Product Information</h4>
+								<table class="table table-bordered">
+									<tbody>
+										<tr class="techSpecRow">
+											<th colspan="2">Product Details</th>
+										</tr>
+										<tr class="techSpecRow">
+											<td class="techSpecTD1">Height</td>
+											<td class="techSpecTD2">{{product.details.height * 100}}
+												mm</td>
+										</tr>
+										<tr class="techSpecRow">
+											<td class="techSpecTD1">Price</td>
+											<td class="techSpecTD2">{{product.price}} $</td>
+										</tr>
+										<tr class="techSpecRow">
+											<td class="techSpecTD1">Quantity</td>
+											<td class="techSpecTD2">{{product.quantity}}</td>
+										</tr>
+										<tr class="techSpecRow">
+											<td class="techSpecTD1">Warranty</td>
+											<td class="techSpecTD2">{{product.details.warranty}}</td>
+										</tr>
+										<tr class="techSpecRow">
+											<td class="techSpecTD1">Status</td>
+											<td class="techSpecTD2">{{product.details.status}}</td>
+										</tr>
+									</tbody>
+								</table>
 
-                            <h5>Features</h5>
-                            <p>{{Description}}</p>
-                        </div>
-                        <div class="tab-pane fade" id="profile">
-                            <div id="myTab" class="pull-right">
-                                <a href="#listView" data-toggle="tab">
-                                    <span class="btn btn-large"><i class="icon-list"></i>
-                                    </span>
-                                </a>
-                                <a href="#blockView" data-toggle="tab">
-                                    <span class="btn btn-large btn-primary"><i class="icon-th-large"></i>
-                                    </span>
-                                </a>
-                            </div>
-                            <br class="clr" />
-                            <hr class="soft" />
-                            <div class="tab-content">
-                                <div class="tab-pane" id="listView">
-                                    <div class="row">
-                                        <div class="span2">
-                                            <img src="themes/images/products/4.jpg" alt="" />
-                                        </div>
-                                        <div class="span4">
-                                            <h3>New | Available</h3>
-                                            <hr class="soft" />
-                                            <h5>Product Name</h5>
-                                            <p>Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular..
-                                            </p>
-                                            <a class="btn btn-small pull-right" href="product_details.html">View
-                                              Details</a> 
-                                              <br class="clr" />
-                                          </div>
-                                          <div class="span3 alignR">
-                                            <form class="form-horizontal qtyFrm">
-                                                <h3>$222.00</h3>
-                                                <label class="checkbox">
-                                                    <input type="checkbox">Adds product to compair
-                                                </label>
-                                                <br />
-                                                <div class="btn-group">
-                                                    <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i
-                                                        class=" icon-shopping-cart"></i></a>  <a href="product_details.html" class="btn btn-large"><i
-                                                        class="icon-zoom-in"></i></a>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane active" id="blockView">
-                                        <ul class="thumbnails">
-                                            <li class="span3">
-                                                <div class="thumbnail">
-                                                    <a href="product_details.html">
-                                                        <img src="themes/images/products/10.jpg" alt="" />
-                                                    </a>
-                                                    <div class="caption">
-                                                        <h5>Manicure &amp; Pedicure</h5>
-                                                        <p>Lorem Ipsum is simply dummy text.</p>
-                                                        <h4 style="text-align: center">
-                                                            <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i>
-                                                            </a> <a class="btn" href="#">Add
-                                                            to <i class="icon-shopping-cart"></i>
-                                                        </a>  <a class="btn btn-primary" href="#">&euro;222.00</a>
-                                                    </h4>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <hr class="soft" />
-                                </div>
-                            </div>
-                            <br class="clr">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+								<h5>Features</h5>
+								<p>{{Description}}</p>
+							</div>
+							<div class="tab-pane fade" id="profile">
+								<div id="myTab" class="pull-right">
+									<a href="#listView" data-toggle="tab"> <span
+										class="btn btn-large"><i class="icon-list"></i> </span>
+									</a> <a href="#blockView" data-toggle="tab"> <span
+										class="btn btn-large btn-primary"><i
+											class="icon-th-large"></i> </span>
+									</a>
+								</div>
+								<br class="clr" />
+								<hr class="soft" />
+								<div class="tab-content">
+									<div class="tab-pane" id="listView">
+										<div class="row">
+											<div class="span2">
+												<img src="themes/images/products/4.jpg" alt="" />
+											</div>
+											<div class="span4">
+												<h3>New | Available</h3>
+												<hr class="soft" />
+												<h5>Product Name</h5>
+												<p>Nowadays the lingerie industry is one of the most
+													successful business spheres.We always stay in touch with
+													the latest fashion tendencies - that is why our goods are
+													so popular..</p>
+												<a class="btn btn-small pull-right"
+													href="product_details.html">View Details</a> <br
+													class="clr" />
+											</div>
+											<div class="span3 alignR">
+												<form class="form-horizontal qtyFrm">
+													<h3>$222.00</h3>
+													<label class="checkbox"> <input type="checkbox">Adds
+														product to compair
+													</label> <br />
+													<div class="btn-group">
+														<a href="product_details.html"
+															class="btn btn-large btn-primary"> Add to <i
+															class=" icon-shopping-cart"></i></a> <a
+															href="product_details.html" class="btn btn-large"><i
+															class="icon-zoom-in"></i></a>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="tab-pane active" id="blockView">
+										<ul class="thumbnails">
+											<li class="span3">
+												<div class="thumbnail">
+													<a href="product_details.html"> <img
+														src="themes/images/products/10.jpg" alt="" />
+													</a>
+													<div class="caption">
+														<h5>Manicure &amp; Pedicure</h5>
+														<p>Lorem Ipsum is simply dummy text.</p>
+														<h4 style="text-align: center">
+															<a class="btn" href="product_details.html"> <i
+																class="icon-zoom-in"></i>
+															</a> <a class="btn" href="#">Add to <i
+																class="icon-shopping-cart"></i>
+															</a> <a class="btn btn-primary" href="#">&euro;222.00</a>
+														</h4>
+													</div>
+												</div>
+											</li>
+										</ul>
+										<hr class="soft" />
+									</div>
+								</div>
+								<br class="clr">
+							</div>
+						</div>
+
+						<div class="fb-like" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/52a60af5dcac3f217a062f8f" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+						<div class="fb-comments" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/52a60af5dcac3f217a062f8f" data-numposts="5" data-colorscheme="light"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
