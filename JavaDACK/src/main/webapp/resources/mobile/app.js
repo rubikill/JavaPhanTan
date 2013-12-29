@@ -18,7 +18,8 @@ Ext.application({
     ],
 
     views: [
-        'Main'
+        'Main',
+        'Login'
     ],
 
     icon: {
@@ -39,12 +40,42 @@ Ext.application({
         '1496x2048': 'resources/startup/1496x2048.png'
     },
 
+    controllers : [
+        'LoginController',
+        'MainController',
+        'ProductController',
+        'UserController'
+    ],
+
+    stores: [
+        'UserStore',
+        'ProductStore'
+    ],
+
+    models: [
+        'User',
+        'Product'
+    ],
+
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
+        Ext.Viewport.add(Ext.create('cam3tshop.view.Login'));
         Ext.Viewport.add(Ext.create('cam3tshop.view.Main'));
+
+
+        Ext.Ajax.request({
+            url: '/ping',
+            method: 'GET',
+            success: function(response, opts) {
+                Ext.Viewport.setActiveItem(1);
+            },
+            failure: function(response, opts) {
+                Ext.Viewport.setActiveItem(0);
+            }
+        });
     },
 
     onUpdated: function() {

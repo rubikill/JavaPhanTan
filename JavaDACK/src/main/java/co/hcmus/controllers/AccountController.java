@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.hcmus.helpers.SendMailHelper;
 import co.hcmus.models.Account;
@@ -66,6 +67,77 @@ public class AccountController {
 		prepairData(request);
 		return "accounts";
 	}
+
+	/**
+	*
+	*
+	*/
+	@RequestMapping(value = "/account", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Account> getAllAccounts() {
+		return accountService.getAccounts();
+	}
+
+	/**
+	*
+	*
+	*/
+	@RequestMapping(value = "/account", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> addAccount(@RequestBody String json) {
+		try{
+			Account account = Tools.fromJsonTo(json, Account.class);
+
+			System.out.println("---------" + account);
+			accountService.addAccount(account);
+
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}catch(Exception ex){
+
+		}
+
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	*
+	*
+	*/
+	@RequestMapping(value = "/account", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<String> updateAccount(@RequestBody String json) {
+		try{
+			Account account = Tools.fromJsonTo(json, Account.class);
+			accountService.updateAccount(account);
+
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}catch(Exception ex){
+
+		}
+
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	*
+	*
+	*/
+	@RequestMapping(value = "/account", method = RequestMethod.DELETE)
+	@ResponseBody
+	public ResponseEntity<String> deleteAccount(@RequestBody String json) {
+		try{
+			Account account = Tools.fromJsonTo(json, Account.class);
+			accountService.deleteAccount(account.getEmail());
+
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}catch(Exception ex){
+
+		}
+
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+	}
+
+
 
 	/**
 	 * ADMIN PAGE - Deactive an account
@@ -160,7 +232,6 @@ public class AccountController {
 	 * @param model
 	 * @return
 	 */
-
 	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
 	public String login(
 			@RequestParam(value = "error", required = false) boolean error,

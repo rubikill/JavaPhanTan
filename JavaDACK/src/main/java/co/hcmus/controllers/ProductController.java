@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import co.hcmus.models.Manufacturer;
 import co.hcmus.models.Product;
@@ -69,15 +70,57 @@ public class ProductController {
 
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> getProducts() {
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Type", "application/json; charset=utf-8");
-		// get all product
-		List<Product> result = productService.getProducts();
+	public List<Product> getProducts() {
 		logger.info("Rest to get all Products");
-		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
-				HttpStatus.OK);
+		return productService.getProducts();
+	}
+
+	/**
+	 * webservice for get all product
+	 */
+	@RequestMapping(value = "/product", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<String> addProduct(@RequestBody String json) {
+		try{
+			Product product = Tools.fromJsonTo(json, Product.class);
+			productService.addProduct(product);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}catch(Exception e){
+
+		}
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	 * webservice for get all product
+	 */
+	@RequestMapping(value = "/product", method = RequestMethod.PUT)
+	@ResponseBody
+	public ResponseEntity<String> updateProduct(@RequestBody String json) {
+		try{
+			Product product = Tools.fromJsonTo(json, Product.class);
+			productService.updateProduct(product);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}catch(Exception e){
+
+		}
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+	}
+
+	/**
+	 * webservice for get all product
+	 */
+	@RequestMapping(value = "/product/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public ResponseEntity<String> deleteProduct(@PathVariable("id") String id) {
+		try{
+			logger.info("delete product: " + id);
+			productService.deleteProduct(id);
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}catch(Exception e){
+
+		}
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 	}
 
 	/**

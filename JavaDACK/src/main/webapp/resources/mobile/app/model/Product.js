@@ -1,0 +1,57 @@
+Ext.define('cam3tshop.model.Product', {
+    extend: 'Ext.data.Model',
+    config: {
+        fields: [{
+            name: 'description',
+            type: 'auto'
+        }, {
+            name: 'id',
+            type: 'auto'
+        }, {
+            name: 'importCount',
+            type: 'auto'
+        }, {
+            name: 'manufacturer',
+            type: 'auto'
+        }, {
+            name: 'manufacturerId',
+            type: 'auto'
+        }, {
+            name: 'name',
+            type: 'auto'
+        }, {
+            name: 'point',
+            type: 'auto'
+        }, {
+            name: 'price',
+            type: 'auto'
+        }, {
+            name: 'productDetail',
+            type: 'auto'
+        }, {
+            name: 'productState',
+            type: 'auto'
+        }, {
+            name: 'productStateId',
+            type: 'auto'
+        }, {
+            name: 'productType',
+            type: 'auto'
+        }, {
+            name: 'productTypeId',
+            type: 'auto'
+        }, {
+            name: 'quantity',
+            type: 'auto'
+        }, {
+            name: 'sellCount',
+            type: 'auto'
+        }, {
+            name: 'status',
+            type: 'auto'
+        }, {
+            name: 'url',
+            type: 'auto'
+        }]
+    }
+});
