@@ -12,6 +12,9 @@ Ext.define('cam3tshop.controller.MainController', {
             logoutButton: {
                 tap: 'onLogoutButtonTap'
             },
+            logoutButton1: {
+                tap: 'onLogoutButtonTap'
+            },
             mainTabBar: {
                 activeitemchange: 'onActiveitemchange'
             }
@@ -19,6 +22,7 @@ Ext.define('cam3tshop.controller.MainController', {
 
         refs: {
             logoutButton: '#btn_logout',
+            logoutButton1: '#btn_logout_userTab',
             mainTabBar: '#tabBarMain'
         }
     },

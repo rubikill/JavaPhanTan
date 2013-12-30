@@ -25,7 +25,7 @@ Ext.define('cam3tshop.controller.UserController', {
 
         refs: {
             addOrUpdateUserButton: '#btn_addOrUpdateUser',
-            backButton: '#btn_back',
+            backButton: '#btn_back_userTab',
             saveButton: '#form_addOrUpdateUser_saveButton',
             listUser: '#lv_User'
         }
@@ -35,10 +35,10 @@ Ext.define('cam3tshop.controller.UserController', {
     onAddOrUpdateUserButtonTap: function() {
         console.log("add user tap");
 
-        Ext.getCmp('btn_logout').hide();
+        Ext.getCmp('btn_logout_userTab').hide();
         Ext.getCmp('btn_addOrUpdateUser').hide();
 
-        Ext.getCmp('btn_back').show();
+        Ext.getCmp('btn_back_userTab').show();
 
         Ext.getCmp('tabUser').animateActiveItem(1, {
             type: 'slide',
@@ -53,10 +53,10 @@ Ext.define('cam3tshop.controller.UserController', {
     onBackButtonTap: function() {
         console.log("back button tap");
 
-        Ext.getCmp('btn_logout').show();
+        Ext.getCmp('btn_logout_userTab').show();
         Ext.getCmp('btn_addOrUpdateUser').show();
 
-        Ext.getCmp('btn_back').hide();
+        Ext.getCmp('btn_back_userTab').hide();
 
         Ext.getCmp('tabUser').animateActiveItem(0, {
             type: 'slide',
@@ -94,10 +94,10 @@ Ext.define('cam3tshop.controller.UserController', {
                 Ext.Msg.alert("success");
 
                 //Duplicate code here
-                Ext.getCmp('btn_logout').show();
+                Ext.getCmp('btn_logout_userTab').show();
                 Ext.getCmp('btn_addOrUpdateUser').show();
 
-                Ext.getCmp('btn_back').hide();
+                Ext.getCmp('btn_back_userTab').hide();
 
                 Ext.getCmp('tabUser').animateActiveItem(0, {
                     type: 'slide',
@@ -119,10 +119,10 @@ Ext.define('cam3tshop.controller.UserController', {
     onItemTap: function (index, target, record, e, eOpts) {        
         var selectedUser = e.data;
 
-        Ext.getCmp('btn_logout').hide();
+        Ext.getCmp('btn_logout_userTab').hide();
         Ext.getCmp('btn_addOrUpdateUser').hide();
 
-        Ext.getCmp('btn_back').show();
+        Ext.getCmp('btn_back_userTab').show();
 
         Ext.getCmp('tabUser').animateActiveItem(1, {
             type: 'slide',

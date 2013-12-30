@@ -4,7 +4,10 @@ Ext.define('cam3tshop.view.Main', {
     requires: [
         'Ext.TitleBar',
         'Ext.Video',
-        'Ext.dataview.List'
+        'Ext.dataview.List',
+        'Ext.field.Email',
+        'Ext.field.Number',
+        'Ext.field.Hidden'
     ],
 
     config: {
@@ -23,11 +26,11 @@ Ext.define('cam3tshop.view.Main', {
                     xtype: 'button',
                     align: 'left',
                     text: 'logout',
-                    id: 'btn_logout'
+                    id: 'btn_logout_userTab'
                 }, {
                     align: 'left',
                     iconCls: 'arrow_left',
-                    id: 'btn_back',
+                    id: 'btn_back_userTab',
                     hidden: true
                 }, {
                     xtype: 'button',
@@ -108,6 +111,7 @@ Ext.define('cam3tshop.view.Main', {
 
             items: [{
                 docked: 'top',
+                id: 'header_productTab',
                 xtype: 'titlebar',
                 items: [{
                     align: 'left',
@@ -121,7 +125,7 @@ Ext.define('cam3tshop.view.Main', {
                 }, {
                     align: 'right',
                     iconCls: 'add',
-                    id: 'btn_addProduct'
+                    id: 'btn_addOrUpdateProduct'
                 }]
             }, {
                 xtype: 'panel',
@@ -139,6 +143,62 @@ Ext.define('cam3tshop.view.Main', {
                     width: '100%',
                     store: 'ProductStore',
                     itemTpl: '{name}'
+                }, {
+                    xtype: 'formpanel',
+                    id: 'form_addOrUpdateProduct',
+                    items: [{
+                        xtype: 'hiddenfield',
+                        id: 'form_addOrUpdateProduct_id'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'name',
+                        label: 'Name',
+                        id: 'form_addOrUpdateProduct_name'
+                    }, {
+                        xtype: 'emailfield',
+                        name: 'description',
+                        label: 'Description',
+                        id: 'form_addOrUpdateProduct_description'
+                    }, {
+                        xtype: 'numberfield',
+                        name: 'importCount',
+                        label: 'ImportCount',
+                        id: 'form_addOrUpdateProduct_importCount'
+                    }, {
+                        xtype: 'numberfield',
+                        name: 'quantity',
+                        label: 'Quantity',
+                        id: 'form_addOrUpdateProduct_quantity'
+                    }, {
+                        xtype: 'numberfield',
+                        name: 'sellCount',
+                        label: 'SellCount',
+                        id: 'form_addOrUpdateProduct_sellCount'
+                    }, {
+                        xtype: 'numberfield',
+                        name: 'point',
+                        label: 'Point',
+                        id: 'form_addOrUpdateProduct_point'
+                    }, {
+                        xtype: 'numberfield',
+                        name: 'price',
+                        label: 'Price',
+                        id: 'form_addOrUpdateProduct_price'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'status',
+                        label: 'Status',
+                        id: 'form_addOrUpdateProduct_status'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'url',
+                        label: 'Url',
+                        id: 'form_addOrUpdateProduct_url'
+                    }, {
+                        xtype: 'button',
+                        text: 'Save',
+                        id: 'form_addOrUpdateProduct_saveButton'
+                    }]
                 }]
             }]
         }]
