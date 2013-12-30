@@ -87,3 +87,13 @@ shopsv.factory('Rating', function ($resource) {
         }
     });
 });
+
+shopsv.factory('Fetch', function ($resource) {
+    return $resource('/exchangerate', {
+    }, {
+        getExchangerate: {
+            method: 'GET',
+            isArray: true
+        }
+    });
+});

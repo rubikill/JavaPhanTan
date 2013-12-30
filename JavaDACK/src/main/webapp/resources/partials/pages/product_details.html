@@ -1,18 +1,5 @@
 <!-- <ng-include src="'partials/slider.html'" scope="" onload=""></ng-include> -->
 <div id="mainBody">
-	<div id="fb-root"></div>
-	<div id="fb-root"></div>
-	<script>
-		(function(d, s, id) {
-			var js, fjs = d.getElementsByTagName(s)[0];
-			if (d.getElementById(id))
-				return;
-			js = d.createElement(s);
-			js.id = id;
-			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=646542498720208";
-			fjs.parentNode.insertBefore(js, fjs);
-		}(document, 'script', 'facebook-jssdk'));
-	</script>
 	<div class="container">
 		<div class="row">
 			<ng-include src="'partials/sidebar.html'" scope="" onload=""></ng-include>
@@ -209,8 +196,8 @@
 							</div>
 						</div>
 
-						<div class="fb-like" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/52a60af5dcac3f217a062f8f" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-						<div class="fb-comments" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/52a60af5dcac3f217a062f8f" data-numposts="5" data-colorscheme="light"></div>
+						<div class="fb-like" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/{{product.id}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+						<div class="fb-comments" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/{{product.id}}" data-numposts="5" data-colorscheme="light"></div>
 					</div>
 				</div>
 			</div>

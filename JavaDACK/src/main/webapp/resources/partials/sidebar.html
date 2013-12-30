@@ -1,22 +1,46 @@
 <!-- Sidebar ================================================== -->
 <div id="sidebar" class="span3" ng-controller="productTypeCtrl">
-	<div class="well well-small">
-		<a id="myCart" href="#/product_summary">
-			<img src="themes/images/ico-cart.png" alt="cart">
-			{{cart.length}} {{'_BTN_CART_' | i18n}}
-			<span class="badge badge-warning pull-right">{{cart.length}}</span>
-		</a>
-	</div>
-	<ul id="sideManu" class="nav nav-tabs nav-stacked">
-		<li class="subMenu open"><a>Camera</a>
-			<ul>
-				<li ng-repeat="item in listProductTypes">
-					<a href="#/products/{{item.id}}">
-						<i class="icon-chevron-right"></i>{{item.name}}
-					</a>
-				</li>
-			</ul>
-		</li>
-	</ul>
+    <div class="well well-small">
+        <a id="myCart" href="#/product_summary">
+            <img src="themes/images/ico-cart.png" alt="cart">{{cart.length}} {{'_BTN_CART_' | i18n}}
+            <span class="badge badge-warning pull-right">{{cart.length}}</span>
+        </a>
+    </div>
+    <ul id="sideManu" class="nav nav-tabs nav-stacked">
+        <li class="subMenu open"><a>Camera</a>
+            <ul>
+                <li ng-repeat="item in listProductTypes">
+                    <a href="#/products/{{item.id}}">
+                        <i class="icon-chevron-right"></i>{{item.name}}
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <br/>
+    <div class="thumbnail" ng-controller="menuCtrl">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center">Code</th>
+                    <th style="text-align: center">Buy</th>
+                    <th style="text-align: center">Sell</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in exchangeRate">
+                    <td style="text-align: center">
+                    {{item.curencyCode}}
+                    </td>
+                    <td style="text-align: center">
+                    {{item.buy}}
+                    </td>
+                    <td style="text-align: center">
+                    {{item.sell}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <!-- Sidebar end=============================================== -->

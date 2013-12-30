@@ -1,6 +1,12 @@
 <div id="welcomeLine" class="span8" ng-controller="menuCtrl">
-	<div ng-show="user" class="pull-right">
-		<!-- Display User name -->
-		{{'_LAB_WELCOME_' | i18n}}<strong> {{user.email}}</strong>
-	</div>
+    <div ng-show="user" class="pull-right">
+        <!-- Display User name -->
+        {{'_LAB_WELCOME_' | i18n}}
+        <strong>{{user.email}}</strong>
+    </div>
+
+    <div class="pull-right">
+        <fb:login-button scope="email,user_likes,publish_actions,user_groups,friends_groups" show-faces="true" width="200" max-rows="1">Login</fb:login-button>
+        <button class="btn brn-danger" ng-click="logoutFB()">logout fb</button>
+    </div>
 </div>

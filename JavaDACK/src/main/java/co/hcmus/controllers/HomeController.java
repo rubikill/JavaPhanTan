@@ -26,7 +26,7 @@ import co.hcmus.util.Tools;
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(ProductController.class);
+			.getLogger(HomeController.class);
 	
 	// private Manufacturer
 	/**
@@ -50,15 +50,8 @@ public class HomeController {
 	
 	@RequestMapping(value = "/exchangerate", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<String> getProducts() {
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Type", "application/json; charset=utf-8");
-		// get all product
-		List<ExchangeRate> result = FetchDataFromOtherPage.getExchangeRate();
-		logger.info("Rest to get all Products");
-		return new ResponseEntity<String>(Tools.toJsonArray(result), headers,
-				HttpStatus.OK);
+	public List<ExchangeRate> getExchangeRates() {
+		return FetchDataFromOtherPage.getExchangeRate();
 	}
 	
 }

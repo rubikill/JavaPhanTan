@@ -9,6 +9,8 @@ function accountCtrl($scope, $rootScope, $location, LoginService, localize, Acco
     $scope.login = function() {
         LoginService.login($scope.account).success(function(user) {
             $rootScope.user = user;
+
+            console.log($rootScope.user);
             $rootScope.logged = true;
             $scope.errMessage = undefined; // success
             $location.path("#/");
