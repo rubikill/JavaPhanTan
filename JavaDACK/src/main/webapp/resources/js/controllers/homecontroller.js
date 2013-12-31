@@ -7,7 +7,7 @@ function homeCtrl($scope, Product, Cart) {
     Product.getProductsByManufacturer({
         id: '52a60375dcac65bfed509857'
     }, function(data) {
-        console.log(data);
+      //  console.log(data);
         $scope.listNewProduct = data;
     }, function(respone) {
         console.log(respone);
