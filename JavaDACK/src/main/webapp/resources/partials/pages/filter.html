@@ -8,7 +8,7 @@
                     <li><a href="index.html">Home</a> 
                         <span class="divider">/</span>
                     </li>
-                    <li class="active">Products Name</li>
+                    <li class="active">Products Filter</li>
                 </ul>
                 <h3>
                     Filter
@@ -48,12 +48,12 @@
                     <div class="tab-pane active" id="listView">
                         <div class="row" ng-repeat="item in listProducts | orderBy:predicate:reverse  | filter:searchText:strict">
                             <div class="span2">
-                                <img src="{{item.url}}" alt="" />
+                                <a href="#/product_details/{{item.id}}"> <img src="{{item.url}}" alt="" class="img-polaroid" width="130" height="130" /> </a>
                             </div>
                             <div class="span4">
-                                <h3>{{item.status}}</h3>
+                                <a href="#/product_details/{{item.id}}"> <h4>{{item.name}}</h4> </a>
                                 <hr class="soft" />
-                                <h5>{{item.name}}</h5>
+                                
                                 <p>{{item.description}}</p>
                                 <a class="btn btn-small pull-right" href="#/product_details/{{item.id}}">
                                     View Details</a> 

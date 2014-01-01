@@ -97,6 +97,14 @@ function productTypeCtrl($scope, $rootScope, ProductType, $routeParams) {
 function productDetailsCtrl($scope, $rootScope, $location, $routeParams, ProductDetails, Product, Cart, Rating) {
     $scope.rating = 1;
 
+    //List product
+    $scope.listRelatedProducts = [];
+    // current page
+    $scope.currentPage = 1;
+    // number of items per page
+    $scope.pageSize = 3;
+    $scope.numberOfPages = 0;
+
     Product.getProductById({
         id: $routeParams.id
     }, function(data) {
@@ -106,28 +114,37 @@ function productDetailsCtrl($scope, $rootScope, $location, $routeParams, Product
             id: $routeParams.id
         }, function(data) {
             $scope.product.details = data;
-            console.log($scope.product);
-
-            Rating.getRate({
-                productId: $routeParams.id
-            }, {
-                'email': $rootScope.user.email
-            }, function(data) {
-                if (data.isRate) {
-                    $scope.rating = data.rateEmail;
-                }
-                $scope.rateAverage = data.rateAverage;
-                //console.log(data);
-            }, function(response) {
-                // body...
-            });
+            // Rating.getRate({
+            //     productId: $routeParams.id
+            // }, {
+            //     'email': 'admin@local.host'//$rootScope.user.email
+            // }, function(data) {
+            //     if (data.isRate) {
+            //         $scope.rating = data.rateEmail;
+            //     }
+            //     $scope.rateAverage = data.rateAverage;
+            //     //console.log(data);
+            // }, function(response) {
+            //     // body...
+            // });
 
         }, function(response) {
             //console.log(response);
         });
+        //Get related product
+        Product.getProductsByType({
+            id: $scope.product.productTypeId
+            }, function(data){
+                    $scope.listRelatedProducts = data;
+                    $scope.numberOfPages = 1;
+            }, function(response){
+        });
     }, function(response) {
 
     });
+
+    
+
 
     $scope.addToCart = function(productId) {
         Cart.addProductToCart({

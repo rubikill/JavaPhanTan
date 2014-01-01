@@ -119,16 +119,16 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							start</label>
 						<div class="col-sm-8">
-							<form:input path="date_start" type="text" 
-								placeholder="Empty" id="dateStart" class="form-control" data-format="YYYY/MM/DD"/>
+							<form:input path="date_start"
+								placeholder="Empty" id="dateStart" class="form-control" data-format="DD/MM/YYYY"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							end</label>
 						<div class="col-sm-8">
-							<form:input path="date_end" type="text" 
-								placeholder="Empty" id="dateEnd" class="form-control" data-format="YYYY/MM/DD"/>
+							<form:input path="date_end"
+								placeholder="Empty" id="dateEnd" class="form-control" data-format="DD/MM/YYYY"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -167,7 +167,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Add</button>
+					<button type="submit" class="btn btn-primary">Change</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</form:form>
@@ -254,8 +254,8 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Date
 							start</label>
 						<div class="col-sm-8">
-							<form:input path="date_start" type="text" 
-								id="dateStart" class="form-control" data-format="YYYY/MM/DD"/>
+							<form:input path="date_start" type="date" 
+								id="dateStart" class="form-control" data-format="DD/MM/YYYY"/>
 						</div>
 					</div>
 					<div class="form-group">
@@ -263,7 +263,7 @@
 							end</label>
 						<div class="col-sm-8">
 							<form:input path="date_end" type="text" 
-								id="dateEnd" class="form-control" data-format="YYYY/MM/DD"/>
+								id="dateEnd" class="form-control" data-format="DD/MM/YYYY"/>
 						</div>
 					</div>
 					<div class="form-group">

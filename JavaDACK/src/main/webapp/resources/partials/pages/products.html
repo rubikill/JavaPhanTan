@@ -47,12 +47,20 @@
                     <div class="tab-pane active" id="listView">
                         <div class="row" ng-repeat="item in listProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize ">
                             <div class="span2">
-                                <img src="{{item.url}}" alt="" />
+                               <a href="#/product_details/{{item.id}}"> <img src="{{item.url}}" alt="" class="img-rounded" height="170"
+                                    width="170"/> </a>
                             </div>
                             <div class="span4">
-                                <h3>{{item.name}}</h3>
+                                <a href="#/product_details/{{item.id}}"> <h3>{{item.name}}</h3> </a>
                                 <hr class="soft" />
-                                <h5>{{item.status}}</h5>
+                                <div ng-switch on="item.quantity">
+                                    <div ng-switch-when="0">
+                                       <h3 class="text-error">Sold-out</h3>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <!--h3 class="text-info">On sale</h3-->
+                                    </div>
+                                </div>
                                 <p>{{item.description}}</p>
                                 <br class="clr" />
                             </div>
@@ -79,7 +87,8 @@
                             <li class="span3" ng-repeat="item in listProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
                                 <div class="thumbnail" style="height: 400px;">
                                     <a href="#/product_details/{{item.id}}">
-                                        <img src="{{item.url}}" alt="" />
+                                        <img src="{{item.url}}" alt="" class="img-rounded" height="170"
+                                    width="170"/>
                                     </a>
                                     <div class="caption">
                                         <h5>{{item.name}}</h5>

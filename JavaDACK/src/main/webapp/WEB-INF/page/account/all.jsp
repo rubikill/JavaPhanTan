@@ -14,7 +14,7 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<button class="btn btn-primary pull-right" data-toggle="modal"
+		<button class="open-AccountCreateDialog btn btn-primary pull-right" data-toggle="modal"
 		data-target="#createModal">New account</button>
 	</div>
 </div>
@@ -132,7 +132,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 						<fmt:formatDate value="${Account.birthday}" pattern="dd.MM.yyyy"
 						var="birthday" />
 						<form:input path="birthday" type="text" 
-						placeholder="Empty" id="inputBirthday" class="form-control" data-format="YYYY/MM/DD"/>
+						placeholder="Empty" id="inputBirthday" class="form-control" data-format="DD/MM/YYYY"/>
 					</div>
 				</div>
 				<div class="form-group">
@@ -241,7 +241,7 @@ aria-labelledby="myModalLabel" aria-hidden="true">
 						<fmt:formatDate value="${Account.birthday}" pattern="dd.MM.yyyy"
 						var="birthday" />
 						<form:input path="birthday" type="text" 
-						placeholder="Empty" id="inputBirthday" class="form-control" data-format="YYYY/MM/DD"/>
+						placeholder="Empty" id="inputBirthday" class="form-control" data-format="DD/MM/YYYY"/>
 					</div>
 				</div>
 				<div class="form-group">

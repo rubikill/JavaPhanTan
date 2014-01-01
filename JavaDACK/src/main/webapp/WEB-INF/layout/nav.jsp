@@ -5,7 +5,7 @@
 	</li>
 	<!-- <li><a href="charts"><i class="fa fa-bar-chart-o"></i> Charts</a></li> -->
 	<li class=${nav == "account"? 'active' : ''}>
-		<a href="/admin/account"><i class="fa fa-user"></i> Account Manage</a>
+		<a href="/admin/account"><i class="fa fa-user"></i> Account</a>
 	</li>	
 	<li class=${nav == "manufacturer"? 'active' : ''}>
 		<a href="/admin/manufacturer"><i class="fa fa-file-text-o"></i> Manufacturer</a>
@@ -17,13 +17,13 @@
 		<a href="/admin/products?Page=1"><i class="fa fa-suitcase"></i> All Product</a>
 		</li>	
 	<li class=${nav == "promotions"? 'active' : ''}>
-		<a href="/admin/promotions"><i class="fa fa-bullhorn"></i> Promotion Manage</a>
+		<a href="/admin/promotions"><i class="fa fa-bullhorn"></i> Promotion</a>
 	</li>
 	<li class=${nav == "paymenttype"? 'active' : ''}>
 		<a href="/admin/paymenttype"><i class="fa fa-file-text-o"></i> Payment type</a>
 	</li>
 	
 	<li class=${nav == "orders"? 'active' : ''}>
-		<a href="/admin/orders"><i class="fa fa-file-text-o"></i> Orders Manage</a>
+		<a href="/admin/orders"><i class="fa fa-file-text-o"></i> Orders</a>
 	</li>
 </ul>

@@ -1,5 +1,7 @@
 package co.hcmus.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,11 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,6 +58,11 @@ public class PromotionController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = "/admin/promotions/add", method = RequestMethod.POST)
 	public String addPromotion(Promotion promotion) {
+		System.out.println("\n \n \n startDate:"
+				+ promotion.getDate_start().toString());
+		System.out.println("endDate:" + promotion.getDate_end().toString()
+				+ "\n \n \n ");
+
 		promotionService.addPromotion(promotion);
 		logger.info("Admin create a promotion");
 		return "redirect:/admin/promotions";
@@ -72,6 +82,13 @@ public class PromotionController {
 		promotionService.updatePromotion(promotion);
 		logger.info("Admin inactive Promotion with Id : " + id);
 		return "redirect:/admin/promotions";
+	}
+
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(
+				dateFormat, false));
 	}
 
 	/**
@@ -100,6 +117,11 @@ public class PromotionController {
 	@RequestMapping(value = "/admin/promotions/edit", method = RequestMethod.POST)
 	public String editPromotion(Promotion promotion) {
 		promotionService.updatePromotion(promotion);
+		System.out.println("\n \n \n startDate:"
+				+ promotion.getDate_start().toString());
+		System.out.println("endDate:" + promotion.getDate_end().toString()
+				+ "\n \n \n ");
+
 		logger.info("Admin edit Promotion with Id : " + promotion.getId());
 		return "redirect:/admin/promotions";
 	}

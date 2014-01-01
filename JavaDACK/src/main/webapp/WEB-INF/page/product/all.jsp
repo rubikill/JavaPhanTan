@@ -254,7 +254,7 @@
 							<div class="col-sm-8">
 								<input type="text" id="imgtextEdit" name="inputFile" /> <img
 									name="inputUrl" id="imgEdit" src="#" alt="your image" height="100"
-									width="100" />
+									width="100" class="img-polaroid"/>
 							</div>
 						</div>
 					</div>
@@ -474,7 +474,7 @@
 							<div class="col-sm-8">
 								<input type="text" id="imgtextCreate" name="inputFile" /> <img
 									name="inputUrl" id="imgCreate" src="#" alt="your image" height="100"
-									width="100" />
+									width="100" class="img-polaroid"/>
 							</div>
 						</div>
 					</div>
@@ -611,9 +611,8 @@
 							<label for="inputPassword3" class="col-sm-4 control-label">Image
 							</label>
 							<div class="col-sm-8">
-								<input type="text" id="imgtextDetail" name="inputFile" /> <img
-									name="inputUrl" id="imgDetail" src="#" alt="your image" height="100"
-									width="100" />
+								<input type="text" id="imgtextDetail" name="inputFile" />   <img name="inputUrl" id="imgDetail" src="#" alt="your image" height="100"
+									width="100" class="img-polaroid" />
 							</div>
 						</div>
 				</form>
