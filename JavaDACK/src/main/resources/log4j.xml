@@ -41,9 +41,9 @@
 		<level value="info" />
 	</logger>
 
-	<logger name="org.springframework.security">
+	<!-- <logger name="org.springframework.security">
 		<level value="debug" />
-	</logger>
+	</logger> -->
 	
 	<logger name="org.springframework.context">
 		<level value="info" />
