@@ -38,7 +38,7 @@ function menuCtrl($location, $scope, localize, $rootScope, $cookieStore, Cart, L
         LoginService.logout().success(function() {
             $rootScope.user = null;
             $rootScope.logged = false;
-            FB.logout(function(response) {});
+            //FB.logout(function(response) {});
             alertify.success("Logout successful");
             // document.getElementById("avatar_img").innerHTML="<img src=\"themes/images/login_button.png\" border=\"0\">";
             // document.getElementById("avatar_img").ng-click = "fb_login()";
