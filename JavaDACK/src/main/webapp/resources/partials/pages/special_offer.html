@@ -8,104 +8,127 @@
                     <li><a href="index.html">Home</a> 
                         <span class="divider">/</span>
                     </li>
-                    <li class="active">Special offers</li>
+                    <li class="active">Specials offer</li>
                 </ul>
-                <h4>
-                    20% Discount Special offer
-                    <small class="pull-right">40 products are available</small>
-                </h4>
+                <h3>
+                    Specials offer
+                    <small class="pull-right">{{listPromotionProducts.length}} products are available</small>
+                </h3>
                 <hr class="soft" />
                 <form class="form-horizontal span6">
                     <div class="control-group">
+                        <!-- Sort tren day luon -->
                         <label class="control-label alignL">Sort By</label>
-                        <select>
-                            <option>Priduct name A - Z</option>
-                            <option>Priduct name Z - A</option>
-                            <option>Priduct Stoke</option>
-                            <option>Price Lowest first</option>
+                        <select ng-model="predicate">
+                            <option value="+product.price">Increment Price</option>
+                            <option value="-product.price">Decrement Price</option>
+                            <option value="+product.name">Increment Name</option>
+                            <option value="-product.name">Decrement Name</option>
+                            <option value="+product.quantity">Increment Quantity</option>
+                            <option value="-product.quantity">Decrement Quantity</option>
                         </select>
                     </div>
-                </form>
+                </form>                
+
                 <div id="myTab" class="pull-right">
                     <a href="#listView" data-toggle="tab">
-                        <span class="btn btn-large"><i class="icon-list"></i>
+                        <span class="btn btn-large">
+                            <i class="icon-list"></i>
                         </span>
                     </a>
                     <a href="#blockView" data-toggle="tab">
-                        <span class="btn btn-large btn-primary"><i class="icon-th-large"></i>
+                        <span class="btn btn-large">
+                            <i class="icon-th-large"></i>
                         </span>
                     </a>
                 </div>
                 <br class="clr" />
                 <div class="tab-content">
-                    <div class="tab-pane" id="listView">
-                        <div class="row">
+                    <div class="tab-pane active" id="listView">
+                        <div class="row" ng-repeat="item in listPromotionProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize ">
                             <div class="span2">
-                                <img src="themes/images/products/b1.jpg" alt="" />
+                               <a href="#/product_details/{{item.product.id}}"> <img src="{{item.product.url}}" alt="" class="img-rounded" height="170"
+                                    width="170"/> </a>
                             </div>
                             <div class="span4">
-                                <h3>New | Available</h3>
+                                <a href="#/product_details/{{item.product.id}}"> <h3>{{item.product.name}}</h3> </a>
                                 <hr class="soft" />
-                                <h5>Product Name</h5>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ...</p>
-                                <a class="btn btn-small pull-right" href="product_details.html">View
-										Details</a> 
+                                <div ng-switch on="item.product.quantity">
+                                    <div ng-switch-when="0">
+                                       <h3 class="text-error">Sold-out</h3>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <!--h3 class="text-info">On sale</h3-->
+                                    </div>
+                                </div>
+                                <p>{{item.product.description}}</p>
                                 <br class="clr" />
                             </div>
                             <div class="span3 alignR">
-                                <form class="form-horizontal qtyFrm">
-                                    <h3>$110.00</h3>
+                                <div class="form-horizontal qtyFrm">
+                                    <h3 class="text-error">Discount {{item.discount}}%: ${{item.product.price*(100-item.discount)/100}}</h3>
+                                    <h4>Old price: ${{item.product.price}}</h4>
                                     <label class="checkbox">
-                                        <input type="checkbox">Adds product to compair
+                                        <input type="checkbox" ng-click="compair(item.product, check[$index])" ng-model="check[$index]">Adds product to compair
                                     </label>
-                                    <br /> <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i
-											class=" icon-shopping-cart"></i></a>  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-                                </form>
+                                    <br />
+                                    <button class="btn btn-primary" ng-click="addToCart(item.product.id)">
+                                        Add to <i class=" icon-shopping-cart"></i>
+                                    </button>
+                                    <a href="#/product_details/{{item.product.id}}" class="btn">
+                                        View Details <i class="icon-zoom-in"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="tab-pane  active" id="blockView">
+                    <div class="tab-pane" id="blockView">
                         <ul class="thumbnails">
-                            <li class="span3">
-                                <div class="thumbnail">
-                                    <a href="product_details.html">
-                                        <img src="themes/images/products/b1.jpg" alt="" />
+                            <li class="span3" ng-repeat="item in listPromotionProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                                <div class="thumbnail" style="height: 400px;">
+                                    <a href="#/product_details/{{item.product.id}}">
+                                        <img src="{{item.product.url}}" alt="" class="img-rounded" height="170"
+                                    width="170"/>
                                     </a>
                                     <div class="caption">
-                                        <h5>Manicure &amp; Pedicure</h5>
-                                        <p>Lorem Ipsum is simply dummy text.</p>
+                                        <h5>{{item.product.name}}</h5>
+                                         
+                                         <h6>Discount {{item.discount}}%</h6>
+                                         <strong class="text-warning">Old price: ${{item.product.price}} </strong>
+                                        <p>{{item.product.description}}</p>
                                         <h4 style="text-align: center">
-                                            <a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i>
-                                            </a> <a class="btn" href="#">Add to <i
-															class="icon-shopping-cart"></i></a>  <a class="btn btn-primary" href="#">&euro;110.00</a>
+                                            <a class="btn" href="#/product_details/{{item.product.id}}">
+                                                <i class="icon-zoom-in"></i>
+                                            </a>
+                                            <button class="btn" ng-click="addToCart(item.product.id)">
+                                                Add to <i class="icon-shopping-cart"></i>
+                                            </button> 
+                                            <button class="btn btn-danger"> ${{item.product.price*(100-item.discount)/100}}</button>
                                         </h4>
                                     </div>
                                 </div>
                             </li>
+                        </ul>
+                        <hr class="soft" />
                     </div>
                 </div>
-                <a href="compair.html" class="btn btn-large pull-right">Compair
-										Product</a>
+
+                <a href="#/compair" class="btn btn-large pull-right">Compair Product</a>
+
                 <div class="pagination">
                     <ul>
-                        <li><a href="#">&lsaquo;</a>
+                        <li><a ng-click="prev()">&lsaquo;</a>
                         </li>
-                        <li><a href="#">1</a>
+                        <li><a>{{currentPage}}</a>
                         </li>
-                        <li><a href="#">2</a>
-                        </li>
-                        <li><a href="#">3</a>
-                        </li>
-                        <li><a href="#">4</a>
-                        </li>
-                        <li><a href="#">...</a>
-                        </li>
-                        <li><a href="#">&rsaquo;</a>
+                        <li><a ng-click="next()">&rsaquo;</a>
                         </li>
                     </ul>
+
                 </div>
+                Total: {{numberOfPages}} pages
                 <br class="clr" />
             </div>
-            </ul>
-        </div>
+        </ul>
+    </div>

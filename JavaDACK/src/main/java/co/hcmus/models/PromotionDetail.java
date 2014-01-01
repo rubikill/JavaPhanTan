@@ -4,10 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Promotion detail
  * 
- * @author Thanh Toan
- * 
+ * @author WindyZBoy
+ *
  */
 @Document
 public class PromotionDetail {
@@ -18,6 +17,16 @@ public class PromotionDetail {
 	private String productId; // product ID
 	private String status; // status
 	private int discount; // discount
+	
+	private Product product;
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 
 	/**
 	 * 

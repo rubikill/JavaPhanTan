@@ -28,7 +28,7 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
+						<th  style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th style="width: 40%">Product name <i class="fa fa-sort"></i></th>
 						<th style="width: 20%">Product type <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Quantity <i class="fa fa-sort"></i></th>
@@ -54,7 +54,7 @@
 				<tbody>
 					<c:forEach var="product" items="${listProduct}" varStatus="status">
 						<tr class="rowProduct" id="rowProduct${status.index}">
-							<td hidden="true" id="0">${product.id }</td>
+							<td  id="0">${product.id }</td>
 							<td id="1">${product.name }</td>
 							<td id="2">${product.productType.name }</td>
 							<td id="3">${product.quantity }</td>

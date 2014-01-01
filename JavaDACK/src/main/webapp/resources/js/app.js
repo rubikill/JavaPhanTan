@@ -32,8 +32,8 @@ shop.config(['$routeProvider',
             })
             .when('/special_offer', {
                 templateUrl: '/partials/pages/special_offer.html'
-                // ,
-                // controller : homeCtrl
+                ,
+                controller : promotionCtrl
             })
             .when('/products/:typeId', {
                 templateUrl: '/partials/pages/products.html',

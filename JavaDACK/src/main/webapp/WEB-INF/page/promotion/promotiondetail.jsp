@@ -36,9 +36,9 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th style="width: 5%">Id <i class="fa fa-sort"></i></th>
+						<th hidden="true" style="width: 5%">Id <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Product Id <i class="fa fa-sort"></i></th>
-						<th style="width: 8%">Discount <i class="fa fa-sort"></i></th>
+						<th style="width: 8%">Discount (%) <i class="fa fa-sort"></i></th>
 						<th style="width: 15%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 17%">Action</th>
 					</tr>
@@ -48,7 +48,7 @@
 						varStatus="status">
 						<tr class="rowPromotionDetail"
 							id="rowPromotionDetail${status.index}">
-							<td id="0">${promotiondetail.id }</td>
+							<td hidden="true" id="0">${promotiondetail.id }</td>
 							<td id="1">${promotiondetail.productId}</td>
 							<td id="2">${promotiondetail.discount}</td>
 							<td id="3">${promotiondetail.status}</td>

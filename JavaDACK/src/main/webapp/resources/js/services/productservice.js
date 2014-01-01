@@ -52,6 +52,17 @@ shopsv.factory('Product', function($resource) {
 });
 
 //Product type service
+shopsv.factory('Promotion', function($resource) {
+    return $resource('/promotion', {
+    }, {
+        getPromotionProducts: {
+            method: 'GET',
+            isArray: true
+        }
+    });
+});
+
+//Product type service
 shopsv.factory('ProductType', function($resource) {
     return $resource('/type', {
         type: "@type"

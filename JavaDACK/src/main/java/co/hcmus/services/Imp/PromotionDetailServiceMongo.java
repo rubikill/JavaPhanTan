@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.hcmus.daos.IProductDAO;
 import co.hcmus.daos.IPromotionDetailDAO;
 import co.hcmus.models.PromotionDetail;
 import co.hcmus.services.IPromotionDetailService;
@@ -22,6 +23,9 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 	
 	@Autowired
 	private IPromotionDetailDAO promotionDetailDAO;
+	
+	@Autowired
+	private IProductDAO productDAO;
 
 	@Override
 	public void addPromotionDetail(PromotionDetail promotionDetail) {
@@ -41,7 +45,9 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 	public PromotionDetail getPromotionDetailByPromotionId(String id) {
 		// TODO Auto-generated method stub
 		logger.info("PromotionDetailServiceMongo get promotionDetail with Id : " + id);
-		return promotionDetailDAO.getPromotionDetailByPromotionId(id);
+		PromotionDetail pd =  promotionDetailDAO.getPromotionDetailByPromotionId(id);
+		pd.setProduct(productDAO.getProductById(pd.getProductId()));
+		return pd;
 	}
 
 	@Override
@@ -68,8 +74,13 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 	@Override
 	public List<PromotionDetail> getPromotionDetailsByPromotionId(
 			String promotionId, String status) {
-		// TODO Auto-generated method stub
-		return promotionDetailDAO.getPromotionDetailsByPromotionId(promotionId, status);
+		List<PromotionDetail> lpd =  promotionDetailDAO.getPromotionDetailsByPromotionId(promotionId, status);
+		for (int i = 0; i < lpd.size(); i++){
+			System.out.println("product ID:"  + lpd.get(i).getProductId());
+			System.out.println("name: "  + productDAO.getProductById(lpd.get(i).getProductId()).getName());
+			lpd.get(i).setProduct(productDAO.getProductById(lpd.get(i).getProductId()));
+		}
+		return lpd;
 	}
 
 	

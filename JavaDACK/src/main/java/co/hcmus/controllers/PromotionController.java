@@ -1,7 +1,9 @@
 package co.hcmus.controllers;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.hcmus.models.Promotion;
+import co.hcmus.models.PromotionDetail;
+import co.hcmus.services.IPromotionDetailService;
 import co.hcmus.services.IPromotionService;
 import co.hcmus.util.STATUS;
 import co.hcmus.util.Tools;
@@ -34,6 +38,8 @@ public class PromotionController {
 			.getLogger(PromotionController.class);
 	@Autowired
 	private IPromotionService promotionService;
+	@Autowired
+	private IPromotionDetailService promotionDetailService;
 
 	/**
 	 * ADMIN PAGE - Manage promotion (load)
@@ -142,7 +148,7 @@ public class PromotionController {
 	}
 
 	/**
-	 * webservice to get Promotions
+	 * Web service to get Promotions
 	 * 
 	 * @return
 	 */
@@ -154,9 +160,35 @@ public class PromotionController {
 		// get all product
 		try {
 			List<Promotion> listPromotion = promotionService.getPromotions();
+
+			HashMap<String, PromotionDetail> dict = new HashMap<String, PromotionDetail>();
+			for (int i = 0; i < listPromotion.size(); i++) {
+				Promotion pr = listPromotion.get(i);
+				if (pr.getDate_start().compareTo(new Date()) < 0
+						&& (pr.getDate_end().compareTo(new Date()) > 0)) {
+					List<PromotionDetail> lpd = promotionDetailService
+							.getPromotionDetailsByPromotionId(pr.getId(),
+									STATUS.ACTIVE.getStatusCode());
+					for (int j = 0; j < lpd.size(); j++) {
+						PromotionDetail pd = lpd.get(j);
+						if (!dict.containsKey(pd.getProductId())) {
+							dict.put(pd.getProductId(), pd);
+						} else {
+							if (pd.getDiscount() > dict.get(pd.getProductId())
+									.getDiscount()) {
+								dict.put(pd.getProductId(), pd);
+							}
+						}
+					}
+				}
+			}
+
+			List<PromotionDetail> listPromotionDetail = new ArrayList<PromotionDetail>(
+					dict.values());
 			logger.info("Rest get all promotions");
-			return new ResponseEntity<String>(Tools.toJsonArray(listPromotion),
-					headers, HttpStatus.OK);
+			return new ResponseEntity<String>(
+					Tools.toJsonArray(listPromotionDetail), headers,
+					HttpStatus.OK);
 		} catch (Exception e) {
 			logger.error("Error get all promotions");
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);

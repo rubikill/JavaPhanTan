@@ -168,6 +168,75 @@ function productDetailsCtrl($scope, $rootScope, $location, $routeParams, Product
     });
 }
 
+function promotionCtrl($scope, $rootScope, $location, $routeParams, Promotion, Cart) {
+    //List product
+    $scope.listPromotionProducts = [];
+    // current page
+    $scope.currentPage = 1;
+    // number of items per page
+    $scope.pageSize = 6;
+    $scope.numberOfPages = 0;
+
+    Promotion.getPromotionProducts({
+    }, function(data) {
+        $scope.listPromotionProducts = data;
+        $scope.numberOfPages = Math.ceil($scope.listPromotionProducts.length / $scope.pageSize);
+        console.log(data);
+    }, function(response) {
+
+    });
+
+$scope.next = function(argument) {
+        if ($scope.currentPage < $scope.numberOfPages) {
+            $scope.currentPage++;
+        }
+    }
+
+    $scope.prev = function(argument) {
+        if ($scope.currentPage > 1) {
+            $scope.currentPage--;
+        }
+    }
+
+    $scope.addToCart = function(productId) {
+        Cart.addProductToCart({
+            id: productId
+        }, function(data) {
+            $rootScope.cart = data;
+            alertify.success("You have added a product to Cart");
+        });
+    }
+
+    //SORT Don't touch
+    //Default sort by name
+    $scope.predicate = '+name';
+
+    $scope.check = [];
+
+    $rootScope.compairItems = [];
+
+    $scope.compair = function(item, isCheck) {
+        if (isCheck) {
+            if ($rootScope.compairItems !== undefined || $rootScope.compairItems !== null) {
+                if ($rootScope.compairItems.length == 4) {
+                    alertify.error("Only compair 4 product");
+                } else {
+                    $rootScope.compairItems.push(item);
+                    alertify.success("You have added a product to compair list");
+                }
+            }
+
+        } else {
+            for (var i = 0; i < $rootScope.compairItems.length; i++) {
+                if ($rootScope.compairItems[i].id == item.id) {
+                    $rootScope.compairItems.splice(i, 1);
+                    alertify.error("You have removed a product from compair list");
+                }
+            }
+        }
+    }
+}
+
 
 function compairCtrl($scope, $rootScope) {
 
