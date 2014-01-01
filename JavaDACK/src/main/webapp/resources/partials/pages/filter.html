@@ -39,14 +39,12 @@
                         <label class="control-label alignL">Filter by status</label>
                         <input ng-model="searchText.status">
                     </div>
-                </form>
-
-
+                </form> 
 
                 <br class="clr" />
                 <div class="tab-content">
                     <div class="tab-pane active" id="listView">
-                        <div class="row" ng-repeat="item in listProducts | orderBy:predicate:reverse  | filter:searchText:strict">
+                        <div class="row" ng-repeat="item in listProducts | orderBy:predicate:reverse  | filter:searchText:strict | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
                             <div class="span2">
                                 <a href="#/product_details/{{item.id}}"> <img src="{{item.url}}" alt="" class="img-polaroid" width="130" height="130" /> </a>
                             </div>
@@ -71,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-<!-- 
+
                 <div class="pagination">
                     <ul>
                         <li><a ng-click="prev()">&lsaquo;</a>
@@ -84,7 +82,7 @@
 
                 </div>
                 Total: {{numberOfPages}} pages
-                <br class="clr" /> -->
+                <br class="clr" />
             </div>
         </div>
     </div>

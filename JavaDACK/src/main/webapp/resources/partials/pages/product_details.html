@@ -1,231 +1,233 @@
 <!-- <ng-include src="'partials/slider.html'" scope="" onload=""></ng-include> -->
 <div id="mainBody">
-	<div class="container">
-		<div class="row">
-			<ng-include src="'partials/sidebar.html'" scope="" onload=""></ng-include>
+    <div class="container">
+        <div class="row">
+            <ng-include src="'partials/sidebar.html'" scope="" onload=""></ng-include>
 
-			<div class="span9">
-				<ul class="breadcrumb">
-					<li><a href="index.html">Home</a> <span class="divider">/</span>
-					</li>
-					<li><a href="index.html#/filter">Products</a> <span class="divider">/</span>
-					</li>
-					<li class="active">Product Details</li>
-				</ul>
-				<div class="row">
-					<div id="gallery" class="span3">
-						<a href="{{product.url}}"
-							title="Fujifilm FinePix S2950 Digital Camera"> <img
-							src="{{product.url}}" style="width: 100%"
-							alt="Fujifilm FinePix S2950 Digital Camera" />
-						</a>
-						<div id="differentview" class="moreOptopm carousel slide">
-							<div class="carousel-inner">
-								<div class="item active">
-									<a href="{{product.url}}"> <img
-										style="width: 29%" src="{{product.url}}"
-										alt="" />
-									</a> <a href="{{product.url}}"> <img
-										style="width: 29%" src="{{product.url}}"
-										alt="" />
-									</a> <a href="{{product.url}}"> <img
-										style="width: 29%" src="{{product.url}}"
-										alt="" />
-									</a>
-								</div>
-								<div class="item">
-									<a href="{{product.url}}"> <img
-										style="width: 29%" src="{{product.url}}"
-										alt="" />
-									</a> <a href="{{product.url}}"> <img
-										style="width: 29%" src="{{product.url}}"
-										alt="" />
-									</a> <a href="{{product.url}}"> <img
-										style="width: 29%" src="{{product.url}}"
-										alt="" />
-									</a>
-								</div>
-							</div>
-						</div>
-						<div>
-							<h4>Rate average: {{rateAverage}}</h4>
-							<h4>Your rate</h4>
-							<div fundoo-rating rating-value="rating" max="5"
-								style="font-size: 30px;"></div>
-						</div>
-					</div>
-					<div class="span6">
-						<h3>{{product.name}}</h3>
-						<hr class="soft" />
-						<div class="form-horizontal qtyFrm">
-							<div class="control-group">
-							<div ng-switch on="item.quantity">
-                                    <div ng-switch-when="0">
-                                       <h3 class="text-error">Sold-out</h3>
-                                    </div>
-                                    <div ng-switch-default>
-                                        <h3 class="text-info">Available right now </h3>
-                                        <label class="control-label text-center"> 
-                                        	<span><strong>{{product.price	| currency}}</strong></span>
-										</label>
-                                    </div>
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a> 
+                        <span class="divider">/</span>
+                    </li>
+                    <li><a href="index.html#/filter">Products</a> 
+                        <span class="divider">/</span>
+                    </li>
+                    <li class="active">Product Details</li>
+                </ul>
+                <div class="row">
+                    <div id="gallery" class="span3">
+                        <a href="{{product.url}}" title="Fujifilm FinePix S2950 Digital Camera">
+                            <img src="{{product.url}}" style="width: 100%" alt="Fujifilm FinePix S2950 Digital Camera" />
+                        </a>
+                        <div id="differentview" class="moreOptopm carousel slide">
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <a href="{{product.url}}">
+                                        <img style="width: 29%" src="{{product.url}}" alt="" />
+                                    </a>
+                                    <a href="{{product.url}}">
+                                        <img style="width: 29%" src="{{product.url}}" alt="" />
+                                    </a>
+                                    <a href="{{product.url}}">
+                                        <img style="width: 29%" src="{{product.url}}" alt="" />
+                                    </a>
                                 </div>
-								
-								<div class="controls">
-									<!-- <input type="number" class="span1" placeholder="Qty." /> -->
-									<button type="submit"
-										class="btn btn-large btn-primary pull-right"
-										ng-click="addToCart(product.id)">
-										Add to cart <i class=" icon-shopping-cart"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-						<hr class="soft clr" />
-						<p ng-show="product.description">{{product.description}}</p>
-						<p ng-hide="product.description">This product have no
-							description</p>
-						<hr class="soft" />
-					</div>
-
-					<div class="span9">
-						<ul id="productDetail" class="nav nav-tabs">
-							<li class="active"><a href="#home" data-toggle="tab">Product
-									Details</a></li>
-							<li><a href="#profile" data-toggle="tab">Related
-									Products</a></li>
-						</ul>
-						<div id="myTabContent" class="tab-content">
-							<div class="tab-pane fade active in" id="home">
-								<h4>Product Information</h4>
-								<table class="table table-bordered">
-									<tbody>
-										<tr class="techSpecRow">
-											<th colspan="2">Product Details</th>
-										</tr>
-										<tr class="techSpecRow">
-											<td class="techSpecTD1">Height</td>
-											<td class="techSpecTD2">{{product.details.height * 100}}
-												mm</td>
-										</tr>
-										<tr class="techSpecRow">
-											<td class="techSpecTD1">Price</td>
-											<td class="techSpecTD2">{{product.price}} $</td>
-										</tr>
-										<tr class="techSpecRow">
-											<td class="techSpecTD1">Quantity</td>
-											<td class="techSpecTD2">{{product.quantity}}</td>
-										</tr>
-										<tr class="techSpecRow">
-											<td class="techSpecTD1">Warranty</td>
-											<td class="techSpecTD2">{{product.details.warranty}}</td>
-										</tr>										
-									</tbody>
-								</table>
-
-								<h5>Features</h5>
-								<p>{{Description}}</p>
-							</div>
-							<div class="tab-pane fade" id="profile">
-								<div id="myTab" class="pull-right">
-									<a href="#listView" data-toggle="tab"> <span
-										class="btn btn-large"><i class="icon-list"></i> </span>
-									</a> <a href="#blockView" data-toggle="tab"> <span
-										class="btn btn-large btn-primary"><i
-											class="icon-th-large"></i> </span>
-									</a>
-								</div>
-								<br class="clr" />
-								<hr class="soft" />
-							<div class="tab-content">
-                    <div class="tab-pane active" id="listView">
-                        <div class="row" ng-repeat="item in listRelatedProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize ">
-                            <div class="span2">
-                               <a href="#/product_details/{{item.id}}"> <img src="{{item.url}}" alt="" class="img-rounded" height="170"	width="170"/> </a>
-                            </div>
-                            <div class="span4">
-                                <a href="#/product_details/{{item.id}}"> <h3>{{item.name}}</h3> </a>
-                                <hr class="soft" />
-                                <div ng-switch on="item.quantity">
-                                    <div ng-switch-when="0">
-                                       <h3 class="text-error">Sold-out</h3>
-                                    </div>
-                                    <div ng-switch-default>
-                                        <!--h3 class="text-info">On sale</h3-->
-                                    </div>
-                                </div>
-                                <p>{{item.description}}</p>
-                                <br class="clr" />
-                            </div>
-                            <div class="span3 alignR">
-                                <div class="form-horizontal qtyFrm">
-                                    <h3>${{item.price}}</h3>
-                                    <label class="checkbox">
-                                        <input type="checkbox" ng-click="compair(item, check[$index])" ng-model="check[$index]">Adds product to compair
-                                    </label>
-                                    <br />
-                                    <button class="btn btn-primary" ng-click="addToCart(item.id)">
-                                        Add to <i class=" icon-shopping-cart"></i>
-                                    </button>
-                                    <a href="#/product_details/{{item.id}}" class="btn">
-                                        View Details <i class="icon-zoom-in"></i>
+                                <div class="item">
+                                    <a href="{{product.url}}">
+                                        <img style="width: 29%" src="{{product.url}}" alt="" />
+                                    </a>
+                                    <a href="{{product.url}}">
+                                        <img style="width: 29%" src="{{product.url}}" alt="" />
+                                    </a>
+                                    <a href="{{product.url}}">
+                                        <img style="width: 29%" src="{{product.url}}" alt="" />
                                     </a>
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <h4>Rate average: {{rateAverage}}</h4>
+                            <h4>Your rate</h4>
+                            <div fundoo-rating rating-value="rating" max="5" style="font-size: 30px;"></div>
+                        </div>
                     </div>
-
-                    <div class="tab-pane" id="blockView">
-                        <ul class="thumbnails">
-                            <li class="span3" ng-repeat="item in listRelatedProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
-                                <div class="thumbnail" style="height: 400px;">
-                                    <a href="#/product_details/{{item.id}}">
-                                        <img src="{{item.url}}" alt="" class="img-rounded" height="170"
-									width="170"/>
-                                    </a>
-                                    <div class="caption">
-                                        <h5>{{item.name}}</h5>
-                                        <p>Desciption</p>
-                                        <h4 style="text-align: center">
-                                            <a class="btn" href="#/product_details/{{item.id}}">
-                                                <i class="icon-zoom-in"></i>
-                                            </a>
-                                            <button class="btn" ng-click="addToCart(item.id)">
-                                                Add to <i class="icon-shopping-cart"></i>
-                                            </button> 
-                                            <a class="btn btn-primary" href="#">${{item.price}}</a>
-                                        </h4>
+                    <div class="span6">
+                        <h3>{{product.name}}</h3>
+                        <hr class="soft" />
+                        <div class="form-horizontal qtyFrm">
+                            <div class="control-group">
+                                <div ng-switch on="item.quantity">
+                                    <div ng-switch-when="0">
+                                        <h3 class="text-error">Sold-out</h3>
+                                    </div>
+                                    <div ng-switch-default>
+                                        <h3 class="text-info">Available right now</h3>
+                                        <label class="control-label text-center">
+                                            <span>
+                                                <strong>{{product.price | currency}}</strong>
+                                            </span>
+                                        </label>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
+
+                                <div class="controls">
+                                    <!-- <input type="number" class="span1" placeholder="Qty." /> -->
+                                    <button type="submit" class="btn btn-large btn-primary pull-right" ng-click="addToCart(product.id)">
+                                        Add to cart <i class=" icon-shopping-cart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="soft clr" />
+                        <p ng-show="product.description">{{product.description}}</p>
+                        <p ng-hide="product.description">This product have no description
+                        </p>
                         <hr class="soft" />
                     </div>
+
+                    <div class="span9">
+                        <ul id="productDetail" class="nav nav-tabs">
+                            <li class="active"><a href="#home" data-toggle="tab">Product
+									Details</a>
+                            </li>
+                            <li><a href="#profile" data-toggle="tab">Related
+									Products</a>
+                            </li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade active in" id="home">
+                                <h4>Product Information</h4>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr class="techSpecRow">
+                                            <th colspan="2">Product Details</th>
+                                        </tr>
+                                        <tr class="techSpecRow">
+                                            <td class="techSpecTD1">Height</td>
+                                            <td class="techSpecTD2">{{product.details.height * 100}} mm
+                                            </td>
+                                        </tr>
+                                        <tr class="techSpecRow">
+                                            <td class="techSpecTD1">Price</td>
+                                            <td class="techSpecTD2">{{product.price}} $</td>
+                                        </tr>
+                                        <tr class="techSpecRow">
+                                            <td class="techSpecTD1">Quantity</td>
+                                            <td class="techSpecTD2">{{product.quantity}}</td>
+                                        </tr>
+                                        <tr class="techSpecRow">
+                                            <td class="techSpecTD1">Warranty</td>
+                                            <td class="techSpecTD2">{{product.details.warranty}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <h5>Features</h5>
+                                <p>{{Description}}</p>
+                            </div>
+                            <div class="tab-pane fade" id="profile">
+                                <div id="myTab" class="pull-right">
+                                    <a href="#listView" data-toggle="tab">
+                                        <span class="btn btn-large"><i class="icon-list"></i> 
+                                        </span>
+                                    </a>
+                                    <a href="#blockView" data-toggle="tab">
+                                        <span class="btn btn-large btn-primary"><i class="icon-th-large"></i> 
+                                        </span>
+                                    </a>
+                                </div>
+                                <br class="clr" />
+                                <hr class="soft" />
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="listView">
+                                        <div class="row" ng-repeat="item in listRelatedProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize ">
+                                            <div class="span2">
+                                                <a href="#/product_details/{{item.id}}">
+                                                    <img src="{{item.url}}" alt="" class="img-rounded" height="170" width="170" />
+                                                </a>
+                                            </div>
+                                            <div class="span4">
+                                                <a href="#/product_details/{{item.id}}">
+                                                    <h3>{{item.name}}</h3>
+                                                </a>
+                                                <hr class="soft" />
+                                                <div ng-switch on="item.quantity">
+                                                    <div ng-switch-when="0">
+                                                        <h3 class="text-error">Sold-out</h3>
+                                                    </div>
+                                                    <div ng-switch-default>
+                                                        <!--h3 class="text-info">On sale</h3-->
+                                                    </div>
+                                                </div>
+                                                <p>{{item.description}}</p>
+                                                <br class="clr" />
+                                            </div>
+                                            <div class="span3 alignR">
+                                                <div class="form-horizontal qtyFrm">
+                                                    <h3>${{item.price}}</h3>
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" ng-click="compair(item, check[$index])" ng-model="check[$index]">Adds product to compair
+                                                    </label>
+                                                    <br />
+                                                    <button class="btn btn-primary" ng-click="addToCart(item.id)">
+                                                        Add to <i class=" icon-shopping-cart"></i>
+                                                    </button>
+                                                    <a href="#/product_details/{{item.id}}" class="btn">View Details <i class="icon-zoom-in"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="blockView">
+                                        <ul class="thumbnails">
+                                            <li class="span3" ng-repeat="item in listRelatedProducts | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                                                <div class="thumbnail" style="height: 400px;">
+                                                    <a href="#/product_details/{{item.id}}">
+                                                        <img src="{{item.url}}" alt="" class="img-rounded" height="170" width="170" />
+                                                    </a>
+                                                    <div class="caption">
+                                                        <h5>{{item.name}}</h5>
+                                                        <p>Desciption</p>
+                                                        <h4 style="text-align: center">
+                                                            <a class="btn" href="#/product_details/{{item.id}}">
+                                                                <i class="icon-zoom-in"></i>
+                                                            </a>
+                                                            <button class="btn" ng-click="addToCart(item.id)">
+                                                                Add to <i class="icon-shopping-cart"></i>
+                                                            </button>
+                                                            <a class="btn btn-primary" href="#">${{item.price}}</a>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <hr class="soft" />
+                                    </div>
+                                </div>
+
+                                <a href="#/compair" class="btn btn-large pull-right">Compair Product</a>
+
+                                <div class="pagination">
+                                    <ul>
+                                        <li><a ng-click="prev()">&lsaquo;</a>
+                                        </li>
+                                        <li><a>{{currentPage}}</a>
+                                        </li>
+                                        <li><a ng-click="next()">&rsaquo;</a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                Total: {{numberOfPages}} pages
+                                <br class="clr" />
+                            </div>
+                        </div>
+
+                        <div class="fb-like" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/{{product.id}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                        <div class="fb-comments" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/{{product.id}}" data-numposts="5" data-colorscheme="light"></div>
+                    </div>
                 </div>
-
-                <a href="#/compair" class="btn btn-large pull-right">Compair Product</a>
-
-                <div class="pagination">
-                    <ul>
-                        <li><a ng-click="prev()">&lsaquo;</a>
-                        </li>
-                        <li><a>{{currentPage}}</a>
-                        </li>
-                        <li><a ng-click="next()">&rsaquo;</a>
-                        </li>
-                    </ul>
-
-                </div>
-                Total: {{numberOfPages}} pages
-                <br class="clr" />
             </div>
-						</div>
-
-						<div class="fb-like" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/{{product.id}}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-						<div class="fb-comments" data-href="http://shopcamera.windyzboy.cloudbees.net/index.html#/product_details/{{product.id}}" data-numposts="5" data-colorscheme="light"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
