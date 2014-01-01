@@ -215,7 +215,7 @@ $scope.next = function(argument) {
 
     //SORT Don't touch
     //Default sort by name
-    $scope.predicate = '+name';
+    $scope.predicate = '+product.name';
 
     $scope.check = [];
 
