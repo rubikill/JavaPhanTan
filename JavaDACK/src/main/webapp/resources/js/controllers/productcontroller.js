@@ -114,19 +114,25 @@ function productDetailsCtrl($scope, $rootScope, $location, $routeParams, Product
             id: $routeParams.id
         }, function(data) {
             $scope.product.details = data;
-            // Rating.getRate({
-            //     productId: $routeParams.id
-            // }, {
-            //     'email': 'admin@local.host'//$rootScope.user.email
-            // }, function(data) {
-            //     if (data.isRate) {
-            //         $scope.rating = data.rateEmail;
-            //     }
-            //     $scope.rateAverage = data.rateAverage;
-            //     //console.log(data);
-            // }, function(response) {
-            //     // body...
-            // });
+
+            var mail = "admin@local.host";
+            if ($rootScope.user.email != null || $rootScope.user.email != undefined){
+                mail = $rootScope.user.email;
+            }
+            Rating.getRate({
+                productId: $routeParams.id
+            }, {
+                'email': mail
+                //'admin@local.host'
+            }, function(data) {
+                if (data.isRate) {
+                    $scope.rating = data.rateEmail;
+                }
+                $scope.rateAverage = data.rateAverage;
+                //console.log(data);
+            }, function(response) {
+                // body...
+            });
 
         }, function(response) {
             //console.log(response);
@@ -227,7 +233,7 @@ function filterCtrl($scope, $rootScope, Product) {
     // current page
     $scope.currentPage = 1;
     // number of items per page
-    $scope.pageSize = 6;
+    $scope.pageSize = 4;
     $scope.numberOfPages = 0;
 
     $scope.next = function(argument) {
