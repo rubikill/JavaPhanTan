@@ -26,6 +26,17 @@ shopsv.service('LoginService', function($http, $rootScope, localize) {
 	$http.get("/ping").success(function(pUser) {
 		$rootScope.logged = true;
 		$rootScope.user = pUser;
+
+		console.log(pUser);
+
+		// FB.api('/me', function(response) {
+  //           document.getElementById("avatar_img").innerHTML =
+  //               "<img src=\"http://graph.facebook.com/" + response.id + "/picture\" border=\"0\" alt=\"\"> Hello, <strong>" + response.name + "</strong>";
+  //           document.getElementById("avatar_img").href = "http://www.facebook.com/" + response.id;
+
+  //           console.log('Good to see you, ' + response.name + '.');
+  //           console.log(response);
+  //       });
 	}).error(function(){
 		$rootScope.logged = false;
 	});
@@ -48,6 +59,27 @@ shopsv.service('LoginService', function($http, $rootScope, localize) {
 	 */
 	self.login = function(auth) {
 		return $http.post("/login", auth, {
+			headers : {
+				'Content-Type' : 'application/json'
+			}
+		}).success(function(pUser, headers) {
+			logged = true;
+			user = pUser;
+
+			// refire the 401 request!
+			$rootScope.requests401.forEach(function(req) {
+				$http(req.config).then(function(response) {
+					req.deferred.resolve(response);
+				});
+			});
+
+			$rootScope.requests401 = []; // everything has been re-fired
+			$rootScope.$broadcast('event:login'); // broadcast login success
+		});
+	}
+
+	self.loginFB = function(auth) {
+		return $http.post("/login/fb", auth, {
 			headers : {
 				'Content-Type' : 'application/json'
 			}

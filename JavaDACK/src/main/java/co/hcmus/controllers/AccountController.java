@@ -348,6 +348,38 @@ public class AccountController {
 		}
 	}
 
+	/**
+	 * Login
+	 * 
+	 * @param json
+	 *            contain email and password
+	 * @return Result
+	 */
+	@RequestMapping(value = "/login/fb", method = RequestMethod.POST)
+	public ResponseEntity<String> loginFB(@RequestBody String json, HttpSession session) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		try {
+			Account account = Tools.fromJsonTo(json, Account.class);
+
+			System.out.println(account.getEmail());
+
+			// check account
+			if (accountService.getAccount(account.getEmail()) == null) {
+				//save to database
+				accountService.addAccount(account);
+			}
+
+			session.setAttribute("email", account.getEmail());
+			return new ResponseEntity<String>(Tools.toJson(account), headers, HttpStatus.OK);			
+		} catch (Exception e) {
+			
+		}
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+	}
+
+
+
 	@RequestMapping(value = "/ping", method = RequestMethod.GET)
 	public ResponseEntity<String> ping(HttpSession session) {
 		if (session.getAttribute("email") == null) {
