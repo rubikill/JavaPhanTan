@@ -205,8 +205,18 @@ $(document).on("click", ".open-PromotionDetailEditDialog", function ()
 $(document).on("click", ".open-PromotionDetailBlockDialog", function () 
 {  
 	var index = $(this).data('id'); 
-	$(".modal-dialog #inputId").val($("#rowAccount" + index + " #0").text()); 
+	$(".modal-dialog #inputId").val($("#rowPromotionDetail" + index + " #0").text()); 
 });
+
+<!-- Fill text field in Modal fade PROMOTION DETAIL BLOCK dialog-->
+$(document).on("click", ".open-PromotionDetailActiveDialog", function () 
+{  
+	var index = $(this).data('id'); 
+	console.log("index", index);
+	console.log("id",$("#rowPromotionDetail" + index + " #0").text());
+	$(".modal-dialog #inputId").val($("#rowPromotionDetail" + index + " #0").text()); 
+});
+
 
 <!--======================= PRODUCT TYPE ====================-->
 
@@ -214,18 +224,14 @@ $(document).on("click", ".open-PromotionDetailBlockDialog", function ()
 $(document).on("click", ".open-ProductTypeActiveDialog", function () 
 {  
 	var index = $(this).data('id');
-	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/producttype/active/" + $("#rowProductType" + index + " #0").text()
-			+ "/Page" + "/" + $("#rowProductType" + index + " #3").text()
-			+"';");
+	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/producttype/active/" + $("#rowProductType" + index + " #0").text()+ "';"); 
 });
 
 <!-- Set href for button in Modal fade PRODUCT TYPE DEACIVEdialog-->
 $(document).on("click", ".open-ProductTypeDeactiveDialog", function () 
 {  
 	var index = $(this).data('id'); 
-	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/producttype/deactive/" + $("#rowProductType" + index + " #0").text()
-			+ "/Page" + "/" + $("#rowProductType" + index + " #3").text()
-			+"';");
+	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/producttype/deactive/" + $("#rowProductType" + index + " #0").text()+ "';"); 
 });
 
 <!-- Fill text field in Modal fade PRODUCT TYPE EDIT dialog-->
@@ -235,7 +241,6 @@ $(document).on("click", ".open-ProductTypeEditDialog", function ()
 	$(".modal-body #inputId").val($("#rowProductType" + index + " #0").text());
 	$(".modal-body #inputName").val($("#rowProductType" + index + " #1").text());
 	$(".modal-body #inputStatus").val($("#rowProductType" + index + " #2").text());
-	$(".modal-dialog #inputCurrentPage").val($("#rowProductType" + index + " #3").text()); 
 	
 });
 
@@ -325,19 +330,14 @@ $(document).on("click", ".open-PaymentTypeEditDialog", function ()
 $(document).on("click", ".open-ManufacturerActiveDialog", function () 
 {  
 	var index = $(this).data('id');
-	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/manufacturer/active/" + $("#rowManufacturer" + index + " #0").text()
-			+ "/Page" + "/" + $("#rowManufacturer" + index + " #3").text()
-			+"';");
+	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/manufacturer/active/" + $("#rowManufacturer" + index + " #0").text()+ "';"); 
 });
 
 <!-- Set href for button in Modal fade MANUFACTURER DEACIVEdialog-->
 $(document).on("click", ".open-ManufacturerDeactiveDialog", function () 
 {  
 	var index = $(this).data('id'); 
-	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/manufacturer/deactive/" + $("#rowManufacturer" + index + " #0").text()
-	+ "/Page" + "/" + $("#rowManufacturer" + index + " #3").text()
-	+"';");
-	
+	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/manufacturer/deactive/" + $("#rowManufacturer" + index + " #0").text()+ "';"); 
 });
 
 <!-- Fill text field in Modal fade MANUFACTURER EDIT dialog-->
@@ -347,7 +347,6 @@ $(document).on("click", ".open-ManufacturerEditDialog", function ()
 	$(".modal-body #inputId").val($("#rowManufacturer" + index + " #0").text());
 	$(".modal-body #inputName").val($("#rowManufacturer" + index + " #1").text());
 	$(".modal-body #inputStatus").val($("#rowManufacturer" + index + " #2").text());
-	$(".modal-dialog #inputCurrentPage").val($("#rowManufacturer" + index + " #3").text()); 
 	
 });
 

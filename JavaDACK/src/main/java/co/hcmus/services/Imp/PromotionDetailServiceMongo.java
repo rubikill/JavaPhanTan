@@ -42,10 +42,15 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 	}
 
 	@Override
-	public PromotionDetail getPromotionDetailByPromotionId(String id) {
+	public PromotionDetail getPromotionDetailByPromotionDetailId(String id) {
 		// TODO Auto-generated method stub
 		logger.info("PromotionDetailServiceMongo get promotionDetail with Id : " + id);
-		PromotionDetail pd =  promotionDetailDAO.getPromotionDetailByPromotionId(id);
+		System.out.println("\n\n\n pd id:" + id+ "\n\n\n");
+
+
+		PromotionDetail pd =  promotionDetailDAO.getPromotionDetailByPromotionDetailId(id);
+
+		System.out.println("pduct id:" + pd.getProductId());
 		pd.setProduct(productDAO.getProductById(pd.getProductId()));
 		return pd;
 	}
@@ -67,8 +72,11 @@ public class PromotionDetailServiceMongo implements IPromotionDetailService {
 	@Override
 	public List<PromotionDetail> getPromotionDetailsByPromotionIdWithoutStatus(
 			String promotionId) {
-		// TODO Auto-generated method stub
-		return promotionDetailDAO.getPromotionDetailsByPromotionIdWithoutStatus(promotionId);
+		List<PromotionDetail> lpd =  promotionDetailDAO.getPromotionDetailsByPromotionIdWithoutStatus(promotionId);
+		for (int i = 0; i < lpd.size(); i++){
+			lpd.get(i).setProduct(productDAO.getProductById(lpd.get(i).getProductId()));
+		}
+		return lpd;
 	}
 
 	@Override

@@ -61,7 +61,7 @@ public class ManufacturerController {
 	}
 
 	/**
-	 * ADMIN PAGE - activea a manufacturer and redirect to /admin/manufacturer 
+	 * ADMIN PAGE - active a manufacturer and redirect to /admin/manufacturer 
 	 * @param id
 	 * @return
 	 */
@@ -76,7 +76,7 @@ public class ManufacturerController {
 	}
 
 	/**
-	 * ADMIN PAGE - deactive a manufacturer and redirect to /admin/manufacturer 
+	 * ADMIN PAGE - inactive a manufacturer and redirect to /admin/manufacturer 
 	 * @param id
 	 * @return
 	 */
@@ -103,10 +103,11 @@ public class ManufacturerController {
 		return "redirect:/admin/manufacturer" + "?Page=" + currentPage;
 	}
 	
-	/*
-	 * get total page of listManufacturer
+	/**
+	 * ADMIN PAGE - get total page of listManufacturer
+	 * @param listManufacturer
+	 * @return
 	 */
-
 	private int getTotalPage(List<Manufacturer> listManufacturer) {
 		if (listManufacturer.size() == 0)
 			return 1;
@@ -120,7 +121,7 @@ public class ManufacturerController {
 	}
 	
 	/**
-	 * Prepair data for loading /admin/manufacturer
+	 * ADMIN PAGE - Prepare data for loading /admin/manufacturer
 	 * @param request
 	 */
 	private void prepairData(HttpServletRequest request, int currentPage) {
@@ -143,7 +144,7 @@ public class ManufacturerController {
 	}
 
 	/**
-	 * webservice to get manufacturers
+	 * web service to get manufacturers
 	 * 
 	 * @return
 	 */

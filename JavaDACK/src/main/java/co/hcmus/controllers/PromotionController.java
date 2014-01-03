@@ -190,7 +190,7 @@ public class PromotionController {
 					Tools.toJsonArray(listPromotionDetail), headers,
 					HttpStatus.OK);
 		} catch (Exception e) {
-			logger.error("Error get all promotions");
+			logger.error("Error get all promotions" + e.toString());
 			return new ResponseEntity<String>(headers, HttpStatus.BAD_REQUEST);
 		}
 

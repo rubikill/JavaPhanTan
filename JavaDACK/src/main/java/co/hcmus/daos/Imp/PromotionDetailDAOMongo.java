@@ -28,6 +28,11 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 	// Collection name save in MongoDB
 	public static final String COLLECTION_NAME = "promotionDetail";
 
+	
+	/**
+	 * Add new PromotionDetail
+	 * @param promotionDetail 
+	 */
 	@Override
 	public void addPromotionDetail(PromotionDetail promotionDetail) {
 		if (!mongoTemplate.collectionExists(PromotionDetail.class)) {
@@ -39,6 +44,10 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 
 	}
 
+	/**
+	 * Update promotion detail
+	 * @param promotionDetail 
+	 */
 	@Override
 	public void updatePromotionDetail(PromotionDetail promotionDetail) {
 		// update a document
@@ -47,8 +56,11 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 
 	}
 
+	/**
+	 * Get a specific PromotionDetail 
+	 */
 	@Override
-	public PromotionDetail getPromotionDetailByPromotionId(String id) {
+	public PromotionDetail getPromotionDetailByPromotionDetailId(String id) {
 		Query searchPromotionDetailQuery = new Query(Criteria.where("_id").is(
 				id));
 		logger.info("PromotionDetailDAOMongo get promotionDetail with Id : " + id);
@@ -59,7 +71,7 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 	@Override
 	public void deletePromotionDetail(String id) {
 		// delete propmotionDetail by id
-		PromotionDetail promotionDetail = getPromotionDetailByPromotionId(id);
+		PromotionDetail promotionDetail = getPromotionDetailByPromotionDetailId(id);
 		promotionDetail.setStatus(STATUS.INACTIVE.getStatusCode());
 		logger.info("PromotionDetailDAOMongo delete promotionDetail with Id : " + id);
 		mongoTemplate.save(promotionDetail, COLLECTION_NAME);
@@ -105,7 +117,7 @@ public class PromotionDetailDAOMongo implements IPromotionDetailDAO {
 
 	@Override
 	public void activePromotionDetail(String id) {
-		PromotionDetail promotionDetail = getPromotionDetailByPromotionId(id);
+		PromotionDetail promotionDetail = getPromotionDetailByPromotionDetailId(id);
 		promotionDetail.setStatus(STATUS.ACTIVE.getStatusCode());
 		logger.info("PromotionDetailDAOMongo active promotionDetail with Id : " + id);
 		mongoTemplate.save(promotionDetail, COLLECTION_NAME);

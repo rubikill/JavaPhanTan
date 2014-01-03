@@ -43,7 +43,7 @@
 						varStatus="status">
 						<tr class="rowPromotion" id="rowPromotion${status.index}">
 							<td hidden="true" id="0">${promotion.id }</td>
-							<td id="1"><a href="/admin/promotions/${promotion.id }">${promotion.name
+							<td id="1"><a href="/admin/promotions/${promotion.id }?Page=1">${promotion.name
 									}</a></td>
 
 							<fmt:formatDate value="${promotion.date_start}"
