@@ -320,14 +320,19 @@ $(document).on("click", ".open-PaymentTypeEditDialog", function ()
 $(document).on("click", ".open-ManufacturerActiveDialog", function () 
 {  
 	var index = $(this).data('id');
-	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/manufacturer/active/" + $("#rowManufacturer" + index + " #0").text()+ "';"); 
+	$(".modal-footer #activeButton").attr("onClick","location.href='/admin/manufacturer/active/" + $("#rowManufacturer" + index + " #0").text()
+			+ "/Page" + "/" + $("#rowManufacturer" + index + " #3").text()
+			+"';");
 });
 
 <!-- Set href for button in Modal fade MANUFACTURER DEACIVEdialog-->
 $(document).on("click", ".open-ManufacturerDeactiveDialog", function () 
 {  
 	var index = $(this).data('id'); 
-	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/manufacturer/deactive/" + $("#rowManufacturer" + index + " #0").text()+ "';"); 
+	$(".modal-footer #deactiveButton").attr("onClick","location.href='/admin/manufacturer/deactive/" + $("#rowManufacturer" + index + " #0").text()
+	+ "/Page" + "/" + $("#rowManufacturer" + index + " #3").text()
+	+"';");
+	
 });
 
 <!-- Fill text field in Modal fade MANUFACTURER EDIT dialog-->
@@ -337,6 +342,7 @@ $(document).on("click", ".open-ManufacturerEditDialog", function ()
 	$(".modal-body #inputId").val($("#rowManufacturer" + index + " #0").text());
 	$(".modal-body #inputName").val($("#rowManufacturer" + index + " #1").text());
 	$(".modal-body #inputStatus").val($("#rowManufacturer" + index + " #2").text());
+	$(".modal-dialog #inputCurrentPage").val($("#rowManufacturer" + index + " #3").text()); 
 	
 });
 

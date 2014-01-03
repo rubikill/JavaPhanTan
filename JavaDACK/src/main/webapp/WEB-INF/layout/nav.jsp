@@ -8,7 +8,7 @@
 		<a href="/admin/account"><i class="fa fa-user"></i> Account</a>
 	</li>	
 	<li class=${nav == "manufacturer"? 'active' : ''}>
-		<a href="/admin/manufacturer"><i class="fa fa-file-text-o"></i> Manufacturer</a>
+		<a href="/admin/manufacturer?Page=1"><i class="fa fa-file-text-o"></i> Manufacturer</a>
 	</li>
 	<li class=${nav == "producttype"? 'active' : ''}>
 		<a href="/admin/producttype"><i class="fa fa-tag"></i> Product Type</a>

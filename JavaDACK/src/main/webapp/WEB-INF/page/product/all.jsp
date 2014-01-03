@@ -30,8 +30,8 @@
 					<tr>
 						<th  style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th style="width: 40%">Product name <i class="fa fa-sort"></i></th>
-						<th style="width: 20%">Product type <i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Quantity <i class="fa fa-sort"></i></th>
+						<th style="width: 15%">Product type <i class="fa fa-sort"></i></th>
+						<th style="width: 9%">Quantity <i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
@@ -47,8 +47,8 @@
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Status <i class="fa fa-sort"></i></th>
-						<th style="width: 20%">Action</th>
+						<th style="width: 8%">Status <i class="fa fa-sort"></i></th>
+						<th style="width: 28%">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -85,7 +85,7 @@
 									test="${product.status == 'Active'}">
 									<button class="open-ProductBlockDialog btn btn-danger"
 										data-toggle="modal" data-target="#deleteModal"
-										data-id="${status.index}">Delete</button>
+										data-id="${status.index}">Deactive</button>
 								</c:if> <c:if test="${product.status == 'Inactive'}">
 									<button class="open-ProductActiveDialog btn btn-danger"
 										data-toggle="modal" data-target="#activeModal"
