@@ -11,7 +11,7 @@
 		<a href="/admin/manufacturer?Page=1"><i class="fa fa-file-text-o"></i> Manufacturer</a>
 	</li>
 	<li class=${nav == "producttype"? 'active' : ''}>
-		<a href="/admin/producttype"><i class="fa fa-tag"></i> Product Type</a>
+		<a href="/admin/producttype?Page=1"><i class="fa fa-tag"></i> Product Type</a>
 	</li>
 	<li class=${nav == "products"? 'active' : ''}>
 		<a href="/admin/products?Page=1"><i class="fa fa-suitcase"></i> All Product</a>

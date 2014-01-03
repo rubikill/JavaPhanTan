@@ -2,13 +2,12 @@ package co.hcmus.controllers;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.hcmus.models.ExchangeRate;
 import co.hcmus.util.FetchDataFromOtherPage;
-import co.hcmus.util.Tools;
 
 /**
  * Handles requests for the application home page.

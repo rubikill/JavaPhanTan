@@ -32,15 +32,18 @@
 							class="fa fa-sort"></i></th>
 						<th style="width: 20%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 30%">Action</th>
+						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="productType" items="${listProductType}"
 						varStatus="status">
 						<tr class="rowProductType" id="rowProductType${status.index}">
-							<td hidden="true" id="0" value="${productType.id }">${productType.id }</td>
+							<td hidden="true" id="0" value="${productType.id }">${productType.id
+								}</td>
 							<td id="1">${productType.name }</td>
 							<td id="2">${productType.status }</td>
+							<td hidden="true" id="3">${currentPage}</td>
 							<td>
 								<button class="open-ProductTypeEditDialog btn btn-warning"
 									data-toggle="modal" data-target="#editModal"
@@ -60,12 +63,19 @@
 	</div>
 	<div class="col-lg-12">
 		<ul class="pagination">
-			<li class="disabled"><span>&laquo;</span></li>
-			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-			<li><span>2 <span class="sr-only">(current)</span></span></li>
-			<li><span>3 <span class="sr-only">(current)</span></span></li>
-			<li><span>4 <span class="sr-only">(current)</span></span></li>
-			<li><span>&raquo;</span></li>
+			<li><a href="/admin/producttype?Page=1"><span>&laquo;</span></a></li>
+			<c:forEach var="i" begin="1" end="${totalPage}">
+				<c:if test="${i == currentPage}">
+					<li class="active"><a href="/admin/producttype?Page=${i}"><span>${i}<span
+								class="sr-only">(current)</span></span></a></li>
+				</c:if>
+				<c:if test="${i != currentPage}">
+					<li><a href="/admin/producttype?Page=${i}"><span>${i}<span
+								class="sr-only">(current)</span></span></a></li>
+				</c:if>
+			</c:forEach>
+			<li><a href="/admin/producttype?Page=${totalPage}"><span>&raquo;</span></a></li>
+			<li><span>${currentPage}/${totalPage}</span></li>
 		</ul>
 	</div>
 </div>
@@ -83,7 +93,8 @@
 			<form:form class="form-horizontal" role="form"
 				action="/admin/producttype/edit" commandName="productType"
 				method="POST">
-
+				<input type="hidden" name="inputCurrentPage" value=""
+					id="inputCurrentPage" />
 				<div class="modal-body">
 					<form:input path="id" type="hidden" id="inputId" />
 					<div class="form-group">
@@ -132,7 +143,8 @@
 				<p>Are you sure to active this product type?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onClick="" id="activeButton">Active</button>
+				<button type="button" class="btn btn-primary" onClick=""
+					id="activeButton">Active</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
@@ -155,7 +167,8 @@
 				<p>Are you sure to deactive this product type?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onClick="" id="deactiveButton">Deactive</button>
+				<button type="button" class="btn btn-primary" onClick=""
+					id="deactiveButton">Deactive</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
@@ -177,7 +190,7 @@
 				<h4 class="modal-title" id="myModalLabel">Add new</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
-				action="/admin/producttype/add" commandName="productType"
+				action="/admin/producttype/add?Page=${currentPage}" commandName="productType"
 				method="POST">
 				<div class="modal-body">
 
