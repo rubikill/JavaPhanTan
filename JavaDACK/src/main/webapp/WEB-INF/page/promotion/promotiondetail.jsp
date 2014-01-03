@@ -4,25 +4,12 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1>
-			Dashboard <small>Statistics Overview</small>
-		</h1>
-		<!-- <ol class="breadcrumb">
-			<li><a href=""></a><i class="fa fa-dashboard"></i> Dashboard</li>
-			<li class="active"><i class="fa fa-table"></i> Tables</li>
-		</ol> -->
-	</div>
-</div>
-<!-- /.row -->
-
-<div class="row">
-	<div class="col-lg-12">
-		<h2>Promotion</h2>
+		<h2>Promotion Details</h2>
 		<h4>
-			<b>ID:</b> ${promotion.id }
+			<b>Promotion ID:</b> ${promotion.id }
 		</h4>
 		<h4>
-			<b>Name:</b> ${promotion.name }
+			<b>Promotion Name:</b> ${promotion.name }
 		</h4>
 		<br>
 		<div class="row">
@@ -36,6 +23,7 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
+						<th style="width: 1%"># <i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 5%">Id <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Product Id <i class="fa fa-sort"></i></th>
 						<th style="width: 20%">Name<i class="fa fa-sort"></i></th>
@@ -50,6 +38,7 @@
 						varStatus="status">
 						<tr class="rowPromotionDetail"
 							id="rowPromotionDetail${status.index}">
+							<td>${(status.index+1 + 10*(currentPage-1))}</td>
 							<td hidden="true" id="0">${promotiondetail.id }</td>
 							<td id="1">${promotiondetail.productId}</td>
 							<td>${promotiondetail.getProduct().name}</td>
