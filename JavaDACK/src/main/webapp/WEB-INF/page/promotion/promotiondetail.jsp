@@ -39,7 +39,7 @@
 						<th hidden="true" style="width: 5%">Id <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Product Id <i class="fa fa-sort"></i></th>
 						<th style="width: 20%">Name<i class="fa fa-sort"></i></th>
-						<th style="width: 6%">Image</th>
+						<th style="width: 1%">Image</th>
 						<th style="width: 9%">Discount (%) <i class="fa fa-sort"></i></th>
 						<th style="width: 7%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 17%">Action</th>

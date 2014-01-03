@@ -28,10 +28,11 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th  style="width: 1%"><i class="fa fa-sort"></i></th>
-						<th style="width: 40%">Product name <i class="fa fa-sort"></i></th>
-						<th style="width: 15%">Product type <i class="fa fa-sort"></i></th>
-						<th style="width: 9%">Quantity <i class="fa fa-sort"></i></th>
+						<th  style="width: 1%">Product Id<i class="fa fa-sort"></i></th>
+						<th style="width: 28%">Product name <i class="fa fa-sort"></i></th>
+						<th style="width: 6%">Image</th>
+						<th style="width: 13%">Product type <i class="fa fa-sort"></i></th>
+						<th style="width: 10%">Quantity <i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
@@ -56,6 +57,7 @@
 						<tr class="rowProduct" id="rowProduct${status.index}">
 							<td  id="0">${product.id }</td>
 							<td id="1">${product.name }</td>
+							<td><img src="${product.url}" width="130" height="130" /></td> 
 							<td id="2">${product.productType.name }</td>
 							<td id="3">${product.quantity }</td>
 							<td hidden="true" id="4">${product.sellCount }</td>
