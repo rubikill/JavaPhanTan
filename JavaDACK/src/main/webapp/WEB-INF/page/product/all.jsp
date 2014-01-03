@@ -464,8 +464,6 @@
 							<div class="col-sm-8">
 								<select class="form-control" name="inputStatus">
 									<option value="Active">Active</option>
-									<option value="Block">Block</option>
-									<option value="Disable">Disable</option>
 									<option value="Inactive">Inactive</option>
 								</select>
 							</div>

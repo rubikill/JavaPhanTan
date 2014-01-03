@@ -66,7 +66,7 @@
 									data-target="#activeModal">Active</button>
 								<button class="open-PromotionBlockDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
-									data-target="#deleteModal">Block</button>
+									data-target="#deleteModal">Deactive</button>
 							</td>
 						</tr>
 					</c:forEach>

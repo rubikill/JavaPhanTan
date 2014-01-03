@@ -26,7 +26,7 @@
 						<th style="width: 1%"># <i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 5%">Id <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Product Id <i class="fa fa-sort"></i></th>
-						<th style="width: 20%">Name<i class="fa fa-sort"></i></th>
+						<th style="width: 19%">Name<i class="fa fa-sort"></i></th>
 						<th style="width: 1%">Image</th>
 						<th style="width: 9%">Discount (%) <i class="fa fa-sort"></i></th>
 						<th style="width: 7%">Status <i class="fa fa-sort"></i></th>
@@ -132,7 +132,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Add</button>
+					<button type="submit" class="btn btn-primary">Save change</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</form:form>

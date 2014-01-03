@@ -88,7 +88,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit product</h4>
+				<h4 class="modal-title" id="myModalLabel">Edit manufacturer</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
 				action="/admin/manufacturer/edit" commandName="manufacturer"
@@ -101,14 +101,13 @@
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
 							<form:input path="name" type="text" class="form-control"
-								id="inputName" placeholder="Enter product type name..." />
+								id="inputName" placeholder="Enter manufacturer name..." />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Status</label>
 						<div class="col-sm-10">
 							<form:select path="status" class="form-control" id="inputStatus">
-								<form:option value="Disable" label="Disable" />
 								<form:option value="Active" label="Active" />
 								<form:option value="Inactive" label="Inactive" />
 							</form:select>
@@ -140,7 +139,7 @@
 				<h4 class="modal-title" id="myModalLabel">Confirm active</h4>
 			</div>
 			<div class="modal-body">
-				<p>Are you sure to active this product type?</p>
+				<p>Are you sure to active this manufacturer type?</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" onClick=""
@@ -164,7 +163,7 @@
 				<h4 class="modal-title" id="myModalLabel">Confirm deactive</h4>
 			</div>
 			<div class="modal-body">
-				<p>Are you sure to deactive this product type?</p>
+				<p>Are you sure to deactive this manufacturer type?</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary" onClick=""
@@ -179,7 +178,7 @@
 
 <!-- /.modal -->
 
-<!-- Modal add product type -->
+<!-- Modal add manufacturer -->
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -199,14 +198,13 @@
 							<label for="inputname" class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
 								<form:input path="name" type="text" class="form-control"
-									id="inputName" placeholder="Enter product type name..." />
+									id="inputName" placeholder="Enter manufacturer name..." />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Status</label>
 							<div class="col-sm-10">
 								<form:select path="status" class="form-control" id="status">
-									<form:option value="Disable" label="Disable" />
 									<form:option value="Active" label="Active" />
 									<form:option value="Inactive" label="Inactive" />
 								</form:select>

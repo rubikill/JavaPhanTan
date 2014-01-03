@@ -5,12 +5,8 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1>
-			Dashboard <small>Statistics Overview</small>
+			Product type
 		</h1>
-		<!-- <ol class="breadcrumb">
-			<li><a href=""></a><i class="fa fa-dashboard"></i> Dashboard</li>
-			<li class="active"><i class="fa fa-table"></i> Tables</li>
-		</ol> -->
 	</div>
 </div>
 <!-- /.row -->
@@ -108,7 +104,6 @@
 						<label for="inputPassword3" class="col-sm-2 control-label">Status</label>
 						<div class="col-sm-10">
 							<form:select path="status" class="form-control" id="inputStatus">
-								<form:option value="Disable" label="Disable" />
 								<form:option value="Active" label="Active" />
 								<form:option value="Inactive" label="Inactive" />
 							</form:select>
@@ -206,7 +201,6 @@
 							<label for="inputPassword3" class="col-sm-2 control-label">Status</label>
 							<div class="col-sm-10">
 								<form:select path="status" class="form-control" id="status">
-									<form:option value="Disable" label="Disable" />
 									<form:option value="Active" label="Active" />
 									<form:option value="Inactive" label="Inactive" />
 								</form:select>
