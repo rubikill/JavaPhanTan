@@ -20,7 +20,7 @@
                         <table id="compairTbl" class="table table-bordered" ng-repeat="item in histories">
                             <thead>
                                 <tr>
-                                    <th>Order #{{$index}}</th>
+                                    <th>Order #{{$index+1}}</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -58,7 +58,7 @@
 
                                 <tr>
                                     <td>Total of order:</td>
-                                    <td></td>
+                                    <td>{{item.total | currency}}</td>
                                 </tr>
                                 <tr ng-show="item.status == 'Active'">
                                     <td>

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Also known as billing
+ * Also known as billing or order
  * 
  * @author Thanh Toan
  * 
@@ -29,6 +29,7 @@ public class History {
 									// DetailHistory's Id, referenced to
 									// collection HistoryDetail where
 									// listed all products in this bill.
+	private float total; // Total of order
 
 	private PaymentType paymentType;
 
@@ -49,7 +50,7 @@ public class History {
 	 */
 	public History(String email, int quantity, String status,
 			String paymentStatus, Date orderDate, Date deliveryDate,
-			Date paymentDate, String paymentTypeId) {
+			Date paymentDate, String paymentTypeId, float total) {
 		super();
 		this.email = email;
 		this.quantity = quantity;
@@ -59,6 +60,15 @@ public class History {
 		this.deliveryDate = deliveryDate;
 		this.paymentDate = paymentDate;
 		this.paymentTypeId = paymentTypeId;
+		this.total = total;
+	}
+
+	public float getTotal() {
+		return total;
+	}
+
+	public void setTotal(float total) {
+		this.total = total;
 	}
 
 	/**

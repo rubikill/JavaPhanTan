@@ -90,9 +90,9 @@
                                 </div>
                             </td>
                             <td>{{item.price | currency}}</td>
-                            <td>$0</td>
-                            <td>{{item.price * 0.1 | currency}}</td>
-                            <td>{{item.price - 0 + (item.price * 0.1) | currency}}</td>
+                            <td>{{item.discount*item.price/100 | currency}}</td>
+                            <td>{{(item.price - (item.discount*item.price/100)) * 0.1 | currency}}</td>
+                            <td>{{item.price - (item.discount*item.price/100) + (item.price - (item.discount*item.price/100)) * 0.1 | currency}}</td>
                         </tr>
                     </tbody>
                 </table>

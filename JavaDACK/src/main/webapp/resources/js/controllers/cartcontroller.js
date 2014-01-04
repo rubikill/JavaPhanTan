@@ -2,14 +2,19 @@
 
 //Cart controller
 function cartCtrl($scope, $rootScope, $location, $routeParams, Cart, History) {
-
+    $scope.total = 0;
     //Add Product to cart
     $scope.addToCart = function(productId) {
         Cart.addProductToCart({
             id: productId //Product id
         }, function(data) {
+            console.log("data",data);
             $rootScope.cart = data;
-            alertify.success("You have added a product to Cart");
+            $scope.total = 0;
+             angular.forEach($rootScope.cart,function(value,index){
+                $scope.total = $scope.total + value.price;
+            });
+             console.log("total",$scope.total);
         });
     }
 
@@ -62,7 +67,7 @@ function cartCtrl($scope, $rootScope, $location, $routeParams, Cart, History) {
         History.checkout({
 
         }, JSON.stringify($scope.bill), function (data) {
-            $rootScope.cart = [];
+            $rootScope.cart = null;
             alertify.error("Check out success");
         }, function (respone) {
             
