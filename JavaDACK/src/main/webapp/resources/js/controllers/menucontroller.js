@@ -53,8 +53,9 @@ function menuCtrl($location, $scope, localize, $rootScope, $cookieStore, Cart, L
      */
     window.fbAsyncInit = function() {
         FB.init({
-            appId: '1435775303319223', // App ID
-            channelUrl: 'http://localhost:8080', // Channel File
+            appId: '194519237403528', // App ID
+            channelUrl: 'http://shopcamera.windyzboy.cloudbees.net/',
+            //'http://localhost:8080', // Channel File            
             status: true, // check login status
             xfbml: true
         });
