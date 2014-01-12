@@ -9,11 +9,15 @@ JavaPhanTan
  - Mongodb
 
 ##Hướng dẫn chạy project
- - Cách 1: Import vào eclipse
- - Cách 2: 
- 	+ cd vào JavaDACK và gõ mvn install tomcat7:run
- 	+ truy cập http://localhost:8080/index.html
-	
+ - Mở server Mongo sau đó làm 1 trong các cách sau
+	 - Cách 1: 
+	 	+ Import vào eclipse
+	 	+ Run as -> Web aplication
+
+	 - Cách 2: Chạy bằng commandline
+	 	+ cd vào SOURCE/shopcamera và gõ mvn install tomcat7:run
+	 	+ truy cập http://localhost:8080/index.html
+	 - Cách 3: Hoặc chạy file setup.bat trong thư mục SOURCE/shopcamera	
 
 ##Hướng dẫn import/export database:
 ####Export database từ MongoDB (dump)
