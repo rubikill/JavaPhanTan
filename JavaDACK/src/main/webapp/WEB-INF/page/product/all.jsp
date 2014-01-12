@@ -28,9 +28,10 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
-						<th  style="width: 1%"><i class="fa fa-sort"></i></th>
-						<th style="width: 40%">Product name <i class="fa fa-sort"></i></th>
-						<th style="width: 20%">Product type <i class="fa fa-sort"></i></th>
+						<th  style="width: 1%">Product Id<i class="fa fa-sort"></i></th>
+						<th style="width: 28%">Product name <i class="fa fa-sort"></i></th>
+						<th style="width: 6%">Image</th>
+						<th style="width: 13%">Product type <i class="fa fa-sort"></i></th>
 						<th style="width: 10%">Quantity <i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
@@ -47,8 +48,8 @@
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
-						<th style="width: 10%">Status <i class="fa fa-sort"></i></th>
-						<th style="width: 20%">Action</th>
+						<th style="width: 8%">Status <i class="fa fa-sort"></i></th>
+						<th style="width: 28%">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -56,6 +57,7 @@
 						<tr class="rowProduct" id="rowProduct${status.index}">
 							<td  id="0">${product.id }</td>
 							<td id="1">${product.name }</td>
+							<td><img src="${product.url}" width="130" height="130" /></td> 
 							<td id="2">${product.productType.name }</td>
 							<td id="3">${product.quantity }</td>
 							<td hidden="true" id="4">${product.sellCount }</td>
@@ -85,7 +87,7 @@
 									test="${product.status == 'Active'}">
 									<button class="open-ProductBlockDialog btn btn-danger"
 										data-toggle="modal" data-target="#deleteModal"
-										data-id="${status.index}">Delete</button>
+										data-id="${status.index}">Deactive</button>
 								</c:if> <c:if test="${product.status == 'Inactive'}">
 									<button class="open-ProductActiveDialog btn btn-danger"
 										data-toggle="modal" data-target="#activeModal"
@@ -462,8 +464,6 @@
 							<div class="col-sm-8">
 								<select class="form-control" name="inputStatus">
 									<option value="Active">Active</option>
-									<option value="Block">Block</option>
-									<option value="Disable">Disable</option>
 									<option value="Inactive">Inactive</option>
 								</select>
 							</div>

@@ -4,25 +4,12 @@
 
 <div class="row">
 	<div class="col-lg-12">
-		<h1>
-			Dashboard <small>Statistics Overview</small>
-		</h1>
-		<!-- <ol class="breadcrumb">
-			<li><a href=""></a><i class="fa fa-dashboard"></i> Dashboard</li>
-			<li class="active"><i class="fa fa-table"></i> Tables</li>
-		</ol> -->
-	</div>
-</div>
-<!-- /.row -->
-
-<div class="row">
-	<div class="col-lg-12">
-		<h2>Promotion</h2>
+		<h2>Promotion Details</h2>
 		<h4>
-			<b>ID:</b> ${promotion.id }
+			<b>Promotion ID:</b> ${promotion.id }
 		</h4>
 		<h4>
-			<b>Name:</b> ${promotion.name }
+			<b>Promotion Name:</b> ${promotion.name }
 		</h4>
 		<br>
 		<div class="row">
@@ -36,10 +23,13 @@
 			<table class="table table-bordered table-hover tablesorter">
 				<thead>
 					<tr>
+						<th style="width: 1%"># <i class="fa fa-sort"></i></th>
 						<th hidden="true" style="width: 5%">Id <i class="fa fa-sort"></i></th>
 						<th style="width: 8%">Product Id <i class="fa fa-sort"></i></th>
-						<th style="width: 8%">Discount (%) <i class="fa fa-sort"></i></th>
-						<th style="width: 15%">Status <i class="fa fa-sort"></i></th>
+						<th style="width: 19%">Name<i class="fa fa-sort"></i></th>
+						<th style="width: 1%">Image</th>
+						<th style="width: 9%">Discount (%) <i class="fa fa-sort"></i></th>
+						<th style="width: 7%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 17%">Action</th>
 					</tr>
 				</thead>
@@ -48,8 +38,11 @@
 						varStatus="status">
 						<tr class="rowPromotionDetail"
 							id="rowPromotionDetail${status.index}">
+							<td>${(status.index+1 + 10*(currentPage-1))}</td>
 							<td hidden="true" id="0">${promotiondetail.id }</td>
 							<td id="1">${promotiondetail.productId}</td>
+							<td>${promotiondetail.getProduct().name}</td>
+							<td><img src="${promotiondetail.getProduct().url}" width="130" height="130" /></td>
 							<td id="2">${promotiondetail.discount}</td>
 							<td id="3">${promotiondetail.status}</td>
 
@@ -63,7 +56,7 @@
 									data-target="#activeModal">Active</button>
 								<button class="open-PromotionDetailBlockDialog  btn btn-danger"
 									data-toggle="modal" data-id="${status.index}"
-									data-target="#deleteModal">Block</button>
+									data-target="#deleteModal">Deactive</button>
 
 							</td>
 						</tr>
@@ -74,12 +67,19 @@
 	</div>
 	<div class="col-lg-12">
 		<ul class="pagination">
-			<li class="disabled"><span>&laquo;</span></li>
-			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-			<li><span>2 <span class="sr-only">(current)</span></span></li>
-			<li><span>3 <span class="sr-only">(current)</span></span></li>
-			<li><span>4 <span class="sr-only">(current)</span></span></li>
-			<li><span>&raquo;</span></li>
+			<li><a href="/admin/promotions/${promotion.id }?Page=1"><span>&laquo;</span></a></li>
+			<c:forEach var="i" begin="1" end="${totalPage}">
+				<c:if test="${i == currentPage}">
+					<li class="active"><a href="/admin/promotions/${promotion.id }?Page=${i}"><span>${i}<span
+								class="sr-only">(current)</span></span></a></li>
+				</c:if>
+				<c:if test="${i != currentPage}">
+					<li><a href="/admin/promotions/${promotion.id }?Page=${i}"><span>${i}<span
+								class="sr-only">(current)</span></span></a></li>
+				</c:if>
+			</c:forEach>
+			<li><a href="/admin/promotions/${promotion.id }?Page=${totalPage}"><span>&raquo;</span></a></li>
+			<li><span>${currentPage}/${totalPage}</span></li>
 		</ul>
 	</div>
 </div>
@@ -95,13 +95,12 @@
 				<h4 class="modal-title" id="myModalLabel">Edit product</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
-				action="/admin/promotions/${promotion.id }/edit"
+				action="/admin/promotions/${promotion.id }/edit/${currentPage}"
 				commandName="promotionDetail" method="POST">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="inputPassword3" class="col-sm-4 control-label">Id</label>
 						<div class="col-sm-8">
-							<form:input path="id" type="text" class="form-control" id="id"
+							<form:input path="id"  type="hidden" class="form-control" id="id"
 								placeholder="Empty" readonly="readonly" />
 						</div>
 					</div>
@@ -126,16 +125,14 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Status</label>
 						<div class="col-sm-8">
 							<form:select path="status" class="form-control" id="status">
-								<form:option value="Disable" label="Disable" />
 								<form:option value="Active" label="Active" />
 								<form:option value="Inactive" label="Inactive" />
-								<form:option value="Block" label="Block" />
 							</form:select>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Add</button>
+					<button type="submit" class="btn btn-primary">Save change</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</form:form>
@@ -151,21 +148,21 @@
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<form:form class="form-group"
-			action="/admin/promotions/${promotion.id }/block"
+			action="/admin/promotions/${promotion.id }/block/${currentPage}"
 			commandName="promotionDetail" method="POST">
-			<form:input path="id" type="hidden" id="inputId" />
+			<form:input path="productId" type="hidden" id="inputId" />
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Confirm delete</h4>
+					<h4 class="modal-title" id="myModalLabel">Confirm deactive</h4>
 				</div>
 				<div class="modal-body">
-					<p>Are you sure to block this product?</p>
+					<p>Are you sure to deactive this product?</p>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" id="BlockButton"
-						onClick="">Save changes</button>
+						onClick="">Deactive</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -181,9 +178,9 @@
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<form:form class="form-group"
-			action="/admin/promotions/${promotion.id }/active"
+			action="/admin/promotions/${promotion.id }/active/${currentPage}"
 			commandName="promotionDetail" method="POST">
-			<form:input path="id" type="hidden" id="inputId" />
+			<form:input path="productId" type="hidden" id="inputId" />
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -241,10 +238,8 @@
 						<label for="inputPassword3" class="col-sm-4 control-label">Status</label>
 						<div class="col-sm-8">
 							<form:select path="status" class="form-control" id="status">
-								<form:option value="Disable" label="Disable" />
 								<form:option value="Active" label="Active" />
 								<form:option value="Inactive" label="Inactive" />
-								<form:option value="Block" label="Block" />
 							</form:select>
 						</div>
 					</div>

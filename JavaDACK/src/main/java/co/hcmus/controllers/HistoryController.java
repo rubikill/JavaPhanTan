@@ -233,7 +233,6 @@ public class HistoryController {
 	 * @param json
 	 * @return
 	 */
-	@Secured("ROLE_ADMIN")
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/history/create", method = RequestMethod.POST, headers = "Accept=application/json")
 	public ResponseEntity<String> addNewHistory(HttpSession session,
@@ -252,9 +251,10 @@ public class HistoryController {
 			String id = UUID.randomUUID().toString();
 
 			int quantity = 0;
-
+			float total = 0;
 			for (Cart cart : cartItems) {
 				quantity += cart.getCount();
+				total += cart.getPrice() + cart.getPrice()*0.1 + cart.getCount()/100*cart.getPrice();
 				HistoryDetail hd = new HistoryDetail(id, cart.getCount(),
 					cart.getId(), STATUS.ACTIVE.getStatusCode());
 				historyDetailSevice.addHistoryDetail(hd);
@@ -285,7 +285,7 @@ public class HistoryController {
 			System.out.println(jsonNode);
 			history = new History(email, quantity,
 				STATUS.ACTIVE.getStatusCode(), null, new Date(),
-				deliveryDate, paymentDate, null);
+				deliveryDate, paymentDate, null,total);
 
 			history.setId(id);
 

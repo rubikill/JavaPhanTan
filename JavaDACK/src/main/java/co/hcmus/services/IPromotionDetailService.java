@@ -27,7 +27,7 @@ public interface IPromotionDetailService {
 	 * @param id
 	 * @return
 	 */
-	public PromotionDetail getPromotionDetailByPromotionId(String id);
+	public PromotionDetail getPromotionDetailByPromotionDetailId(String id);
 
 	/**
 	 * 

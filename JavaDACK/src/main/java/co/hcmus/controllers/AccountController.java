@@ -412,6 +412,10 @@ public class AccountController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public ResponseEntity<String> logout(HttpSession session) {
 		session.removeAttribute("email");
+		session.removeAttribute("ShopCart");
+		if (session != null) {
+		    session.invalidate();
+		}
 		logger.info("logout...");
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}

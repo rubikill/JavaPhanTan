@@ -28,19 +28,22 @@
 				<thead>
 					<tr>
 						<th hidden="true" style="width: 1%">ID <i class="fa fa-sort"></i></th>
-						<th style="width: 49%">Name <i
-							class="fa fa-sort"></i></th>
+						<th style="width: 49%">Name <i class="fa fa-sort"></i></th>
 						<th style="width: 20%">Status <i class="fa fa-sort"></i></th>
 						<th style="width: 30%">Action</th>
+						<th hidden="true" style="width: 1%"><i class="fa fa-sort"></i></th>
+
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="manufacturer" items="${listManufacturer}"
 						varStatus="status">
 						<tr class="rowManufacturer" id="rowManufacturer${status.index}">
-							<td hidden="true" id="0" value="${manufacturer.id }">${manufacturer.id }</td>
+							<td hidden="true" id="0" value="${manufacturer.id }">${manufacturer.id
+								}</td>
 							<td id="1">${manufacturer.name }</td>
 							<td id="2">${manufacturer.status }</td>
+							<td hidden="true" id="3">${currentPage}</td>
 							<td>
 								<button class="open-ManufacturerEditDialog btn btn-warning"
 									data-toggle="modal" data-target="#editModal"
@@ -60,12 +63,19 @@
 	</div>
 	<div class="col-lg-12">
 		<ul class="pagination">
-			<li class="disabled"><span>&laquo;</span></li>
-			<li class="active"><span>1 <span class="sr-only">(current)</span></span></li>
-			<li><span>2 <span class="sr-only">(current)</span></span></li>
-			<li><span>3 <span class="sr-only">(current)</span></span></li>
-			<li><span>4 <span class="sr-only">(current)</span></span></li>
-			<li><span>&raquo;</span></li>
+			<li><a href="/admin/manufacturer?Page=1"><span>&laquo;</span></a></li>
+			<c:forEach var="i" begin="1" end="${totalPage}">
+				<c:if test="${i == currentPage}">
+					<li class="active"><a href="/admin/manufacturer?Page=${i}"><span>${i}<span
+								class="sr-only">(current)</span></span></a></li>
+				</c:if>
+				<c:if test="${i != currentPage}">
+					<li><a href="/admin/manufacturer?Page=${i}"><span>${i}<span
+								class="sr-only">(current)</span></span></a></li>
+				</c:if>
+			</c:forEach>
+			<li><a href="/admin/manufacturer?Page=${totalPage}"><span>&raquo;</span></a></li>
+			<li><span>${currentPage}/${totalPage}</span></li>
 		</ul>
 	</div>
 </div>
@@ -78,26 +88,26 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"
 					aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Edit product</h4>
+				<h4 class="modal-title" id="myModalLabel">Edit manufacturer</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
 				action="/admin/manufacturer/edit" commandName="manufacturer"
 				method="POST">
-
+				<input type="hidden" name="inputCurrentPage" value=""
+					id="inputCurrentPage" />
 				<div class="modal-body">
 					<form:input path="id" type="hidden" id="inputId" />
 					<div class="form-group">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
 						<div class="col-sm-10">
 							<form:input path="name" type="text" class="form-control"
-								id="inputName" placeholder="Enter product type name..." />
+								id="inputName" placeholder="Enter manufacturer name..." />
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-2 control-label">Status</label>
 						<div class="col-sm-10">
 							<form:select path="status" class="form-control" id="inputStatus">
-								<form:option value="Disable" label="Disable" />
 								<form:option value="Active" label="Active" />
 								<form:option value="Inactive" label="Inactive" />
 							</form:select>
@@ -129,10 +139,11 @@
 				<h4 class="modal-title" id="myModalLabel">Confirm active</h4>
 			</div>
 			<div class="modal-body">
-				<p>Are you sure to active this product type?</p>
+				<p>Are you sure to active this manufacturer type?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onClick="" id="activeButton">Active</button>
+				<button type="button" class="btn btn-primary" onClick=""
+					id="activeButton">Active</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
@@ -152,10 +163,11 @@
 				<h4 class="modal-title" id="myModalLabel">Confirm deactive</h4>
 			</div>
 			<div class="modal-body">
-				<p>Are you sure to deactive this product type?</p>
+				<p>Are you sure to deactive this manufacturer type?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary" onClick="" id="deactiveButton">Deactive</button>
+				<button type="button" class="btn btn-primary" onClick=""
+					id="deactiveButton">Deactive</button>
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			</div>
 		</div>
@@ -166,7 +178,7 @@
 
 <!-- /.modal -->
 
-<!-- Modal add product type -->
+<!-- Modal add manufacturer -->
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -177,7 +189,7 @@
 				<h4 class="modal-title" id="myModalLabel">Add new</h4>
 			</div>
 			<form:form class="form-horizontal" role="form"
-				action="/admin/manufacturer/add" commandName="manufacturer"
+				action="/admin/manufacturer/add?Page=${currentPage}" commandName="manufacturer"
 				method="POST">
 				<div class="modal-body">
 
@@ -186,14 +198,13 @@
 							<label for="inputname" class="col-sm-2 control-label">Name</label>
 							<div class="col-sm-10">
 								<form:input path="name" type="text" class="form-control"
-									id="inputName" placeholder="Enter product type name..." />
+									id="inputName" placeholder="Enter manufacturer name..." />
 							</div>
 						</div>
 						<div class="form-group">
 							<label for="inputPassword3" class="col-sm-2 control-label">Status</label>
 							<div class="col-sm-10">
 								<form:select path="status" class="form-control" id="status">
-									<form:option value="Disable" label="Disable" />
 									<form:option value="Active" label="Active" />
 									<form:option value="Inactive" label="Inactive" />
 								</form:select>

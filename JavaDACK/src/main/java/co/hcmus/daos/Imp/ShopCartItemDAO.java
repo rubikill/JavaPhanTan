@@ -4,17 +4,25 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
 import co.hcmus.daos.IShopCartItemDAO;
 import co.hcmus.models.Product;
 import co.hcmus.models.Cart;
+import co.hcmus.models.PromotionDetail;
+import co.hcmus.util.STATUS;
 
 @Repository("shopCartItemDAO")
 public class ShopCartItemDAO implements IShopCartItemDAO {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(ShopCartItemDAO.class);
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	@Override
 	public int checkItemIsExits(List<Cart> listShopCartItem,
@@ -40,6 +48,19 @@ public class ShopCartItemDAO implements IShopCartItemDAO {
 		int index = checkItemIsExits(listShopCartItem, product);
 		if (index == -1) {
 			Cart item = new Cart(product);
+			Query searchPromotionDetailByProductId = new Query(Criteria
+					.where("productId").is(product.getId()).and("status").is(STATUS.ACTIVE.getStatusCode()));
+			List<PromotionDetail> getPromotionDetailsByProductId = mongoTemplate.find(searchPromotionDetailByProductId,
+					PromotionDetail.class, "promotionDetail");
+			int max = 0;
+			
+			if (getPromotionDetailsByProductId.size() ==0 )
+				System.out.println("NULLLLLLLLLLL");
+			for (int i = 0; i < getPromotionDetailsByProductId.size(); i++){
+				if (getPromotionDetailsByProductId.get(i).getDiscount() > max)
+					max = getPromotionDetailsByProductId.get(i).getDiscount();
+			}
+			item.setDiscount(max);
 			listShopCartItem.add(item);
 		} else {
 			int tempCount = listShopCartItem.get(index).getCount();

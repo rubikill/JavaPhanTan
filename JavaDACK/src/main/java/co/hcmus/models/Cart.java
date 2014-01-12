@@ -16,7 +16,9 @@ public class Cart {
 	private String name; // name of product
 	private String manufacturerId; // manufacturer id of product
 	private double price; // price of product
+	private String url;
 	private int count; // count of product
+	private int discount;
 
 	/**
 	 * 
@@ -32,15 +34,18 @@ public class Cart {
 	 * @param manufacturerId
 	 * @param price
 	 * @param count
+	 * @param discount
 	 */
 	public Cart(String id, String name, String manufacturerId, double price,
-			int count) {
+			int count, int discount, String url) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.manufacturerId = manufacturerId;
 		this.price = price;
 		this.count = count;
+		this.discount = discount;
+		this.url = url;
 	}
 
 	/**
@@ -52,7 +57,32 @@ public class Cart {
 		this.name = product.getName();
 		this.manufacturerId = product.getManufacturerId();
 		this.price = product.getPrice();
+		this.url = product.getUrl();
 		this.count = 1;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	/**
+	 * 
+	 * @return discount
+	 */
+	public int getDiscount() {
+		return discount;
+	}
+
+	/**
+	 * set discount
+	 * @param discount
+	 */
+	public void setDiscount(int discount) {
+		this.discount = discount;
 	}
 
 	/**
